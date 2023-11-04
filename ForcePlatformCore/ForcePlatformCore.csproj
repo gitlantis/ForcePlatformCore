@@ -19,6 +19,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ForcePlatformComPort\ForcePlatformComPort.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="ForcePlatFormComPort">
+      <HintPath>..\ForcePlatFormComPort\bin\Debug\ForcePlatFormComPort.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

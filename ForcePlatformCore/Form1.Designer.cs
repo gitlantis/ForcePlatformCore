@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             formsPlot1 = new ScottPlot.FormsPlot();
             groupBox1 = new GroupBox();
             checkBox3 = new CheckBox();
@@ -40,6 +41,7 @@
             button2 = new Button();
             button3 = new Button();
             richTextBox1 = new RichTextBox();
+            timer1 = new System.Windows.Forms.Timer(components);
             groupBox1.SuspendLayout();
             SuspendLayout();
             // 
@@ -183,11 +185,16 @@
             // 
             // richTextBox1
             // 
-            richTextBox1.Location = new Point(1298, 12);
+            richTextBox1.Location = new Point(163, 12);
             richTextBox1.Name = "richTextBox1";
-            richTextBox1.Size = new Size(131, 119);
+            richTextBox1.Size = new Size(234, 634);
             richTextBox1.TabIndex = 10;
             richTextBox1.Text = "";
+            // 
+            // timer1
+            // 
+            timer1.Enabled = true;
+            timer1.Tick += timer1_Tick;
             // 
             // Form1
             // 
@@ -225,5 +232,6 @@
         private Button button2;
         private Button button3;
         private RichTextBox richTextBox1;
+        private System.Windows.Forms.Timer timer1;
     }
 }

@@ -26,8 +26,8 @@ namespace ForcePlatformCore
 {
     public partial class Form1 : Form
     {
-        //readonly Timer AddPlotDataTimer = new() { Interval = 100, Enabled = true };
-        readonly Timer UpdatePlotTimer = new() { Interval = 100, Enabled = true };
+        readonly Timer AddPlotDataTimer = new() { Interval = 100, Enabled = true };
+        readonly Timer UpdatePlotTimer = new() { Interval = 10000, Enabled = true };
         readonly Timer UpdateStopperTimer = new() { Interval = 5000, Enabled = false };
         readonly int _plateNumber = 0;
 
@@ -48,7 +48,7 @@ namespace ForcePlatformCore
 
             comboBox1.SelectedIndex = 0;
 
-            LoggerWeight = formsPlot1.Plot.AddDataLogger(label: "Weight", lineWidth: 3);
+            LoggerWeight = formsPlot1.Plot.AddDataLogger(label: "DiffZ", lineWidth: 3);
             LoggerDiffX = formsPlot1.Plot.AddDataLogger(label: "DiffX", lineWidth: 3);
             LoggerDiffY = formsPlot1.Plot.AddDataLogger(label: "DiffY", lineWidth: 3);
 
@@ -56,7 +56,7 @@ namespace ForcePlatformCore
 
             //AddRandomWalkData(100);
 
-            //AddPlotDataTimer.Tick += AddRandomWalkData;
+            AddPlotDataTimer.Tick += AddRandomWalkData;
             UpdatePlotTimer.Tick += UpdatePlotTimer_Tick;
             UpdateStopperTimer.Tick += UpdateStopperTimer_Tick;
             //var a = new NewDataListener();
@@ -78,28 +78,28 @@ namespace ForcePlatformCore
             formsPlot1.Refresh();
         }
 
-        //private void AddRandomWalkData(object sender, EventArgs e)
-        //{
-        //    //if (AdcData.CurrentTimeMC != oldCurrentTimeMC)
-        //    {
-        //        var plate = _plateNumber - 1;
-        //        LoggerWeight.Add(LoggerWeight.Count, AdcData.Weights[plate]);
-        //        LoggerDiffX.Add(LoggerWeight.Count, AdcData.DiffX[plate]);
-        //        LoggerDiffY.Add(LoggerWeight.Count, AdcData.DiffY[plate]);
-        //        csvData.Add(new CSVModel
-        //        {
-        //            Weight = AdcData.Weights[plate],
-        //            DiffX = AdcData.DiffX[plate],
-        //            DiffY = AdcData.DiffY[plate]
-        //        });
-        //        //richTextBox1.Invoke((MethodInvoker)delegate {
-        //        //    richTextBox1.AppendText("\r\n" + AdcData.CurrentTimeMC);
-        //        //    richTextBox1.ScrollToCaret();
-        //        //});
+        private void AddRandomWalkData(object sender, EventArgs e)
+        {
+            //if (AdcData.CurrentTimeMC != oldCurrentTimeMC)
+            {
+                var plate = _plateNumber - 1;
+                LoggerWeight.Add(LoggerWeight.Count, AdcData.Weights[plate]);
+                LoggerDiffX.Add(LoggerWeight.Count, AdcData.DiffX[plate]);
+                LoggerDiffY.Add(LoggerWeight.Count, AdcData.DiffY[plate]);
+                csvData.Add(new CSVModel
+                {
+                    Weight = AdcData.Weights[plate],
+                    DiffX = AdcData.DiffX[plate],
+                    DiffY = AdcData.DiffY[plate]
+                });
+                //richTextBox1.Invoke((MethodInvoker)delegate {
+                //    richTextBox1.AppendText("\r\n" + AdcData.CurrentTimeMC);
+                //    richTextBox1.ScrollToCaret();
+                //});
 
-        //        oldCurrentTimeMC = AdcData.CurrentTimeMC;
-        //    }
-        //}
+                oldCurrentTimeMC = AdcData.CurrentTimeMC;
+            }
+        }
 
         private void UpdateStopperTimer_Tick(object sender, EventArgs e)
         {
@@ -118,18 +118,23 @@ namespace ForcePlatformCore
             //if (LoggerWeight.Count == LoggerWeight.CountOnLastRender)
             //    return;
 
-            if (AdcData.CurrentTimeMC != oldCurrentTimeMC)
+            //if (AdcData.CurrentTimeMC != oldCurrentTimeMC)
             {
                 var plate = _plateNumber - 1;
                 LoggerWeight.Add(AdcData.CurrentTimeMC, AdcData.Weights[plate]);
+                //LoggerWeight.AddRange(GenerateTestData());
                 LoggerDiffX.Add(AdcData.CurrentTimeMC, AdcData.DiffX[plate]);
                 LoggerDiffY.Add(AdcData.CurrentTimeMC, AdcData.DiffY[plate]);
-                //        //    richTextBox1.AppendText("\r\n" + AdcData.CurrentTimeMC);
-                //        //    richTextBox1.ScrollToCaret();
+
+
+                //csvData.Add(new CSVModel
+                //{
+                //    Weight = AdcData.Weights[plate],
+                //    DiffX = AdcData.DiffX[plate],
+                //    DiffY = AdcData.DiffY[plate]
+                //});
                 oldCurrentTimeMC = AdcData.CurrentTimeMC;
             }
-
-            formsPlot1.Refresh();
         }
 
         private void formsPlot1_MouseDown(object sender, MouseEventArgs e)
@@ -176,6 +181,7 @@ namespace ForcePlatformCore
 
         private void button2_Click(object sender, EventArgs e)
         {
+            timer1.Enabled = false;
             //button2.Text = AddNewDataTimer.Enabled ? "Continue" : "Stop";
             //AddNewDataTimer.Enabled = !AddNewDataTimer.Enabled;
         }
@@ -196,6 +202,14 @@ namespace ForcePlatformCore
             LoggerWeight.Clear();
             LoggerDiffX.Clear();
             LoggerDiffY.Clear();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            richTextBox1.AppendText("\r\n" + AdcData.CurrentTimeMC + " " + AdcData.Weights[0]);
+            richTextBox1.ScrollToCaret();
+            formsPlot1.Refresh();
+
         }
     }
 }
