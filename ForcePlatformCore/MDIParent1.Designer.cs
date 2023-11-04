@@ -45,6 +45,9 @@
             tileVerticalToolStripMenuItem = new ToolStripMenuItem();
             cellToolStripMenuItem = new ToolStripMenuItem();
             cascadeToolStripMenuItem = new ToolStripMenuItem();
+            richTextBox1 = new RichTextBox();
+            timer1 = new System.Windows.Forms.Timer(components);
+            button1 = new Button();
             statusStrip.SuspendLayout();
             menuStrip.SuspendLayout();
             SuspendLayout();
@@ -159,11 +162,36 @@
             cascadeToolStripMenuItem.Text = "Cascade";
             cascadeToolStripMenuItem.Click += cascadeToolStripMenuItem_Click_1;
             // 
+            // richTextBox1
+            // 
+            richTextBox1.Location = new Point(146, 173);
+            richTextBox1.Name = "richTextBox1";
+            richTextBox1.Size = new Size(233, 562);
+            richTextBox1.TabIndex = 4;
+            richTextBox1.Text = "";
+            // 
+            // timer1
+            // 
+            timer1.Enabled = true;
+            timer1.Tick += timer1_Tick;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(553, 304);
+            button1.Name = "button1";
+            button1.Size = new Size(75, 23);
+            button1.TabIndex = 6;
+            button1.Text = "button1";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
             // MDIParent1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1798, 971);
+            Controls.Add(button1);
+            Controls.Add(richTextBox1);
             Controls.Add(statusStrip);
             Controls.Add(menuStrip);
             IsMdiContainer = true;
@@ -171,6 +199,7 @@
             Margin = new Padding(4, 3, 4, 3);
             Name = "MDIParent1";
             Text = "Force Platrom";
+            FormClosing += MDIParent1_FormClosing;
             Load += MDIParent1_Load;
             statusStrip.ResumeLayout(false);
             statusStrip.PerformLayout();
@@ -197,6 +226,9 @@
         private ToolStripMenuItem tileVerticalToolStripMenuItem;
         private ToolStripMenuItem cascadeToolStripMenuItem;
         private ToolStripMenuItem cellToolStripMenuItem;
+        private RichTextBox richTextBox1;
+        private System.Windows.Forms.Timer timer1;
+        private Button button1;
     }
 }
 

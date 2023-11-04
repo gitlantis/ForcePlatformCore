@@ -12,8 +12,6 @@ using System.Windows.Forms;
 using WindowsFormsApp1;
 using WindowsFormsApp1.Models;
 using static System.Windows.Forms.Design.AxImporter;
-using LiveCharts;
-using LiveCharts.WinForms;
 using ScottPlot;
 using ScottPlot.Drawing.Colormaps;
 using Timer = System.Windows.Forms.Timer;
@@ -26,9 +24,9 @@ namespace ForcePlatformCore
 {
     public partial class Form1 : Form
     {
-        readonly Timer AddPlotDataTimer = new() { Interval = 100, Enabled = true };
-        readonly Timer UpdatePlotTimer = new() { Interval = 10000, Enabled = true };
-        readonly Timer UpdateStopperTimer = new() { Interval = 5000, Enabled = false };
+        //readonly Timer AddPlotDataTimer = new() { Interval = 100, Enabled = true };
+        //readonly Timer UpdatePlotTimer = new() { Interval = 10000, Enabled = true };
+        //readonly Timer UpdateStopperTimer = new() { Interval = 5000, Enabled = false };
         readonly int _plateNumber = 0;
 
         readonly ScottPlot.Plottable.DataLogger LoggerWeight;
@@ -56,9 +54,9 @@ namespace ForcePlatformCore
 
             //AddRandomWalkData(100);
 
-            AddPlotDataTimer.Tick += AddRandomWalkData;
-            UpdatePlotTimer.Tick += UpdatePlotTimer_Tick;
-            UpdateStopperTimer.Tick += UpdateStopperTimer_Tick;
+            //AddPlotDataTimer.Tick += AddRandomWalkData;
+            //UpdatePlotTimer.Tick += UpdatePlotTimer_Tick;
+            //UpdateStopperTimer.Tick += UpdateStopperTimer_Tick;
             //var a = new NewDataListener();
             //a.OnTimeChanged += (o, e) => AddRandomWalkData(AdcData.CurrentTimeMC);
 
@@ -83,12 +81,12 @@ namespace ForcePlatformCore
             //if (AdcData.CurrentTimeMC != oldCurrentTimeMC)
             {
                 var plate = _plateNumber - 1;
-                LoggerWeight.Add(LoggerWeight.Count, AdcData.Weights[plate]);
+                LoggerWeight.Add(LoggerWeight.Count, AdcData.DiffZ[plate]);
                 LoggerDiffX.Add(LoggerWeight.Count, AdcData.DiffX[plate]);
                 LoggerDiffY.Add(LoggerWeight.Count, AdcData.DiffY[plate]);
                 csvData.Add(new CSVModel
                 {
-                    Weight = AdcData.Weights[plate],
+                    Weight = AdcData.DiffZ[plate],
                     DiffX = AdcData.DiffX[plate],
                     DiffY = AdcData.DiffY[plate]
                 });
@@ -108,7 +106,7 @@ namespace ForcePlatformCore
             LoggerDiffX.ManageAxisLimits = !isStopped;
             formsPlot1.Configuration.Pan = isStopped;
             formsPlot1.Configuration.Zoom = isStopped;
-            UpdateStopperTimer.Stop();
+            //UpdateStopperTimer.Stop();
         }
 
         private void UpdatePlotTimer_Tick(object sender, EventArgs e)
@@ -121,7 +119,7 @@ namespace ForcePlatformCore
             //if (AdcData.CurrentTimeMC != oldCurrentTimeMC)
             {
                 var plate = _plateNumber - 1;
-                LoggerWeight.Add(AdcData.CurrentTimeMC, AdcData.Weights[plate]);
+                LoggerWeight.Add(AdcData.CurrentTimeMC, AdcData.DiffZ[plate]);
                 //LoggerWeight.AddRange(GenerateTestData());
                 LoggerDiffX.Add(AdcData.CurrentTimeMC, AdcData.DiffX[plate]);
                 LoggerDiffY.Add(AdcData.CurrentTimeMC, AdcData.DiffY[plate]);
@@ -129,7 +127,7 @@ namespace ForcePlatformCore
 
                 //csvData.Add(new CSVModel
                 //{
-                //    Weight = AdcData.Weights[plate],
+                //    Weight = AdcDataDiffZ[plate],
                 //    DiffX = AdcData.DiffX[plate],
                 //    DiffY = AdcData.DiffY[plate]
                 //});
@@ -145,8 +143,8 @@ namespace ForcePlatformCore
             LoggerDiffY.ManageAxisLimits = !isStopped;
             formsPlot1.Configuration.Pan = isStopped;
             formsPlot1.Configuration.Zoom = isStopped;
-            UpdateStopperTimer.Stop();
-            UpdateStopperTimer.Start();
+            //UpdateStopperTimer.Stop();
+            //UpdateStopperTimer.Start();
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
@@ -171,7 +169,7 @@ namespace ForcePlatformCore
 
         private void button1_Click(object sender, EventArgs e)
         {
-            AdcData.Zero();
+            //AdcData.Zero();
             csvData = new List<CSVModel>();
 
             LoggerWeight.Clear();
@@ -196,7 +194,7 @@ namespace ForcePlatformCore
         {
             CSVProcessor.Save(_plateNumber, csvData);
 
-            AdcData.Zero();
+            //AdcData.Zero();
             csvData = new List<CSVModel>();
 
             LoggerWeight.Clear();
@@ -206,10 +204,9 @@ namespace ForcePlatformCore
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            richTextBox1.AppendText("\r\n" + AdcData.CurrentTimeMC + " " + AdcData.Weights[0]);
+            richTextBox1.AppendText("\r\n" + AdcData.CurrentTimeMC + " " + AdcData.DiffZ[0]);
             richTextBox1.ScrollToCaret();
-            formsPlot1.Refresh();
-
+            //formsPlot1.Refresh();
         }
     }
 }

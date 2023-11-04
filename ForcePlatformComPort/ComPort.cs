@@ -7,9 +7,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ForcePlatFormComPort
+namespace ForcePlatformComPort
 {
-    public class ForcePlatFormComPort
+    public class ComPort
     {
         public delegate void DataReceivedHandler(AdcData data);
         public event DataReceivedHandler DataReceived;
@@ -21,7 +21,7 @@ namespace ForcePlatFormComPort
 
         AdcData adcData =new AdcData();
 
-        public ForcePlatFormComPort(bool autoDetect, string port, int filterLength)
+        public ComPort(bool autoDetect, string port, int filterLength)
         {
             Init(filterLength);
 
@@ -47,6 +47,13 @@ namespace ForcePlatFormComPort
         public void Zero()
         {
             for (int i = 0; i < adcData.CurrentAdc.Length; i++) { adcData.ZeroAdc[i] = adcData.MiddledAdc[i]; }
+
+            sp.ReadExisting();
+            sp.DiscardInBuffer();
+            sp.DiscardOutBuffer();
+            sp.Dispose();
+            Disconnect();
+            Connect();
         }
 
         private void AutoDetect(string port)

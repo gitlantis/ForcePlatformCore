@@ -1,16 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using WindowsFormsApp1.Models;
-using WindowsFormsApp1;
-using static System.Windows.Forms.DataFormats;
 
 namespace ForcePlatformCore
 {
@@ -18,6 +7,7 @@ namespace ForcePlatformCore
     {
         private int childFormNumber = 0;
         public IConfiguration Configuration { get; set; }
+        ForcePlatformComPort.ComPort comPort;
 
         public MDIParent1()
         {
@@ -111,9 +101,20 @@ namespace ForcePlatformCore
 
         private void MDIParent1_Load(object sender, EventArgs e)
         {
+            AdcData.DiffZ = new int[4];
+            AdcData.CurrentTimeMC = 0;
+
             var config = Configuration.Get<AppsettingsModel>();
-            AdcData.Init(config.FilterLength);
-            var comPort = new ComPort(config.AutoSelectCom, config.ComPort);
+            comPort = new ForcePlatformComPort.ComPort(autoDetect: true, port: "COM1", 30);
+            comPort.DataReceived += (data) =>
+            {
+                AdcData.DiffY = data.DiffX;
+                AdcData.DiffX = data.DiffY;
+                AdcData.DiffZ = data.DiffZ;
+                AdcData.CurrentTimeMC = data.CurrentTimeMC;
+            };
+            comPort.Zero();
+            //var comPort = new ComPort(config.AutoSelectCom, config.ComPort);
         }
         private void plate1ToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -215,6 +216,22 @@ namespace ForcePlatformCore
                     x += width;
                 }
             }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            richTextBox1.AppendText("\r\n" + AdcData.CurrentTimeMC + " " + AdcData.DiffZ[0]);
+            richTextBox1.ScrollToCaret();
+        }
+
+        private void MDIParent1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            comPort.Disconnect();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+           
         }
     }
 }

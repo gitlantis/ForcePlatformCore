@@ -9,7 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="LiveCharts.WinForms" Version="0.9.7.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="7.0.4" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
@@ -23,8 +22,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="ForcePlatFormComPort">
-      <HintPath>..\ForcePlatFormComPort\bin\Debug\ForcePlatFormComPort.dll</HintPath>
+    <Reference Include="ForcePlateComPort">
+      <HintPath>..\..\..\..\..\source\repos\ForcePlateComPort\ForcePlateComPort\bin\Debug\ForcePlateComPort.dll</HintPath>
+    </Reference>
+    <Reference Include="ForcePlatformComPort">
+      <HintPath>..\ForcePlatformComPort\bin\Debug\ForcePlatformComPort.dll</HintPath>
     </Reference>
   </ItemGroup>
 
