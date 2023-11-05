@@ -185,7 +185,7 @@
             // 
             // button1
             // 
-            button1.Location = new Point(338, 759);
+            button1.Location = new Point(1249, 729);
             button1.Name = "button1";
             button1.Size = new Size(75, 23);
             button1.TabIndex = 6;
@@ -206,6 +206,7 @@
             richTextBox2.Size = new Size(197, 562);
             richTextBox2.TabIndex = 8;
             richTextBox2.Text = "";
+            richTextBox2.Visible = false;
             // 
             // toolStrip1
             // 

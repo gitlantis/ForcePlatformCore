@@ -8,7 +8,7 @@ namespace ForcePlatformCore.Models
 {
     public class CSVModel
     {
-        public string Time { get; set; }
+        public TimeSpan Time { get; set; }
         public double DiffX { get; set; }
         public double DiffY { get; set; }
         public double DiffZ { get; set; }

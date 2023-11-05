@@ -12,6 +12,7 @@ namespace ForcePlatformCore
 {
     public partial class MDIParent1 : Form
     {
+        private AppsettingsModel? config = new AppsettingsModel();
         private int childFormNumber = 0;
         public IConfiguration Configuration { get; set; }
 
@@ -19,6 +20,10 @@ namespace ForcePlatformCore
         int oldCurrentTimeMC = 0;
         ComPort comPort;
         Form[] childForms = new Form[4];
+        HashSet<int> openPlates = new HashSet<int>();
+        HashSet<int> allPlates = new HashSet<int> { 0,1,2,3};
+
+        DateTime scanStarted = DateTime.Now;
 
         public MDIParent1()
         {
@@ -60,28 +65,6 @@ namespace ForcePlatformCore
             this.Close();
         }
 
-        private void CutToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void CopyToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void PasteToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void ToolBarToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            //toolStrip.Visible = toolBarToolStripMenuItem.Checked;
-        }
-
-        private void StatusBarToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            //statusStrip.Visible = statusBarToolStripMenuItem.Checked;
-        }
-
         private void CascadeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             LayoutMdi(MdiLayout.Cascade);
@@ -115,8 +98,8 @@ namespace ForcePlatformCore
             AdcData.DiffZ = new int[4];
             AdcData.CurrentTimeMC = 0;
 
-            var config = Configuration.Get<AppsettingsModel>();
-            comPort = new ComPort(true, "COM9", 30);
+            config = Configuration.Get<AppsettingsModel>();
+            comPort = new ComPort(config.AutoSelectCom, config.ComPort, config.FilterLength);
             timer1.Enabled = comPort.connected;
             AdcData.Init(30);
         }
@@ -132,12 +115,12 @@ namespace ForcePlatformCore
 
         private void plate3ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            showForm(3);
+            showForm(2);
         }
 
         private void plate4ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            showForm(4);
+            showForm(3);
         }
 
         private void openAllToolStripMenuItem_Click(object sender, EventArgs e)
@@ -147,15 +130,15 @@ namespace ForcePlatformCore
         }
         private void showForm(int i)
         {
-            childForms[i] = new Form1(i);
+            childForms[i] = new Form1(i, config);
             childForms[i].MdiParent = this;
             childForms[i].Show();
+            openPlates.Add(i);
         }
 
         private void closeAllToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            foreach (Form fm in this.MdiChildren)
-                fm.Close();
+            foreach (Form fm in this.MdiChildren) fm.Close();
         }
 
         private void tileHorizontalToolStripMenuItem_Click_1(object sender, EventArgs e)
@@ -219,14 +202,14 @@ namespace ForcePlatformCore
 
                 if (oldCurrentTimeMC != AdcData.CurrentTimeMC)
                 {
-                    for (int i = 0; i < 4; i++)
+                    foreach (var plate in openPlates)
                     {
                         var item = new AdcBufferItem();
-                        item.Plate = i;
-                        item.Time = DateTime.Now.ToString("hh:mm:ss.fff");
-                        item.DiffX = AdcData.DiffX[i];
-                        item.DiffY = AdcData.DiffY[i];
-                        item.DiffZ = AdcData.DiffZ[i];
+                        item.Plate = plate;
+                        item.Time = DateTime.Now.Subtract(scanStarted);
+                        item.DiffX = AdcData.DiffX[plate];
+                        item.DiffY = AdcData.DiffY[plate];
+                        item.DiffZ = AdcData.DiffZ[plate];
                         item.CurrentTimeMC = AdcData.CurrentTimeMC;
 
                         AdcBuffer.BufferItems.Add(item);
@@ -254,11 +237,31 @@ namespace ForcePlatformCore
 
         private void timer2_Tick(object sender, EventArgs e)
         {
+            var activePlates = new HashSet<int>();
+            foreach (Form childForm in MdiChildren)
+            {
+                if (childForm is Form1)
+                {
+                    Form1 activeChild = (Form1)childForm;
+                    activePlates.Add(activeChild.PlateId);
+                }
+            }
+
+            var missingPlates = new HashSet<int>(allPlates.Except(activePlates));
+
+            foreach (var plate in missingPlates)
+            {
+                AdcBuffer.BufferItems.RemoveAll(item => item.Plate == plate);
+            }
+            openPlates.Clear();
+            openPlates.UnionWith(activePlates);
+
             richTextBox1.Clear();
         }
 
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
+            scanStarted = DateTime.Now;
             AdcBuffer.BufferItems.Clear();
             Zero();
             foreach (Form childForm in MdiChildren)
@@ -281,7 +284,7 @@ namespace ForcePlatformCore
                     if (childForm is Form1)
                     {
                         Form1 activeChild = (Form1)childForm;
-                        paths += activeChild.Save()+"\r\n";
+                        paths += activeChild.Save() + "\r\n";
                     }
                 }
 
@@ -301,7 +304,7 @@ namespace ForcePlatformCore
                 DialogResult result;
 
                 result = MessageBox.Show(message, caption, buttons);
-            }            
+            }
         }
     }
 }

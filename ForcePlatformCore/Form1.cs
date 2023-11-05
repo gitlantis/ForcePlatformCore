@@ -22,11 +22,14 @@ using ForcePlatformCore.Helpers;
 using System.Collections;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 using System.IO;
+using System.Reflection;
 
 namespace ForcePlatformCore
 {
     public partial class Form1 : Form
     {
+        public int PlateId;
+        private AppsettingsModel? config;
         readonly int _plateNumber = 0;
 
         readonly ScottPlot.Plottable.DataLogger LoggerDiffX;
@@ -36,15 +39,14 @@ namespace ForcePlatformCore
         private bool isStopped = false;
         private List<CSVModel> csvData = new List<CSVModel>();
         private int stopTime = 0;
-
-        public Form1(int plateNumber)
+        private double coeffcent = 0;
+        public Form1(int plateNumber, AppsettingsModel? config)
         {
             InitializeComponent();
 
             this.Text = $"Plate {plateNumber + 1}";
             _plateNumber = plateNumber;
-
-            comboBox1.SelectedIndex = 0;
+            PlateId = plateNumber;
 
             LoggerDiffX = formsPlot1.Plot.AddDataLogger(label: "DiffX", lineWidth: 3);
             LoggerDiffY = formsPlot1.Plot.AddDataLogger(label: "DiffY", lineWidth: 3);
@@ -60,12 +62,17 @@ namespace ForcePlatformCore
 
             formsPlot1.Plot.XLabel("Time");
             formsPlot1.Plot.YLabel(comboBox1.Text);
+            //formsPlot1.Plot.XAxis.DateTimeFormat(true);
+            //formsPlot1.Plot.XAxis.TickLabelFormat("HH:mm:ss.ffff", true);
 
             LoggerDiffX.ViewSlide();
             LoggerDiffY.ViewSlide();
             LoggerDiffZ.ViewSlide();
 
             formsPlot1.Refresh();
+
+            this.config = config;
+            comboBox1.SelectedIndex = 0;
         }
 
         private void formsPlot1_MouseDown(object sender, MouseEventArgs e)
@@ -101,10 +108,7 @@ namespace ForcePlatformCore
         private void button1_Click(object sender, EventArgs e)
         {
             csvData = new List<CSVModel>();
-
-            LoggerDiffX.Clear();
-            LoggerDiffY.Clear();
-            LoggerDiffZ.Clear();
+            ClearLoggers();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -117,6 +121,8 @@ namespace ForcePlatformCore
         {
             formsPlot1.Plot.XLabel("Time");
             formsPlot1.Plot.YLabel(comboBox1.Text);
+            if (comboBox1.SelectedIndex == 0) coeffcent = 1 / config.CalibrateZ;
+            else coeffcent = config.FreeFallAcc / config.CalibrateZ;
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -124,7 +130,7 @@ namespace ForcePlatformCore
             try
             {
                 var path = Save();
-                
+
                 string message = $"data saved in: {path} file";
                 string caption = "Message";
                 MessageBoxButtons buttons = MessageBoxButtons.OK;
@@ -132,7 +138,8 @@ namespace ForcePlatformCore
 
                 result = MessageBox.Show(message, caption, buttons);
 
-            }catch(Exception err)
+            }
+            catch (Exception err)
             {
                 string message = err.Message;
                 string caption = "Error";
@@ -142,7 +149,6 @@ namespace ForcePlatformCore
                 result = MessageBox.Show(message, caption, buttons);
             }
         }
-
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (stopTime >= 50)
@@ -160,44 +166,52 @@ namespace ForcePlatformCore
 
             var points = AdcBuffer.BufferItems.Where(c => c.Plate == _plateNumber).ToList();
             foreach (var point in points)
-            {
-                LoggerDiffX.Add(point.CurrentTimeMC, point.DiffX);
-                LoggerDiffY.Add(point.CurrentTimeMC, point.DiffY);
-                LoggerDiffZ.Add(point.CurrentTimeMC, point.DiffZ);
-                
-                csvData.Add(new CSVModel { 
-                    Time = point.Time, 
-                    DiffX = point.DiffX, 
-                    DiffY = point.DiffY, 
-                    DiffZ = point.DiffZ 
+            {                
+                var x = point.Time.TotalMilliseconds / 10;
+                LoggerDiffX.Add(x, point.DiffX*coeffcent);
+                LoggerDiffY.Add(x, point.DiffY*coeffcent);
+                LoggerDiffZ.Add(x, point.DiffZ*coeffcent);
+
+                csvData.Add(new CSVModel
+                {
+                    Time = point.Time,
+                    DiffX = point.DiffX*coeffcent,
+                    DiffY = point.DiffY*coeffcent,
+                    DiffZ = point.DiffZ*coeffcent
                 });
             }
 
             AdcBuffer.BufferItems.RemoveAll(item => points.Contains(item));
-
             formsPlot1.Refresh();
         }
 
         public void Clear()
         {
-            LoggerDiffX.Clear();
-            LoggerDiffY.Clear();
-            LoggerDiffZ.Clear();
-
+            ClearLoggers();
             formsPlot1.Refresh();
         }
 
         public string Save()
         {
-            var result = CSVProcessor.Save(_plateNumber + 1, csvData);
+            var result = CsvProcessor.Save(_plateNumber + 1, csvData, comboBox1.Text);
 
             csvData = new List<CSVModel>();
 
-            LoggerDiffX.Clear();
-            LoggerDiffY.Clear();
-            LoggerDiffX.Clear();
+            ClearLoggers();
 
             return result;
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            AdcBuffer.BufferItems.RemoveAll(item => item.Plate == _plateNumber);
+        }
+
+        private void ClearLoggers()
+        {
+            LoggerDiffX.Clear();
+            LoggerDiffY.Clear();
+            LoggerDiffZ.Clear();
         }
     }
 }

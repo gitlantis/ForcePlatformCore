@@ -3,16 +3,16 @@ using System.Reflection;
 
 namespace ForcePlatformCore.Helpers
 {
-    public static class CSVProcessor
+    public static class CsvProcessor
     {
         private static string path = "Data";
 
-        public static string Save(int plateNumber, List<CSVModel> model)
+        public static string Save(int plateNumber, List<CSVModel> model, string param)
         {
             try
             {
                 string csvFilePath = $"plate_{plateNumber}_{DateTimeOffset.Now.ToUnixTimeSeconds()}.csv";
-                SaveDoubleListToCSV(model, csvFilePath);
+                SaveDoubleListToCSV(model, csvFilePath, param);
                 return Path.Join(path,csvFilePath);
             }
             catch (Exception e)
@@ -22,7 +22,7 @@ namespace ForcePlatformCore.Helpers
 
         }
 
-        static void SaveDoubleListToCSV(List<CSVModel> data, string fileName)
+        static void SaveDoubleListToCSV(List<CSVModel> data, string fileName, string param)
         {
             try
             {
@@ -33,11 +33,11 @@ namespace ForcePlatformCore.Helpers
 
                 using (StreamWriter writer = new StreamWriter(Path.Join(path, fileName)))
                 {
-                    writer.WriteLine("DiffX,DiffY,DiffZ");
+                    writer.WriteLine($"Time({param}),DiffX,DiffY({param}),DiffZ({param})");
 
                     foreach (var row in data)
                     {
-                        string csvRow = $"{row.DiffX},{row.DiffY},{row.DiffZ}";
+                        string csvRow = $"{row.Time.ToString(@"hh\:mm\:ss\.ffff")},{row.DiffX},{row.DiffY},{row.DiffZ}";
                         writer.WriteLine(csvRow);
                     }
                 }

@@ -40,6 +40,7 @@
             button2 = new Button();
             button3 = new Button();
             timer1 = new System.Windows.Forms.Timer(components);
+            richTextBox1 = new RichTextBox();
             groupBox1.SuspendLayout();
             SuspendLayout();
             // 
@@ -175,11 +176,20 @@
             timer1.Enabled = true;
             timer1.Tick += timer1_Tick;
             // 
+            // richTextBox1
+            // 
+            richTextBox1.Location = new Point(80, 0);
+            richTextBox1.Name = "richTextBox1";
+            richTextBox1.Size = new Size(211, 632);
+            richTextBox1.TabIndex = 10;
+            richTextBox1.Text = "";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1646, 684);
+            Controls.Add(richTextBox1);
             Controls.Add(button3);
             Controls.Add(button2);
             Controls.Add(checkBox4);
@@ -189,6 +199,7 @@
             Controls.Add(formsPlot1);
             Name = "Form1";
             Text = "Form1";
+            FormClosing += Form1_FormClosing;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             ResumeLayout(false);
@@ -208,5 +219,6 @@
         private Button button2;
         private Button button3;
         private System.Windows.Forms.Timer timer1;
+        private RichTextBox richTextBox1;
     }
 }

@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsApp1.Models
 {
-    class AppsettingsModel
+    public class AppsettingsModel
     {
         public bool AutoSelectCom { get; set; }
         public string ComPort { get; set; }
         public int FilterLength { get; set; }
         public int CalibrateZ { get; set; }
+        public double FreeFallAcc { get; set; }
     }
 }
