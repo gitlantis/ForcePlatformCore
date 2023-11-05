@@ -13,6 +13,7 @@ namespace ForcePlatformCore.Models
     public class AdcBufferItem
     {
         public int Plate { get; set; }
+        public string Time { get; set; }
         public int DiffX { get; set; }
         public int DiffY { get; set; }
         public int DiffZ { get; set; }

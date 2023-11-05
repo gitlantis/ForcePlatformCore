@@ -11,6 +11,6 @@ namespace WindowsFormsApp1.Models
         public bool AutoSelectCom { get; set; }
         public string ComPort { get; set; }
         public int FilterLength { get; set; }
-        public int CalibrateWeight { get; set; }
+        public int CalibrateZ { get; set; }
     }
 }

@@ -8,8 +8,9 @@ namespace ForcePlatformCore.Models
 {
     public class CSVModel
     {
-        public double Weight { get; set; }
+        public string Time { get; set; }
         public double DiffX { get; set; }
         public double DiffY { get; set; }
+        public double DiffZ { get; set; }
     }
 }

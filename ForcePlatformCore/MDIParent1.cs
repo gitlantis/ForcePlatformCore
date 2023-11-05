@@ -1,4 +1,5 @@
-﻿using ForcePlatformCore.Helpers.ComPort;
+﻿using ForcePlatformCore.Helpers;
+using ForcePlatformCore.Helpers.ComPort;
 using ForcePlatformCore.Models;
 using Microsoft.Extensions.Configuration;
 using ScottPlot.Drawing.Colormaps;
@@ -222,6 +223,7 @@ namespace ForcePlatformCore
                     {
                         var item = new AdcBufferItem();
                         item.Plate = i;
+                        item.Time = DateTime.Now.ToString("hh:mm:ss.fff");
                         item.DiffX = AdcData.DiffX[i];
                         item.DiffY = AdcData.DiffY[i];
                         item.DiffZ = AdcData.DiffZ[i];
@@ -241,7 +243,6 @@ namespace ForcePlatformCore
         {
             for (int i = 0; i < AdcData.CurrentAdc.Length; i++) { AdcData.ZeroAdc[i] = AdcData.MiddledAdc[i]; }
         }
-
 
         private void MDIParent1_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -268,7 +269,39 @@ namespace ForcePlatformCore
                     activeChild.Clear();
                 }
             }
+        }
 
+        private void toolStripButton2_Click(object sender, EventArgs e)
+        {
+            var paths = "";
+            try
+            {
+                foreach (Form childForm in MdiChildren)
+                {
+                    if (childForm is Form1)
+                    {
+                        Form1 activeChild = (Form1)childForm;
+                        paths += activeChild.Save()+"\r\n";
+                    }
+                }
+
+                string message = $"all data saved in: \r\n{paths}files";
+                string caption = "Message";
+                MessageBoxButtons buttons = MessageBoxButtons.OK;
+                DialogResult result;
+
+                result = MessageBox.Show(message, caption, buttons);
+
+            }
+            catch (Exception err)
+            {
+                string message = err.Message;
+                string caption = "Error";
+                MessageBoxButtons buttons = MessageBoxButtons.OK;
+                DialogResult result;
+
+                result = MessageBox.Show(message, caption, buttons);
+            }            
         }
     }
 }

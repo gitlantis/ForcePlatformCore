@@ -7,61 +7,19 @@ namespace ForcePlatformCore.Helpers
     {
         private static string path = "Data";
 
-        public static void Save(int plateNumber, List<CSVModel> model)
+        public static string Save(int plateNumber, List<CSVModel> model)
         {
-
             try
             {
                 string csvFilePath = $"plate_{plateNumber}_{DateTimeOffset.Now.ToUnixTimeSeconds()}.csv";
                 SaveDoubleListToCSV(model, csvFilePath);
-
-                string message = $"data saved in: {Path.Join(path, csvFilePath)} file";
-                string caption = "Message";
-                MessageBoxButtons buttons = MessageBoxButtons.OK;
-                DialogResult result;
-
-                result = MessageBox.Show(message, caption, buttons);
-
+                return Path.Join(path,csvFilePath);
             }
             catch (Exception e)
             {
-                string message = e.Message;
-                string caption = "Error";
-                MessageBoxButtons buttons = MessageBoxButtons.OK;
-                DialogResult result;
-
-                result = MessageBox.Show(message, caption, buttons);
+                throw;
             }
 
-        }
-
-        public static void SaveAll(Dictionary<int, List<CSVModel>> plates)
-        {
-            try
-            {
-                foreach (var plate in plates)
-                {
-                    string csvFilePath = $"plate_{plate.Key}_{DateTimeOffset.Now.ToUnixTimeSeconds()}.csv";
-                    SaveDoubleListToCSV(plate.Value, csvFilePath);
-                }
-                string message = $"data saved in: {path} folder";
-                string caption = "Message";
-                MessageBoxButtons buttons = MessageBoxButtons.OK;
-                DialogResult result;
-
-                result = MessageBox.Show(message, caption, buttons);
-            }
-
-
-            catch (Exception e)
-            {
-                string message = e.Message;
-                string caption = "Error";
-                MessageBoxButtons buttons = MessageBoxButtons.OK;
-                DialogResult result;
-
-                result = MessageBox.Show(message, caption, buttons);
-            }
         }
 
         static void SaveDoubleListToCSV(List<CSVModel> data, string fileName)
@@ -75,11 +33,11 @@ namespace ForcePlatformCore.Helpers
 
                 using (StreamWriter writer = new StreamWriter(Path.Join(path, fileName)))
                 {
-                    writer.WriteLine("Weight,DiffX,DiffY");
+                    writer.WriteLine("DiffX,DiffY,DiffZ");
 
                     foreach (var row in data)
                     {
-                        string csvRow = $"{row.Weight},{row.DiffX},{row.DiffY}";
+                        string csvRow = $"{row.DiffX},{row.DiffY},{row.DiffZ}";
                         writer.WriteLine(csvRow);
                     }
                 }

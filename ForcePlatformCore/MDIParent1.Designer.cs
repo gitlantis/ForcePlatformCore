@@ -52,7 +52,10 @@
             timer2 = new System.Windows.Forms.Timer(components);
             richTextBox2 = new RichTextBox();
             toolStrip1 = new ToolStrip();
+            toolStripButton2 = new ToolStripButton();
+            toolStripSeparator1 = new ToolStripSeparator();
             toolStripButton1 = new ToolStripButton();
+            contextMenuStrip1 = new ContextMenuStrip(components);
             statusStrip.SuspendLayout();
             menuStrip.SuspendLayout();
             toolStrip1.SuspendLayout();
@@ -206,22 +209,44 @@
             // 
             // toolStrip1
             // 
-            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripButton1 });
+            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripButton2, toolStripSeparator1, toolStripButton1 });
             toolStrip1.Location = new Point(0, 24);
             toolStrip1.Name = "toolStrip1";
-            toolStrip1.Size = new Size(1798, 25);
+            toolStrip1.Size = new Size(1798, 28);
             toolStrip1.TabIndex = 10;
             toolStrip1.Text = "toolStrip1";
             // 
+            // toolStripButton2
+            // 
+            toolStripButton2.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            toolStripButton2.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            toolStripButton2.Image = (Image)resources.GetObject("toolStripButton2.Image");
+            toolStripButton2.ImageTransparentColor = Color.Magenta;
+            toolStripButton2.Name = "toolStripButton2";
+            toolStripButton2.Size = new Size(73, 25);
+            toolStripButton2.Text = "Save all";
+            toolStripButton2.Click += toolStripButton2_Click;
+            // 
+            // toolStripSeparator1
+            // 
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new Size(6, 28);
+            // 
             // toolStripButton1
             // 
-            toolStripButton1.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            toolStripButton1.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            toolStripButton1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
             toolStripButton1.Image = (Image)resources.GetObject("toolStripButton1.Image");
             toolStripButton1.ImageTransparentColor = Color.Magenta;
             toolStripButton1.Name = "toolStripButton1";
-            toolStripButton1.Size = new Size(23, 22);
-            toolStripButton1.Text = "toolStripButton1";
+            toolStripButton1.Size = new Size(105, 25);
+            toolStripButton1.Text = "Reset signal";
             toolStripButton1.Click += toolStripButton1_Click;
+            // 
+            // contextMenuStrip1
+            // 
+            contextMenuStrip1.Name = "contextMenuStrip1";
+            contextMenuStrip1.Size = new Size(61, 4);
             // 
             // MDIParent1
             // 
@@ -275,6 +300,9 @@
         private RichTextBox richTextBox2;
         private ToolStrip toolStrip1;
         private ToolStripButton toolStripButton1;
+        private ContextMenuStrip contextMenuStrip1;
+        private ToolStripButton toolStripButton2;
+        private ToolStripSeparator toolStripSeparator1;
     }
 }
 

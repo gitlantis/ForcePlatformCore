@@ -78,7 +78,7 @@
             checkBox3.Name = "checkBox3";
             checkBox3.Size = new Size(108, 25);
             checkBox3.TabIndex = 2;
-            checkBox3.Text = "Y Axis Load";
+            checkBox3.Text = "Z Axis Load";
             checkBox3.UseVisualStyleBackColor = true;
             checkBox3.CheckedChanged += checkBox3_CheckedChanged;
             // 
@@ -92,7 +92,7 @@
             checkBox2.Name = "checkBox2";
             checkBox2.Size = new Size(108, 25);
             checkBox2.TabIndex = 1;
-            checkBox2.Text = "X Axis Load";
+            checkBox2.Text = "Y Axis Load";
             checkBox2.UseVisualStyleBackColor = true;
             checkBox2.CheckedChanged += checkBox2_CheckedChanged;
             // 
@@ -104,9 +104,9 @@
             checkBox1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             checkBox1.Location = new Point(36, 29);
             checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(78, 25);
+            checkBox1.Size = new Size(108, 25);
             checkBox1.TabIndex = 0;
-            checkBox1.Text = "Weight";
+            checkBox1.Text = "X Axis Load";
             checkBox1.UseVisualStyleBackColor = true;
             checkBox1.CheckedChanged += checkBox1_CheckedChanged;
             // 
@@ -151,7 +151,7 @@
             // button2
             // 
             button2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            button2.Location = new Point(1470, 334);
+            button2.Location = new Point(1470, 278);
             button2.Name = "button2";
             button2.Size = new Size(108, 45);
             button2.TabIndex = 8;
@@ -162,7 +162,7 @@
             // button3
             // 
             button3.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            button3.Location = new Point(1434, 599);
+            button3.Location = new Point(1434, 627);
             button3.Name = "button3";
             button3.Size = new Size(190, 45);
             button3.TabIndex = 9;
