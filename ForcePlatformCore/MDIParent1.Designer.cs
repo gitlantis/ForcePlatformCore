@@ -46,11 +46,8 @@
             tileVerticalToolStripMenuItem = new ToolStripMenuItem();
             cellToolStripMenuItem = new ToolStripMenuItem();
             cascadeToolStripMenuItem = new ToolStripMenuItem();
-            richTextBox1 = new RichTextBox();
             timer1 = new System.Windows.Forms.Timer(components);
-            button1 = new Button();
             timer2 = new System.Windows.Forms.Timer(components);
-            richTextBox2 = new RichTextBox();
             toolStrip1 = new ToolStrip();
             toolStripButton2 = new ToolStripButton();
             toolStripSeparator1 = new ToolStripSeparator();
@@ -171,42 +168,15 @@
             cascadeToolStripMenuItem.Text = "Cascade";
             cascadeToolStripMenuItem.Click += cascadeToolStripMenuItem_Click_1;
             // 
-            // richTextBox1
-            // 
-            richTextBox1.Location = new Point(1417, 117);
-            richTextBox1.Name = "richTextBox1";
-            richTextBox1.Size = new Size(190, 562);
-            richTextBox1.TabIndex = 4;
-            richTextBox1.Text = "";
-            // 
             // timer1
             // 
             timer1.Tick += timer1_Tick;
-            // 
-            // button1
-            // 
-            button1.Location = new Point(1249, 729);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 23);
-            button1.TabIndex = 6;
-            button1.Text = "button1";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
             // 
             // timer2
             // 
             timer2.Enabled = true;
             timer2.Interval = 1000;
             timer2.Tick += timer2_Tick;
-            // 
-            // richTextBox2
-            // 
-            richTextBox2.Location = new Point(1214, 117);
-            richTextBox2.Name = "richTextBox2";
-            richTextBox2.Size = new Size(197, 562);
-            richTextBox2.TabIndex = 8;
-            richTextBox2.Text = "";
-            richTextBox2.Visible = false;
             // 
             // toolStrip1
             // 
@@ -255,9 +225,6 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1798, 971);
             Controls.Add(toolStrip1);
-            Controls.Add(richTextBox2);
-            Controls.Add(button1);
-            Controls.Add(richTextBox1);
             Controls.Add(statusStrip);
             Controls.Add(menuStrip);
             IsMdiContainer = true;
@@ -294,11 +261,8 @@
         private ToolStripMenuItem tileVerticalToolStripMenuItem;
         private ToolStripMenuItem cascadeToolStripMenuItem;
         private ToolStripMenuItem cellToolStripMenuItem;
-        private RichTextBox richTextBox1;
         private System.Windows.Forms.Timer timer1;
-        private Button button1;
         private System.Windows.Forms.Timer timer2;
-        private RichTextBox richTextBox2;
         private ToolStrip toolStrip1;
         private ToolStripButton toolStripButton1;
         private ContextMenuStrip contextMenuStrip1;

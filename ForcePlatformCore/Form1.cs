@@ -64,6 +64,8 @@ namespace ForcePlatformCore
             formsPlot1.Plot.YLabel(comboBox1.Text);
             //formsPlot1.Plot.XAxis.DateTimeFormat(true);
             //formsPlot1.Plot.XAxis.TickLabelFormat("HH:mm:ss.ffff", true);
+            formsPlot1.Plot.AxisAuto();
+            formsPlot1.Plot.AxisScale();
 
             LoggerDiffX.ViewSlide();
             LoggerDiffY.ViewSlide();
@@ -121,7 +123,7 @@ namespace ForcePlatformCore
         {
             formsPlot1.Plot.XLabel("Time");
             formsPlot1.Plot.YLabel(comboBox1.Text);
-            if (comboBox1.SelectedIndex == 0) coeffcent = 1 / config.CalibrateZ;
+            if (comboBox1.SelectedIndex == 0) coeffcent = 1.0 / config.CalibrateZ;
             else coeffcent = config.FreeFallAcc / config.CalibrateZ;
         }
 
@@ -166,18 +168,18 @@ namespace ForcePlatformCore
 
             var points = AdcBuffer.BufferItems.Where(c => c.Plate == _plateNumber).ToList();
             foreach (var point in points)
-            {                
+            {
                 var x = point.Time.TotalMilliseconds / 10;
-                LoggerDiffX.Add(x, point.DiffX*coeffcent);
-                LoggerDiffY.Add(x, point.DiffY*coeffcent);
-                LoggerDiffZ.Add(x, point.DiffZ*coeffcent);
+                LoggerDiffX.Add(x, point.DiffX * coeffcent);
+                LoggerDiffY.Add(x, point.DiffY * coeffcent);
+                LoggerDiffZ.Add(x, point.DiffZ * coeffcent);
 
                 csvData.Add(new CSVModel
                 {
                     Time = point.Time,
-                    DiffX = point.DiffX*coeffcent,
-                    DiffY = point.DiffY*coeffcent,
-                    DiffZ = point.DiffZ*coeffcent
+                    DiffX = point.DiffX * coeffcent,
+                    DiffY = point.DiffY * coeffcent,
+                    DiffZ = point.DiffZ * coeffcent
                 });
             }
 

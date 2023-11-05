@@ -21,7 +21,7 @@ namespace ForcePlatformCore
         ComPort comPort;
         Form[] childForms = new Form[4];
         HashSet<int> openPlates = new HashSet<int>();
-        HashSet<int> allPlates = new HashSet<int> { 0,1,2,3};
+        HashSet<int> allPlates = new HashSet<int> { 0, 1, 2, 3 };
 
         DateTime scanStarted = DateTime.Now;
 
@@ -214,10 +214,7 @@ namespace ForcePlatformCore
 
                         AdcBuffer.BufferItems.Add(item);
                     }
-
-                    richTextBox1.AppendText(AdcData.CurrentTimeMC + " " + AdcData.DiffZ[0] + "\r\n");
                 }
-
                 oldCurrentTimeMC = AdcData.CurrentTimeMC;
             }
         }
@@ -255,8 +252,6 @@ namespace ForcePlatformCore
             }
             openPlates.Clear();
             openPlates.UnionWith(activePlates);
-
-            richTextBox1.Clear();
         }
 
         private void toolStripButton1_Click(object sender, EventArgs e)
