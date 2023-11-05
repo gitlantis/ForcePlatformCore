@@ -1,59 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO.Ports;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.IO.Ports;
 
-namespace ForcePlatformComPort
+namespace ForcePlatformCore.Helpers.ComPort
 {
     public class ComPort
     {
-        public delegate void DataReceivedHandler(AdcData data);
-        public event DataReceivedHandler DataReceived;
-
         private SerialPort sp;
-        private bool exactDevice = false;
-        private string inStr = "";
+        public bool connected = false;
         private string[] ss = new string[20];
-
-        AdcData adcData =new AdcData();
+        AdcSerialData adcData = new AdcSerialData();
 
         public ComPort(bool autoDetect, string port, int filterLength)
         {
-            Init(filterLength);
+            adcData.Init(filterLength);
 
             if (autoDetect) AutoDetect("");
             else AutoDetect(port);
         }
 
-        public void Init(int filterLength)
-        {
-            adcData.FilterLength = filterLength;
-            adcData.CurrentAdc = new int[16];
-            adcData.OlderAdc = new int[16];
-            adcData.ZeroAdc = new int[16];
-            adcData.ZeroedAdc = new int[16];
-            adcData.FilterBuff = new int[16, filterLength];
-            adcData.FilteredAdc = new int[16];
-            adcData.MiddledAdc = new int[16];
-            adcData.AbsAdc = new int[16];
-            adcData.DiffZ = new int[4];
-            adcData.DiffX = new int[4];
-            adcData.DiffY = new int[4];
-        }
         public void Zero()
         {
             for (int i = 0; i < adcData.CurrentAdc.Length; i++) { adcData.ZeroAdc[i] = adcData.MiddledAdc[i]; }
-
-            sp.ReadExisting();
-            sp.DiscardInBuffer();
-            sp.DiscardOutBuffer();
-            sp.Dispose();
-            Disconnect();
-            Connect();
         }
 
         private void AutoDetect(string port)
@@ -66,24 +32,25 @@ namespace ForcePlatformComPort
             {
                 try
                 {
-                    if (!exactDevice)
+                    if (!connected)
                     {
                         sp = new SerialPort(portName, 115200, Parity.None, 8, StopBits.One);
                         Connect();
                         for (int i = 0; i < 6; i++)
                         {
                             Thread.Sleep(500);
-                            if (inStr.Length == 0) break;
+                            onReceive();
+                            if (adcData.CurrentTimeMC == 0) break;
                         }
 
-                        if (exactDevice) break;
+                        if (connected) break;
                         Disconnect();
                     }
                 }
                 catch (Exception) { }
             }
 
-            if (!exactDevice)
+            if (!connected)
             {
                 string message = "Device did not found, check connections and try to rerun application set to manual configuration";
                 string caption = "Error detected during device search";
@@ -102,8 +69,6 @@ namespace ForcePlatformComPort
         {
             try
             {
-                inStr = "";
-                sp.DataReceived += new SerialDataReceivedEventHandler(onReceive);
                 sp.Open();
             }
             catch (Exception) { }
@@ -113,42 +78,45 @@ namespace ForcePlatformComPort
         {
             try
             {
-                sp.DataReceived -= new SerialDataReceivedEventHandler(onReceive);
                 sp.Close();
             }
             catch (Exception) { }
         }
 
-        private void onReceive(object sender, SerialDataReceivedEventArgs e)
+        public AdcSerialData onReceive()
         {
-            inStr += sp.ReadExisting(); while ((inStr.Length > 106) && (inStr[106] != 10) && (inStr[105] != 13)) inStr = inStr.Substring(1);
+            string[] _temps = sp.ReadExisting().Split('\n');
 
-            if ((inStr.Length > 106) && (inStr[106] == 10) && (inStr[105] == 13) && (inStr[0] == 90))
+            foreach (string s in _temps)
             {
-                exactDevice = true;
-                string tempString = inStr.Substring(1, 104);
-                inStr = inStr.Substring(106);
-
-                for (int i = 0; i < 16; i++) ss[i] = tempString.Substring(i * 6, 6);
-
-                // order correction
-                string ts;
-                for (int i = 0; i < 4; i++)
+                try
                 {
-                    ts = ss[i + 8]; ss[i + 8] = ss[i + 0]; ss[i + 0] = ts;
-                    ts = ss[i + 12]; ss[i + 12] = ss[i + 4]; ss[i + 4] = ts;
+                    if ((s[0] == 'Z') && (s.Length > 104))
+                    {
+                        connected = true;
+                        string _s = s.Substring(1);
+                        string[] ss = new string[17];
+                        for (int i = 0; i < 16; i++) ss[i] = _s.Substring(i * 6, 6);
+
+                        string ts;
+                        for (int i = 0; i < 4; i++)
+                        {
+                            ts = ss[i + 8]; ss[i + 8] = ss[i + 0]; ss[i + 0] = ts;
+                            ts = ss[i + 12]; ss[i + 12] = ss[i + 4]; ss[i + 4] = ts;
+                        }
+
+                        ss[16] = _s.Substring(96, 8);
+
+                        int[] _tmp = new int[17];
+                        try { for (int i = 0; i < 17; i++) _tmp[i] = Convert.ToInt32(ss[i], 16) >> 4; } catch { return null; };
+
+                        for (int i = 0; i < 16; i++) adcData.CurrentAdc[i] = _tmp[i];
+                        adcData.CurrentTimeMC = _tmp[16]; FreshData();
+                    }
                 }
-
-                ss[16] = tempString.Substring(96, 8);
-
-                int[] _temp = new int[17];
-                try { for (int i = 0; i < 17; i++) _temp[i] = Convert.ToInt32(ss[i], 16) >> 4; } catch { return; };
-
-                for (int i = 0; i < 16; i++) adcData.CurrentAdc[i] = _temp[i];
-                adcData.CurrentTimeMC = _temp[16]; FreshData();
-
-                DataReceived?.Invoke(adcData);
+                catch { }
             }
+            return adcData;
         }
 
         private void FilterData()

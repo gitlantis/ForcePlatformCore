@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ForcePlatformComPort
+namespace ForcePlatformCore.Helpers.ComPort
 {
-    public class AdcData
+    public class AdcSerialData
     {
         public int CurrentTimeMC { get; set; }
         public int FilterLength { get; set; }
@@ -22,6 +22,22 @@ namespace ForcePlatformComPort
         public int[] DiffX { get; set; }
         public int[] DiffY { get; set; }
         public int[] DiffZ { get; set; }
+
+        public void Init(int filterLength)
+        {
+            FilterLength = filterLength;
+            CurrentAdc = new int[16];
+            OlderAdc = new int[16];
+            ZeroAdc = new int[16];
+            ZeroedAdc = new int[16];
+            FilterBuff = new int[16, filterLength];
+            FilteredAdc = new int[16];
+            MiddledAdc = new int[16];
+            AbsAdc = new int[16];
+            DiffZ = new int[4];
+            DiffX = new int[4];
+            DiffY = new int[4];
+        }
     }
 }
 

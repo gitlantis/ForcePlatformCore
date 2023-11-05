@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MDIParent1));
             statusStrip = new StatusStrip();
             toolStripStatusLabel = new ToolStripStatusLabel();
             toolTip = new ToolTip(components);
@@ -48,8 +49,13 @@
             richTextBox1 = new RichTextBox();
             timer1 = new System.Windows.Forms.Timer(components);
             button1 = new Button();
+            timer2 = new System.Windows.Forms.Timer(components);
+            richTextBox2 = new RichTextBox();
+            toolStrip1 = new ToolStrip();
+            toolStripButton1 = new ToolStripButton();
             statusStrip.SuspendLayout();
             menuStrip.SuspendLayout();
+            toolStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // statusStrip
@@ -152,7 +158,7 @@
             // 
             cellToolStripMenuItem.Name = "cellToolStripMenuItem";
             cellToolStripMenuItem.Size = new Size(150, 22);
-            cellToolStripMenuItem.Text = "Cell";
+            cellToolStripMenuItem.Text = "Table";
             cellToolStripMenuItem.Click += cellToolStripMenuItem_Click;
             // 
             // cascadeToolStripMenuItem
@@ -164,20 +170,19 @@
             // 
             // richTextBox1
             // 
-            richTextBox1.Location = new Point(146, 173);
+            richTextBox1.Location = new Point(1417, 117);
             richTextBox1.Name = "richTextBox1";
-            richTextBox1.Size = new Size(233, 562);
+            richTextBox1.Size = new Size(190, 562);
             richTextBox1.TabIndex = 4;
             richTextBox1.Text = "";
             // 
             // timer1
             // 
-            timer1.Enabled = true;
             timer1.Tick += timer1_Tick;
             // 
             // button1
             // 
-            button1.Location = new Point(553, 304);
+            button1.Location = new Point(338, 759);
             button1.Name = "button1";
             button1.Size = new Size(75, 23);
             button1.TabIndex = 6;
@@ -185,11 +190,46 @@
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
+            // timer2
+            // 
+            timer2.Enabled = true;
+            timer2.Interval = 1000;
+            timer2.Tick += timer2_Tick;
+            // 
+            // richTextBox2
+            // 
+            richTextBox2.Location = new Point(1214, 117);
+            richTextBox2.Name = "richTextBox2";
+            richTextBox2.Size = new Size(197, 562);
+            richTextBox2.TabIndex = 8;
+            richTextBox2.Text = "";
+            // 
+            // toolStrip1
+            // 
+            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripButton1 });
+            toolStrip1.Location = new Point(0, 24);
+            toolStrip1.Name = "toolStrip1";
+            toolStrip1.Size = new Size(1798, 25);
+            toolStrip1.TabIndex = 10;
+            toolStrip1.Text = "toolStrip1";
+            // 
+            // toolStripButton1
+            // 
+            toolStripButton1.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            toolStripButton1.Image = (Image)resources.GetObject("toolStripButton1.Image");
+            toolStripButton1.ImageTransparentColor = Color.Magenta;
+            toolStripButton1.Name = "toolStripButton1";
+            toolStripButton1.Size = new Size(23, 22);
+            toolStripButton1.Text = "toolStripButton1";
+            toolStripButton1.Click += toolStripButton1_Click;
+            // 
             // MDIParent1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1798, 971);
+            Controls.Add(toolStrip1);
+            Controls.Add(richTextBox2);
             Controls.Add(button1);
             Controls.Add(richTextBox1);
             Controls.Add(statusStrip);
@@ -205,6 +245,8 @@
             statusStrip.PerformLayout();
             menuStrip.ResumeLayout(false);
             menuStrip.PerformLayout();
+            toolStrip1.ResumeLayout(false);
+            toolStrip1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -229,6 +271,10 @@
         private RichTextBox richTextBox1;
         private System.Windows.Forms.Timer timer1;
         private Button button1;
+        private System.Windows.Forms.Timer timer2;
+        private RichTextBox richTextBox2;
+        private ToolStrip toolStrip1;
+        private ToolStripButton toolStripButton1;
     }
 }
 

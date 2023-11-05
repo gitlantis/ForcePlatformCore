@@ -35,12 +35,10 @@
             checkBox2 = new CheckBox();
             checkBox1 = new CheckBox();
             comboBox1 = new ComboBox();
-            button1 = new Button();
             label1 = new Label();
             checkBox4 = new CheckBox();
             button2 = new Button();
             button3 = new Button();
-            richTextBox1 = new RichTextBox();
             timer1 = new System.Windows.Forms.Timer(components);
             groupBox1.SuspendLayout();
             SuspendLayout();
@@ -124,17 +122,6 @@
             comboBox1.TabIndex = 4;
             comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
-            // button1
-            // 
-            button1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            button1.Location = new Point(1470, 271);
-            button1.Name = "button1";
-            button1.Size = new Size(108, 45);
-            button1.TabIndex = 5;
-            button1.Text = "Reset";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
-            // 
             // label1
             // 
             label1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
@@ -183,14 +170,6 @@
             button3.UseVisualStyleBackColor = true;
             button3.Click += button3_Click;
             // 
-            // richTextBox1
-            // 
-            richTextBox1.Location = new Point(163, 12);
-            richTextBox1.Name = "richTextBox1";
-            richTextBox1.Size = new Size(234, 634);
-            richTextBox1.TabIndex = 10;
-            richTextBox1.Text = "";
-            // 
             // timer1
             // 
             timer1.Enabled = true;
@@ -201,12 +180,10 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1646, 684);
-            Controls.Add(richTextBox1);
             Controls.Add(button3);
             Controls.Add(button2);
             Controls.Add(checkBox4);
             Controls.Add(label1);
-            Controls.Add(button1);
             Controls.Add(comboBox1);
             Controls.Add(groupBox1);
             Controls.Add(formsPlot1);
@@ -226,12 +203,10 @@
         private CheckBox checkBox2;
         private CheckBox checkBox1;
         private ComboBox comboBox1;
-        private Button button1;
         private Label label1;
         private CheckBox checkBox4;
         private Button button2;
         private Button button3;
-        private RichTextBox richTextBox1;
         private System.Windows.Forms.Timer timer1;
     }
 }
