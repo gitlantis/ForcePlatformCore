@@ -7,38 +7,38 @@ namespace ForcePlatformCore.Helpers
     {
         private static string path = "Data";
 
-        public static string Save(int plateNumber, List<CSVModel> model, string param)
+        public static void Save(Queue<CSVModel> data, string param)
         {
             try
             {
-                string csvFilePath = $"plate_{plateNumber}_{DateTimeOffset.Now.ToUnixTimeSeconds()}.csv";
-                SaveDoubleListToCSV(model, csvFilePath, param);
-                return Path.Join(path,csvFilePath);
-            }
-            catch (Exception e)
-            {
-                throw;
-            }
+                string csvFilePath = $"platform_data_{DateTimeOffset.Now.ToUnixTimeSeconds()}.csv";
 
-        }
-
-        static void SaveDoubleListToCSV(List<CSVModel> data, string fileName, string param)
-        {
-            try
-            {
                 bool exists = Directory.Exists(path);
 
                 if (!exists)
                     Directory.CreateDirectory(path);
 
-                using (StreamWriter writer = new StreamWriter(Path.Join(path, fileName)))
+                using (StreamWriter writer = new StreamWriter(Path.Join(path, csvFilePath)))
                 {
-                    writer.WriteLine($"Time,DiffX({param}),DiffY({param}),DiffZ({param})");
-
-                    foreach (var row in data)
+                    var line = data.Dequeue();  
+                    var headline = "Time,";
+                    foreach( var item in line.PlateData)
                     {
-                        string csvRow = $"{row.Time.ToString(@"hh\:mm\:ss\.ffff")},{row.DiffX},{row.DiffY},{row.DiffZ}";
-                        writer.WriteLine(csvRow);
+                        headline += $"p{item.Plate}X,p{item.Plate}Y,p{item.Plate}Z,";
+                    }
+                    headline += "ADC" ;
+                    writer.WriteLine(headline);
+
+                    while (data.Count > 0)
+                    {
+                        line = data.Dequeue();
+                        var raw = $"{line.Time},";//.ToString(@"hh\:mm\:ss\.ffff")},";
+                        foreach (var item in line.PlateData)
+                        {
+                            raw += $"{item.DiffX},{item.DiffY},{item.DiffZ},";
+                        }
+                        raw += $"{line.CurrentADC}";
+                        writer.WriteLine(raw);
                     }
                 }
             }

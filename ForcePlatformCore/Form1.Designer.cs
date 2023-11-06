@@ -37,8 +37,6 @@
             comboBox1 = new ComboBox();
             label1 = new Label();
             checkBox4 = new CheckBox();
-            button2 = new Button();
-            button3 = new Button();
             timer1 = new System.Windows.Forms.Timer(components);
             groupBox1.SuspendLayout();
             SuspendLayout();
@@ -61,7 +59,7 @@
             groupBox1.Controls.Add(checkBox2);
             groupBox1.Controls.Add(checkBox1);
             groupBox1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            groupBox1.Location = new Point(1434, 77);
+            groupBox1.Location = new Point(1436, 60);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(190, 129);
             groupBox1.TabIndex = 1;
@@ -116,7 +114,7 @@
             comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox1.FormattingEnabled = true;
             comboBox1.Items.AddRange(new object[] { "Kg", "N" });
-            comboBox1.Location = new Point(1487, 36);
+            comboBox1.Location = new Point(1489, 19);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(137, 23);
             comboBox1.TabIndex = 4;
@@ -127,7 +125,7 @@
             label1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.Location = new Point(1434, 36);
+            label1.Location = new Point(1436, 19);
             label1.Name = "label1";
             label1.Size = new Size(39, 21);
             label1.TabIndex = 6;
@@ -140,35 +138,13 @@
             checkBox4.Checked = true;
             checkBox4.CheckState = CheckState.Checked;
             checkBox4.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            checkBox4.Location = new Point(1470, 221);
+            checkBox4.Location = new Point(1472, 204);
             checkBox4.Name = "checkBox4";
             checkBox4.Size = new Size(119, 25);
             checkBox4.TabIndex = 7;
             checkBox4.Text = "Show legend";
             checkBox4.UseVisualStyleBackColor = true;
             checkBox4.CheckedChanged += checkBox4_CheckedChanged;
-            // 
-            // button2
-            // 
-            button2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            button2.Location = new Point(1470, 278);
-            button2.Name = "button2";
-            button2.Size = new Size(108, 45);
-            button2.TabIndex = 8;
-            button2.Text = "Pause";
-            button2.UseVisualStyleBackColor = true;
-            button2.Click += button2_Click;
-            // 
-            // button3
-            // 
-            button3.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            button3.Location = new Point(1434, 627);
-            button3.Name = "button3";
-            button3.Size = new Size(190, 45);
-            button3.TabIndex = 9;
-            button3.Text = "Save to CSV";
-            button3.UseVisualStyleBackColor = true;
-            button3.Click += button3_Click;
             // 
             // timer1
             // 
@@ -180,8 +156,6 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1646, 684);
-            Controls.Add(button3);
-            Controls.Add(button2);
             Controls.Add(checkBox4);
             Controls.Add(label1);
             Controls.Add(comboBox1);
@@ -206,8 +180,6 @@
         private ComboBox comboBox1;
         private Label label1;
         private CheckBox checkBox4;
-        private Button button2;
-        private Button button3;
         private System.Windows.Forms.Timer timer1;
     }
 }

@@ -29,6 +29,7 @@ namespace ForcePlatformCore
     public partial class Form1 : Form
     {
         public int PlateId;
+        private bool pausePlot = false;
         private AppsettingsModel? config;
         readonly int _plateNumber = 0;
 
@@ -48,9 +49,9 @@ namespace ForcePlatformCore
             _plateNumber = plateNumber;
             PlateId = plateNumber;
 
-            LoggerDiffX = formsPlot1.Plot.AddDataLogger(label: "DiffX", lineWidth: 3);
-            LoggerDiffY = formsPlot1.Plot.AddDataLogger(label: "DiffY", lineWidth: 3);
-            LoggerDiffZ = formsPlot1.Plot.AddDataLogger(label: "DiffZ", lineWidth: 3);
+            LoggerDiffX = formsPlot1.Plot.AddDataLogger(label: "X", lineWidth: 3);
+            LoggerDiffY = formsPlot1.Plot.AddDataLogger(label: "Y", lineWidth: 3);
+            LoggerDiffZ = formsPlot1.Plot.AddDataLogger(label: "Z", lineWidth: 3);
 
             formsPlot1.Plot.Legend(checkBox4.Checked);
 
@@ -74,7 +75,7 @@ namespace ForcePlatformCore
             formsPlot1.Refresh();
 
             this.config = config;
-            comboBox1.SelectedIndex = 0;
+            comboBox1.SelectedIndex = 1;
         }
 
         private void formsPlot1_MouseDown(object sender, MouseEventArgs e)
@@ -109,14 +110,14 @@ namespace ForcePlatformCore
 
         private void button1_Click(object sender, EventArgs e)
         {
-            csvData = new List<CSVModel>();
-            ClearLoggers();
+            //csvData = new List<CSVModel>();
+            //ClearLoggers();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            timer1.Enabled = !timer1.Enabled;
-            button2.Text = !timer1.Enabled ? "Continue" : "Pause";
+            //pausePlot = !pausePlot;
+            //button2.Text = pausePlot ? "Continue" : "Pause";
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -129,27 +130,27 @@ namespace ForcePlatformCore
 
         private void button3_Click(object sender, EventArgs e)
         {
-            try
-            {
-                var path = Save();
+            //try
+            //{
+            //    var path = Save();
 
-                string message = $"data saved in: {path} file";
-                string caption = "Message";
-                MessageBoxButtons buttons = MessageBoxButtons.OK;
-                DialogResult result;
+            //    string message = $"data saved in: {path} file";
+            //    string caption = "Message";
+            //    MessageBoxButtons buttons = MessageBoxButtons.OK;
+            //    DialogResult result;
 
-                result = MessageBox.Show(message, caption, buttons);
+            //    result = MessageBox.Show(message, caption, buttons);
 
-            }
-            catch (Exception err)
-            {
-                string message = err.Message;
-                string caption = "Error";
-                MessageBoxButtons buttons = MessageBoxButtons.OK;
-                DialogResult result;
+            //}
+            //catch (Exception err)
+            //{
+            //    string message = err.Message;
+            //    string caption = "Error";
+            //    MessageBoxButtons buttons = MessageBoxButtons.OK;
+            //    DialogResult result;
 
-                result = MessageBox.Show(message, caption, buttons);
-            }
+            //    result = MessageBox.Show(message, caption, buttons);
+            //}
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -166,47 +167,50 @@ namespace ForcePlatformCore
 
             if (isStopped) stopTime++;
 
-            var points = AdcBuffer.BufferItems.Where(c => c.Plate == _plateNumber).ToList();
-            foreach (var point in points)
+            if (!pausePlot)
             {
-                var x = point.Time.TotalMilliseconds / 10;
-                LoggerDiffX.Add(x, point.DiffX * coeffcent);
-                LoggerDiffY.Add(x, point.DiffY * coeffcent);
-                LoggerDiffZ.Add(x, point.DiffZ * coeffcent);
-
-                csvData.Add(new CSVModel
+                var points = AdcBuffer.BufferItems.Where(c => c.Plate == _plateNumber).ToList();
+                foreach (var point in points)
                 {
-                    Time = point.Time,
-                    DiffX = point.DiffX * coeffcent,
-                    DiffY = point.DiffY * coeffcent,
-                    DiffZ = point.DiffZ * coeffcent
-                });
-            }
+                    var x = point.Time.TotalMilliseconds / 10;
+                    LoggerDiffX.Add(x, point.DiffX);
+                    LoggerDiffY.Add(x, point.DiffY);
+                    LoggerDiffZ.Add(x, point.DiffZ);
 
-            AdcBuffer.BufferItems.RemoveAll(item => points.Contains(item));
-            formsPlot1.Refresh();
+                    //csvData.Add(new CSVModel
+                    //{
+                    //    Time = point.Time,
+                    //    DiffX = point.DiffX,
+                    //    DiffY = point.DiffY,
+                    //    DiffZ = point.DiffZ
+                    //});
+                }
+
+                AdcBuffer.BufferItems.RemoveAll(item => points.Contains(item));
+                formsPlot1.Refresh();
+            }
         }
 
         public void Clear()
         {
-            csvData = new List<CSVModel>();
+            //csvData = new List<CSVModel>();
             ClearLoggers();
             formsPlot1.Refresh();
         }
 
         public void Pause(bool isPaused)
         {
-            timer1.Enabled = !isPaused;
-            button2.Text = isPaused ? "Continue" : "Pause";
+            pausePlot = isPaused;
+            //button2.Text = isPaused ? "Continue" : "Pause";
         }
 
-        public string Save()
-        {
-            var result = CsvProcessor.Save(_plateNumber + 1, csvData, comboBox1.Text);
-            csvData = new List<CSVModel>();
-            ClearLoggers();
-            return result;
-        }
+        //public string Save()
+        //{
+        //    var result = CsvProcessor.Save(_plateNumber + 1, csvData, comboBox1.Text);
+        //    //csvData = new List<CSVModel>();
+        //    ClearLoggers();
+        //    return result;
+        //}
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -218,6 +222,11 @@ namespace ForcePlatformCore
             LoggerDiffX.Clear();
             LoggerDiffY.Clear();
             LoggerDiffZ.Clear();
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            Clear();
         }
     }
 }

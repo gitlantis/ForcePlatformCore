@@ -7,6 +7,7 @@ using System.IO.Ports;
 using System.Runtime.InteropServices;
 using System.Runtime.Intrinsics.X86;
 using WindowsFormsApp1.Models;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
 namespace ForcePlatformCore
 {
@@ -15,8 +16,10 @@ namespace ForcePlatformCore
         private AppsettingsModel? config = new AppsettingsModel();
         private int childFormNumber = 0;
         private bool pauseAll = false;
+        private Queue<CSVModel> csvData = new Queue<CSVModel>();
         public IConfiguration Configuration { get; set; }
 
+        private bool startRecording = false;
         int glCnt = 0;
         int oldCurrentTimeMC = 0;
         ComPort comPort;
@@ -217,6 +220,37 @@ namespace ForcePlatformCore
                         AdcBuffer.BufferItems.Add(item);
                     }
                 }
+
+                var plateData = new List<CSVItem>();
+                int i = 0;
+                foreach (var item in AdcData.DiffX)
+                {
+                    plateData.Add(new CSVItem
+                    {
+                        Plate = i,
+                        DiffX = AdcData.DiffX[i],
+                        DiffY = AdcData.DiffY[i],
+                        DiffZ = AdcData.DiffZ[i],
+                    });
+                    i++;
+                }
+                var currentAdcHex = "";
+                foreach (var ch in AdcData.CurrentAdc)
+                {
+                    currentAdcHex += ch.ToString("X");
+                }
+                currentAdcHex += AdcData.CurrentTimeMC.ToString("X");
+                if (startRecording)
+                {
+                    csvData.Enqueue(new CSVModel
+                    {
+                        //Time = DateTime.Now.Subtract(scanStarted),
+                        Time = AdcData.CurrentTimeMC.ToString(),
+                        PlateData = plateData,
+                        CurrentADC = currentAdcHex
+                    });
+                    var item = new AdcBufferItem();
+                }
                 oldCurrentTimeMC = AdcData.CurrentTimeMC;
             }
         }
@@ -264,6 +298,7 @@ namespace ForcePlatformCore
         private void resetAll()
         {
             scanStarted = DateTime.Now;
+            csvData.Clear();
             AdcBuffer.BufferItems.Clear();
             Zero();
             foreach (Form childForm in MdiChildren)
@@ -281,14 +316,14 @@ namespace ForcePlatformCore
             var paths = "";
             try
             {
-                foreach (Form childForm in MdiChildren)
-                {
-                    if (childForm is Form1)
-                    {
-                        Form1 activeChild = (Form1)childForm;
-                        paths += activeChild.Save() + "\r\n";
-                    }
-                }
+                //foreach (Form childForm in MdiChildren)
+                //{
+                //    if (childForm is Form1)
+                //    {
+                //        Form1 activeChild = (Form1)childForm;
+                //        paths += activeChild.Save() + "\r\n";
+                //    }
+                //}
 
                 string message = $"all data saved in: \r\n{paths}files";
                 string caption = "Message";
@@ -312,8 +347,8 @@ namespace ForcePlatformCore
         private void toolStripButton3_Click(object sender, EventArgs e)
         {
             pauseAll = !pauseAll;
-            timer1.Enabled = !pauseAll;
-            toolStripButton3.Text = pauseAll?"Continue All":"Pause All";
+            //timer1.Enabled = !pauseAll;
+            toolStripButton3.Text = pauseAll ? "Continue" : "Pause";
             foreach (Form childForm in MdiChildren)
             {
                 if (childForm is Form1)
@@ -321,6 +356,17 @@ namespace ForcePlatformCore
                     Form1 activeChild = (Form1)childForm;
                     activeChild.Pause(pauseAll);
                 }
+            }
+        }
+
+        private void toolStripButton4_Click(object sender, EventArgs e)
+        {
+            startRecording = !startRecording;
+            toolStripButton4.Text = startRecording ? "Stop recording" : "Start recording";
+            if (!startRecording)
+            {
+                CsvProcessor.Save(csvData, "");
+                csvData.Clear();
             }
         }
     }
