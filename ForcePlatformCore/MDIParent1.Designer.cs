@@ -53,6 +53,8 @@
             toolStripSeparator1 = new ToolStripSeparator();
             toolStripButton1 = new ToolStripButton();
             contextMenuStrip1 = new ContextMenuStrip(components);
+            toolStripSeparator2 = new ToolStripSeparator();
+            toolStripButton3 = new ToolStripButton();
             statusStrip.SuspendLayout();
             menuStrip.SuspendLayout();
             toolStrip1.SuspendLayout();
@@ -180,7 +182,7 @@
             // 
             // toolStrip1
             // 
-            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripButton2, toolStripSeparator1, toolStripButton1 });
+            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripButton2, toolStripSeparator1, toolStripButton3, toolStripSeparator2, toolStripButton1 });
             toolStrip1.Location = new Point(0, 24);
             toolStrip1.Name = "toolStrip1";
             toolStrip1.Size = new Size(1798, 28);
@@ -218,6 +220,21 @@
             // 
             contextMenuStrip1.Name = "contextMenuStrip1";
             contextMenuStrip1.Size = new Size(61, 4);
+            // 
+            // toolStripSeparator2
+            // 
+            toolStripSeparator2.Name = "toolStripSeparator2";
+            toolStripSeparator2.Size = new Size(6, 28);
+            // 
+            // toolStripButton3
+            // 
+            toolStripButton3.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            toolStripButton3.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            toolStripButton3.ImageTransparentColor = Color.Magenta;
+            toolStripButton3.Name = "toolStripButton3";
+            toolStripButton3.Size = new Size(84, 25);
+            toolStripButton3.Text = "Pause All";
+            toolStripButton3.Click += toolStripButton3_Click;
             // 
             // MDIParent1
             // 
@@ -268,6 +285,8 @@
         private ContextMenuStrip contextMenuStrip1;
         private ToolStripButton toolStripButton2;
         private ToolStripSeparator toolStripSeparator1;
+        private ToolStripButton toolStripButton3;
+        private ToolStripSeparator toolStripSeparator2;
     }
 }
 

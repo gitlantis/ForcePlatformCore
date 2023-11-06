@@ -33,7 +33,7 @@ namespace ForcePlatformCore.Helpers
 
                 using (StreamWriter writer = new StreamWriter(Path.Join(path, fileName)))
                 {
-                    writer.WriteLine($"Time({param}),DiffX,DiffY({param}),DiffZ({param})");
+                    writer.WriteLine($"Time,DiffX({param}),DiffY({param}),DiffZ({param})");
 
                     foreach (var row in data)
                     {

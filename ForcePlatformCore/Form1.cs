@@ -189,18 +189,22 @@ namespace ForcePlatformCore
 
         public void Clear()
         {
+            csvData = new List<CSVModel>();
             ClearLoggers();
             formsPlot1.Refresh();
+        }
+
+        public void Pause(bool isPaused)
+        {
+            timer1.Enabled = !isPaused;
+            button2.Text = isPaused ? "Continue" : "Pause";
         }
 
         public string Save()
         {
             var result = CsvProcessor.Save(_plateNumber + 1, csvData, comboBox1.Text);
-
             csvData = new List<CSVModel>();
-
             ClearLoggers();
-
             return result;
         }
 

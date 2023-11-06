@@ -14,6 +14,7 @@ namespace ForcePlatformCore
     {
         private AppsettingsModel? config = new AppsettingsModel();
         private int childFormNumber = 0;
+        private bool pauseAll = false;
         public IConfiguration Configuration { get; set; }
 
         int glCnt = 0;
@@ -101,7 +102,8 @@ namespace ForcePlatformCore
             config = Configuration.Get<AppsettingsModel>();
             comPort = new ComPort(config.AutoSelectCom, config.ComPort, config.FilterLength);
             timer1.Enabled = comPort.connected;
-            AdcData.Init(30);
+            AdcData.Init(config.FilterLength);
+            resetAll();
         }
         private void plate1ToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -256,6 +258,11 @@ namespace ForcePlatformCore
 
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
+            resetAll();
+        }
+
+        private void resetAll()
+        {
             scanStarted = DateTime.Now;
             AdcBuffer.BufferItems.Clear();
             Zero();
@@ -299,6 +306,21 @@ namespace ForcePlatformCore
                 DialogResult result;
 
                 result = MessageBox.Show(message, caption, buttons);
+            }
+        }
+
+        private void toolStripButton3_Click(object sender, EventArgs e)
+        {
+            pauseAll = !pauseAll;
+            timer1.Enabled = !pauseAll;
+            toolStripButton3.Text = pauseAll?"Continue All":"Pause All";
+            foreach (Form childForm in MdiChildren)
+            {
+                if (childForm is Form1)
+                {
+                    Form1 activeChild = (Form1)childForm;
+                    activeChild.Pause(pauseAll);
+                }
             }
         }
     }

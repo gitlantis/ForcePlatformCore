@@ -42,19 +42,22 @@ namespace ForcePlatformCore.Models
 
         public static void Set(dynamic data)
         {
-            CurrentTimeMC = data.CurrentTimeMC;
-            FilterLength = data.FilterLength;
-            CurrentAdc = data.CurrentAdc;
-            OlderAdc = data.OlderAdc;
-            ZeroAdc = data.ZeroAdc;
-            ZeroedAdc = data.ZeroedAdc;
-            FilterBuff = data.FilterBuff;
-            FilteredAdc = data.FilteredAdc;
-            MiddledAdc = data.MiddledAdc;
-            AbsAdc = data.AbsAdc;
-            DiffX = data.DiffX;
-            DiffY = data.DiffY;
-            DiffZ = data.DiffZ;
+            try
+            {
+                CurrentTimeMC = data.CurrentTimeMC;
+                FilterLength = data.FilterLength;
+                CurrentAdc = data.CurrentAdc;
+                OlderAdc = data.OlderAdc;
+                ZeroAdc = data.ZeroAdc;
+                ZeroedAdc = data.ZeroedAdc;
+                FilterBuff = data.FilterBuff;
+                FilteredAdc = data.FilteredAdc;
+                MiddledAdc = data.MiddledAdc;
+                AbsAdc = data.AbsAdc;
+                DiffX = data.DiffX;
+                DiffY = data.DiffY;
+                DiffZ = data.DiffZ;
+            }catch(Exception ex) { }
         }
     }
 }
