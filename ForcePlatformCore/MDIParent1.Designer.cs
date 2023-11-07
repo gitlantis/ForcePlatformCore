@@ -49,9 +49,11 @@
             timer1 = new System.Windows.Forms.Timer(components);
             timer2 = new System.Windows.Forms.Timer(components);
             toolStrip1 = new ToolStrip();
-            toolStripButton3 = new ToolStripButton();
-            toolStripSeparator2 = new ToolStripSeparator();
+            toolStripButton2 = new ToolStripButton();
+            toolStripSeparator1 = new ToolStripSeparator();
             toolStripButton4 = new ToolStripButton();
+            toolStripSeparator2 = new ToolStripSeparator();
+            toolStripButton3 = new ToolStripButton();
             toolStripSeparator3 = new ToolStripSeparator();
             toolStripButton1 = new ToolStripButton();
             contextMenuStrip1 = new ContextMenuStrip(components);
@@ -183,27 +185,28 @@
             // 
             // toolStrip1
             // 
-            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripButton4, toolStripSeparator2, toolStripButton3, toolStripSeparator3, toolStripButton1 });
+            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripButton2, toolStripSeparator1, toolStripButton4, toolStripSeparator2, toolStripButton3, toolStripSeparator3, toolStripButton1 });
             toolStrip1.Location = new Point(0, 24);
             toolStrip1.Name = "toolStrip1";
             toolStrip1.Size = new Size(1798, 28);
             toolStrip1.TabIndex = 10;
             toolStrip1.Text = "toolStrip1";
             // 
-            // toolStripButton3
+            // toolStripButton2
             // 
-            toolStripButton3.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            toolStripButton3.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            toolStripButton3.ImageTransparentColor = Color.Magenta;
-            toolStripButton3.Name = "toolStripButton3";
-            toolStripButton3.Size = new Size(59, 25);
-            toolStripButton3.Text = "Pause";
-            toolStripButton3.Click += toolStripButton3_Click;
+            toolStripButton2.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            toolStripButton2.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            toolStripButton2.Image = (Image)resources.GetObject("toolStripButton2.Image");
+            toolStripButton2.ImageTransparentColor = Color.Magenta;
+            toolStripButton2.Name = "toolStripButton2";
+            toolStripButton2.Size = new Size(48, 25);
+            toolStripButton2.Text = "User";
+            toolStripButton2.Click += toolStripButton2_Click;
             // 
-            // toolStripSeparator2
+            // toolStripSeparator1
             // 
-            toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new Size(6, 28);
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new Size(6, 28);
             // 
             // toolStripButton4
             // 
@@ -215,6 +218,21 @@
             toolStripButton4.Size = new Size(128, 25);
             toolStripButton4.Text = "Start recording";
             toolStripButton4.Click += toolStripButton4_Click;
+            // 
+            // toolStripSeparator2
+            // 
+            toolStripSeparator2.Name = "toolStripSeparator2";
+            toolStripSeparator2.Size = new Size(6, 28);
+            // 
+            // toolStripButton3
+            // 
+            toolStripButton3.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            toolStripButton3.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            toolStripButton3.ImageTransparentColor = Color.Magenta;
+            toolStripButton3.Name = "toolStripButton3";
+            toolStripButton3.Size = new Size(59, 25);
+            toolStripButton3.Text = "Pause";
+            toolStripButton3.Click += toolStripButton3_Click;
             // 
             // toolStripSeparator3
             // 
@@ -288,6 +306,8 @@
         private ToolStripSeparator toolStripSeparator2;
         private ToolStripButton toolStripButton4;
         private ToolStripSeparator toolStripSeparator3;
+        private ToolStripButton toolStripButton2;
+        private ToolStripSeparator toolStripSeparator1;
     }
 }
 

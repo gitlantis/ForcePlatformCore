@@ -24,6 +24,7 @@ namespace ForcePlatformCore
         int oldCurrentTimeMC = 0;
         ComPort comPort;
         Form[] childForms = new Form[4];
+
         HashSet<int> openPlates = new HashSet<int>();
         HashSet<int> allPlates = new HashSet<int> { 0, 1, 2, 3 };
 
@@ -234,11 +235,13 @@ namespace ForcePlatformCore
                     });
                     i++;
                 }
+
                 var currentAdcHex = "";
                 foreach (var ch in AdcData.CurrentAdc)
                 {
                     currentAdcHex += ch.ToString("X");
                 }
+
                 currentAdcHex += AdcData.CurrentTimeMC.ToString("X");
                 if (startRecording)
                 {
@@ -306,42 +309,14 @@ namespace ForcePlatformCore
                 if (childForm is Form1)
                 {
                     Form1 activeChild = (Form1)childForm;
-                    activeChild.Clear();
+                    activeChild.ClearLoggers();
                 }
             }
         }
 
         private void toolStripButton2_Click(object sender, EventArgs e)
         {
-            var paths = "";
-            try
-            {
-                //foreach (Form childForm in MdiChildren)
-                //{
-                //    if (childForm is Form1)
-                //    {
-                //        Form1 activeChild = (Form1)childForm;
-                //        paths += activeChild.Save() + "\r\n";
-                //    }
-                //}
 
-                string message = $"all data saved in: \r\n{paths}files";
-                string caption = "Message";
-                MessageBoxButtons buttons = MessageBoxButtons.OK;
-                DialogResult result;
-
-                result = MessageBox.Show(message, caption, buttons);
-
-            }
-            catch (Exception err)
-            {
-                string message = err.Message;
-                string caption = "Error";
-                MessageBoxButtons buttons = MessageBoxButtons.OK;
-                DialogResult result;
-
-                result = MessageBox.Show(message, caption, buttons);
-            }
         }
 
         private void toolStripButton3_Click(object sender, EventArgs e)
@@ -365,8 +340,28 @@ namespace ForcePlatformCore
             toolStripButton4.Text = startRecording ? "Stop recording" : "Start recording";
             if (!startRecording)
             {
-                CsvProcessor.Save(csvData, "");
-                csvData.Clear();
+                try
+                {
+                    var path = CsvProcessor.Save(0, csvData, "", openPlates.ToList());
+                    csvData.Clear();
+
+                    string message = $"all data saved in: \r\n{path}file";
+                    string caption = "Message";
+                    MessageBoxButtons buttons = MessageBoxButtons.OK;
+                    DialogResult result;
+
+                    result = MessageBox.Show(message, caption, buttons);
+                }
+                catch (Exception err)
+                {
+                    string message = err.Message;
+                    string caption = "Error";
+                    MessageBoxButtons buttons = MessageBoxButtons.OK;
+                    DialogResult result;
+
+                    result = MessageBox.Show(message, caption, buttons);
+                }
+
             }
         }
     }

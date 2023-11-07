@@ -7,11 +7,11 @@ namespace ForcePlatformCore.Helpers
     {
         private static string path = "Data";
 
-        public static void Save(Queue<CSVModel> data, string param)
+        public static string Save(int userId, Queue<CSVModel> data, string param, List<int> openPlates)
         {
             try
             {
-                string csvFilePath = $"platform_data_{DateTimeOffset.Now.ToUnixTimeSeconds()}.csv";
+                string csvFilePath = $"platform_data_{userId}_{DateTimeOffset.Now.ToUnixTimeSeconds()}.csv";
 
                 bool exists = Directory.Exists(path);
 
@@ -24,7 +24,8 @@ namespace ForcePlatformCore.Helpers
                     var headline = "Time,";
                     foreach( var item in line.PlateData)
                     {
-                        headline += $"p{item.Plate}X,p{item.Plate}Y,p{item.Plate}Z,";
+                        if(openPlates.Contains(item.Plate))
+                            headline += $"p{item.Plate+1}X,p{item.Plate+1}Y,p{item.Plate+1}Z,";
                     }
                     headline += "ADC" ;
                     writer.WriteLine(headline);
@@ -35,17 +36,20 @@ namespace ForcePlatformCore.Helpers
                         var raw = $"{line.Time},";//.ToString(@"hh\:mm\:ss\.ffff")},";
                         foreach (var item in line.PlateData)
                         {
-                            raw += $"{item.DiffX},{item.DiffY},{item.DiffZ},";
+                            if (openPlates.Contains(item.Plate))
+                                raw += $"{item.DiffX},{item.DiffY},{item.DiffZ},";
                         }
                         raw += $"{line.CurrentADC}";
                         writer.WriteLine(raw);
                     }
                 }
+                return csvFilePath;
             }
             catch (Exception)
             {
                 throw;
             }
+            return "";
 
         }
 

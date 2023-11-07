@@ -23,6 +23,9 @@ using System.Collections;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 using System.IO;
 using System.Reflection;
+using ScottPlot.Plottable;
+using ScottPlot.Renderable;
+using System.Windows.Forms;
 
 namespace ForcePlatformCore
 {
@@ -33,14 +36,17 @@ namespace ForcePlatformCore
         private AppsettingsModel? config;
         readonly int _plateNumber = 0;
 
-        readonly ScottPlot.Plottable.DataLogger LoggerDiffX;
-        readonly ScottPlot.Plottable.DataLogger LoggerDiffY;
-        readonly ScottPlot.Plottable.DataLogger LoggerDiffZ;
+        readonly DataLogger LoggerDiffX;
+        readonly DataLogger LoggerDiffY;
+        readonly DataLogger LoggerDiffZ;
 
         private bool isStopped = false;
         private List<CSVModel> csvData = new List<CSVModel>();
         private int stopTime = 0;
         private double coeffcent = 0;
+
+        public List<int> Axis = new List<int> { 0, 1, 2 };
+
         public Form1(int plateNumber, AppsettingsModel? config)
         {
             InitializeComponent();
@@ -90,34 +96,22 @@ namespace ForcePlatformCore
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            LoggerDiffX.IsVisible = checkBox1.Checked;
+            AddRemoveAxis(LoggerDiffX, checkBox1, 0);
         }
 
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
-            LoggerDiffY.IsVisible = checkBox2.Checked;
+            AddRemoveAxis(LoggerDiffY, checkBox2, 1);
         }
 
         private void checkBox3_CheckedChanged(object sender, EventArgs e)
         {
-            LoggerDiffZ.IsVisible = checkBox3.Checked;
+            AddRemoveAxis(LoggerDiffZ, checkBox3, 2);
         }
         private void checkBox4_CheckedChanged(object sender, EventArgs e)
         {
             formsPlot1.Plot.Legend(checkBox4.Checked);
             formsPlot1.Refresh();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            //csvData = new List<CSVModel>();
-            //ClearLoggers();
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            //pausePlot = !pausePlot;
-            //button2.Text = pausePlot ? "Continue" : "Pause";
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -128,30 +122,6 @@ namespace ForcePlatformCore
             else coeffcent = config.FreeFallAcc / config.CalibrateZ;
         }
 
-        private void button3_Click(object sender, EventArgs e)
-        {
-            //try
-            //{
-            //    var path = Save();
-
-            //    string message = $"data saved in: {path} file";
-            //    string caption = "Message";
-            //    MessageBoxButtons buttons = MessageBoxButtons.OK;
-            //    DialogResult result;
-
-            //    result = MessageBox.Show(message, caption, buttons);
-
-            //}
-            //catch (Exception err)
-            //{
-            //    string message = err.Message;
-            //    string caption = "Error";
-            //    MessageBoxButtons buttons = MessageBoxButtons.OK;
-            //    DialogResult result;
-
-            //    result = MessageBox.Show(message, caption, buttons);
-            //}
-        }
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (stopTime >= 50)
@@ -176,14 +146,6 @@ namespace ForcePlatformCore
                     LoggerDiffX.Add(x, point.DiffX);
                     LoggerDiffY.Add(x, point.DiffY);
                     LoggerDiffZ.Add(x, point.DiffZ);
-
-                    //csvData.Add(new CSVModel
-                    //{
-                    //    Time = point.Time,
-                    //    DiffX = point.DiffX,
-                    //    DiffY = point.DiffY,
-                    //    DiffZ = point.DiffZ
-                    //});
                 }
 
                 AdcBuffer.BufferItems.RemoveAll(item => points.Contains(item));
@@ -191,42 +153,30 @@ namespace ForcePlatformCore
             }
         }
 
-        public void Clear()
-        {
-            //csvData = new List<CSVModel>();
-            ClearLoggers();
-            formsPlot1.Refresh();
-        }
-
         public void Pause(bool isPaused)
         {
             pausePlot = isPaused;
-            //button2.Text = isPaused ? "Continue" : "Pause";
         }
-
-        //public string Save()
-        //{
-        //    var result = CsvProcessor.Save(_plateNumber + 1, csvData, comboBox1.Text);
-        //    //csvData = new List<CSVModel>();
-        //    ClearLoggers();
-        //    return result;
-        //}
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             AdcBuffer.BufferItems.RemoveAll(item => item.Plate == _plateNumber);
         }
 
-        private void ClearLoggers()
+        public void ClearLoggers()
         {
             LoggerDiffX.Clear();
             LoggerDiffY.Clear();
             LoggerDiffZ.Clear();
+            formsPlot1.Refresh();
         }
 
-        private void button1_Click_1(object sender, EventArgs e)
+        private void AddRemoveAxis(DataLogger dataLogger, CheckBox checkBox, int index)
         {
-            Clear();
+            dataLogger.IsVisible = checkBox.Checked;
+            if (checkBox.Checked) Axis.Add(index);
+            else Axis.RemoveAll(item => item == index);
+            formsPlot1.Refresh();
         }
     }
 }
