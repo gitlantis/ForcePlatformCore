@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ForcePlatformUser
+namespace ForcePlatformData
 {
-    public partial class AddUpdateUser : Form
+    public partial class UserInfo : Form
     {
-        public AddUpdateUser()
+        public UserInfo()
         {
             InitializeComponent();
         }

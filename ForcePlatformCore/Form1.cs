@@ -1,31 +1,8 @@
-﻿using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Configuration;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using WindowsFormsApp1;
+﻿using System.Data;
 using WindowsFormsApp1.Models;
-using static System.Windows.Forms.Design.AxImporter;
-using ScottPlot;
-using ScottPlot.Drawing.Colormaps;
-using Timer = System.Windows.Forms.Timer;
-using System.Diagnostics.Metrics;
-using System.Xml.Linq;
 using ForcePlatformCore.Models;
-using ForcePlatformCore.Helpers;
-using System.Collections;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
-using System.IO;
-using System.Reflection;
 using ScottPlot.Plottable;
-using ScottPlot.Renderable;
-using System.Windows.Forms;
+using WindowsFormsApp1;
 
 namespace ForcePlatformCore
 {
@@ -47,7 +24,7 @@ namespace ForcePlatformCore
 
         public List<int> Axis = new List<int> { 0, 1, 2 };
 
-        public Form1(int plateNumber, AppsettingsModel? config)
+        public Form1(int plateNumber)
         {
             InitializeComponent();
 
@@ -80,7 +57,7 @@ namespace ForcePlatformCore
 
             formsPlot1.Refresh();
 
-            this.config = config;
+            this.config = Program.Config;
             comboBox1.SelectedIndex = 1;
         }
 

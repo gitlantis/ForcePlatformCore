@@ -188,7 +188,7 @@
             toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripButton2, toolStripSeparator1, toolStripButton4, toolStripSeparator2, toolStripButton3, toolStripSeparator3, toolStripButton1 });
             toolStrip1.Location = new Point(0, 24);
             toolStrip1.Name = "toolStrip1";
-            toolStrip1.Size = new Size(1798, 43);
+            toolStrip1.Size = new Size(1798, 33);
             toolStrip1.TabIndex = 10;
             toolStrip1.Text = "toolStrip1";
             // 
@@ -206,23 +206,24 @@
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(6, 43);
+            toolStripSeparator1.Size = new Size(6, 33);
             // 
             // toolStripButton4
             // 
+            toolStripButton4.AutoSize = false;
             toolStripButton4.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
             toolStripButton4.ForeColor = SystemColors.ControlText;
             toolStripButton4.Image = (Image)resources.GetObject("toolStripButton4.Image");
             toolStripButton4.ImageTransparentColor = Color.Magenta;
             toolStripButton4.Name = "toolStripButton4";
-            toolStripButton4.Size = new Size(144, 40);
+            toolStripButton4.Size = new Size(144, 30);
             toolStripButton4.Text = "Start recording";
             toolStripButton4.Click += toolStripButton4_Click;
             // 
             // toolStripSeparator2
             // 
             toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new Size(6, 43);
+            toolStripSeparator2.Size = new Size(6, 33);
             // 
             // toolStripButton3
             // 
@@ -231,14 +232,14 @@
             toolStripButton3.Image = (Image)resources.GetObject("toolStripButton3.Image");
             toolStripButton3.ImageTransparentColor = Color.Magenta;
             toolStripButton3.Name = "toolStripButton3";
-            toolStripButton3.Size = new Size(75, 40);
+            toolStripButton3.Size = new Size(100, 30);
             toolStripButton3.Text = "Pause";
             toolStripButton3.Click += toolStripButton3_Click;
             // 
             // toolStripSeparator3
             // 
             toolStripSeparator3.Name = "toolStripSeparator3";
-            toolStripSeparator3.Size = new Size(6, 43);
+            toolStripSeparator3.Size = new Size(6, 33);
             // 
             // toolStripButton1
             // 
@@ -248,7 +249,7 @@
             toolStripButton1.Image = (Image)resources.GetObject("toolStripButton1.Image");
             toolStripButton1.ImageTransparentColor = Color.Magenta;
             toolStripButton1.Name = "toolStripButton1";
-            toolStripButton1.Size = new Size(71, 40);
+            toolStripButton1.Size = new Size(71, 30);
             toolStripButton1.Text = "Reset";
             toolStripButton1.Click += toolStripButton1_Click;
             // 

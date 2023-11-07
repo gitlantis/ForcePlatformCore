@@ -1,4 +1,4 @@
-namespace ForcePlatformUser
+namespace ForcePlatformData
 {
     public partial class Form1 : Form
     {

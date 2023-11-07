@@ -1,4 +1,4 @@
-namespace ForcePlatformUser
+namespace ForcePlatformData
 {
     internal static class Program
     {

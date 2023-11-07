@@ -1,11 +1,12 @@
 ﻿using ForcePlatformCore.Models;
 using System.Reflection;
+using WindowsFormsApp1;
 
 namespace ForcePlatformCore.Helpers
 {
     public static class CsvProcessor
     {
-        private static string path = "Data";
+        private static string path = Program.Config.ReportPath;
 
         public static string Save(int userId, Queue<CSVModel> data, string param, List<int> openPlates)
         {
@@ -49,7 +50,6 @@ namespace ForcePlatformCore.Helpers
             {
                 throw;
             }
-            return "";
 
         }
 

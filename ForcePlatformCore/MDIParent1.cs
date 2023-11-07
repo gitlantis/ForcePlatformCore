@@ -1,34 +1,28 @@
 ﻿using ForcePlatformCore.Helpers;
 using ForcePlatformCore.Helpers.ComPort;
 using ForcePlatformCore.Models;
-using Microsoft.Extensions.Configuration;
-using ScottPlot.Drawing.Colormaps;
-using System.IO.Ports;
-using System.Runtime.InteropServices;
-using System.Runtime.Intrinsics.X86;
-using WindowsFormsApp1.Models;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
+using ForcePlatformCore.Service;
+using ForcePlatformData;
+using Microsoft.EntityFrameworkCore;
+using WindowsFormsApp1;
 
 namespace ForcePlatformCore
 {
     public partial class MDIParent1 : Form
     {
-        private AppsettingsModel? config = new AppsettingsModel();
+
         private int childFormNumber = 0;
         private bool pauseAll = false;
         private Queue<CSVModel> csvData = new Queue<CSVModel>();
-        public IConfiguration Configuration { get; set; }
-
         private bool startRecording = false;
-        int glCnt = 0;
-        int oldCurrentTimeMC = 0;
-        ComPort comPort;
-        Form[] childForms = new Form[4];
-
-        HashSet<int> openPlates = new HashSet<int>();
-        HashSet<int> allPlates = new HashSet<int> { 0, 1, 2, 3 };
-
-        DateTime scanStarted = DateTime.Now;
+        private int glCnt = 0;
+        private int oldCurrentTimeMC = 0;
+        private ComPort comPort;
+        private Form[] childForms = new Form[4];
+        private HashSet<int> openPlates = new HashSet<int>();
+        private HashSet<int> allPlates = new HashSet<int> { 0, 1, 2, 3 };
+        private DateTime scanStarted = DateTime.Now;
+        private ReportService reportService = new ReportService();
 
         public MDIParent1()
         {
@@ -103,10 +97,13 @@ namespace ForcePlatformCore
             AdcData.DiffZ = new int[4];
             AdcData.CurrentTimeMC = 0;
 
-            config = Configuration.Get<AppsettingsModel>();
-            comPort = new ComPort(config.AutoSelectCom, config.ComPort, config.FilterLength);
+            comPort = new ComPort(Program.Config.AutoSelectCom, Program.Config.ComPort, Program.Config.FilterLength);
             timer1.Enabled = comPort.connected;
-            AdcData.Init(config.FilterLength);
+            AdcData.Init(Program.Config.FilterLength);
+
+            Program.dbContext.Database.EnsureCreated();
+            Program.dbContext.Users.Load();
+
             resetAll();
         }
         private void plate1ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -136,7 +133,7 @@ namespace ForcePlatformCore
         }
         private void showForm(int i)
         {
-            childForms[i] = new Form1(i, config);
+            childForms[i] = new Form1(i);
             childForms[i].MdiParent = this;
             childForms[i].Show();
             openPlates.Add(i);
@@ -266,6 +263,9 @@ namespace ForcePlatformCore
         private void MDIParent1_FormClosing(object sender, FormClosingEventArgs e)
         {
             comPort.Disconnect();
+
+            Program.dbContext?.Dispose();
+            Program.dbContext = null;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -316,14 +316,24 @@ namespace ForcePlatformCore
 
         private void toolStripButton2_Click(object sender, EventArgs e)
         {
-
+            var user = new UserSelect();
+            user.ShowDialog();
         }
 
         private void toolStripButton3_Click(object sender, EventArgs e)
         {
             pauseAll = !pauseAll;
             //timer1.Enabled = !pauseAll;
-            toolStripButton3.Text = pauseAll ? "Continue" : "Pause";
+            if (pauseAll)
+            {
+                toolStripButton3.Text = "Continue";
+                toolStripButton3.Image = Image.FromFile("assets/play-circle-o.png");
+            }
+            else
+            {
+                toolStripButton3.Text = "Pause";
+                toolStripButton3.Image = Image.FromFile("assets/pause-circle-o.png");
+            }
             foreach (Form childForm in MdiChildren)
             {
                 if (childForm is Form1)
@@ -336,33 +346,47 @@ namespace ForcePlatformCore
 
         private void toolStripButton4_Click(object sender, EventArgs e)
         {
+            if (Program.User == null)
+            {
+                Program.Message("Warning", $"Please select a user");
+                return;
+            }
+
+            if (openPlates.Count < 1)
+            {
+                Program.Message("Warning", "No plates opened to scan");
+                return;
+            }
+
             startRecording = !startRecording;
-            toolStripButton4.Text = startRecording ? "Stop recording" : "Start recording";
+            if (startRecording)
+            {
+                toolStripButton4.Text = "Stop recording";
+                toolStripButton4.Image = Image.FromFile("assets/pause-circle-o.png");
+            }
+            else
+            {
+                toolStripButton4.Text = "Start recording";
+                toolStripButton4.Image = Image.FromFile("assets/play-circle-o.png");
+            }
+
             if (!startRecording)
             {
                 try
                 {
-                    var path = CsvProcessor.Save(0, csvData, "", openPlates.ToList());
+                    var path = CsvProcessor.Save(Program.User.Id, csvData, "", openPlates.ToList());
+                    reportService.AddReport(Program.User.Id, path);
                     csvData.Clear();
 
-                    string message = $"all data saved in: \r\n{path}file";
-                    string caption = "Message";
-                    MessageBoxButtons buttons = MessageBoxButtons.OK;
-                    DialogResult result;
+                    Program.Message("Success", $"data saved to: \r\n{path} file");
 
-                    result = MessageBox.Show(message, caption, buttons);
                 }
                 catch (Exception err)
                 {
-                    string message = err.Message;
-                    string caption = "Error";
-                    MessageBoxButtons buttons = MessageBoxButtons.OK;
-                    DialogResult result;
-
-                    result = MessageBox.Show(message, caption, buttons);
+                    Program.Message("Error", err.Message);
                 }
-
             }
         }
+
     }
 }

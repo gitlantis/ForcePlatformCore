@@ -1,4 +1,5 @@
 ﻿using System.IO.Ports;
+using WindowsFormsApp1;
 
 namespace ForcePlatformCore.Helpers.ComPort
 {
@@ -52,12 +53,8 @@ namespace ForcePlatformCore.Helpers.ComPort
 
             if (!connected)
             {
-                string message = "Device did not found, check connections and try to rerun application set to manual configuration";
-                string caption = "Error detected during device search";
-                MessageBoxButtons buttons = MessageBoxButtons.OK;
-                DialogResult result;
+                var result = Program.Message("Error", "Device did not found, check connections and try to rerun application set to manual configuration");
 
-                result = MessageBox.Show(message, caption, buttons);
                 if (result == DialogResult.OK)
                 {
                     Environment.Exit(0);

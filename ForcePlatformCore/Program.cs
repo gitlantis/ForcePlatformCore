@@ -1,4 +1,5 @@
 ﻿using ForcePlatformCore;
+using ForcePlatformCore.DbModels;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -12,8 +13,11 @@ namespace WindowsFormsApp1
 {
     internal static class Program
     {
-        public static IConfiguration Configuration { get; private set; }
-
+        private static IConfiguration Configuration { get; set; }
+        public static AppsettingsModel Config { get; set; }
+        public static SqliteContext? dbContext = new SqliteContext();
+        public static User User {get;set;}
+        public static MDIParent1 mdiParent;
         /// <summary>
         /// Главная точка входа для приложения.
         /// </summary>
@@ -22,14 +26,23 @@ namespace WindowsFormsApp1
         {
             var builder = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
             Configuration = builder.Build();
-
+        
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
-            var mdiParent = new MDIParent1();
-            mdiParent.Configuration = Configuration;
+            Config = Configuration.Get<AppsettingsModel>();
+            
+            mdiParent = new MDIParent1();
 
             Application.Run(mdiParent);
+        }
+
+        public static DialogResult Message(string caption, string message)
+        {
+            MessageBoxButtons buttons = MessageBoxButtons.OK;
+            DialogResult result;
+
+            result = MessageBox.Show(message, caption, buttons);
+            return result;
         }
     }
 }
