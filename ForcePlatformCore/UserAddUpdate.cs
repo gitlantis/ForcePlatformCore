@@ -1,4 +1,5 @@
-﻿using ForcePlatformCore.DbModels;
+﻿using ForcePlatformCore;
+using ForcePlatformCore.DbModels;
 using ForcePlatformCore.Service;
 using System.Windows.Forms;
 using WindowsFormsApp1;
@@ -9,10 +10,13 @@ namespace ForcePlatformData
     {
         private UserService userService = new UserService();
         private User user = new User();
-        public UserAddUpdate(string text)
+        private UserSelect userSelectReference;
+
+        public UserAddUpdate(UserSelect userSelect, string text)
         {
             InitializeComponent();
             this.Text = text;
+            userSelectReference = userSelect;
         }
 
         private void UserAddUpdate_Load(object sender, EventArgs e)
@@ -23,6 +27,7 @@ namespace ForcePlatformData
                 textBox1.Text = Program.User.Name;
                 textBox2.Text = Program.User.Surname;
                 textBox3.Text = Program.User.MiddleName;
+                dateTimePicker1.Value = Program.User.BirthDate;
 
                 user.UserParams = userService.TakeUserParams(Program.User.Id);
                 textBox4.Text = user.UserParams.BodyHeight.ToString();
@@ -85,7 +90,7 @@ namespace ForcePlatformData
                     userService.EditUser(user);
                     Program.Message("Success", $"{user.FullName} updated successfully");
                 }
-
+                userSelectReference.UpdateUsers("");
             }
             catch (Exception ex)
             {

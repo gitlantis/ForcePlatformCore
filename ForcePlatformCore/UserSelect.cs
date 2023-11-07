@@ -26,19 +26,12 @@ namespace ForcePlatformData
 
         private void UserSelect_Load(object sender, EventArgs e)
         {
-            try
-            {
-                users = userService.TakeSome(30);
-                listBox1.DataSource = users;
-                listBox1.DisplayMember = "FullName";
-                listBox1.ValueMember = "Id";
-            }
-            catch { }
+            UpdateUsers("");
         }
 
         private void iconButton3_Click(object sender, EventArgs e)
         {
-            var addUserForm = new UserAddUpdate("Add");
+            var addUserForm = new UserAddUpdate(this, "Add");
             addUserForm.ShowDialog();
         }
 
@@ -46,7 +39,7 @@ namespace ForcePlatformData
         {
             if (selectUser())
             {
-                var addUserForm = new UserAddUpdate("Edit");
+                var addUserForm = new UserAddUpdate(this, "Edit");
                 addUserForm.ShowDialog();
             }
         }
@@ -85,16 +78,7 @@ namespace ForcePlatformData
 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
-            try
-            {
-                listBox1.BeginUpdate();
-                users = userService.FindUser(textBox1.Text);
-                listBox1.DataSource = users;
-                listBox1.DisplayMember = "FullName";
-                listBox1.ValueMember = "Id";
-                listBox1.EndUpdate();
-            }
-            catch { }
+            UpdateUsers(textBox1.Text);
         }
 
         private void listBox1_DoubleClick(object sender, EventArgs e)
@@ -104,6 +88,31 @@ namespace ForcePlatformData
                 var userInfo = new UserInfo();
                 userInfo.ShowDialog();
             }
+        }
+
+        public void UpdateUsers(string keyword)
+        {
+            try
+            {
+                if (keyword.Length < 1)
+                {
+                    users = userService.TakeSome(30);
+                    listBox1.DataSource = users;
+                    listBox1.DisplayMember = "FullName";
+                    listBox1.ValueMember = "Id";
+                }
+                else
+                {
+                    listBox1.BeginUpdate();
+                    users = userService.FindUser(keyword);
+                    listBox1.DataSource = users;
+                    listBox1.DisplayMember = "FullName";
+                    listBox1.ValueMember = "Id";
+                    listBox1.EndUpdate();
+                }
+            }
+            catch { }
+
         }
     }
 }
