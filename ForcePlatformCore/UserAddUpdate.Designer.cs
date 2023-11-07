@@ -228,7 +228,7 @@
             groupBox2.Location = new Point(12, 213);
             groupBox2.Name = "groupBox2";
             groupBox2.Size = new Size(300, 137);
-            groupBox2.TabIndex = 0;
+            groupBox2.TabIndex = 2;
             groupBox2.TabStop = false;
             groupBox2.Text = "Left Foot";
             // 
@@ -320,7 +320,7 @@
             groupBox3.Location = new Point(330, 213);
             groupBox3.Name = "groupBox3";
             groupBox3.Size = new Size(300, 137);
-            groupBox3.TabIndex = 17;
+            groupBox3.TabIndex = 3;
             groupBox3.TabStop = false;
             groupBox3.Text = "Right Foot";
             // 
@@ -390,10 +390,10 @@
             iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton2.IconSize = 32;
             iconButton2.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButton2.Location = new Point(252, 383);
+            iconButton2.Location = new Point(274, 370);
             iconButton2.Name = "iconButton2";
             iconButton2.Size = new Size(89, 39);
-            iconButton2.TabIndex = 18;
+            iconButton2.TabIndex = 4;
             iconButton2.Text = "Save";
             iconButton2.TextAlign = ContentAlignment.MiddleRight;
             iconButton2.UseVisualStyleBackColor = true;
@@ -403,7 +403,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(644, 437);
+            ClientSize = new Size(644, 422);
             Controls.Add(iconButton2);
             Controls.Add(groupBox3);
             Controls.Add(label9);

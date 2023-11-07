@@ -53,7 +53,7 @@ namespace ForcePlatformCore.Service
             }
         }
 
-        public int AddUser(User user)
+        public User AddUser(User user)
         {
             try
             {
@@ -62,22 +62,23 @@ namespace ForcePlatformCore.Service
 
                 Program.dbContext.Add(user);
                 Program.dbContext!.SaveChanges();
-                return user.Id;
+                return user;
             }
             catch (Exception e) {
                 throw e;
             }
         }
 
-        public int EditUser(User user)
+        public User EditUser(User user)
         {
             try
             {
                 user.EditedDate = DateTime.Now;
+                Program.dbContext.ChangeTracker.Clear();             
+                Program.dbContext.Users.Update(user);
 
-                Program.dbContext.Update(user);
-                Program.dbContext!.SaveChanges();
-                return user.Id;
+                Program.dbContext.SaveChanges();
+                return user;
             }
             catch (Exception e)
             {

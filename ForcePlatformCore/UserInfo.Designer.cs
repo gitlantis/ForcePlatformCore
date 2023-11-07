@@ -39,9 +39,9 @@
             label12 = new Label();
             textBox7 = new TextBox();
             label11 = new Label();
-            textBox6 = new TextBox();
             label10 = new Label();
             groupBox2 = new GroupBox();
+            textBox6 = new TextBox();
             textBox5 = new TextBox();
             textBox4 = new TextBox();
             label6 = new Label();
@@ -73,6 +73,7 @@
             textBox9.ReadOnly = true;
             textBox9.Size = new Size(150, 29);
             textBox9.TabIndex = 19;
+            textBox9.WordWrap = false;
             // 
             // label13
             // 
@@ -92,6 +93,7 @@
             textBox10.ReadOnly = true;
             textBox10.Size = new Size(150, 29);
             textBox10.TabIndex = 17;
+            textBox10.WordWrap = false;
             // 
             // label14
             // 
@@ -111,6 +113,7 @@
             textBox11.ReadOnly = true;
             textBox11.Size = new Size(150, 29);
             textBox11.TabIndex = 15;
+            textBox11.WordWrap = false;
             // 
             // groupBox3
             // 
@@ -123,7 +126,7 @@
             groupBox3.Location = new Point(330, 178);
             groupBox3.Name = "groupBox3";
             groupBox3.Size = new Size(300, 137);
-            groupBox3.TabIndex = 23;
+            groupBox3.TabIndex = 3;
             groupBox3.TabStop = false;
             groupBox3.Text = "Right Foot";
             // 
@@ -145,6 +148,7 @@
             textBox8.ReadOnly = true;
             textBox8.Size = new Size(150, 29);
             textBox8.TabIndex = 19;
+            textBox8.WordWrap = false;
             // 
             // label12
             // 
@@ -164,6 +168,7 @@
             textBox7.ReadOnly = true;
             textBox7.Size = new Size(150, 29);
             textBox7.TabIndex = 17;
+            textBox7.WordWrap = false;
             // 
             // label11
             // 
@@ -174,15 +179,6 @@
             label11.Size = new Size(44, 21);
             label11.TabIndex = 16;
             label11.Text = "Shin";
-            // 
-            // textBox6
-            // 
-            textBox6.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            textBox6.Location = new Point(102, 22);
-            textBox6.Name = "textBox6";
-            textBox6.ReadOnly = true;
-            textBox6.Size = new Size(150, 29);
-            textBox6.TabIndex = 15;
             // 
             // label10
             // 
@@ -205,9 +201,19 @@
             groupBox2.Location = new Point(12, 178);
             groupBox2.Name = "groupBox2";
             groupBox2.Size = new Size(300, 137);
-            groupBox2.TabIndex = 19;
+            groupBox2.TabIndex = 2;
             groupBox2.TabStop = false;
             groupBox2.Text = "Left Foot";
+            // 
+            // textBox6
+            // 
+            textBox6.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            textBox6.Location = new Point(102, 22);
+            textBox6.Name = "textBox6";
+            textBox6.ReadOnly = true;
+            textBox6.Size = new Size(150, 29);
+            textBox6.TabIndex = 15;
+            textBox6.WordWrap = false;
             // 
             // textBox5
             // 
@@ -217,6 +223,7 @@
             textBox5.ReadOnly = true;
             textBox5.Size = new Size(101, 29);
             textBox5.TabIndex = 14;
+            textBox5.WordWrap = false;
             // 
             // textBox4
             // 
@@ -226,6 +233,7 @@
             textBox4.ReadOnly = true;
             textBox4.Size = new Size(101, 29);
             textBox4.TabIndex = 13;
+            textBox4.WordWrap = false;
             // 
             // label6
             // 
@@ -275,6 +283,7 @@
             textBox3.ReadOnly = true;
             textBox3.Size = new Size(205, 29);
             textBox3.TabIndex = 5;
+            textBox3.WordWrap = false;
             // 
             // label2
             // 
@@ -294,6 +303,7 @@
             textBox2.ReadOnly = true;
             textBox2.Size = new Size(205, 29);
             textBox2.TabIndex = 3;
+            textBox2.WordWrap = false;
             // 
             // label1
             // 
@@ -313,6 +323,7 @@
             textBox1.ReadOnly = true;
             textBox1.Size = new Size(205, 29);
             textBox1.TabIndex = 1;
+            textBox1.WordWrap = false;
             // 
             // groupBox1
             // 
@@ -333,7 +344,7 @@
             groupBox1.Location = new Point(12, 12);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(618, 160);
-            groupBox1.TabIndex = 20;
+            groupBox1.TabIndex = 1;
             groupBox1.TabStop = false;
             groupBox1.Text = "User";
             // 
@@ -345,6 +356,7 @@
             textBox12.ReadOnly = true;
             textBox12.Size = new Size(205, 29);
             textBox12.TabIndex = 17;
+            textBox12.WordWrap = false;
             // 
             // label8
             // 
@@ -372,7 +384,7 @@
             groupBox4.Location = new Point(12, 321);
             groupBox4.Name = "groupBox4";
             groupBox4.Size = new Size(618, 310);
-            groupBox4.TabIndex = 24;
+            groupBox4.TabIndex = 0;
             groupBox4.TabStop = false;
             groupBox4.Text = "Reports";
             // 
@@ -384,7 +396,7 @@
             listBox1.Location = new Point(6, 22);
             listBox1.Name = "listBox1";
             listBox1.Size = new Size(606, 274);
-            listBox1.TabIndex = 26;
+            listBox1.TabIndex = 0;
             listBox1.DoubleClick += listBox1_DoubleClick;
             // 
             // UserInfo
@@ -424,7 +436,6 @@
         private Label label12;
         private TextBox textBox7;
         private Label label11;
-        private TextBox textBox6;
         private Label label10;
         private GroupBox groupBox2;
         private TextBox textBox5;
@@ -444,5 +455,6 @@
         private TextBox textBox12;
         private GroupBox groupBox4;
         private ListBox listBox1;
+        private TextBox textBox6;
     }
 }

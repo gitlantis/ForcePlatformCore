@@ -50,7 +50,7 @@ namespace ForcePlatformData
             iconButton3.Location = new Point(12, 483);
             iconButton3.Name = "iconButton3";
             iconButton3.Size = new Size(126, 39);
-            iconButton3.TabIndex = 5;
+            iconButton3.TabIndex = 2;
             iconButton3.Text = "New User";
             iconButton3.TextAlign = ContentAlignment.MiddleRight;
             iconButton3.UseVisualStyleBackColor = true;
@@ -68,7 +68,7 @@ namespace ForcePlatformData
             iconButton2.Location = new Point(333, 483);
             iconButton2.Name = "iconButton2";
             iconButton2.Size = new Size(89, 39);
-            iconButton2.TabIndex = 7;
+            iconButton2.TabIndex = 5;
             iconButton2.Text = "Select";
             iconButton2.TextAlign = ContentAlignment.MiddleRight;
             iconButton2.UseVisualStyleBackColor = true;
@@ -86,7 +86,7 @@ namespace ForcePlatformData
             iconButton1.Location = new Point(144, 483);
             iconButton1.Name = "iconButton1";
             iconButton1.Size = new Size(79, 39);
-            iconButton1.TabIndex = 4;
+            iconButton1.TabIndex = 3;
             iconButton1.Text = "Edit";
             iconButton1.TextAlign = ContentAlignment.MiddleRight;
             iconButton1.UseVisualStyleBackColor = true;
@@ -104,7 +104,7 @@ namespace ForcePlatformData
             iconButton4.Location = new Point(229, 483);
             iconButton4.Name = "iconButton4";
             iconButton4.Size = new Size(79, 39);
-            iconButton4.TabIndex = 8;
+            iconButton4.TabIndex = 4;
             iconButton4.Text = "Info";
             iconButton4.TextAlign = ContentAlignment.MiddleRight;
             iconButton4.UseVisualStyleBackColor = true;
@@ -115,7 +115,7 @@ namespace ForcePlatformData
             textBox1.Location = new Point(96, 12);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(322, 23);
-            textBox1.TabIndex = 9;
+            textBox1.TabIndex = 0;
             textBox1.KeyPress += textBox1_KeyPress;
             // 
             // label1
@@ -135,7 +135,7 @@ namespace ForcePlatformData
             listBox1.Location = new Point(12, 41);
             listBox1.Name = "listBox1";
             listBox1.Size = new Size(410, 439);
-            listBox1.TabIndex = 13;
+            listBox1.TabIndex = 1;
             listBox1.DoubleClick += listBox1_DoubleClick;
             // 
             // UserSelect

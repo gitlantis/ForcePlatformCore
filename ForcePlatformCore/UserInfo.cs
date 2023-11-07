@@ -35,9 +35,10 @@ namespace ForcePlatformData
             textBox9.Text = param.RightTigh.ToString() + " " + param.LengthUnit;
             textBox10.Text = param.RightShin.ToString() + " " + param.LengthUnit;
             textBox11.Text = param.RightSole.ToString() + " " + param.LengthUnit;
+            textBox12.Text = Program.User.BirthDate.ToString("MM/dd/yyyy");
 
             reports = reportService.GetReports(Program.User.Id);
-            
+
             listBox1.Items.Clear();
 
             listBox1.BeginUpdate();
@@ -63,7 +64,7 @@ namespace ForcePlatformData
                 else
                 {
                     Program.Message("Error", "The file does not exist: " + fullPath);
-                }                
+                }
             }
             catch (Exception ex)
             {

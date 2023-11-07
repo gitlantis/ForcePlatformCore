@@ -8,6 +8,7 @@ namespace ForcePlatformData
     public partial class UserAddUpdate : Form
     {
         private UserService userService = new UserService();
+        private User user = new User();
         public UserAddUpdate(string text)
         {
             InitializeComponent();
@@ -23,19 +24,19 @@ namespace ForcePlatformData
                 textBox2.Text = Program.User.Surname;
                 textBox3.Text = Program.User.MiddleName;
 
-                var param = userService.TakeUserParams(Program.User.Id);
-                textBox4.Text = param.BodyHeight.ToString();
-                textBox5.Text = param.BodyWeight.ToString();
+                user.UserParams = userService.TakeUserParams(Program.User.Id);
+                textBox4.Text = user.UserParams.BodyHeight.ToString();
+                textBox5.Text = user.UserParams.BodyWeight.ToString();
 
-                comboBox1.Text = param.LengthUnit;
+                comboBox1.Text = user.UserParams.LengthUnit;
 
-                textBox6.Text = param.LeftTigh.ToString();
-                textBox7.Text = param.LeftShin.ToString();
-                textBox8.Text = param.LeftSole.ToString();
+                textBox6.Text = user.UserParams.LeftTigh.ToString();
+                textBox7.Text = user.UserParams.LeftShin.ToString();
+                textBox8.Text = user.UserParams.LeftSole.ToString();
 
-                textBox9.Text = param.RightTigh.ToString();
-                textBox10.Text = param.RightShin.ToString();
-                textBox11.Text = param.RightSole.ToString();
+                textBox9.Text = user.UserParams.RightTigh.ToString();
+                textBox10.Text = user.UserParams.RightShin.ToString();
+                textBox11.Text = user.UserParams.RightSole.ToString();
             }
         }
 
@@ -55,27 +56,23 @@ namespace ForcePlatformData
         {
             try
             {
-                var user = new User();
                 user.Name = textBox1.Text;
                 user.Surname = textBox2.Text;
                 user.MiddleName = textBox3.Text;
                 user.BirthDate = dateTimePicker1.Value;
 
-                var userParams = new UserParams();
-                userParams.BodyHeight = Convert.ToDouble(textBox4.Text.DefaultIfEmpty());
-                userParams.BodyWeight = Convert.ToDouble(textBox5.Text.DefaultIfEmpty());
+                user.UserParams.BodyHeight = string.IsNullOrEmpty(textBox4.Text) ? null : Convert.ToDouble(textBox4.Text);
+                user.UserParams.BodyWeight = string.IsNullOrEmpty(textBox5.Text) ? null : Convert.ToDouble(textBox5.Text);
 
-                userParams.LengthUnit = comboBox1.Text;
+                user.UserParams.LengthUnit = comboBox1.Text;
 
-                userParams.LeftTigh = Convert.ToDouble(textBox6.Text.DefaultIfEmpty());
-                userParams.LeftShin = Convert.ToDouble(textBox7.Text.DefaultIfEmpty());
-                userParams.LeftSole = Convert.ToDouble(textBox8.Text.DefaultIfEmpty());
+                user.UserParams.LeftTigh = string.IsNullOrEmpty(textBox6.Text) ? null : Convert.ToDouble(textBox6.Text);
+                user.UserParams.LeftShin = string.IsNullOrEmpty(textBox7.Text) ? null : Convert.ToDouble(textBox7.Text);
+                user.UserParams.LeftSole = string.IsNullOrEmpty(textBox8.Text) ? null : Convert.ToDouble(textBox8.Text);
 
-                userParams.RightTigh = Convert.ToDouble(textBox9.Text.DefaultIfEmpty());
-                userParams.RightShin = Convert.ToDouble(textBox10.Text.DefaultIfEmpty());
-                userParams.RightSole = Convert.ToDouble(textBox11.Text.DefaultIfEmpty());
-
-                user.UserParams = userParams;
+                user.UserParams.RightTigh = string.IsNullOrEmpty(textBox9.Text) ? null : Convert.ToDouble(textBox9.Text);
+                user.UserParams.RightShin = string.IsNullOrEmpty(textBox10.Text) ? null : Convert.ToDouble(textBox10.Text);
+                user.UserParams.RightSole = string.IsNullOrEmpty(textBox11.Text) ? null : Convert.ToDouble(textBox11.Text);
 
                 if (this.Text.Equals("Add"))
                 {
@@ -86,8 +83,6 @@ namespace ForcePlatformData
                 {
                     user.Id = Program.User.Id;
                     userService.EditUser(user);
-
-                    var id = userService.AddUser(user);
                     Program.Message("Success", $"{user.FullName} updated successfully");
                 }
 
