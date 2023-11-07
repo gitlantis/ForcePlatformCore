@@ -188,65 +188,67 @@
             toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripButton2, toolStripSeparator1, toolStripButton4, toolStripSeparator2, toolStripButton3, toolStripSeparator3, toolStripButton1 });
             toolStrip1.Location = new Point(0, 24);
             toolStrip1.Name = "toolStrip1";
-            toolStrip1.Size = new Size(1798, 28);
+            toolStrip1.Size = new Size(1798, 43);
             toolStrip1.TabIndex = 10;
             toolStrip1.Text = "toolStrip1";
             // 
             // toolStripButton2
             // 
-            toolStripButton2.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            toolStripButton2.AutoSize = false;
             toolStripButton2.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
             toolStripButton2.Image = (Image)resources.GetObject("toolStripButton2.Image");
             toolStripButton2.ImageTransparentColor = Color.Magenta;
             toolStripButton2.Name = "toolStripButton2";
-            toolStripButton2.Size = new Size(48, 25);
+            toolStripButton2.Size = new Size(70, 30);
             toolStripButton2.Text = "User";
             toolStripButton2.Click += toolStripButton2_Click;
             // 
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(6, 28);
+            toolStripSeparator1.Size = new Size(6, 43);
             // 
             // toolStripButton4
             // 
-            toolStripButton4.DisplayStyle = ToolStripItemDisplayStyle.Text;
             toolStripButton4.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            toolStripButton4.ForeColor = SystemColors.ControlText;
             toolStripButton4.Image = (Image)resources.GetObject("toolStripButton4.Image");
             toolStripButton4.ImageTransparentColor = Color.Magenta;
             toolStripButton4.Name = "toolStripButton4";
-            toolStripButton4.Size = new Size(128, 25);
+            toolStripButton4.Size = new Size(144, 40);
             toolStripButton4.Text = "Start recording";
             toolStripButton4.Click += toolStripButton4_Click;
             // 
             // toolStripSeparator2
             // 
             toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new Size(6, 28);
+            toolStripSeparator2.Size = new Size(6, 43);
             // 
             // toolStripButton3
             // 
-            toolStripButton3.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            toolStripButton3.AutoSize = false;
             toolStripButton3.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            toolStripButton3.Image = (Image)resources.GetObject("toolStripButton3.Image");
             toolStripButton3.ImageTransparentColor = Color.Magenta;
             toolStripButton3.Name = "toolStripButton3";
-            toolStripButton3.Size = new Size(59, 25);
+            toolStripButton3.Size = new Size(75, 40);
             toolStripButton3.Text = "Pause";
             toolStripButton3.Click += toolStripButton3_Click;
             // 
             // toolStripSeparator3
             // 
             toolStripSeparator3.Name = "toolStripSeparator3";
-            toolStripSeparator3.Size = new Size(6, 28);
+            toolStripSeparator3.Size = new Size(6, 43);
             // 
             // toolStripButton1
             // 
-            toolStripButton1.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            toolStripButton1.AutoSize = false;
             toolStripButton1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            toolStripButton1.ForeColor = SystemColors.ControlText;
             toolStripButton1.Image = (Image)resources.GetObject("toolStripButton1.Image");
             toolStripButton1.ImageTransparentColor = Color.Magenta;
             toolStripButton1.Name = "toolStripButton1";
-            toolStripButton1.Size = new Size(55, 25);
+            toolStripButton1.Size = new Size(71, 40);
             toolStripButton1.Text = "Reset";
             toolStripButton1.Click += toolStripButton1_Click;
             // 
