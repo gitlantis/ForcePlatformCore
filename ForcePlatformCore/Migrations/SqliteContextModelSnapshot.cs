@@ -105,6 +105,7 @@ namespace ForcePlatformCore.Migrations
                         .HasColumnType("REAL");
 
                     b.Property<string>("LengthUnit")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<double?>("RightShin")

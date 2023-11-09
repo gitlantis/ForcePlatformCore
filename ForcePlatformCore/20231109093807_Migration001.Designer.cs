@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ForcePlatformCore.Migrations
 {
     [DbContext(typeof(SqliteContext))]
-    [Migration("20231109092046_GenderUpdate002")]
-    partial class GenderUpdate002
+    [Migration("20231109093807_Migration001")]
+    partial class Migration001
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -108,6 +108,7 @@ namespace ForcePlatformCore.Migrations
                         .HasColumnType("REAL");
 
                     b.Property<string>("LengthUnit")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<double?>("RightShin")
