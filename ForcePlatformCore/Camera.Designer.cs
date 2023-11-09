@@ -30,9 +30,9 @@
         {
             pictureBox1 = new PictureBox();
             comboDevices = new ComboBox();
-            iconButton1 = new FontAwesome.Sharp.IconButton();
-            iconButton2 = new FontAwesome.Sharp.IconButton();
-            iconButton3 = new FontAwesome.Sharp.IconButton();
+            checkBox1 = new CheckBox();
+            checkBox2 = new CheckBox();
+            checkBox3 = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -41,7 +41,7 @@
             pictureBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             pictureBox1.Location = new Point(0, 29);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(1445, 718);
+            pictureBox1.Size = new Size(723, 450);
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
@@ -55,68 +55,62 @@
             comboDevices.TabIndex = 1;
             comboDevices.SelectedIndexChanged += comboDevices_SelectedIndexChanged;
             // 
-            // iconButton1
+            // checkBox1
             // 
-            iconButton1.IconChar = FontAwesome.Sharp.IconChar.None;
-            iconButton1.IconColor = Color.Black;
-            iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton1.Location = new Point(559, 2);
-            iconButton1.Name = "iconButton1";
-            iconButton1.Size = new Size(75, 23);
-            iconButton1.TabIndex = 3;
-            iconButton1.Text = "Rotate";
-            iconButton1.UseVisualStyleBackColor = true;
-            iconButton1.Click += iconButton1_Click;
+            checkBox1.AutoSize = true;
+            checkBox1.Location = new Point(315, 4);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new Size(103, 19);
+            checkBox1.TabIndex = 4;
+            checkBox1.Text = "Flip Horizontal";
+            checkBox1.UseVisualStyleBackColor = true;
             // 
-            // iconButton2
+            // checkBox2
             // 
-            iconButton2.IconChar = FontAwesome.Sharp.IconChar.None;
-            iconButton2.IconColor = Color.Black;
-            iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton2.Location = new Point(285, 2);
-            iconButton2.Name = "iconButton2";
-            iconButton2.Size = new Size(117, 23);
-            iconButton2.TabIndex = 4;
-            iconButton2.Text = "Flip horizontal";
-            iconButton2.UseVisualStyleBackColor = true;
-            iconButton2.Click += iconButton2_Click;
+            checkBox2.AutoSize = true;
+            checkBox2.Location = new Point(428, 4);
+            checkBox2.Name = "checkBox2";
+            checkBox2.Size = new Size(86, 19);
+            checkBox2.TabIndex = 5;
+            checkBox2.Text = "Flip vertical";
+            checkBox2.UseVisualStyleBackColor = true;
             // 
-            // iconButton3
+            // checkBox3
             // 
-            iconButton3.IconChar = FontAwesome.Sharp.IconChar.None;
-            iconButton3.IconColor = Color.Black;
-            iconButton3.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton3.Location = new Point(408, 2);
-            iconButton3.Name = "iconButton3";
-            iconButton3.Size = new Size(118, 23);
-            iconButton3.TabIndex = 5;
-            iconButton3.Text = "Flip vertiacal";
-            iconButton3.UseVisualStyleBackColor = true;
-            iconButton3.Click += iconButton3_Click;
+            checkBox3.AutoSize = true;
+            checkBox3.Location = new Point(531, 4);
+            checkBox3.Name = "checkBox3";
+            checkBox3.Size = new Size(128, 19);
+            checkBox3.TabIndex = 6;
+            checkBox3.Text = "Rotate to 90 degree";
+            checkBox3.UseVisualStyleBackColor = true;
+            checkBox3.CheckedChanged += checkBox3_CheckedChanged;
             // 
             // Camera
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1447, 749);
-            Controls.Add(iconButton3);
-            Controls.Add(iconButton2);
-            Controls.Add(iconButton1);
+            ClientSize = new Size(723, 478);
+            Controls.Add(checkBox3);
+            Controls.Add(checkBox2);
+            Controls.Add(checkBox1);
             Controls.Add(comboDevices);
             Controls.Add(pictureBox1);
             Name = "Camera";
             Text = "Camera";
+            FormClosing += Camera_FormClosing;
             Load += Camera_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
         private PictureBox pictureBox1;
         private ComboBox comboDevices;
-        private FontAwesome.Sharp.IconButton iconButton1;
-        private FontAwesome.Sharp.IconButton iconButton2;
-        private FontAwesome.Sharp.IconButton iconButton3;
+        private CheckBox checkBox1;
+        private CheckBox checkBox2;
+        private CheckBox checkBox3;
     }
 }

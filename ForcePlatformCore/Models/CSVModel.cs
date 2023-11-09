@@ -8,9 +8,7 @@ namespace ForcePlatformCore.Models
 {
     public class CSVModel
     {
-        //public TimeSpan Time { get; set; }
-        public string Time { get; set; }
+        public TimeSpan Time { get; set; }
         public List<CSVItem> PlateData { get; set; }
-        public string CurrentADC { get; set; }
     }
 }

@@ -70,7 +70,7 @@ namespace ForcePlatformData
                 user.Surname = textBox2.Text;
                 user.MiddleName = textBox3.Text;
                 user.BirthDate = dateTimePicker1.Value;
-                double val=0;
+                double val = 0;
                 Double.TryParse(textBox4.Text, out val);
                 user.UserParams.BodyHeight = val;
                 Double.TryParse(textBox4.Text, out val);

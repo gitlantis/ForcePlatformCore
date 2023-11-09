@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             groupBox1 = new GroupBox();
+            comboBox2 = new ComboBox();
+            label16 = new Label();
             label8 = new Label();
             label7 = new Label();
             textBox5 = new TextBox();
@@ -60,8 +62,6 @@
             textBox11 = new TextBox();
             label15 = new Label();
             iconButton2 = new FontAwesome.Sharp.IconButton();
-            label16 = new Label();
-            comboBox2 = new ComboBox();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox3.SuspendLayout();
@@ -91,6 +91,27 @@
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "User";
+            // 
+            // comboBox2
+            // 
+            comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            comboBox2.FormattingEnabled = true;
+            comboBox2.Items.AddRange(new object[] { "M", "F" });
+            comboBox2.Location = new Point(446, 96);
+            comboBox2.Name = "comboBox2";
+            comboBox2.Size = new Size(101, 29);
+            comboBox2.TabIndex = 18;
+            // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label16.Location = new Point(359, 99);
+            label16.Name = "label16";
+            label16.Size = new Size(65, 21);
+            label16.TabIndex = 17;
+            label16.Text = "Gender";
             // 
             // label8
             // 
@@ -134,7 +155,7 @@
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label6.Location = new Point(359, 63);
+            label6.Location = new Point(359, 64);
             label6.Name = "label6";
             label6.Size = new Size(66, 21);
             label6.TabIndex = 12;
@@ -171,7 +192,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label3.Location = new Point(10, 88);
+            label3.Location = new Point(12, 90);
             label3.Name = "label3";
             label3.Size = new Size(111, 21);
             label3.TabIndex = 6;
@@ -189,7 +210,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label2.Location = new Point(10, 56);
+            label2.Location = new Point(12, 56);
             label2.Name = "label2";
             label2.Size = new Size(87, 21);
             label2.TabIndex = 4;
@@ -402,27 +423,6 @@
             iconButton2.TextAlign = ContentAlignment.MiddleRight;
             iconButton2.UseVisualStyleBackColor = true;
             iconButton2.Click += iconButton2_Click;
-            // 
-            // label16
-            // 
-            label16.AutoSize = true;
-            label16.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label16.Location = new Point(359, 99);
-            label16.Name = "label16";
-            label16.Size = new Size(65, 21);
-            label16.TabIndex = 17;
-            label16.Text = "Gender";
-            // 
-            // comboBox2
-            // 
-            comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBox2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            comboBox2.FormattingEnabled = true;
-            comboBox2.Items.AddRange(new object[] { "M", "F" });
-            comboBox2.Location = new Point(446, 96);
-            comboBox2.Name = "comboBox2";
-            comboBox2.Size = new Size(101, 29);
-            comboBox2.TabIndex = 18;
             // 
             // UserAddUpdate
             // 

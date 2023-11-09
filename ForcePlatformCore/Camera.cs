@@ -21,6 +21,8 @@ namespace ForcePlatformCore
         FilterInfoCollection filter;
         VideoCaptureDevice device;
         Bitmap bitmapper;
+        int width;
+        int height;
 
         public Camera()
         {
@@ -29,6 +31,8 @@ namespace ForcePlatformCore
 
         private void Camera_Load(object sender, EventArgs e)
         {
+            width = this.Width;
+            height = this.Height;
             filter = new FilterInfoCollection(FilterCategory.VideoInputDevice);
 
             foreach (FilterInfo device in filter)
@@ -37,37 +41,51 @@ namespace ForcePlatformCore
 
         private void comboDevices_SelectedIndexChanged(object sender, EventArgs e)
         {
-            try
-            {
-                device.Stop();
-                device.NewFrame -= Device_NewFrame;
-            }
-            catch { }
+            closeDevice();
 
             device = new VideoCaptureDevice(filter[comboDevices.SelectedIndex].MonikerString);
             device.NewFrame += Device_NewFrame;
             device.Start();
+
+            setFormSize(3000);
         }
 
         private void Device_NewFrame(object sender, NewFrameEventArgs eventArgs)
         {
             bitmapper = (Bitmap)eventArgs.Frame.Clone();
+
+            if (checkBox3.Checked) bitmapper.RotateFlip(RotateFlipType.Rotate90FlipX);
+            if (checkBox1.Checked) bitmapper.RotateFlip(RotateFlipType.RotateNoneFlipX);
+            if (checkBox2.Checked) bitmapper.RotateFlip(RotateFlipType.RotateNoneFlipY);
+
             pictureBox1.Image = bitmapper;
+            width = bitmapper.Width;
+            height = bitmapper.Height;
         }
 
-        private void iconButton1_Click(object sender, EventArgs e)
+        private void Camera_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //bitmapper.RotateFlip(RotateFlipType.Rotate90FlipY);
+            closeDevice();
+        }
+        private void closeDevice()
+        {
+            try
+            {
+                device.SignalToStop();
+                device.NewFrame -= Device_NewFrame;
+            }
+            catch { }
+        }
+        private void setFormSize(int sleep)
+        {
+            Thread.Sleep(sleep);
+            this.Width = width+16;
+            this.Height = height+68;
         }
 
-        private void iconButton2_Click(object sender, EventArgs e)
+        private void checkBox3_CheckedChanged(object sender, EventArgs e)
         {
-            //bitmapper.RotateFlip(RotateFlipType.RotateNoneFlipY);
-        }
-
-        private void iconButton3_Click(object sender, EventArgs e)
-        {
-            //bitmapper.RotateFlip(RotateFlipType.RotateNoneFlipX);
+            setFormSize(500);
         }
     }
 }

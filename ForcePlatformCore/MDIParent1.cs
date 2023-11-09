@@ -234,34 +234,12 @@ namespace ForcePlatformCore
                     }
                 }
 
-                //int i = 0;
-                //foreach (var item in AdcData.DiffX)
-                //{
-                //    plateData.Add(new CSVItem
-                //    {
-                //        Plate = i,
-                //        DiffX = AdcData.DiffX[i],
-                //        DiffY = AdcData.DiffY[i],
-                //        DiffZ = AdcData.DiffZ[i],
-                //    });
-                //    i++;
-                //}
-
-                var currentAdcHex = "";
-                foreach (var ch in AdcData.CurrentAdc)
-                {
-                    currentAdcHex += ch.ToString("X");
-                }
-
-                currentAdcHex += AdcData.CurrentTimeMC.ToString("X");
                 if (startRecording)
                 {
                     csvData.Enqueue(new CSVModel
                     {
-                        //Time = DateTime.Now.Subtract(scanStarted),
-                        Time = AdcData.CurrentTimeMC.ToString(),
+                        Time = DateTime.Now.Subtract(scanStarted),
                         PlateData = plateData,
-                        CurrentADC = currentAdcHex
                     });
                     var item = new AdcBufferItem();
                 }

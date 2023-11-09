@@ -26,21 +26,19 @@ namespace ForcePlatformCore.Helpers
                     foreach( var item in line.PlateData)
                     {
                         if(openPlates.Contains(item.Plate))
-                            headline += $"p{item.Plate+1}X,p{item.Plate+1}Y,p{item.Plate+1}Z,";
+                            headline += $"p{item.Plate+1}X,p{item.Plate+1}Y,p{item.Plate+1}Z";
                     }
-                    headline += "ADC" ;
                     writer.WriteLine(headline);
 
                     while (data.Count > 0)
                     {
                         line = data.Dequeue();
-                        var raw = $"{line.Time},";//.ToString(@"hh\:mm\:ss\.ffff")},";
+                        var raw = $"{line.Time.ToString(@"hh\:mm\:ss\.ffff")},";
                         foreach (var item in line.PlateData)
                         {
                             if (openPlates.Contains(item.Plate))
-                                raw += $"{item.DiffX},{item.DiffY},{item.DiffZ},";
+                                raw += $"{item.DiffX},{item.DiffY},{item.DiffZ}";
                         }
-                        raw += $"{line.CurrentADC}";
                         writer.WriteLine(raw);
                     }
                 }
