@@ -208,6 +208,7 @@ namespace ForcePlatformCore
             {
                 var data = comPort.onReceive();
                 AdcData.Set(data);
+                var plateData = new List<CSVItem>();
 
                 if (oldCurrentTimeMC != AdcData.CurrentTimeMC)
                 {
@@ -221,23 +222,30 @@ namespace ForcePlatformCore
                         item.DiffZ = AdcData.DiffZ[plate];
                         item.CurrentTimeMC = AdcData.CurrentTimeMC;
 
+                        plateData.Add(new CSVItem
+                        {
+                            Plate = plate,
+                            DiffX = AdcData.DiffX[plate],
+                            DiffY = AdcData.DiffY[plate],
+                            DiffZ = AdcData.DiffZ[plate],
+
+                        });
                         AdcBuffer.BufferItems.Add(item);
                     }
                 }
 
-                var plateData = new List<CSVItem>();
-                int i = 0;
-                foreach (var item in AdcData.DiffX)
-                {
-                    plateData.Add(new CSVItem
-                    {
-                        Plate = i,
-                        DiffX = AdcData.DiffX[i],
-                        DiffY = AdcData.DiffY[i],
-                        DiffZ = AdcData.DiffZ[i],
-                    });
-                    i++;
-                }
+                //int i = 0;
+                //foreach (var item in AdcData.DiffX)
+                //{
+                //    plateData.Add(new CSVItem
+                //    {
+                //        Plate = i,
+                //        DiffX = AdcData.DiffX[i],
+                //        DiffY = AdcData.DiffY[i],
+                //        DiffZ = AdcData.DiffZ[i],
+                //    });
+                //    i++;
+                //}
 
                 var currentAdcHex = "";
                 foreach (var ch in AdcData.CurrentAdc)

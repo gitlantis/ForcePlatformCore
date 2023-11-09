@@ -9,7 +9,7 @@ namespace ForcePlatformCore.Helpers.ComPort
         public bool connected = false;
         private string[] ss = new string[20];
         AdcSerialData adcData = new AdcSerialData();
-
+        
         public ComPort(bool autoDetect, string port, int filterLength)
         {
             adcData.Init(filterLength);
