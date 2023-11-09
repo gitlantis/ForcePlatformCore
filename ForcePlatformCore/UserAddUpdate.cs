@@ -17,11 +17,14 @@ namespace ForcePlatformData
             InitializeComponent();
             this.Text = text;
             userSelectReference = userSelect;
+            user.UserParams = new UserParams();
         }
 
         private void UserAddUpdate_Load(object sender, EventArgs e)
         {
             comboBox1.SelectedIndex = 0;
+            comboBox2.SelectedIndex = 0;
+
             if (this.Text.Equals("Edit"))
             {
                 textBox1.Text = Program.User.Name;
@@ -42,6 +45,8 @@ namespace ForcePlatformData
                 textBox9.Text = user.UserParams.RightTigh.ToString();
                 textBox10.Text = user.UserParams.RightShin.ToString();
                 textBox11.Text = user.UserParams.RightSole.ToString();
+                textBox11.Text = user.UserParams.RightSole.ToString();
+                comboBox2.Text = user.UserParams.Gender;
             }
         }
 
@@ -65,20 +70,28 @@ namespace ForcePlatformData
                 user.Surname = textBox2.Text;
                 user.MiddleName = textBox3.Text;
                 user.BirthDate = dateTimePicker1.Value;
-
-                user.UserParams.BodyHeight = string.IsNullOrEmpty(textBox4.Text) ? null : Convert.ToDouble(textBox4.Text);
-                user.UserParams.BodyWeight = string.IsNullOrEmpty(textBox5.Text) ? null : Convert.ToDouble(textBox5.Text);
+                double val=0;
+                Double.TryParse(textBox4.Text, out val);
+                user.UserParams.BodyHeight = val;
+                Double.TryParse(textBox4.Text, out val);
+                user.UserParams.BodyWeight = val;
 
                 user.UserParams.LengthUnit = comboBox1.Text;
 
-                user.UserParams.LeftTigh = string.IsNullOrEmpty(textBox6.Text) ? null : Convert.ToDouble(textBox6.Text);
-                user.UserParams.LeftShin = string.IsNullOrEmpty(textBox7.Text) ? null : Convert.ToDouble(textBox7.Text);
-                user.UserParams.LeftSole = string.IsNullOrEmpty(textBox8.Text) ? null : Convert.ToDouble(textBox8.Text);
+                Double.TryParse(textBox4.Text, out val);
+                user.UserParams.LeftTigh = val;
+                Double.TryParse(textBox4.Text, out val);
+                user.UserParams.LeftShin = val;
+                Double.TryParse(textBox4.Text, out val);
+                user.UserParams.LeftSole = val;
 
-                user.UserParams.RightTigh = string.IsNullOrEmpty(textBox9.Text) ? null : Convert.ToDouble(textBox9.Text);
-                user.UserParams.RightShin = string.IsNullOrEmpty(textBox10.Text) ? null : Convert.ToDouble(textBox10.Text);
-                user.UserParams.RightSole = string.IsNullOrEmpty(textBox11.Text) ? null : Convert.ToDouble(textBox11.Text);
-
+                Double.TryParse(textBox4.Text, out val);
+                user.UserParams.RightTigh = val;
+                Double.TryParse(textBox4.Text, out val);
+                user.UserParams.RightShin = val;
+                Double.TryParse(textBox4.Text, out val);
+                user.UserParams.RightSole = val;
+                user.UserParams.Gender = comboBox2.Text;
                 if (this.Text.Equals("Add"))
                 {
                     var id = userService.AddUser(user);

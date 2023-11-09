@@ -3,6 +3,7 @@ using System;
 using ForcePlatformCore.DbModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ForcePlatformCore.Migrations
 {
     [DbContext(typeof(SqliteContext))]
-    partial class SqliteContextModelSnapshot : ModelSnapshot
+    [Migration("20231109091203_GenderUpdate")]
+    partial class GenderUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.13");
@@ -93,6 +96,7 @@ namespace ForcePlatformCore.Migrations
                         .HasColumnType("REAL");
 
                     b.Property<string>("Gender")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<double?>("LeftShin")
@@ -105,6 +109,7 @@ namespace ForcePlatformCore.Migrations
                         .HasColumnType("REAL");
 
                     b.Property<string>("LengthUnit")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<double?>("RightShin")

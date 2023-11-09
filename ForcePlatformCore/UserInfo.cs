@@ -36,6 +36,7 @@ namespace ForcePlatformData
             textBox10.Text = param.RightShin.ToString() + " " + param.LengthUnit;
             textBox11.Text = param.RightSole.ToString() + " " + param.LengthUnit;
             textBox12.Text = Program.User.BirthDate.ToString("MM/dd/yyyy");
+            textBox12.Text = param.Gender;
 
             reports = reportService.GetReports(Program.User.Id);
 

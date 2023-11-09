@@ -60,6 +60,8 @@
             textBox11 = new TextBox();
             label15 = new Label();
             iconButton2 = new FontAwesome.Sharp.IconButton();
+            label16 = new Label();
+            comboBox2 = new ComboBox();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox3.SuspendLayout();
@@ -67,6 +69,8 @@
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(comboBox2);
+            groupBox1.Controls.Add(label16);
             groupBox1.Controls.Add(label8);
             groupBox1.Controls.Add(label7);
             groupBox1.Controls.Add(textBox5);
@@ -399,6 +403,27 @@
             iconButton2.UseVisualStyleBackColor = true;
             iconButton2.Click += iconButton2_Click;
             // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label16.Location = new Point(359, 99);
+            label16.Name = "label16";
+            label16.Size = new Size(65, 21);
+            label16.TabIndex = 17;
+            label16.Text = "Gender";
+            // 
+            // comboBox2
+            // 
+            comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            comboBox2.FormattingEnabled = true;
+            comboBox2.Items.AddRange(new object[] { "M", "F" });
+            comboBox2.Location = new Point(446, 96);
+            comboBox2.Name = "comboBox2";
+            comboBox2.Size = new Size(101, 29);
+            comboBox2.TabIndex = 18;
+            // 
             // UserAddUpdate
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -459,5 +484,7 @@
         private TextBox textBox11;
         private Label label15;
         private FontAwesome.Sharp.IconButton iconButton2;
+        private ComboBox comboBox2;
+        private Label label16;
     }
 }

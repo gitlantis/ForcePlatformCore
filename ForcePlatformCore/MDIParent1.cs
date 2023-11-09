@@ -23,6 +23,8 @@ namespace ForcePlatformCore
         private HashSet<int> allPlates = new HashSet<int> { 0, 1, 2, 3 };
         private DateTime scanStarted = DateTime.Now;
         private ReportService reportService = new ReportService();
+        private Camera camera;
+        int zeroTime;
 
         public MDIParent1()
         {
@@ -105,6 +107,10 @@ namespace ForcePlatformCore
             Program.dbContext.Users.Load();
 
             resetAll();
+
+            camera = new Camera();
+            camera.MdiParent = this;
+            camera.Show();
         }
         private void plate1ToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -357,7 +363,7 @@ namespace ForcePlatformCore
                 Program.Message("Warning", "No plates opened to scan");
                 return;
             }
-
+            zeroTime = AdcData.CurrentTimeMC;
             startRecording = !startRecording;
             if (startRecording)
             {
@@ -388,5 +394,18 @@ namespace ForcePlatformCore
             }
         }
 
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (camera.Text == "")
+            {
+                camera = new Camera();
+                camera.MdiParent = this;
+                camera.Show();
+            }
+            else
+            {
+                camera.Show();
+            }
+        }
     }
 }

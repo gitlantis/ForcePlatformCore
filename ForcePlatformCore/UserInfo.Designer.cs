@@ -59,6 +59,9 @@
             label7 = new Label();
             groupBox4 = new GroupBox();
             listBox1 = new ListBox();
+            iconButton2 = new FontAwesome.Sharp.IconButton();
+            textBox13 = new TextBox();
+            label9 = new Label();
             groupBox3.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox1.SuspendLayout();
@@ -327,6 +330,8 @@
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(textBox13);
+            groupBox1.Controls.Add(label9);
             groupBox1.Controls.Add(textBox12);
             groupBox1.Controls.Add(label8);
             groupBox1.Controls.Add(label7);
@@ -399,11 +404,49 @@
             listBox1.TabIndex = 0;
             listBox1.DoubleClick += listBox1_DoubleClick;
             // 
+            // iconButton2
+            // 
+            iconButton2.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            iconButton2.ForeColor = Color.FromArgb(0, 0, 192);
+            iconButton2.IconChar = FontAwesome.Sharp.IconChar.Print;
+            iconButton2.IconColor = Color.FromArgb(0, 0, 192);
+            iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton2.IconSize = 32;
+            iconButton2.ImageAlign = ContentAlignment.MiddleLeft;
+            iconButton2.Location = new Point(262, 637);
+            iconButton2.Name = "iconButton2";
+            iconButton2.Size = new Size(89, 39);
+            iconButton2.TabIndex = 6;
+            iconButton2.Text = "Print";
+            iconButton2.TextAlign = ContentAlignment.MiddleRight;
+            iconButton2.UseVisualStyleBackColor = true;
+            // 
+            // textBox13
+            // 
+            textBox13.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            textBox13.Location = new Point(446, 95);
+            textBox13.Name = "textBox13";
+            textBox13.ReadOnly = true;
+            textBox13.Size = new Size(101, 29);
+            textBox13.TabIndex = 19;
+            textBox13.WordWrap = false;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label9.Location = new Point(359, 98);
+            label9.Name = "label9";
+            label9.Size = new Size(65, 21);
+            label9.TabIndex = 18;
+            label9.Text = "Gender";
+            // 
             // UserInfo
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(641, 643);
+            ClientSize = new Size(641, 683);
+            Controls.Add(iconButton2);
             Controls.Add(groupBox4);
             Controls.Add(groupBox3);
             Controls.Add(groupBox2);
@@ -456,5 +499,8 @@
         private GroupBox groupBox4;
         private ListBox listBox1;
         private TextBox textBox6;
+        private FontAwesome.Sharp.IconButton iconButton2;
+        private TextBox textBox13;
+        private Label label9;
     }
 }
