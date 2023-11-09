@@ -18,7 +18,7 @@ namespace ForcePlatformCore.DbModels
         public double? RightSole { get; set; }
         public double? RightShin { get; set; }
         public double? RightTigh { get; set; }
-        public string? LengthUnit { get; set; }
+        public string LengthUnit { get; set; } = "sm";
         public double? BodyHeight { get; set; }
         public double? BodyWeight { get; set; }
         public virtual User User { get; set; }
