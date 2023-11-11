@@ -1,11 +1,10 @@
-﻿using ForcePlatformCore.Models;
-using ForcePlatformCore;
+﻿using ForcePlatformData.Models;
 
-namespace ForcePlatformCore.Helpers
+namespace ForcePlatformData.Helpers
 {
     public static class CsvProcessor
     {
-        private static string path = Program.Config.ReportsPath;
+        private static string path = AppConfig.Config.ReportsPath;
 
         public static string Save(int userId, Queue<CSVModel> data, string param, List<int> openPlates)
         {

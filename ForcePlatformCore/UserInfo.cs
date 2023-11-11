@@ -1,10 +1,9 @@
-﻿using ForcePlatformCore.DbModels;
-using ForcePlatformCore.Service;
-using System.Data;
+﻿using ForcePlatformData;
+using ForcePlatformData.DbModels;
+using ForcePlatformData.Service;
 using System.Diagnostics;
-using ForcePlatformCore;
 
-namespace ForcePlatformData
+namespace ForcePlatformCore
 {
     public partial class UserInfo : Form
     {
@@ -56,7 +55,7 @@ namespace ForcePlatformData
                 var selectedValue = listBox1.SelectedValue;
                 int selectedId = (int)selectedValue;
                 var filePath = reports.Where(c => c.Id == selectedId).FirstOrDefault().Path;
-                var fullPath = Path.Join(Environment.CurrentDirectory, Program.Config.ReportsPath, filePath);
+                var fullPath = Path.Join(Environment.CurrentDirectory, AppConfig.Config.ReportsPath, filePath);
 
                 if (File.Exists(fullPath))
                 {

@@ -1,4 +1,4 @@
-﻿namespace ForcePlatformData
+﻿namespace ForcePlatformCore
 {
     partial class UserAddUpdate
     {

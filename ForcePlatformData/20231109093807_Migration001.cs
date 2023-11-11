@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace ForcePlatformCore.Migrations
+namespace ForcePlatformData.Migrations
 {
     /// <inheritdoc />
     public partial class Migration001 : Migration

@@ -1,10 +1,6 @@
-﻿using ForcePlatformCore.DbModels;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using ForcePlatformCore;
+﻿using ForcePlatformData.DbModels;
 
-namespace ForcePlatformCore.Service
+namespace ForcePlatformData.Service
 {
     public class ReportService
     {
@@ -18,8 +14,8 @@ namespace ForcePlatformCore.Service
                     Path = path,
                     CreatedDate = DateTime.Now
                 };
-                Program.dbContext.Add(report);
-                Program.dbContext!.SaveChanges();
+                AppConfig.dbContext.Add(report);
+                AppConfig.dbContext!.SaveChanges();
                 return report.Id;
             }
             catch (Exception e)
@@ -31,7 +27,7 @@ namespace ForcePlatformCore.Service
         {
             try
             {
-                var reports = Program.dbContext.Reports.Where(c=>c.UserId==userId).ToList();
+                var reports = AppConfig.dbContext.Reports.Where(c=>c.UserId==userId).ToList();
                 return reports;
             }
             catch (Exception e)

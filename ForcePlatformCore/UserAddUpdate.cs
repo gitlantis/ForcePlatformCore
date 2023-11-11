@@ -1,10 +1,7 @@
-﻿using ForcePlatformCore;
-using ForcePlatformCore.DbModels;
-using ForcePlatformCore.Service;
-using System.Windows.Forms;
-using ForcePlatformCore;
+﻿using ForcePlatformData.DbModels;
+using ForcePlatformData.Service;
 
-namespace ForcePlatformData
+namespace ForcePlatformCore
 {
     public partial class UserAddUpdate : Form
     {

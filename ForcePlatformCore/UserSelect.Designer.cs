@@ -1,5 +1,5 @@
 ﻿
-namespace ForcePlatformData
+namespace ForcePlatformCore
 {
     partial class UserSelect
     {

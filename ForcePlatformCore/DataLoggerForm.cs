@@ -1,8 +1,7 @@
 ﻿using System.Data;
-using ForcePlatformCore.Models;
-using ForcePlatformCore.Models;
+using ForcePlatformData;
+using ForcePlatformData.Models;
 using ScottPlot.Plottable;
-using ForcePlatformCore;
 
 namespace ForcePlatformCore
 {
@@ -57,7 +56,7 @@ namespace ForcePlatformCore
 
             formsPlot1.Refresh();
 
-            this.config = Program.Config;
+            this.config = AppConfig.Config;
             comboBox1.SelectedIndex = 1;
         }
 

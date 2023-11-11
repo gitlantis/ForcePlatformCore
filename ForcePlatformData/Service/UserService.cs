@@ -1,12 +1,7 @@
-﻿using ForcePlatformCore.DbModels;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using ForcePlatformCore;
+﻿using ForcePlatformData;
+using ForcePlatformData.DbModels;
 
-namespace ForcePlatformCore.Service
+namespace ForcePlatformData.Service
 {
     public class UserService
     {
@@ -18,7 +13,7 @@ namespace ForcePlatformCore.Service
         {
             try
             {
-                var users = Program.dbContext.Users.Where(c=>c.Name.Contains(keywoard) || c.Surname.Contains(keywoard) || c.MiddleName.Contains(keywoard)).ToList();
+                var users = AppConfig.dbContext.Users.Where(c=>c.Name.Contains(keywoard) || c.Surname.Contains(keywoard) || c.MiddleName.Contains(keywoard)).ToList();
                 return users;
             }
             catch (Exception e)
@@ -31,7 +26,7 @@ namespace ForcePlatformCore.Service
         {
             try
             {
-                var users = Program.dbContext.Users.Take(limit).ToList();
+                var users = AppConfig.dbContext.Users.Take(limit).ToList();
                 return users;
             }
             catch (Exception e)
@@ -44,7 +39,7 @@ namespace ForcePlatformCore.Service
         {
             try
             {
-                var param = Program.dbContext.UserParams.Where(param=> param.UserId==userId).FirstOrDefault();
+                var param = AppConfig.dbContext.UserParams.Where(param=> param.UserId==userId).FirstOrDefault();
                 return param;
             }
             catch (Exception e)
@@ -60,8 +55,8 @@ namespace ForcePlatformCore.Service
                 user.CreatedDate = DateTime.Now;
                 user.EditedDate = DateTime.Now;
 
-                Program.dbContext.Add(user);
-                Program.dbContext!.SaveChanges();
+                AppConfig.dbContext.Add(user);
+                AppConfig.dbContext!.SaveChanges();
                 return user;
             }
             catch (Exception e) {
@@ -74,10 +69,10 @@ namespace ForcePlatformCore.Service
             try
             {
                 user.EditedDate = DateTime.Now;
-                Program.dbContext.ChangeTracker.Clear();             
-                Program.dbContext.Users.Update(user);
+                AppConfig.dbContext.ChangeTracker.Clear();             
+                AppConfig.dbContext.Users.Update(user);
 
-                Program.dbContext.SaveChanges();
+                AppConfig.dbContext.SaveChanges();
                 return user;
             }
             catch (Exception e)

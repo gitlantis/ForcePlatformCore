@@ -1,10 +1,10 @@
-﻿using ForcePlatformCore.Helpers;
-using ForcePlatformCore.Helpers.ComPort;
+﻿using ForcePlatformCore.Helpers.ComPort;
 using ForcePlatformCore.Models;
-using ForcePlatformCore.Service;
 using ForcePlatformData;
+using ForcePlatformData.Helpers;
+using ForcePlatformData.Models;
+using ForcePlatformData.Service;
 using Microsoft.EntityFrameworkCore;
-using ForcePlatformCore;
 
 namespace ForcePlatformCore
 {
@@ -99,12 +99,12 @@ namespace ForcePlatformCore
             AdcData.DiffZ = new int[4];
             AdcData.CurrentTimeMC = 0;
 
-            comPort = new ComPort(Program.Config.AutoSelectCom, Program.Config.ComPort, Program.Config.FilterLength);
+            comPort = new ComPort(AppConfig.Config.AutoSelectCom, AppConfig.Config.ComPort, AppConfig.Config.FilterLength);
             timer1.Enabled = comPort.connected;
-            AdcData.Init(Program.Config.FilterLength);
+            AdcData.Init(AppConfig.Config.FilterLength);
 
-            Program.dbContext.Database.EnsureCreated();
-            Program.dbContext.Users.Load();
+            AppConfig.dbContext.Database.EnsureCreated();
+            AppConfig.dbContext.Users.Load();
 
             resetAll();
 
@@ -256,8 +256,8 @@ namespace ForcePlatformCore
         {
             comPort.Disconnect();
 
-            Program.dbContext?.Dispose();
-            Program.dbContext = null;
+            AppConfig.dbContext?.Dispose();
+            AppConfig.dbContext = null;
         }
 
         private void button1_Click(object sender, EventArgs e)

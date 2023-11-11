@@ -1,13 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Reflection.Emit;
-using System.Text;
 
-namespace ForcePlatformCore.DbModels
+namespace ForcePlatformData.DbModels
 {
     public class SqliteContext : DbContext
     {

@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Xml.Linq;
 
-namespace ForcePlatformCore.DbModels
+namespace ForcePlatformData.DbModels
 {
     public class Report
     {

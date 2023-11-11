@@ -1,17 +1,16 @@
 ﻿using PuppeteerSharp.Media;
 using PuppeteerSharp;
-using System.Windows.Media.Media3D;
 
-namespace ForcePlatformCore.Helpers
+namespace ForcePlatformData.Helpers
 {
     public static class PdfProcessor
     {
-        private readonly static string chrome = Path.Join(Environment.CurrentDirectory, Program.Config.ChromePath);
-        private readonly static string pdfReportPath = Path.Join(Environment.CurrentDirectory, Program.Config.PdfReportPath);
+        private readonly static string chrome = Path.Join(Environment.CurrentDirectory, AppConfig.Config.ChromePath);
+        private readonly static string pdfReportPath = Path.Join(Environment.CurrentDirectory, AppConfig.Config.PdfReportPath);
 
         public static void GeneratePdf()
         {
-            if (Program.User != null)
+            if (AppConfig.User != null)
             {
                 using (var browser = Puppeteer.LaunchAsync(new LaunchOptions
                 {
@@ -20,7 +19,7 @@ namespace ForcePlatformCore.Helpers
                 }).Result)
                 using (var page = browser.NewPageAsync().Result)
                 {
-                    var url = Path.Join(Environment.CurrentDirectory, Program.Config.TemplatePath, "FirstPage.html");
+                    var url = Path.Join(Environment.CurrentDirectory, AppConfig.Config.TemplatePath, "FirstPage.html");
 
                     var printOptions = new PdfOptions
                     {
@@ -36,11 +35,11 @@ namespace ForcePlatformCore.Helpers
 
                     var pdfBytes = page.PdfDataAsync(printOptions).Result;
 
-                    File.WriteAllBytes(Path.Join(pdfReportPath, $"report_{Program.User.Id}_{DateTimeOffset.Now.ToUnixTimeSeconds()}.pdf"), pdfBytes);
+                    File.WriteAllBytes(Path.Join(pdfReportPath, $"report_{AppConfig.User.Id}_{DateTimeOffset.Now.ToUnixTimeSeconds()}.pdf"), pdfBytes);
                 }
             }
             else {
-                Program.Message("Warning", "User is not selected");
+                //Program.Message("Warning", "User is not selected");
             }
         }
     }
