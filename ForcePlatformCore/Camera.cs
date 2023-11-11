@@ -79,7 +79,7 @@ namespace ForcePlatformCore
         private void setFormSize(int sleep)
         {
             Thread.Sleep(sleep);
-            this.Width = width+16;
+            this.Width = width+15;
             this.Height = height+68;
         }
 

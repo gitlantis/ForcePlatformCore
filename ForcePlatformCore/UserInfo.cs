@@ -56,7 +56,7 @@ namespace ForcePlatformData
                 var selectedValue = listBox1.SelectedValue;
                 int selectedId = (int)selectedValue;
                 var filePath = reports.Where(c => c.Id == selectedId).FirstOrDefault().Path;
-                var fullPath = Path.Join(Environment.CurrentDirectory, Program.Config.ReportPath, filePath);
+                var fullPath = Path.Join(Environment.CurrentDirectory, Program.Config.ReportsPath, filePath);
 
                 if (File.Exists(fullPath))
                 {

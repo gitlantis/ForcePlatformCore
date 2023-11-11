@@ -30,6 +30,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
     <PackageReference Include="MigraDocCore.Rendering" Version="1.3.62" />
     <PackageReference Include="PdfSharpCore" Version="1.3.62" />
+    <PackageReference Include="PuppeteerSharp" Version="12.0.0" />
     <PackageReference Include="ScottPlot" Version="4.1.68" />
     <PackageReference Include="ScottPlot.WinForms" Version="4.1.68" />
     <PackageReference Include="System.IO.Ports" Version="7.0.0" />
@@ -58,7 +59,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="platformdb.db">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 
