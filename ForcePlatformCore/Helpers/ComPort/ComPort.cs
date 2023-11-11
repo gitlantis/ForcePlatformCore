@@ -1,5 +1,5 @@
 ﻿using System.IO.Ports;
-using WindowsFormsApp1;
+using ForcePlatformCore;
 
 namespace ForcePlatformCore.Helpers.ComPort
 {

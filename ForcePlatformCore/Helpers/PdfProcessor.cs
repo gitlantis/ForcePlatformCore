@@ -1,38 +1,39 @@
-﻿//using PuppeteerSharp.Media;
-//using PuppeteerSharp;
+﻿using PuppeteerSharp.Media;
+using PuppeteerSharp;
 
-//namespace ForcePlatformCore.Helpers
-//{
-//    public static class PdfProcessor
-//    {
-//        private readonly static string chrome = Path.Join(Environment.CurrentDirectory, Program.Config.ChromePath);
-        
-//        public static void GeneratePdf()
-//        {
-//            using (var browser = Puppeteer.LaunchAsync(new LaunchOptions
-//            {
-//                ExecutablePath = chrome,
-//                Headless = true
-//            }).Result)
-//            using (var page = browser.NewPageAsync().Result)
-//            {
-//                var url = "";
+namespace ForcePlatformCore.Helpers
+{
+    public static class PdfProcessor
+    {
+        private readonly static string chrome = Path.Join(Environment.CurrentDirectory, Program.Config.ChromePath);
+        private readonly static string pdfReportPath = Path.Join(Environment.CurrentDirectory, Program.Config.PdfReportPath);
 
-//                var printOptions = new PdfOptions
-//                {
-//                    Format = PaperFormat.A4,
-//                    Landscape = true,
-//                    PrintBackground = true,
-//                };
+        public static void GeneratePdf()
+        {
+            using (var browser = Puppeteer.LaunchAsync(new LaunchOptions
+            {
+                ExecutablePath = chrome,
+                Headless = true
+            }).Result)
+            using (var page = browser.NewPageAsync().Result)
+            {
+                var url = "";
 
-//                page.GoToAsync(url, new NavigationOptions
-//                {
-//                    WaitUntil = new[] { WaitUntilNavigation.Load }
-//                }).Wait();
+                var printOptions = new PdfOptions
+                {
+                    Format = PaperFormat.A4,
+                    Landscape = true,
+                    PrintBackground = true,
+                };
 
-//                var pdfBytes = page.PdfDataAsync(printOptions).Result;
-//                File.WriteAllBytes($"report_{Program.User.Id}_{DateTimeOffset.Now.ToUnixTimeSeconds()}.pdf", pdfBytes);
-//            }
-//        }
-//    }
-//}
+                page.GoToAsync(url, new NavigationOptions
+                {
+                    WaitUntil = new[] { WaitUntilNavigation.Load }
+                }).Wait();
+
+                var pdfBytes = page.PdfDataAsync(printOptions).Result;
+                File.WriteAllBytes(Path.Join(pdfReportPath, $"report_{Program.User.Id}_{DateTimeOffset.Now.ToUnixTimeSeconds()}.pdf"), pdfBytes);
+            }
+        }
+    }
+}

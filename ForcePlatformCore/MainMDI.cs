@@ -4,11 +4,11 @@ using ForcePlatformCore.Models;
 using ForcePlatformCore.Service;
 using ForcePlatformData;
 using Microsoft.EntityFrameworkCore;
-using WindowsFormsApp1;
+using ForcePlatformCore;
 
 namespace ForcePlatformCore
 {
-    public partial class MDIParent1 : Form
+    public partial class MainMDI : Form
     {
 
         private int childFormNumber = 0;
@@ -26,7 +26,7 @@ namespace ForcePlatformCore
         private Camera camera;
         int zeroTime;
 
-        public MDIParent1()
+        public MainMDI()
         {
             InitializeComponent();
         }
@@ -139,7 +139,7 @@ namespace ForcePlatformCore
         }
         private void showForm(int i)
         {
-            childForms[i] = new Form1(i);
+            childForms[i] = new DataLoggerForm(i);
             childForms[i].MdiParent = this;
             childForms[i].Show();
             openPlates.Add(i);
@@ -268,9 +268,9 @@ namespace ForcePlatformCore
             var activePlates = new HashSet<int>();
             foreach (Form childForm in MdiChildren)
             {
-                if (childForm is Form1)
+                if (childForm is DataLoggerForm)
                 {
-                    Form1 activeChild = (Form1)childForm;
+                    DataLoggerForm activeChild = (DataLoggerForm)childForm;
                     activePlates.Add(activeChild.PlateId);
                 }
             }
@@ -298,9 +298,9 @@ namespace ForcePlatformCore
             Zero();
             foreach (Form childForm in MdiChildren)
             {
-                if (childForm is Form1)
+                if (childForm is DataLoggerForm)
                 {
-                    Form1 activeChild = (Form1)childForm;
+                    DataLoggerForm activeChild = (DataLoggerForm)childForm;
                     activeChild.ClearLoggers();
                 }
             }
@@ -328,9 +328,9 @@ namespace ForcePlatformCore
             }
             foreach (Form childForm in MdiChildren)
             {
-                if (childForm is Form1)
+                if (childForm is DataLoggerForm)
                 {
-                    Form1 activeChild = (Form1)childForm;
+                    DataLoggerForm activeChild = (DataLoggerForm)childForm;
                     activeChild.Pause(pauseAll);
                 }
             }

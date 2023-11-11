@@ -1,12 +1,12 @@
 ﻿using System.Data;
-using WindowsFormsApp1.Models;
+using ForcePlatformCore.Models;
 using ForcePlatformCore.Models;
 using ScottPlot.Plottable;
-using WindowsFormsApp1;
+using ForcePlatformCore;
 
 namespace ForcePlatformCore
 {
-    public partial class Form1 : Form
+    public partial class DataLoggerForm : Form
     {
         public int PlateId;
         private bool pausePlot = false;
@@ -24,7 +24,7 @@ namespace ForcePlatformCore
 
         public List<int> Axis = new List<int> { 0, 1, 2 };
 
-        public Form1(int plateNumber)
+        public DataLoggerForm(int plateNumber)
         {
             InitializeComponent();
 

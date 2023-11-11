@@ -5,10 +5,10 @@
 //using System.Text;
 //using System.Threading.Tasks;
 //using System.Windows.Forms;
-//using WindowsFormsApp1.Models;
+//using ForcePlatformCore.Models;
 //using System.Threading;
 
-//namespace WindowsFormsApp1
+//namespace ForcePlatformCore
 //{
 //    public class ComPort
 //    {

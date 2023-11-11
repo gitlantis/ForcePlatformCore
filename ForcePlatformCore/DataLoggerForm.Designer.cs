@@ -1,6 +1,6 @@
 ﻿namespace ForcePlatformCore
 {
-    partial class Form1
+    partial class DataLoggerForm
     {
         /// <summary>
         /// Required designer variable.

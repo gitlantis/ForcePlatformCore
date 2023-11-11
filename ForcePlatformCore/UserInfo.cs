@@ -2,7 +2,7 @@
 using ForcePlatformCore.Service;
 using System.Data;
 using System.Diagnostics;
-using WindowsFormsApp1;
+using ForcePlatformCore;
 
 namespace ForcePlatformData
 {

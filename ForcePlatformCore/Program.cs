@@ -1,9 +1,8 @@
-﻿using ForcePlatformCore;
-using ForcePlatformCore.DbModels;
+﻿using ForcePlatformCore.DbModels;
 using Microsoft.Extensions.Configuration;
-using WindowsFormsApp1.Models;
+using ForcePlatformCore.Models;
 
-namespace WindowsFormsApp1
+namespace ForcePlatformCore
 {
     internal static class Program
     {
@@ -11,10 +10,8 @@ namespace WindowsFormsApp1
         public static AppsettingsModel Config { get; set; }
         public static SqliteContext? dbContext = new SqliteContext();
         public static User User {get;set;}
-        public static MDIParent1 mdiParent;
-        /// <summary>
-        /// Главная точка входа для приложения.
-        /// </summary>
+        public static MainMDI mdiParent;
+
         [STAThread]
         static void Main()
         {
@@ -25,7 +22,7 @@ namespace WindowsFormsApp1
             Application.SetCompatibleTextRenderingDefault(false);
             Config = Configuration.Get<AppsettingsModel>();
             
-            mdiParent = new MDIParent1();
+            mdiParent = new MainMDI();
 
             Application.Run(mdiParent);
         }
