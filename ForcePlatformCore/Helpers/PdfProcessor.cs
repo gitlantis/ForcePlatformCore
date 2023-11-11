@@ -1,5 +1,6 @@
 ﻿using PuppeteerSharp.Media;
 using PuppeteerSharp;
+using System.Windows.Media.Media3D;
 
 namespace ForcePlatformCore.Helpers
 {
@@ -10,29 +11,36 @@ namespace ForcePlatformCore.Helpers
 
         public static void GeneratePdf()
         {
-            using (var browser = Puppeteer.LaunchAsync(new LaunchOptions
+            if (Program.User != null)
             {
-                ExecutablePath = chrome,
-                Headless = true
-            }).Result)
-            using (var page = browser.NewPageAsync().Result)
-            {
-                var url = "";
-
-                var printOptions = new PdfOptions
+                using (var browser = Puppeteer.LaunchAsync(new LaunchOptions
                 {
-                    Format = PaperFormat.A4,
-                    Landscape = true,
-                    PrintBackground = true,
-                };
-
-                page.GoToAsync(url, new NavigationOptions
+                    ExecutablePath = chrome,
+                    Headless = true
+                }).Result)
+                using (var page = browser.NewPageAsync().Result)
                 {
-                    WaitUntil = new[] { WaitUntilNavigation.Load }
-                }).Wait();
+                    var url = Path.Join(Environment.CurrentDirectory, Program.Config.TemplatePath, "FirstPage.html");
 
-                var pdfBytes = page.PdfDataAsync(printOptions).Result;
-                File.WriteAllBytes(Path.Join(pdfReportPath, $"report_{Program.User.Id}_{DateTimeOffset.Now.ToUnixTimeSeconds()}.pdf"), pdfBytes);
+                    var printOptions = new PdfOptions
+                    {
+                        Format = PaperFormat.A4,
+                        Landscape = true,
+                        PrintBackground = true,
+                    };
+
+                    page.GoToAsync(url, new NavigationOptions
+                    {
+                        WaitUntil = new[] { WaitUntilNavigation.Load }
+                    }).Wait();
+
+                    var pdfBytes = page.PdfDataAsync(printOptions).Result;
+
+                    File.WriteAllBytes(Path.Join(pdfReportPath, $"report_{Program.User.Id}_{DateTimeOffset.Now.ToUnixTimeSeconds()}.pdf"), pdfBytes);
+                }
+            }
+            else {
+                Program.Message("Warning", "User is not selected");
             }
         }
     }
