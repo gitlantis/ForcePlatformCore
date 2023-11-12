@@ -1,4 +1,5 @@
 ﻿using ForcePlatformData.Models;
+using System.Text;
 
 namespace ForcePlatformData.Helpers
 {
@@ -17,7 +18,7 @@ namespace ForcePlatformData.Helpers
                 if (!exists)
                     Directory.CreateDirectory(path);
 
-                using (StreamWriter writer = new StreamWriter(Path.Join(path, csvFilePath)))
+                using (StreamWriter writer = new StreamWriter(Path.Join(path, csvFilePath), false, Encoding.UTF8))
                 {
                     var line = data.CsvItems.Dequeue();  
                     
