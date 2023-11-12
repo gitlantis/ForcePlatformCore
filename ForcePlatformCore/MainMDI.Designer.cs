@@ -35,6 +35,7 @@
             toolTip = new ToolTip(components);
             menuStrip = new MenuStrip();
             platesToolStripMenuItem = new ToolStripMenuItem();
+            toolStripMenuItem1 = new ToolStripMenuItem();
             plate1ToolStripMenuItem = new ToolStripMenuItem();
             plate2ToolStripMenuItem = new ToolStripMenuItem();
             plate3ToolStripMenuItem = new ToolStripMenuItem();
@@ -57,7 +58,7 @@
             toolStripSeparator3 = new ToolStripSeparator();
             toolStripButton1 = new ToolStripButton();
             contextMenuStrip1 = new ContextMenuStrip(components);
-            toolStripMenuItem1 = new ToolStripMenuItem();
+            настройкиToolStripMenuItem = new ToolStripMenuItem();
             statusStrip.SuspendLayout();
             menuStrip.SuspendLayout();
             toolStrip1.SuspendLayout();
@@ -65,6 +66,7 @@
             // 
             // statusStrip
             // 
+            statusStrip.ImageScalingSize = new Size(24, 24);
             statusStrip.Items.AddRange(new ToolStripItem[] { toolStripStatusLabel });
             statusStrip.Location = new Point(0, 949);
             statusStrip.Name = "statusStrip";
@@ -81,7 +83,8 @@
             // 
             // menuStrip
             // 
-            menuStrip.Items.AddRange(new ToolStripItem[] { platesToolStripMenuItem, windowToolStripMenuItem });
+            menuStrip.ImageScalingSize = new Size(24, 24);
+            menuStrip.Items.AddRange(new ToolStripItem[] { platesToolStripMenuItem, windowToolStripMenuItem, настройкиToolStripMenuItem });
             menuStrip.Location = new Point(0, 0);
             menuStrip.Name = "menuStrip";
             menuStrip.Padding = new Padding(7, 2, 0, 2);
@@ -96,45 +99,52 @@
             platesToolStripMenuItem.Size = new Size(50, 20);
             platesToolStripMenuItem.Text = "Plates";
             // 
+            // toolStripMenuItem1
+            // 
+            toolStripMenuItem1.Name = "toolStripMenuItem1";
+            toolStripMenuItem1.Size = new Size(119, 22);
+            toolStripMenuItem1.Text = "Camera";
+            toolStripMenuItem1.Click += toolStripMenuItem1_Click;
+            // 
             // plate1ToolStripMenuItem
             // 
             plate1ToolStripMenuItem.Name = "plate1ToolStripMenuItem";
-            plate1ToolStripMenuItem.Size = new Size(180, 22);
+            plate1ToolStripMenuItem.Size = new Size(119, 22);
             plate1ToolStripMenuItem.Text = "Plate1";
             plate1ToolStripMenuItem.Click += plate1ToolStripMenuItem_Click;
             // 
             // plate2ToolStripMenuItem
             // 
             plate2ToolStripMenuItem.Name = "plate2ToolStripMenuItem";
-            plate2ToolStripMenuItem.Size = new Size(180, 22);
+            plate2ToolStripMenuItem.Size = new Size(119, 22);
             plate2ToolStripMenuItem.Text = "Plate2";
             plate2ToolStripMenuItem.Click += plate2ToolStripMenuItem_Click;
             // 
             // plate3ToolStripMenuItem
             // 
             plate3ToolStripMenuItem.Name = "plate3ToolStripMenuItem";
-            plate3ToolStripMenuItem.Size = new Size(180, 22);
+            plate3ToolStripMenuItem.Size = new Size(119, 22);
             plate3ToolStripMenuItem.Text = "Plate3";
             plate3ToolStripMenuItem.Click += plate3ToolStripMenuItem_Click;
             // 
             // plate4ToolStripMenuItem
             // 
             plate4ToolStripMenuItem.Name = "plate4ToolStripMenuItem";
-            plate4ToolStripMenuItem.Size = new Size(180, 22);
+            plate4ToolStripMenuItem.Size = new Size(119, 22);
             plate4ToolStripMenuItem.Text = "Plate4";
             plate4ToolStripMenuItem.Click += plate4ToolStripMenuItem_Click;
             // 
             // openAllToolStripMenuItem
             // 
             openAllToolStripMenuItem.Name = "openAllToolStripMenuItem";
-            openAllToolStripMenuItem.Size = new Size(180, 22);
+            openAllToolStripMenuItem.Size = new Size(119, 22);
             openAllToolStripMenuItem.Text = "AllPlates";
             openAllToolStripMenuItem.Click += openAllToolStripMenuItem_Click;
             // 
             // closeAllToolStripMenuItem
             // 
             closeAllToolStripMenuItem.Name = "closeAllToolStripMenuItem";
-            closeAllToolStripMenuItem.Size = new Size(180, 22);
+            closeAllToolStripMenuItem.Size = new Size(119, 22);
             closeAllToolStripMenuItem.Text = "CloseAll";
             closeAllToolStripMenuItem.Click += closeAllToolStripMenuItem_Click_1;
             // 
@@ -148,28 +158,28 @@
             // tileHorizontalToolStripMenuItem
             // 
             tileHorizontalToolStripMenuItem.Name = "tileHorizontalToolStripMenuItem";
-            tileHorizontalToolStripMenuItem.Size = new Size(150, 22);
+            tileHorizontalToolStripMenuItem.Size = new Size(180, 22);
             tileHorizontalToolStripMenuItem.Text = "Tile Horizontal";
             tileHorizontalToolStripMenuItem.Click += tileHorizontalToolStripMenuItem_Click_1;
             // 
             // tileVerticalToolStripMenuItem
             // 
             tileVerticalToolStripMenuItem.Name = "tileVerticalToolStripMenuItem";
-            tileVerticalToolStripMenuItem.Size = new Size(150, 22);
+            tileVerticalToolStripMenuItem.Size = new Size(180, 22);
             tileVerticalToolStripMenuItem.Text = "TileVertical";
             tileVerticalToolStripMenuItem.Click += tileVerticalToolStripMenuItem_Click_1;
             // 
             // cellToolStripMenuItem
             // 
             cellToolStripMenuItem.Name = "cellToolStripMenuItem";
-            cellToolStripMenuItem.Size = new Size(150, 22);
+            cellToolStripMenuItem.Size = new Size(180, 22);
             cellToolStripMenuItem.Text = "Table";
             cellToolStripMenuItem.Click += cellToolStripMenuItem_Click;
             // 
             // cascadeToolStripMenuItem
             // 
             cascadeToolStripMenuItem.Name = "cascadeToolStripMenuItem";
-            cascadeToolStripMenuItem.Size = new Size(150, 22);
+            cascadeToolStripMenuItem.Size = new Size(180, 22);
             cascadeToolStripMenuItem.Text = "Cascade";
             cascadeToolStripMenuItem.Click += cascadeToolStripMenuItem_Click_1;
             // 
@@ -186,9 +196,11 @@
             // 
             // toolStrip1
             // 
+            toolStrip1.ImageScalingSize = new Size(24, 24);
             toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripButton2, toolStripSeparator1, toolStripButton4, toolStripSeparator2, toolStripButton3, toolStripSeparator3, toolStripButton1 });
             toolStrip1.Location = new Point(0, 24);
             toolStrip1.Name = "toolStrip1";
+            toolStrip1.Padding = new Padding(0, 0, 2, 0);
             toolStrip1.Size = new Size(1798, 33);
             toolStrip1.TabIndex = 10;
             toolStrip1.Text = "toolStrip1";
@@ -256,17 +268,18 @@
             // 
             // contextMenuStrip1
             // 
+            contextMenuStrip1.ImageScalingSize = new Size(24, 24);
             contextMenuStrip1.Name = "contextMenuStrip1";
             contextMenuStrip1.Size = new Size(61, 4);
             // 
-            // toolStripMenuItem1
+            // настройкиToolStripMenuItem
             // 
-            toolStripMenuItem1.Name = "toolStripMenuItem1";
-            toolStripMenuItem1.Size = new Size(180, 22);
-            toolStripMenuItem1.Text = "Camera";
-            toolStripMenuItem1.Click += toolStripMenuItem1_Click;
+            настройкиToolStripMenuItem.Name = "настройкиToolStripMenuItem";
+            настройкиToolStripMenuItem.Size = new Size(82, 20);
+            настройкиToolStripMenuItem.Text = "Настройки:";
+            настройкиToolStripMenuItem.Click += настройкиToolStripMenuItem_Click;
             // 
-            // MDIParent1
+            // MainMDI
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -277,7 +290,7 @@
             IsMdiContainer = true;
             MainMenuStrip = menuStrip;
             Margin = new Padding(4, 3, 4, 3);
-            Name = "MDIParent1";
+            Name = "MainMDI";
             Text = "Force Platrom";
             FormClosing += MDIParent1_FormClosing;
             Load += MDIParent1_Load;
@@ -320,6 +333,7 @@
         private ToolStripButton toolStripButton2;
         private ToolStripSeparator toolStripSeparator1;
         private ToolStripMenuItem toolStripMenuItem1;
+        private ToolStripMenuItem настройкиToolStripMenuItem;
     }
 }
 

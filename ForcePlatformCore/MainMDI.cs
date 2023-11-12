@@ -5,6 +5,7 @@ using ForcePlatformData.Helpers;
 using ForcePlatformData.Models;
 using ForcePlatformData.Service;
 using Microsoft.EntityFrameworkCore;
+using ForcePlatformCore;
 
 namespace ForcePlatformCore
 {
@@ -26,9 +27,28 @@ namespace ForcePlatformCore
         private Camera camera;
         int zeroTime;
 
+        enum filterTypes
+        {
+            swingWindow,
+            meanWindow,
+            hemming,
+            batterfort
+        }
+        int currentFilterType = (int) filterTypes.swingWindow; // :-)))
+
+
+        private void loadSettingsFromfile()
+        { 
+        // setting larni zagruzka kere
+            // filtr i glubina
+
+        }
+
         public MainMDI()
         {
+           
             InitializeComponent();
+            // loadSettingsFromfile(); ------------------------------------------------------------------------------------
         }
 
         private void ShowNewForm(object sender, EventArgs e)
@@ -96,6 +116,7 @@ namespace ForcePlatformCore
 
         private void MDIParent1_Load(object sender, EventArgs e)
         {
+            //// loadSettingsFromfile();    --------------------------------------------------------------------------------------
             AdcData.DiffZ = new int[4];
             AdcData.CurrentTimeMC = 0;
 
@@ -392,6 +413,14 @@ namespace ForcePlatformCore
             {
                 camera.Show();
             }
+        }
+
+        private void настройкиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            settingForm settingForm = new settingForm();    
+            settingForm.Show();
+            // loadSettingsFromfile();
+
         }
     }
 }
