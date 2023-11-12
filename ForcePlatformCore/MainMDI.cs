@@ -34,19 +34,19 @@ namespace ForcePlatformCore
             hemming,
             batterfort
         }
-        int currentFilterType = (int) filterTypes.swingWindow; // :-)))
+        int currentFilterType = (int)filterTypes.swingWindow; // :-)))
 
 
         private void loadSettingsFromfile()
-        { 
-        // setting larni zagruzka kere
+        {
+            // setting larni zagruzka kere
             // filtr i glubina
 
         }
 
         public MainMDI()
         {
-           
+
             InitializeComponent();
             // loadSettingsFromfile(); ------------------------------------------------------------------------------------
         }
@@ -120,8 +120,8 @@ namespace ForcePlatformCore
             AdcData.DiffZ = new int[4];
             AdcData.CurrentTimeMC = 0;
 
-            comPort = new ComPort(AppConfig.Config.AutoSelectCom, AppConfig.Config.ComPort, AppConfig.Config.FilterLength);
-            timer1.Enabled = comPort.connected;
+            //comPort = new ComPort(AppConfig.Config.AutoSelectCom, AppConfig.Config.ComPort, AppConfig.Config.FilterLength);
+            //timer1.Enabled = comPort.connected;
             AdcData.Init(AppConfig.Config.FilterLength);
 
             AppConfig.DbContext.Database.EnsureCreated();
@@ -417,7 +417,7 @@ namespace ForcePlatformCore
 
         private void настройкиToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            settingForm settingForm = new settingForm();    
+            settingForm settingForm = new settingForm();
             settingForm.Show();
             // loadSettingsFromfile();
 

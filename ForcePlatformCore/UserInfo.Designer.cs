@@ -54,14 +54,14 @@
             label1 = new Label();
             textBox1 = new TextBox();
             groupBox1 = new GroupBox();
+            textBox13 = new TextBox();
+            label9 = new Label();
             textBox12 = new TextBox();
             label8 = new Label();
             label7 = new Label();
             groupBox4 = new GroupBox();
             listBox1 = new ListBox();
             iconButton2 = new FontAwesome.Sharp.IconButton();
-            textBox13 = new TextBox();
-            label9 = new Label();
             groupBox3.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox1.SuspendLayout();
@@ -220,6 +220,7 @@
             // 
             // textBox5
             // 
+            textBox5.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             textBox5.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             textBox5.Location = new Point(446, 60);
             textBox5.Name = "textBox5";
@@ -230,6 +231,7 @@
             // 
             // textBox4
             // 
+            textBox4.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             textBox4.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             textBox4.Location = new Point(446, 25);
             textBox4.Name = "textBox4";
@@ -240,6 +242,7 @@
             // 
             // label6
             // 
+            label6.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
             label6.Location = new Point(359, 63);
@@ -250,6 +253,7 @@
             // 
             // label5
             // 
+            label5.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
             label5.Location = new Point(359, 31);
@@ -330,6 +334,7 @@
             // 
             // groupBox1
             // 
+            groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             groupBox1.Controls.Add(textBox13);
             groupBox1.Controls.Add(label9);
             groupBox1.Controls.Add(textBox12);
@@ -353,6 +358,28 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "User";
             // 
+            // textBox13
+            // 
+            textBox13.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            textBox13.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            textBox13.Location = new Point(446, 95);
+            textBox13.Name = "textBox13";
+            textBox13.ReadOnly = true;
+            textBox13.Size = new Size(101, 29);
+            textBox13.TabIndex = 19;
+            textBox13.WordWrap = false;
+            // 
+            // label9
+            // 
+            label9.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            label9.AutoSize = true;
+            label9.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label9.Location = new Point(359, 98);
+            label9.Name = "label9";
+            label9.Size = new Size(65, 21);
+            label9.TabIndex = 18;
+            label9.Text = "Gender";
+            // 
             // textBox12
             // 
             textBox12.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
@@ -365,6 +392,7 @@
             // 
             // label8
             // 
+            label8.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label8.AutoSize = true;
             label8.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label8.Location = new Point(553, 69);
@@ -375,6 +403,7 @@
             // 
             // label7
             // 
+            label7.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label7.Location = new Point(553, 36);
@@ -385,6 +414,7 @@
             // 
             // groupBox4
             // 
+            groupBox4.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             groupBox4.Controls.Add(listBox1);
             groupBox4.Location = new Point(12, 321);
             groupBox4.Name = "groupBox4";
@@ -395,6 +425,7 @@
             // 
             // listBox1
             // 
+            listBox1.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             listBox1.FormattingEnabled = true;
             listBox1.ItemHeight = 15;
             listBox1.Items.AddRange(new object[] { "" });
@@ -406,6 +437,7 @@
             // 
             // iconButton2
             // 
+            iconButton2.Anchor = AnchorStyles.Bottom;
             iconButton2.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
             iconButton2.ForeColor = Color.FromArgb(0, 0, 192);
             iconButton2.IconChar = FontAwesome.Sharp.IconChar.Print;
@@ -421,26 +453,6 @@
             iconButton2.TextAlign = ContentAlignment.MiddleRight;
             iconButton2.UseVisualStyleBackColor = true;
             // 
-            // textBox13
-            // 
-            textBox13.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            textBox13.Location = new Point(446, 95);
-            textBox13.Name = "textBox13";
-            textBox13.ReadOnly = true;
-            textBox13.Size = new Size(101, 29);
-            textBox13.TabIndex = 19;
-            textBox13.WordWrap = false;
-            // 
-            // label9
-            // 
-            label9.AutoSize = true;
-            label9.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label9.Location = new Point(359, 98);
-            label9.Name = "label9";
-            label9.Size = new Size(65, 21);
-            label9.TabIndex = 18;
-            label9.Text = "Gender";
-            // 
             // UserInfo
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -451,8 +463,7 @@
             Controls.Add(groupBox3);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
-            FormBorderStyle = FormBorderStyle.FixedSingle;
-            MaximizeBox = false;
+            MinimumSize = new Size(657, 722);
             Name = "UserInfo";
             Text = "UserInfo";
             Load += UserInfo_Load;

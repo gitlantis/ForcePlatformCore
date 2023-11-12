@@ -156,6 +156,7 @@ namespace ForcePlatformCore
             Controls.Add(iconButton3);
             Controls.Add(iconButton2);
             Controls.Add(iconButton1);
+            MinimumSize = new Size(447, 568);
             Name = "UserSelect";
             Text = "User";
             Load += UserSelect_Load;

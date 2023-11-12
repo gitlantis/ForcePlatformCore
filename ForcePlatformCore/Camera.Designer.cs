@@ -96,6 +96,7 @@
             Controls.Add(checkBox1);
             Controls.Add(comboDevices);
             Controls.Add(pictureBox1);
+            MinimumSize = new Size(739, 517);
             Name = "Camera";
             Text = "Camera";
             FormClosing += Camera_FormClosing;

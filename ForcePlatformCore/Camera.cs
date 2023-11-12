@@ -66,8 +66,8 @@ namespace ForcePlatformCore
         private void setFormSize(int sleep)
         {
             Thread.Sleep(sleep);
-            this.Width = width+15;
-            this.Height = height+68;
+            this.Width = width + 15;
+            this.Height = height + 68;
         }
 
         private void checkBox3_CheckedChanged(object sender, EventArgs e)

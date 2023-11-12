@@ -47,6 +47,7 @@
             tileVerticalToolStripMenuItem = new ToolStripMenuItem();
             cellToolStripMenuItem = new ToolStripMenuItem();
             cascadeToolStripMenuItem = new ToolStripMenuItem();
+            настройкиToolStripMenuItem = new ToolStripMenuItem();
             timer1 = new System.Windows.Forms.Timer(components);
             timer2 = new System.Windows.Forms.Timer(components);
             toolStrip1 = new ToolStrip();
@@ -58,7 +59,6 @@
             toolStripSeparator3 = new ToolStripSeparator();
             toolStripButton1 = new ToolStripButton();
             contextMenuStrip1 = new ContextMenuStrip(components);
-            настройкиToolStripMenuItem = new ToolStripMenuItem();
             statusStrip.SuspendLayout();
             menuStrip.SuspendLayout();
             toolStrip1.SuspendLayout();
@@ -68,10 +68,10 @@
             // 
             statusStrip.ImageScalingSize = new Size(24, 24);
             statusStrip.Items.AddRange(new ToolStripItem[] { toolStripStatusLabel });
-            statusStrip.Location = new Point(0, 949);
+            statusStrip.Location = new Point(0, 739);
             statusStrip.Name = "statusStrip";
             statusStrip.Padding = new Padding(1, 0, 16, 0);
-            statusStrip.Size = new Size(1798, 22);
+            statusStrip.Size = new Size(1184, 22);
             statusStrip.TabIndex = 2;
             statusStrip.Text = "StatusStrip";
             // 
@@ -88,7 +88,7 @@
             menuStrip.Location = new Point(0, 0);
             menuStrip.Name = "menuStrip";
             menuStrip.Padding = new Padding(7, 2, 0, 2);
-            menuStrip.Size = new Size(1798, 24);
+            menuStrip.Size = new Size(1184, 24);
             menuStrip.TabIndex = 0;
             menuStrip.Text = "Force Plates";
             // 
@@ -158,30 +158,37 @@
             // tileHorizontalToolStripMenuItem
             // 
             tileHorizontalToolStripMenuItem.Name = "tileHorizontalToolStripMenuItem";
-            tileHorizontalToolStripMenuItem.Size = new Size(180, 22);
+            tileHorizontalToolStripMenuItem.Size = new Size(150, 22);
             tileHorizontalToolStripMenuItem.Text = "Tile Horizontal";
             tileHorizontalToolStripMenuItem.Click += tileHorizontalToolStripMenuItem_Click_1;
             // 
             // tileVerticalToolStripMenuItem
             // 
             tileVerticalToolStripMenuItem.Name = "tileVerticalToolStripMenuItem";
-            tileVerticalToolStripMenuItem.Size = new Size(180, 22);
+            tileVerticalToolStripMenuItem.Size = new Size(150, 22);
             tileVerticalToolStripMenuItem.Text = "TileVertical";
             tileVerticalToolStripMenuItem.Click += tileVerticalToolStripMenuItem_Click_1;
             // 
             // cellToolStripMenuItem
             // 
             cellToolStripMenuItem.Name = "cellToolStripMenuItem";
-            cellToolStripMenuItem.Size = new Size(180, 22);
+            cellToolStripMenuItem.Size = new Size(150, 22);
             cellToolStripMenuItem.Text = "Table";
             cellToolStripMenuItem.Click += cellToolStripMenuItem_Click;
             // 
             // cascadeToolStripMenuItem
             // 
             cascadeToolStripMenuItem.Name = "cascadeToolStripMenuItem";
-            cascadeToolStripMenuItem.Size = new Size(180, 22);
+            cascadeToolStripMenuItem.Size = new Size(150, 22);
             cascadeToolStripMenuItem.Text = "Cascade";
             cascadeToolStripMenuItem.Click += cascadeToolStripMenuItem_Click_1;
+            // 
+            // настройкиToolStripMenuItem
+            // 
+            настройкиToolStripMenuItem.Name = "настройкиToolStripMenuItem";
+            настройкиToolStripMenuItem.Size = new Size(82, 20);
+            настройкиToolStripMenuItem.Text = "Настройки:";
+            настройкиToolStripMenuItem.Click += настройкиToolStripMenuItem_Click;
             // 
             // timer1
             // 
@@ -201,7 +208,7 @@
             toolStrip1.Location = new Point(0, 24);
             toolStrip1.Name = "toolStrip1";
             toolStrip1.Padding = new Padding(0, 0, 2, 0);
-            toolStrip1.Size = new Size(1798, 33);
+            toolStrip1.Size = new Size(1184, 33);
             toolStrip1.TabIndex = 10;
             toolStrip1.Text = "toolStrip1";
             // 
@@ -212,7 +219,7 @@
             toolStripButton2.Image = (Image)resources.GetObject("toolStripButton2.Image");
             toolStripButton2.ImageTransparentColor = Color.Magenta;
             toolStripButton2.Name = "toolStripButton2";
-            toolStripButton2.Size = new Size(70, 30);
+            toolStripButton2.Size = new Size(90, 30);
             toolStripButton2.Text = "User";
             toolStripButton2.Click += toolStripButton2_Click;
             // 
@@ -229,7 +236,7 @@
             toolStripButton4.Image = (Image)resources.GetObject("toolStripButton4.Image");
             toolStripButton4.ImageTransparentColor = Color.Magenta;
             toolStripButton4.Name = "toolStripButton4";
-            toolStripButton4.Size = new Size(144, 30);
+            toolStripButton4.Size = new Size(160, 30);
             toolStripButton4.Text = "Start recording";
             toolStripButton4.Click += toolStripButton4_Click;
             // 
@@ -262,7 +269,7 @@
             toolStripButton1.Image = (Image)resources.GetObject("toolStripButton1.Image");
             toolStripButton1.ImageTransparentColor = Color.Magenta;
             toolStripButton1.Name = "toolStripButton1";
-            toolStripButton1.Size = new Size(71, 30);
+            toolStripButton1.Size = new Size(80, 30);
             toolStripButton1.Text = "Reset";
             toolStripButton1.Click += toolStripButton1_Click;
             // 
@@ -272,24 +279,18 @@
             contextMenuStrip1.Name = "contextMenuStrip1";
             contextMenuStrip1.Size = new Size(61, 4);
             // 
-            // настройкиToolStripMenuItem
-            // 
-            настройкиToolStripMenuItem.Name = "настройкиToolStripMenuItem";
-            настройкиToolStripMenuItem.Size = new Size(82, 20);
-            настройкиToolStripMenuItem.Text = "Настройки:";
-            настройкиToolStripMenuItem.Click += настройкиToolStripMenuItem_Click;
-            // 
             // MainMDI
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1798, 971);
+            ClientSize = new Size(1184, 761);
             Controls.Add(toolStrip1);
             Controls.Add(statusStrip);
             Controls.Add(menuStrip);
             IsMdiContainer = true;
             MainMenuStrip = menuStrip;
             Margin = new Padding(4, 3, 4, 3);
+            MinimumSize = new Size(1200, 800);
             Name = "MainMDI";
             Text = "Force Platrom";
             FormClosing += MDIParent1_FormClosing;
