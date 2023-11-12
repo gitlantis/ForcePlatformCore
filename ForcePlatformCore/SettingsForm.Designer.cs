@@ -123,7 +123,7 @@
             iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton1.IconSize = 32;
             iconButton1.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButton1.Location = new Point(875, 397);
+            iconButton1.Location = new Point(388, 132);
             iconButton1.Name = "iconButton1";
             iconButton1.Size = new Size(89, 39);
             iconButton1.TabIndex = 16;
@@ -158,7 +158,7 @@
             textBox1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             textBox1.Location = new Point(163, 54);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(798, 29);
+            textBox1.Size = new Size(311, 29);
             textBox1.TabIndex = 11;
             // 
             // iconButton2
@@ -171,7 +171,7 @@
             iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton2.IconSize = 32;
             iconButton2.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButton2.Location = new Point(442, 397);
+            iconButton2.Location = new Point(199, 132);
             iconButton2.Name = "iconButton2";
             iconButton2.Size = new Size(89, 39);
             iconButton2.TabIndex = 14;
@@ -188,7 +188,7 @@
             comboBox2.Items.AddRange(new object[] { "sm", "mm" });
             comboBox2.Location = new Point(163, 10);
             comboBox2.Name = "comboBox2";
-            comboBox2.Size = new Size(798, 29);
+            comboBox2.Size = new Size(311, 29);
             comboBox2.TabIndex = 12;
             // 
             // label6
@@ -209,14 +209,14 @@
             comboBox3.Items.AddRange(new object[] { "Стоя", "Ход", "Прыжка" });
             comboBox3.Location = new Point(163, 97);
             comboBox3.Name = "comboBox3";
-            comboBox3.Size = new Size(798, 29);
+            comboBox3.Size = new Size(311, 29);
             comboBox3.TabIndex = 18;
             // 
             // SettingsForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(973, 444);
+            ClientSize = new Size(486, 179);
             Controls.Add(label6);
             Controls.Add(comboBox3);
             Controls.Add(iconButton1);

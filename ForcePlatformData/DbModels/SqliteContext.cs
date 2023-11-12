@@ -15,7 +15,7 @@ namespace ForcePlatformData.DbModels
         //}
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-            => optionsBuilder.UseSqlite($"Data Source={Path.Join(AppsettingsModel.CommonPath, AppsettingsModel.DbName)}");
+            => optionsBuilder.UseSqlite($"Data Source={Path.Join(AppConfig.CommonPath, AppConfig.DbName)}");
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

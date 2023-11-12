@@ -7,7 +7,8 @@ namespace ForcePlatformCore.Helpers.ComPort
     public class ComPort
     {
         private SerialPort sp;
-        public bool connected = false;
+        public bool Connected = false;
+        public string PortName = "";
         private string[] ss = new string[20];
         AdcSerialData adcData = new AdcSerialData();
         
@@ -34,7 +35,7 @@ namespace ForcePlatformCore.Helpers.ComPort
             {
                 try
                 {
-                    if (!connected)
+                    if (!Connected)
                     {
                         sp = new SerialPort(portName, 115200, Parity.None, 8, StopBits.One);
                         Connect();
@@ -45,13 +46,10 @@ namespace ForcePlatformCore.Helpers.ComPort
                             if (adcData.CurrentTimeMC == 0) break;
                         }
 
-                        if (connected) {
-                            
-                            var conf = AppConfig.Config;
-                            conf.ComPort = portName;
-                            AppConfig.UpdateConfig = conf;
-
-                            break; 
+                        if (Connected)
+                        {
+                            PortName = portName;
+                            break;
                         }
                         Disconnect();
                     }
@@ -59,7 +57,7 @@ namespace ForcePlatformCore.Helpers.ComPort
                 catch (Exception) { }
             }
 
-            if (!connected)
+            if (!Connected)
             {
                 var result = Program.Message("Error", "Device did not found, check connections and try to rerun application set to manual configuration");
 
@@ -98,7 +96,7 @@ namespace ForcePlatformCore.Helpers.ComPort
                 {
                     if ((s[0] == 'Z') && (s.Length > 104))
                     {
-                        connected = true;
+                        Connected = true;
                         string _s = s.Substring(1);
                         string[] ss = new string[17];
                         for (int i = 0; i < 16; i++) ss[i] = _s.Substring(i * 6, 6);

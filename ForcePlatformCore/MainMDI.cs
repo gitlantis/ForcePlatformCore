@@ -5,13 +5,11 @@ using ForcePlatformData.Helpers;
 using ForcePlatformData.Models;
 using ForcePlatformData.Service;
 using Microsoft.EntityFrameworkCore;
-using ForcePlatformCore;
 
 namespace ForcePlatformCore
 {
     public partial class MainMDI : Form
     {
-
         private int childFormNumber = 0;
         private bool pauseAll = false;
         private Queue<CsvModel> csvData = new Queue<CsvModel>();
@@ -46,7 +44,6 @@ namespace ForcePlatformCore
 
         public MainMDI()
         {
-
             InitializeComponent();
             // loadSettingsFromfile(); ------------------------------------------------------------------------------------
         }
@@ -120,8 +117,16 @@ namespace ForcePlatformCore
             AdcData.DiffZ = new int[4];
             AdcData.CurrentTimeMC = 0;
 
-            //comPort = new ComPort(AppConfig.Config.AutoSelectCom, AppConfig.Config.ComPort, AppConfig.Config.FilterLength);
-            //timer1.Enabled = comPort.connected;
+            comPort = new ComPort(AppConfig.Config.AutoSelectCom, AppConfig.Config.ComPort, AppConfig.Config.FilterLength);
+            
+            if (!AppConfig.Config.AutoSelectCom)
+            {
+                var conf = AppConfig.Config;
+                conf.ComPort = comPort.PortName;
+                AppConfig.UpdateConfig = conf;
+            }
+
+            timer1.Enabled = comPort.Connected;
             AdcData.Init(AppConfig.Config.FilterLength);
 
             AppConfig.DbContext.Database.EnsureCreated();
@@ -225,7 +230,7 @@ namespace ForcePlatformCore
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (comPort.connected)
+            if (comPort.Connected)
             {
                 var data = comPort.onReceive();
                 AdcData.Set(data);
@@ -418,7 +423,7 @@ namespace ForcePlatformCore
         private void настройкиToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SettingsForm settingForm = new SettingsForm();
-            settingForm.Show();
+            settingForm.ShowDialog();
             // loadSettingsFromfile();
 
         }

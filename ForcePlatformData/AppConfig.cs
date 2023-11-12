@@ -21,26 +21,36 @@ namespace ForcePlatformData
 
         public static AppsettingsModel Config => Get();
 
-        private static string commonPath = AppsettingsModel.CommonPath;
+        public static string CommonPath = AppsettingsModel.CommonPath;
+        public static string DbName = AppsettingsModel.DbName;
 
         private static AppsettingsModel Get()
         {
-            if (!Directory.Exists(commonPath))
-                Directory.CreateDirectory(commonPath);
+            if (!Directory.Exists(CommonPath))
+                Directory.CreateDirectory(CommonPath);
 
             var commonFiles = new Dictionary<string, string>
             {
-                { Path.Join(Environment.CurrentDirectory, AppsettingsModel.AppSettingsName), Path.Join(commonPath, AppsettingsModel.AppSettingsName)},
-                { Path.Join(Environment.CurrentDirectory, AppsettingsModel.DbName), Path.Join(commonPath, AppsettingsModel.DbName)}
+                { Path.Join(Environment.CurrentDirectory, AppsettingsModel.AppSettingsName), Path.Join(CommonPath, AppsettingsModel.AppSettingsName)},
+                { Path.Join(Environment.CurrentDirectory, AppConfig.DbName), Path.Join(CommonPath, AppConfig.DbName)}
             };
 
             foreach (var file in commonFiles)
                 if (!File.Exists(file.Value))
                     File.Copy(file.Key, file.Value);
 
-            var builder = new ConfigurationBuilder().AddJsonFile(Path.Join(commonPath, AppsettingsModel.AppSettingsName), optional: true, reloadOnChange: true);
+            var builder = new ConfigurationBuilder().AddJsonFile(Path.Join(CommonPath, AppsettingsModel.AppSettingsName), optional: true, reloadOnChange: true);
             Configuration = builder.Build();
             var result = Configuration.Get<AppsettingsModel>();
+
+            var reportPath = Path.Join(CommonPath, result.ReportsPath);
+            if (!Directory.Exists(reportPath))
+                Directory.CreateDirectory(reportPath);
+
+            var pdfReportPath = Path.Join(CommonPath, result.PdfReportPath);
+            if (!Directory.Exists(pdfReportPath))
+                Directory.CreateDirectory(pdfReportPath);
+
             return result;
         }
 
@@ -50,7 +60,7 @@ namespace ForcePlatformData
             {
                 WriteIndented = true,
             };
-            File.WriteAllText(Path.Join(commonPath, AppsettingsModel.AppSettingsName), JsonSerializer.Serialize(model, jsonOptions));
+            File.WriteAllText(Path.Join(CommonPath, AppsettingsModel.AppSettingsName), JsonSerializer.Serialize(model, jsonOptions));
         }
     }
 

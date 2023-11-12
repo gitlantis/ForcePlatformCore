@@ -1,12 +1,13 @@
 ﻿using PuppeteerSharp.Media;
 using PuppeteerSharp;
+using ForcePlatformData.Models;
 
 namespace ForcePlatformData.Helpers
 {
     public static class PdfProcessor
     {
-        private readonly static string chrome = Path.Join(Environment.CurrentDirectory, AppConfig.Config.ChromePath);
-        private readonly static string pdfReportPath = Path.Join(Environment.CurrentDirectory, AppConfig.Config.PdfReportPath);
+        private readonly static string chrome = Path.Join(AppConfig.CommonPath, AppConfig.Config.ChromePath);
+        private readonly static string pdfReportPath = Path.Join(AppConfig.CommonPath, AppConfig.Config.PdfReportPath);
 
         public static void GeneratePdf()
         {

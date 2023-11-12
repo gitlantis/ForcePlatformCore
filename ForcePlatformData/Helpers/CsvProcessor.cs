@@ -4,7 +4,7 @@ namespace ForcePlatformData.Helpers
 {
     public static class CsvProcessor
     {
-        private static string path = AppConfig.Config.ReportsPath;
+        private static string path = Path.Join(AppConfig.CommonPath, AppConfig.Config.ReportsPath);
 
         public static string Save(int userId, Queue<CsvModel> data, string param, List<int> openPlates)
         {

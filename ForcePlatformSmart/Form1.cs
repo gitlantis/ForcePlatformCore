@@ -1,3 +1,5 @@
+using ForcePlatformData.Helpers;
+
 namespace ForcePlatformSmart
 {
     public partial class Form1 : Form
@@ -5,6 +7,7 @@ namespace ForcePlatformSmart
         public Form1()
         {
             InitializeComponent();
+            PdfProcessor.GeneratePdf();
         }
     }
 }
