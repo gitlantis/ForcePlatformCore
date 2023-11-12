@@ -417,7 +417,7 @@ namespace ForcePlatformCore
 
         private void настройкиToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            settingForm settingForm = new settingForm();
+            SettingsForm settingForm = new SettingsForm();
             settingForm.Show();
             // loadSettingsFromfile();
 

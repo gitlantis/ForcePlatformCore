@@ -36,6 +36,7 @@ namespace ForcePlatformCore
             listBox1 = new ListBox();
             label1 = new Label();
             textBox1 = new TextBox();
+            iconButton5 = new FontAwesome.Sharp.IconButton();
             SuspendLayout();
             // 
             // iconButton2
@@ -48,7 +49,7 @@ namespace ForcePlatformCore
             iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton2.IconSize = 32;
             iconButton2.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButton2.Location = new Point(333, 485);
+            iconButton2.Location = new Point(332, 485);
             iconButton2.Name = "iconButton2";
             iconButton2.Size = new Size(89, 39);
             iconButton2.TabIndex = 5;
@@ -121,7 +122,7 @@ namespace ForcePlatformCore
             listBox1.ItemHeight = 15;
             listBox1.Location = new Point(12, 41);
             listBox1.Name = "listBox1";
-            listBox1.Size = new Size(410, 439);
+            listBox1.Size = new Size(504, 439);
             listBox1.TabIndex = 1;
             listBox1.DoubleClick += listBox1_DoubleClick;
             // 
@@ -140,15 +141,35 @@ namespace ForcePlatformCore
             textBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             textBox1.Location = new Point(96, 12);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(326, 23);
+            textBox1.Size = new Size(420, 23);
             textBox1.TabIndex = 0;
             textBox1.KeyPress += textBox1_KeyPress;
+            // 
+            // iconButton5
+            // 
+            iconButton5.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            iconButton5.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            iconButton5.ForeColor = Color.FromArgb(0, 0, 192);
+            iconButton5.IconChar = FontAwesome.Sharp.IconChar.Xmark;
+            iconButton5.IconColor = Color.FromArgb(0, 0, 192);
+            iconButton5.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton5.IconSize = 32;
+            iconButton5.ImageAlign = ContentAlignment.MiddleLeft;
+            iconButton5.Location = new Point(427, 486);
+            iconButton5.Name = "iconButton5";
+            iconButton5.Size = new Size(89, 39);
+            iconButton5.TabIndex = 18;
+            iconButton5.Text = "Close";
+            iconButton5.TextAlign = ContentAlignment.MiddleRight;
+            iconButton5.UseVisualStyleBackColor = true;
+            iconButton5.Click += iconButton5_Click;
             // 
             // UserSelect
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(431, 529);
+            ClientSize = new Size(525, 529);
+            Controls.Add(iconButton5);
             Controls.Add(listBox1);
             Controls.Add(label1);
             Controls.Add(textBox1);
@@ -156,7 +177,6 @@ namespace ForcePlatformCore
             Controls.Add(iconButton3);
             Controls.Add(iconButton2);
             Controls.Add(iconButton1);
-            MinimumSize = new Size(447, 568);
             Name = "UserSelect";
             Text = "User";
             Load += UserSelect_Load;
@@ -176,6 +196,7 @@ namespace ForcePlatformCore
         private FontAwesome.Sharp.IconButton iconButton4;
         private FontAwesome.Sharp.IconButton iconButton1;
         private FontAwesome.Sharp.IconButton iconButton2;
+        private FontAwesome.Sharp.IconButton iconButton5;
     }
 }
 

@@ -62,6 +62,7 @@
             groupBox4 = new GroupBox();
             listBox1 = new ListBox();
             iconButton2 = new FontAwesome.Sharp.IconButton();
+            iconButton1 = new FontAwesome.Sharp.IconButton();
             groupBox3.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox1.SuspendLayout();
@@ -126,9 +127,9 @@
             groupBox3.Controls.Add(label14);
             groupBox3.Controls.Add(textBox11);
             groupBox3.Controls.Add(label15);
-            groupBox3.Location = new Point(330, 178);
+            groupBox3.Location = new Point(325, 178);
             groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(300, 137);
+            groupBox3.Size = new Size(305, 137);
             groupBox3.TabIndex = 3;
             groupBox3.TabStop = false;
             groupBox3.Text = "Right Foot";
@@ -203,7 +204,7 @@
             groupBox2.Controls.Add(label10);
             groupBox2.Location = new Point(12, 178);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(300, 137);
+            groupBox2.Size = new Size(305, 137);
             groupBox2.TabIndex = 2;
             groupBox2.TabStop = false;
             groupBox2.Text = "Left Foot";
@@ -453,11 +454,31 @@
             iconButton2.TextAlign = ContentAlignment.MiddleRight;
             iconButton2.UseVisualStyleBackColor = true;
             // 
+            // iconButton1
+            // 
+            iconButton1.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            iconButton1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            iconButton1.ForeColor = Color.FromArgb(0, 0, 192);
+            iconButton1.IconChar = FontAwesome.Sharp.IconChar.Xmark;
+            iconButton1.IconColor = Color.FromArgb(0, 0, 192);
+            iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton1.IconSize = 32;
+            iconButton1.ImageAlign = ContentAlignment.MiddleLeft;
+            iconButton1.Location = new Point(541, 637);
+            iconButton1.Name = "iconButton1";
+            iconButton1.Size = new Size(89, 39);
+            iconButton1.TabIndex = 18;
+            iconButton1.Text = "Close";
+            iconButton1.TextAlign = ContentAlignment.MiddleRight;
+            iconButton1.UseVisualStyleBackColor = true;
+            iconButton1.Click += iconButton1_Click;
+            // 
             // UserInfo
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(641, 683);
+            Controls.Add(iconButton1);
             Controls.Add(iconButton2);
             Controls.Add(groupBox4);
             Controls.Add(groupBox3);
@@ -513,5 +534,6 @@
         private FontAwesome.Sharp.IconButton iconButton2;
         private TextBox textBox13;
         private Label label9;
+        private FontAwesome.Sharp.IconButton iconButton1;
     }
 }

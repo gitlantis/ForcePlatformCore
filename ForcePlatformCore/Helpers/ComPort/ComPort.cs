@@ -1,5 +1,6 @@
 ﻿using System.IO.Ports;
 using ForcePlatformCore;
+using ForcePlatformData;
 
 namespace ForcePlatformCore.Helpers.ComPort
 {
@@ -44,7 +45,14 @@ namespace ForcePlatformCore.Helpers.ComPort
                             if (adcData.CurrentTimeMC == 0) break;
                         }
 
-                        if (connected) break;
+                        if (connected) {
+                            
+                            var conf = AppConfig.Config;
+                            conf.ComPort = portName;
+                            AppConfig.UpdateConfig = conf;
+
+                            break; 
+                        }
                         Disconnect();
                     }
                 }

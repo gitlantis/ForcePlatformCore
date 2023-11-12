@@ -1,4 +1,6 @@
-﻿namespace ForcePlatformCore
+﻿using ForcePlatformCore.Helpers;
+
+namespace ForcePlatformCore
 {
     partial class UserAddUpdate
     {
@@ -62,6 +64,7 @@
             textBox11 = new TextBox();
             label15 = new Label();
             iconButton2 = new FontAwesome.Sharp.IconButton();
+            iconButton1 = new FontAwesome.Sharp.IconButton();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox3.SuspendLayout();
@@ -146,7 +149,6 @@
             textBox5.Name = "textBox5";
             textBox5.Size = new Size(101, 29);
             textBox5.TabIndex = 14;
-            textBox5.KeyPress += doubleValidation;
             // 
             // textBox4
             // 
@@ -156,7 +158,7 @@
             textBox4.Name = "textBox4";
             textBox4.Size = new Size(101, 29);
             textBox4.TabIndex = 13;
-            textBox4.KeyPress += doubleValidation;
+            textBox4.KeyPress += validateDouble;
             // 
             // label6
             // 
@@ -182,7 +184,7 @@
             // 
             // dateTimePicker1
             // 
-            dateTimePicker1.Location = new Point(134, 120);
+            dateTimePicker1.Location = new Point(134, 121);
             dateTimePicker1.Name = "dateTimePicker1";
             dateTimePicker1.Size = new Size(207, 23);
             dateTimePicker1.TabIndex = 10;
@@ -191,7 +193,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label4.Location = new Point(12, 121);
+            label4.Location = new Point(12, 122);
             label4.Name = "label4";
             label4.Size = new Size(85, 21);
             label4.TabIndex = 8;
@@ -261,7 +263,7 @@
             groupBox2.Controls.Add(label10);
             groupBox2.Location = new Point(12, 213);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(300, 137);
+            groupBox2.Size = new Size(305, 137);
             groupBox2.TabIndex = 2;
             groupBox2.TabStop = false;
             groupBox2.Text = "Left Foot";
@@ -273,7 +275,7 @@
             textBox8.Name = "textBox8";
             textBox8.Size = new Size(150, 29);
             textBox8.TabIndex = 19;
-            textBox8.KeyPress += doubleValidation;
+            textBox8.KeyPress += validateDouble;
             // 
             // label12
             // 
@@ -292,7 +294,7 @@
             textBox7.Name = "textBox7";
             textBox7.Size = new Size(150, 29);
             textBox7.TabIndex = 17;
-            textBox7.KeyPress += doubleValidation;
+            textBox7.KeyPress += validateDouble;
             // 
             // label11
             // 
@@ -311,7 +313,7 @@
             textBox6.Name = "textBox6";
             textBox6.Size = new Size(150, 29);
             textBox6.TabIndex = 15;
-            textBox6.KeyPress += doubleValidation;
+            textBox6.KeyPress += validateDouble;
             // 
             // label10
             // 
@@ -353,9 +355,9 @@
             groupBox3.Controls.Add(label14);
             groupBox3.Controls.Add(textBox11);
             groupBox3.Controls.Add(label15);
-            groupBox3.Location = new Point(330, 213);
+            groupBox3.Location = new Point(325, 213);
             groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(300, 137);
+            groupBox3.Size = new Size(305, 137);
             groupBox3.TabIndex = 3;
             groupBox3.TabStop = false;
             groupBox3.Text = "Right Foot";
@@ -367,7 +369,7 @@
             textBox9.Name = "textBox9";
             textBox9.Size = new Size(150, 29);
             textBox9.TabIndex = 19;
-            textBox9.KeyPress += doubleValidation;
+            textBox9.KeyPress += validateDouble;
             // 
             // label13
             // 
@@ -386,7 +388,7 @@
             textBox10.Name = "textBox10";
             textBox10.Size = new Size(150, 29);
             textBox10.TabIndex = 17;
-            textBox10.KeyPress += doubleValidation;
+            textBox10.KeyPress += validateDouble;
             // 
             // label14
             // 
@@ -405,7 +407,7 @@
             textBox11.Name = "textBox11";
             textBox11.Size = new Size(150, 29);
             textBox11.TabIndex = 15;
-            textBox11.KeyPress += doubleValidation;
+            textBox11.KeyPress += validateDouble;
             // 
             // label15
             // 
@@ -427,7 +429,7 @@
             iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton2.IconSize = 32;
             iconButton2.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButton2.Location = new Point(274, 370);
+            iconButton2.Location = new Point(274, 356);
             iconButton2.Name = "iconButton2";
             iconButton2.Size = new Size(89, 39);
             iconButton2.TabIndex = 4;
@@ -436,18 +438,38 @@
             iconButton2.UseVisualStyleBackColor = true;
             iconButton2.Click += iconButton2_Click;
             // 
+            // iconButton1
+            // 
+            iconButton1.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            iconButton1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            iconButton1.ForeColor = Color.FromArgb(0, 0, 192);
+            iconButton1.IconChar = FontAwesome.Sharp.IconChar.Xmark;
+            iconButton1.IconColor = Color.FromArgb(0, 0, 192);
+            iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton1.IconSize = 32;
+            iconButton1.ImageAlign = ContentAlignment.MiddleLeft;
+            iconButton1.Location = new Point(541, 356);
+            iconButton1.Name = "iconButton1";
+            iconButton1.Size = new Size(89, 39);
+            iconButton1.TabIndex = 17;
+            iconButton1.Text = "Close";
+            iconButton1.TextAlign = ContentAlignment.MiddleRight;
+            iconButton1.UseVisualStyleBackColor = true;
+            iconButton1.Click += iconButton1_Click;
+            // 
             // UserAddUpdate
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(644, 422);
+            ClientSize = new Size(644, 401);
+            Controls.Add(iconButton1);
             Controls.Add(iconButton2);
             Controls.Add(groupBox3);
             Controls.Add(label9);
             Controls.Add(comboBox1);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
-            MinimumSize = new Size(660, 461);
+            MinimumSize = new Size(660, 440);
             Name = "UserAddUpdate";
             Text = "UserAddUpdate";
             Load += UserAddUpdate_Load;
@@ -497,5 +519,6 @@
         private FontAwesome.Sharp.IconButton iconButton2;
         private ComboBox comboBox2;
         private Label label16;
+        private FontAwesome.Sharp.IconButton iconButton1;
     }
 }

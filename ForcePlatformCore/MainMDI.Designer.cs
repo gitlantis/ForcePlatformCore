@@ -186,8 +186,8 @@
             // настройкиToolStripMenuItem
             // 
             настройкиToolStripMenuItem.Name = "настройкиToolStripMenuItem";
-            настройкиToolStripMenuItem.Size = new Size(82, 20);
-            настройкиToolStripMenuItem.Text = "Настройки:";
+            настройкиToolStripMenuItem.Size = new Size(79, 20);
+            настройкиToolStripMenuItem.Text = "Настройки";
             настройкиToolStripMenuItem.Click += настройкиToolStripMenuItem_Click;
             // 
             // timer1

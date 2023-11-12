@@ -1,6 +1,7 @@
 ﻿using ForcePlatformData.DbModels;
 using ForcePlatformData.Models;
 using Microsoft.Extensions.Configuration;
+using System.Text.Json;
 
 namespace ForcePlatformData
 {
@@ -9,12 +10,21 @@ namespace ForcePlatformData
         private static IConfiguration Configuration { get; set; }
         public static SqliteContext DbContext = new SqliteContext();
         public static User User { get; set; }
+        
+        public static AppsettingsModel? UpdateConfig
+        {
+            set
+            {
+                Update(value);
+            }
+        }
+
         public static AppsettingsModel Config => Get();
+
+        private static string commonPath = AppsettingsModel.CommonPath;
 
         private static AppsettingsModel Get()
         {
-            var commonPath = AppsettingsModel.CommonPath;
-
             if (!Directory.Exists(commonPath))
                 Directory.CreateDirectory(commonPath);
 
@@ -30,8 +40,21 @@ namespace ForcePlatformData
 
             var builder = new ConfigurationBuilder().AddJsonFile(Path.Join(commonPath, AppsettingsModel.AppSettingsName), optional: true, reloadOnChange: true);
             Configuration = builder.Build();
-            var config = Configuration.Get<AppsettingsModel>();
-            return config;
+            var result = Configuration.Get<AppsettingsModel>();
+            return result;
+        }
+
+        public static void Update(AppsettingsModel model)
+        {
+            var jsonOptions = new JsonSerializerOptions
+            {
+                WriteIndented = true,
+            };
+            File.WriteAllText(Path.Join(commonPath, AppsettingsModel.AppSettingsName), JsonSerializer.Serialize(model, jsonOptions));
         }
     }
+
+
+
+
 }

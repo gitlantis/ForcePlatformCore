@@ -1,4 +1,5 @@
-﻿using ForcePlatformData.DbModels;
+﻿using ForcePlatformCore.Helpers;
+using ForcePlatformData.DbModels;
 using ForcePlatformData.Service;
 
 namespace ForcePlatformCore
@@ -47,18 +48,6 @@ namespace ForcePlatformCore
             }
         }
 
-        private void doubleValidation(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
-            {
-                e.Handled = true;
-            }
-
-            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
-            {
-                e.Handled = true;
-            }
-        }
         private void iconButton2_Click(object sender, EventArgs e)
         {
             try
@@ -107,6 +96,16 @@ namespace ForcePlatformCore
                 Program.Message("Error", ex.Message);
 
             }
+        }
+
+        private void iconButton1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void validateDouble(object sender, KeyPressEventArgs e)
+        {
+            Validator.Double(sender, e);
         }
     }
 }

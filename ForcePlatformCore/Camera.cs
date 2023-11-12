@@ -1,6 +1,5 @@
 ﻿using AForge.Video;
 using AForge.Video.DirectShow;
-
 namespace ForcePlatformCore
 {
     public partial class Camera : Form
