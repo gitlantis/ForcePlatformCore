@@ -56,28 +56,6 @@ namespace ForcePlatformCore
             childForm.Show();
         }
 
-        private void OpenFile(object sender, EventArgs e)
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            openFileDialog.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
-            if (openFileDialog.ShowDialog(this) == DialogResult.OK)
-            {
-                string FileName = openFileDialog.FileName;
-            }
-        }
-
-        private void SaveAsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            saveFileDialog.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
-            if (saveFileDialog.ShowDialog(this) == DialogResult.OK)
-            {
-                string FileName = saveFileDialog.FileName;
-            }
-        }
-
         private void ExitToolsStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -118,16 +96,15 @@ namespace ForcePlatformCore
             AdcData.CurrentTimeMC = 0;
             csvData.CsvItems = new Queue<CsvItem>();
 
-            comPort = new ComPort(AppConfig.Config.AutoSelectCom, AppConfig.Config.ComPort, AppConfig.Config.FilterLength);
+            //comPort = new ComPort(AppConfig.Config.AutoSelectCom, AppConfig.Config.ComPort, AppConfig.Config.FilterLength);
+            //if (!AppConfig.Config.AutoSelectCom)
+            //{
+            //    var conf = AppConfig.Config;
+            //    conf.ComPort = comPort.PortName;
+            //    AppConfig.UpdateConfig = conf;
+            //}
 
-            if (!AppConfig.Config.AutoSelectCom)
-            {
-                var conf = AppConfig.Config;
-                conf.ComPort = comPort.PortName;
-                AppConfig.UpdateConfig = conf;
-            }
-
-            timer1.Enabled = comPort.Connected;
+            //timer1.Enabled = comPort.Connected;
             AdcData.Init(AppConfig.Config.FilterLength);
 
             AppConfig.DbContext.Database.EnsureCreated();
@@ -139,24 +116,16 @@ namespace ForcePlatformCore
             camera.MdiParent = this;
             camera.Show();
         }
-        private void plate1ToolStripMenuItem_Click(object sender, EventArgs e)
+        
+        private void plateToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            showForm(0);
-        }
+            var i = -1;
+            if (sender == plate1ToolStripMenuItem) i = 0;
+            if (sender == plate2ToolStripMenuItem) i = 1;
+            if (sender == plate3ToolStripMenuItem) i = 2;
+            if (sender == plate4ToolStripMenuItem) i = 3;
 
-        private void plate2ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            showForm(1);
-        }
-
-        private void plate3ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            showForm(2);
-        }
-
-        private void plate4ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            showForm(3);
+            showForm(i);
         }
 
         private void openAllToolStripMenuItem_Click(object sender, EventArgs e)
@@ -164,12 +133,16 @@ namespace ForcePlatformCore
             for (int i = 0; i < 4; i++)
                 showForm(i);
         }
+
         private void showForm(int i)
         {
-            childForms[i] = new DataLoggerForm(i);
-            childForms[i].MdiParent = this;
-            childForms[i].Show();
-            openPlates.Add(i);
+            if (i >= 0)
+            {
+                childForms[i] = new DataLoggerForm(i);
+                childForms[i].MdiParent = this;
+                childForms[i].Show();
+                openPlates.Add(i);
+            }
         }
 
         private void closeAllToolStripMenuItem_Click_1(object sender, EventArgs e)

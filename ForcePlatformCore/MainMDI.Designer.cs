@@ -111,28 +111,28 @@
             plate1ToolStripMenuItem.Name = "plate1ToolStripMenuItem";
             plate1ToolStripMenuItem.Size = new Size(119, 22);
             plate1ToolStripMenuItem.Text = "Plate1";
-            plate1ToolStripMenuItem.Click += plate1ToolStripMenuItem_Click;
+            plate1ToolStripMenuItem.Click += plateToolStripMenuItem_Click;
             // 
             // plate2ToolStripMenuItem
             // 
             plate2ToolStripMenuItem.Name = "plate2ToolStripMenuItem";
             plate2ToolStripMenuItem.Size = new Size(119, 22);
             plate2ToolStripMenuItem.Text = "Plate2";
-            plate2ToolStripMenuItem.Click += plate2ToolStripMenuItem_Click;
+            plate2ToolStripMenuItem.Click += plateToolStripMenuItem_Click;
             // 
             // plate3ToolStripMenuItem
             // 
             plate3ToolStripMenuItem.Name = "plate3ToolStripMenuItem";
             plate3ToolStripMenuItem.Size = new Size(119, 22);
             plate3ToolStripMenuItem.Text = "Plate3";
-            plate3ToolStripMenuItem.Click += plate3ToolStripMenuItem_Click;
+            plate3ToolStripMenuItem.Click += plateToolStripMenuItem_Click;
             // 
             // plate4ToolStripMenuItem
             // 
             plate4ToolStripMenuItem.Name = "plate4ToolStripMenuItem";
             plate4ToolStripMenuItem.Size = new Size(119, 22);
             plate4ToolStripMenuItem.Text = "Plate4";
-            plate4ToolStripMenuItem.Click += plate4ToolStripMenuItem_Click;
+            plate4ToolStripMenuItem.Click += plateToolStripMenuItem_Click;
             // 
             // openAllToolStripMenuItem
             // 

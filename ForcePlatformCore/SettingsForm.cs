@@ -19,16 +19,17 @@ namespace ForcePlatformCore
         public SettingsForm()
         {
             InitializeComponent();
-
-            //comboBox4.SelectedItem = 0;
-            //comboBox1.SelectedItem = 0;
-
-            //FilterType = comboBox1.Text;
-            //ExcerciseType = comboBox2.Text;
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            iconPictureBox1.ImageLocation = Path.Join(Environment.CurrentDirectory, "assets", "plate_icon.png");
+            iconPictureBox2.ImageLocation = Path.Join(Environment.CurrentDirectory, "assets", "plate_icon.png");
+            iconPictureBox3.ImageLocation = Path.Join(Environment.CurrentDirectory, "assets", "plate_icon.png");
+            iconPictureBox4.ImageLocation = Path.Join(Environment.CurrentDirectory, "assets", "plate_icon.png");
+            iconPictureBox5.ImageLocation = Path.Join(Environment.CurrentDirectory, "assets", "plate_icon.png");
+            iconPictureBox6.ImageLocation = Path.Join(Environment.CurrentDirectory, "assets", "plate_icon.png");
+
             comboBox1.Text = CsvStaticModel.FilterType;
             textBox1.Text = AppConfig.Config.FilterLength.ToString();
             comboBox2.Text = CsvStaticModel.ExerciseType;
@@ -55,6 +56,38 @@ namespace ForcePlatformCore
         private void iconButton2_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            hidePictureBoxes();
+            if (comboBox2.SelectedIndex == 0)
+            {
+                iconPictureBox1.Visible = true;
+            }
+            if (comboBox2.SelectedIndex == 1)
+            {
+                iconPictureBox1.Visible = true;
+                iconPictureBox2.Visible = true;
+
+            }
+            if (comboBox2.SelectedIndex == 2)
+            {
+                iconPictureBox3.Visible = true;
+                iconPictureBox4.Visible = true;
+                iconPictureBox5.Visible = true;
+                iconPictureBox6.Visible = true;
+            }
+        }
+
+        private void hidePictureBoxes()
+        {
+            iconPictureBox1.Visible = false;
+            iconPictureBox2.Visible = false;
+            iconPictureBox3.Visible = false;
+            iconPictureBox4.Visible = false;
+            iconPictureBox5.Visible = false;
+            iconPictureBox6.Visible = false;
         }
     }
 }
