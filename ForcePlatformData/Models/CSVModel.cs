@@ -2,7 +2,9 @@
 {
     public class CsvModel
     {
-        public TimeSpan Time { get; set; }
-        public List<CsvItem> PlateData { get; set; }
+        public string FilterMode { get; set; } = "";
+        public int FilterLength { get; set; }
+        public string ExerciseType { get; set; } = "";
+        public Queue<CsvItem> CsvItems { get; set; }
     }
 }

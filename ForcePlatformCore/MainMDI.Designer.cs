@@ -252,7 +252,7 @@
             toolStripButton3.Image = (Image)resources.GetObject("toolStripButton3.Image");
             toolStripButton3.ImageTransparentColor = Color.Magenta;
             toolStripButton3.Name = "toolStripButton3";
-            toolStripButton3.Size = new Size(100, 30);
+            toolStripButton3.Size = new Size(120, 30);
             toolStripButton3.Text = "Pause";
             toolStripButton3.Click += toolStripButton3_Click;
             // 

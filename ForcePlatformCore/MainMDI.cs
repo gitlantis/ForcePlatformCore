@@ -12,7 +12,7 @@ namespace ForcePlatformCore
     {
         private int childFormNumber = 0;
         private bool pauseAll = false;
-        private Queue<CsvModel> csvData = new Queue<CsvModel>();
+        private CsvModel csvData = new CsvModel();
         private bool startRecording = false;
         private int glCnt = 0;
         private int oldCurrentTimeMC = 0;
@@ -116,9 +116,10 @@ namespace ForcePlatformCore
             //// loadSettingsFromfile();    --------------------------------------------------------------------------------------
             AdcData.DiffZ = new int[4];
             AdcData.CurrentTimeMC = 0;
+            csvData.CsvItems = new Queue<CsvItem>();
 
             comPort = new ComPort(AppConfig.Config.AutoSelectCom, AppConfig.Config.ComPort, AppConfig.Config.FilterLength);
-            
+
             if (!AppConfig.Config.AutoSelectCom)
             {
                 var conf = AppConfig.Config;
@@ -234,7 +235,7 @@ namespace ForcePlatformCore
             {
                 var data = comPort.onReceive();
                 AdcData.Set(data);
-                var plateData = new List<CsvItem>();
+                var plateData = new List<AxisItem>();
 
                 if (oldCurrentTimeMC != AdcData.CurrentTimeMC)
                 {
@@ -248,7 +249,7 @@ namespace ForcePlatformCore
                         item.DiffZ = AdcData.DiffZ[plate];
                         item.CurrentTimeMC = AdcData.CurrentTimeMC;
 
-                        plateData.Add(new CsvItem
+                        plateData.Add(new AxisItem
                         {
                             Plate = plate,
                             DiffX = AdcData.DiffX[plate],
@@ -262,10 +263,10 @@ namespace ForcePlatformCore
 
                 if (startRecording)
                 {
-                    csvData.Enqueue(new CsvModel
+                    csvData.CsvItems.Enqueue(new CsvItem
                     {
                         Time = DateTime.Now.Subtract(scanStarted),
-                        PlateData = plateData,
+                        AxisItems = plateData,
                     });
                     var item = new AdcBufferItem();
                 }
@@ -276,6 +277,7 @@ namespace ForcePlatformCore
         private void Zero()
         {
             for (int i = 0; i < AdcData.CurrentAdc.Length; i++) { AdcData.ZeroAdc[i] = AdcData.MiddledAdc[i]; }
+
         }
 
         private void MDIParent1_FormClosing(object sender, FormClosingEventArgs e)
@@ -319,9 +321,10 @@ namespace ForcePlatformCore
         private void resetAll()
         {
             scanStarted = DateTime.Now;
-            csvData.Clear();
+            csvData.CsvItems.Clear();
             AdcBuffer.BufferItems.Clear();
             Zero();
+
             foreach (Form childForm in MdiChildren)
             {
                 if (childForm is DataLoggerForm)
@@ -370,6 +373,16 @@ namespace ForcePlatformCore
                 return;
             }
 
+            csvData.FilterMode = CsvStaticModel.FilterType;
+            csvData.FilterLength = CsvStaticModel.FilterLength;
+            csvData.ExerciseType = CsvStaticModel.ExerciseType;
+
+            if (csvData.FilterMode.Length == 0 && csvData.ExerciseType.Length == 0)
+            {
+                Program.Message("Warning", "Plese choose exerceise type");
+                return;
+            }
+
             if (openPlates.Count < 1)
             {
                 Program.Message("Warning", "No plates opened to scan");
@@ -380,7 +393,7 @@ namespace ForcePlatformCore
             if (startRecording)
             {
                 toolStripButton4.Text = "Stop recording";
-                toolStripButton4.Image = Image.FromFile("assets/pause-circle-o.png");
+                toolStripButton4.Image = Image.FromFile("assets/stop-circle-o.png");
             }
             else
             {
@@ -394,10 +407,9 @@ namespace ForcePlatformCore
                 {
                     var path = CsvProcessor.Save(Program.User.Id, csvData, "", openPlates.ToList());
                     reportService.AddReport(Program.User.Id, path);
-                    csvData.Clear();
 
+                    resetAll();              
                     Program.Message("Success", $"data saved to: \r\n{path} file");
-
                 }
                 catch (Exception err)
                 {

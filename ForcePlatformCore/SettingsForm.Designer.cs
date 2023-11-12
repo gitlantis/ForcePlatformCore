@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             tableLayoutPanel1 = new TableLayoutPanel();
-            comboBox1 = new ComboBox();
+            comboBox4 = new ComboBox();
             label2 = new Label();
             button1 = new Button();
             button2 = new Button();
@@ -39,9 +39,9 @@
             label3 = new Label();
             textBox1 = new TextBox();
             iconButton2 = new FontAwesome.Sharp.IconButton();
-            comboBox2 = new ComboBox();
+            comboBox1 = new ComboBox();
             label6 = new Label();
-            comboBox3 = new ComboBox();
+            comboBox2 = new ComboBox();
             tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -50,7 +50,7 @@
             tableLayoutPanel1.ColumnCount = 2;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.Controls.Add(comboBox1, 1, 0);
+            tableLayoutPanel1.Controls.Add(comboBox4, 1, 0);
             tableLayoutPanel1.Controls.Add(label2, 0, 1);
             tableLayoutPanel1.Controls.Add(button1, 0, 2);
             tableLayoutPanel1.Controls.Add(button2, 1, 2);
@@ -67,15 +67,15 @@
             tableLayoutPanel1.TabIndex = 0;
             tableLayoutPanel1.Visible = false;
             // 
-            // comboBox1
+            // comboBox4
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Items.AddRange(new object[] { "Скользящее окно", "Усреднение", "Хемминг", "Баттерфорт" });
-            comboBox1.Location = new Point(198, 3);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(190, 23);
-            comboBox1.TabIndex = 0;
-            comboBox1.Text = "Выберите фильтр:";
+            comboBox4.FormattingEnabled = true;
+            comboBox4.Items.AddRange(new object[] { "Скользящее окно", "Усреднение", "Хемминг", "Баттерфорт" });
+            comboBox4.Location = new Point(198, 3);
+            comboBox4.Name = "comboBox4";
+            comboBox4.Size = new Size(190, 23);
+            comboBox4.TabIndex = 0;
+            comboBox4.Text = "Выберите фильтр:";
             // 
             // label2
             // 
@@ -123,7 +123,7 @@
             iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton1.IconSize = 32;
             iconButton1.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButton1.Location = new Point(388, 132);
+            iconButton1.Location = new Point(438, 137);
             iconButton1.Name = "iconButton1";
             iconButton1.Size = new Size(89, 39);
             iconButton1.TabIndex = 16;
@@ -158,8 +158,9 @@
             textBox1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             textBox1.Location = new Point(163, 54);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(311, 29);
+            textBox1.Size = new Size(361, 29);
             textBox1.TabIndex = 11;
+            textBox1.KeyPress += validateInt;
             // 
             // iconButton2
             // 
@@ -171,7 +172,7 @@
             iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton2.IconSize = 32;
             iconButton2.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButton2.Location = new Point(199, 132);
+            iconButton2.Location = new Point(224, 137);
             iconButton2.Name = "iconButton2";
             iconButton2.Size = new Size(89, 39);
             iconButton2.TabIndex = 14;
@@ -180,16 +181,16 @@
             iconButton2.UseVisualStyleBackColor = true;
             iconButton2.Click += iconButton1_Click;
             // 
-            // comboBox2
+            // comboBox1
             // 
-            comboBox2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBox2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            comboBox2.Items.AddRange(new object[] { "sm", "mm" });
-            comboBox2.Location = new Point(163, 10);
-            comboBox2.Name = "comboBox2";
-            comboBox2.Size = new Size(311, 29);
-            comboBox2.TabIndex = 12;
+            comboBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            comboBox1.Items.AddRange(new object[] { "Скользящее экспоненциальное окно", "Усреднение" });
+            comboBox1.Location = new Point(163, 10);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(361, 29);
+            comboBox1.TabIndex = 12;
             // 
             // label6
             // 
@@ -201,30 +202,30 @@
             label6.TabIndex = 19;
             label6.Text = "Тип упражнения";
             // 
-            // comboBox3
+            // comboBox2
             // 
-            comboBox3.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            comboBox3.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBox3.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            comboBox3.Items.AddRange(new object[] { "Стоя", "Ход", "Прыжка" });
-            comboBox3.Location = new Point(163, 97);
-            comboBox3.Name = "comboBox3";
-            comboBox3.Size = new Size(311, 29);
-            comboBox3.TabIndex = 18;
+            comboBox2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            comboBox2.Items.AddRange(new object[] { "Стоя", "Ход", "Прыжка" });
+            comboBox2.Location = new Point(163, 97);
+            comboBox2.Name = "comboBox2";
+            comboBox2.Size = new Size(361, 29);
+            comboBox2.TabIndex = 18;
             // 
             // SettingsForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(486, 179);
+            ClientSize = new Size(536, 184);
             Controls.Add(label6);
-            Controls.Add(comboBox3);
+            Controls.Add(comboBox2);
             Controls.Add(iconButton1);
             Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(textBox1);
             Controls.Add(iconButton2);
-            Controls.Add(comboBox2);
+            Controls.Add(comboBox1);
             Controls.Add(tableLayoutPanel1);
             MaximumSize = new Size(1000, 500);
             MinimumSize = new Size(423, 218);
@@ -241,7 +242,7 @@
         #endregion
 
         private TableLayoutPanel tableLayoutPanel1;
-        private ComboBox comboBox1;
+        private ComboBox comboBox4;
         private Label label1;
         private Label label2;
         private TextBox textBox1;
@@ -252,8 +253,8 @@
         private Label label3;
         private TextBox textBox2;
         private FontAwesome.Sharp.IconButton iconButton2;
-        private ComboBox comboBox2;
+        private ComboBox comboBox1;
         private Label label6;
-        private ComboBox comboBox3;
+        private ComboBox comboBox2;
     }
 }
