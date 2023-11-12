@@ -1,6 +1,6 @@
 ﻿namespace ForcePlatformData.Models
 {
-    public class CSVItem
+    public class CsvItem
     {
         public int Plate { get; set; }
         public double DiffX { get; set; }

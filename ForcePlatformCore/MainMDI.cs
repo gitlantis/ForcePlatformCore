@@ -13,7 +13,7 @@ namespace ForcePlatformCore
 
         private int childFormNumber = 0;
         private bool pauseAll = false;
-        private Queue<CSVModel> csvData = new Queue<CSVModel>();
+        private Queue<CsvModel> csvData = new Queue<CsvModel>();
         private bool startRecording = false;
         private int glCnt = 0;
         private int oldCurrentTimeMC = 0;
@@ -103,8 +103,8 @@ namespace ForcePlatformCore
             timer1.Enabled = comPort.connected;
             AdcData.Init(AppConfig.Config.FilterLength);
 
-            AppConfig.dbContext.Database.EnsureCreated();
-            AppConfig.dbContext.Users.Load();
+            AppConfig.DbContext.Database.EnsureCreated();
+            AppConfig.DbContext.Users.Load();
 
             resetAll();
 
@@ -208,7 +208,7 @@ namespace ForcePlatformCore
             {
                 var data = comPort.onReceive();
                 AdcData.Set(data);
-                var plateData = new List<CSVItem>();
+                var plateData = new List<CsvItem>();
 
                 if (oldCurrentTimeMC != AdcData.CurrentTimeMC)
                 {
@@ -222,7 +222,7 @@ namespace ForcePlatformCore
                         item.DiffZ = AdcData.DiffZ[plate];
                         item.CurrentTimeMC = AdcData.CurrentTimeMC;
 
-                        plateData.Add(new CSVItem
+                        plateData.Add(new CsvItem
                         {
                             Plate = plate,
                             DiffX = AdcData.DiffX[plate],
@@ -236,7 +236,7 @@ namespace ForcePlatformCore
 
                 if (startRecording)
                 {
-                    csvData.Enqueue(new CSVModel
+                    csvData.Enqueue(new CsvModel
                     {
                         Time = DateTime.Now.Subtract(scanStarted),
                         PlateData = plateData,
@@ -256,8 +256,8 @@ namespace ForcePlatformCore
         {
             comPort.Disconnect();
 
-            AppConfig.dbContext?.Dispose();
-            AppConfig.dbContext = null;
+            AppConfig.DbContext?.Dispose();
+            AppConfig.DbContext = null;
         }
 
         private void button1_Click(object sender, EventArgs e)

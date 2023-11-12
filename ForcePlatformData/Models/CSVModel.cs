@@ -1,8 +1,8 @@
 ﻿namespace ForcePlatformData.Models
 {
-    public class CSVModel
+    public class CsvModel
     {
         public TimeSpan Time { get; set; }
-        public List<CSVItem> PlateData { get; set; }
+        public List<CsvItem> PlateData { get; set; }
     }
 }

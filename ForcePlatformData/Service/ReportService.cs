@@ -14,8 +14,8 @@ namespace ForcePlatformData.Service
                     Path = path,
                     CreatedDate = DateTime.Now
                 };
-                AppConfig.dbContext.Add(report);
-                AppConfig.dbContext!.SaveChanges();
+                AppConfig.DbContext.Add(report);
+                AppConfig.DbContext!.SaveChanges();
                 return report.Id;
             }
             catch (Exception e)
@@ -27,7 +27,7 @@ namespace ForcePlatformData.Service
         {
             try
             {
-                var reports = AppConfig.dbContext.Reports.Where(c=>c.UserId==userId).ToList();
+                var reports = AppConfig.DbContext.Reports.Where(c=>c.UserId==userId).ToList();
                 return reports;
             }
             catch (Exception e)

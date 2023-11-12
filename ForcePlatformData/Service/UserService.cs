@@ -13,7 +13,7 @@ namespace ForcePlatformData.Service
         {
             try
             {
-                var users = AppConfig.dbContext.Users.Where(c=>c.Name.Contains(keywoard) || c.Surname.Contains(keywoard) || c.MiddleName.Contains(keywoard)).ToList();
+                var users = AppConfig.DbContext.Users.Where(c=>c.Name.Contains(keywoard) || c.Surname.Contains(keywoard) || c.MiddleName.Contains(keywoard)).ToList();
                 return users;
             }
             catch (Exception e)
@@ -26,7 +26,7 @@ namespace ForcePlatformData.Service
         {
             try
             {
-                var users = AppConfig.dbContext.Users.Take(limit).ToList();
+                var users = AppConfig.DbContext.Users.Take(limit).ToList();
                 return users;
             }
             catch (Exception e)
@@ -39,7 +39,7 @@ namespace ForcePlatformData.Service
         {
             try
             {
-                var param = AppConfig.dbContext.UserParams.Where(param=> param.UserId==userId).FirstOrDefault();
+                var param = AppConfig.DbContext.UserParams.Where(param=> param.UserId==userId).FirstOrDefault();
                 return param;
             }
             catch (Exception e)
@@ -55,8 +55,8 @@ namespace ForcePlatformData.Service
                 user.CreatedDate = DateTime.Now;
                 user.EditedDate = DateTime.Now;
 
-                AppConfig.dbContext.Add(user);
-                AppConfig.dbContext!.SaveChanges();
+                AppConfig.DbContext.Add(user);
+                AppConfig.DbContext!.SaveChanges();
                 return user;
             }
             catch (Exception e) {
@@ -69,10 +69,10 @@ namespace ForcePlatformData.Service
             try
             {
                 user.EditedDate = DateTime.Now;
-                AppConfig.dbContext.ChangeTracker.Clear();             
-                AppConfig.dbContext.Users.Update(user);
+                AppConfig.DbContext.ChangeTracker.Clear();             
+                AppConfig.DbContext.Users.Update(user);
 
-                AppConfig.dbContext.SaveChanges();
+                AppConfig.DbContext.SaveChanges();
                 return user;
             }
             catch (Exception e)

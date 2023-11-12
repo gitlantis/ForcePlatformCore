@@ -17,7 +17,7 @@ namespace ForcePlatformCore
         readonly DataLogger LoggerDiffZ;
 
         private bool isStopped = false;
-        private List<CSVModel> csvData = new List<CSVModel>();
+        private List<CsvModel> csvData = new List<CsvModel>();
         private int stopTime = 0;
         private double coeffcent = 0;
 

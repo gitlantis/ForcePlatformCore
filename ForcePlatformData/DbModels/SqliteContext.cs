@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using ForcePlatformData.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ForcePlatformData.DbModels
 {
@@ -14,7 +15,7 @@ namespace ForcePlatformData.DbModels
         //}
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-            => optionsBuilder.UseSqlite("Data Source=platformdb.db");
+            => optionsBuilder.UseSqlite($"Data Source={Path.Join(AppsettingsModel.CommonPath, AppsettingsModel.DbName)}");
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

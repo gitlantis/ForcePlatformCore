@@ -6,7 +6,7 @@ namespace ForcePlatformData.Helpers
     {
         private static string path = AppConfig.Config.ReportsPath;
 
-        public static string Save(int userId, Queue<CSVModel> data, string param, List<int> openPlates)
+        public static string Save(int userId, Queue<CsvModel> data, string param, List<int> openPlates)
         {
             try
             {
