@@ -79,7 +79,7 @@ namespace ForcePlatformCore
                 }
             }
 
-            if (comboBox2.SelectedIndex == 0)
+            if (comboBox2.SelectedIndex == 0 && !error)
                 Program.Message("Attantion", "Experimenter should not move on this mode");
 
             Program.ComPort.Zero();
