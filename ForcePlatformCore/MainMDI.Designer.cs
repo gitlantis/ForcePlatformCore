@@ -59,6 +59,7 @@
             toolStripSeparator3 = new ToolStripSeparator();
             toolStripButton1 = new ToolStripButton();
             contextMenuStrip1 = new ContextMenuStrip(components);
+            radarChartToolStripMenuItem = new ToolStripMenuItem();
             statusStrip.SuspendLayout();
             menuStrip.SuspendLayout();
             toolStrip1.SuspendLayout();
@@ -94,7 +95,7 @@
             // 
             // platesToolStripMenuItem
             // 
-            platesToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItem1, plate1ToolStripMenuItem, plate2ToolStripMenuItem, plate3ToolStripMenuItem, plate4ToolStripMenuItem, openAllToolStripMenuItem, closeAllToolStripMenuItem });
+            platesToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItem1, radarChartToolStripMenuItem, plate1ToolStripMenuItem, plate2ToolStripMenuItem, plate3ToolStripMenuItem, plate4ToolStripMenuItem, openAllToolStripMenuItem, closeAllToolStripMenuItem });
             platesToolStripMenuItem.Name = "platesToolStripMenuItem";
             platesToolStripMenuItem.Size = new Size(50, 20);
             platesToolStripMenuItem.Text = "Plates";
@@ -102,49 +103,49 @@
             // toolStripMenuItem1
             // 
             toolStripMenuItem1.Name = "toolStripMenuItem1";
-            toolStripMenuItem1.Size = new Size(119, 22);
+            toolStripMenuItem1.Size = new Size(136, 22);
             toolStripMenuItem1.Text = "Camera";
             toolStripMenuItem1.Click += toolStripMenuItem1_Click;
             // 
             // plate1ToolStripMenuItem
             // 
             plate1ToolStripMenuItem.Name = "plate1ToolStripMenuItem";
-            plate1ToolStripMenuItem.Size = new Size(119, 22);
+            plate1ToolStripMenuItem.Size = new Size(136, 22);
             plate1ToolStripMenuItem.Text = "Plate1";
             plate1ToolStripMenuItem.Click += plateToolStripMenuItem_Click;
             // 
             // plate2ToolStripMenuItem
             // 
             plate2ToolStripMenuItem.Name = "plate2ToolStripMenuItem";
-            plate2ToolStripMenuItem.Size = new Size(119, 22);
+            plate2ToolStripMenuItem.Size = new Size(136, 22);
             plate2ToolStripMenuItem.Text = "Plate2";
             plate2ToolStripMenuItem.Click += plateToolStripMenuItem_Click;
             // 
             // plate3ToolStripMenuItem
             // 
             plate3ToolStripMenuItem.Name = "plate3ToolStripMenuItem";
-            plate3ToolStripMenuItem.Size = new Size(119, 22);
+            plate3ToolStripMenuItem.Size = new Size(136, 22);
             plate3ToolStripMenuItem.Text = "Plate3";
             plate3ToolStripMenuItem.Click += plateToolStripMenuItem_Click;
             // 
             // plate4ToolStripMenuItem
             // 
             plate4ToolStripMenuItem.Name = "plate4ToolStripMenuItem";
-            plate4ToolStripMenuItem.Size = new Size(119, 22);
+            plate4ToolStripMenuItem.Size = new Size(136, 22);
             plate4ToolStripMenuItem.Text = "Plate4";
             plate4ToolStripMenuItem.Click += plateToolStripMenuItem_Click;
             // 
             // openAllToolStripMenuItem
             // 
             openAllToolStripMenuItem.Name = "openAllToolStripMenuItem";
-            openAllToolStripMenuItem.Size = new Size(119, 22);
+            openAllToolStripMenuItem.Size = new Size(136, 22);
             openAllToolStripMenuItem.Text = "AllPlates";
             openAllToolStripMenuItem.Click += openAllToolStripMenuItem_Click;
             // 
             // closeAllToolStripMenuItem
             // 
             closeAllToolStripMenuItem.Name = "closeAllToolStripMenuItem";
-            closeAllToolStripMenuItem.Size = new Size(119, 22);
+            closeAllToolStripMenuItem.Size = new Size(136, 22);
             closeAllToolStripMenuItem.Text = "CloseAll";
             closeAllToolStripMenuItem.Click += closeAllToolStripMenuItem_Click_1;
             // 
@@ -279,6 +280,13 @@
             contextMenuStrip1.Name = "contextMenuStrip1";
             contextMenuStrip1.Size = new Size(61, 4);
             // 
+            // radarChartToolStripMenuItem
+            // 
+            radarChartToolStripMenuItem.Name = "radarChartToolStripMenuItem";
+            radarChartToolStripMenuItem.Size = new Size(180, 22);
+            radarChartToolStripMenuItem.Text = "Radar Chart";
+            radarChartToolStripMenuItem.Click += radarChartToolStripMenuItem_Click;
+            // 
             // MainMDI
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -335,6 +343,7 @@
         private ToolStripSeparator toolStripSeparator1;
         private ToolStripMenuItem toolStripMenuItem1;
         private ToolStripMenuItem настройкиToolStripMenuItem;
+        private ToolStripMenuItem radarChartToolStripMenuItem;
     }
 }
 

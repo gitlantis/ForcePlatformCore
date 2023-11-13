@@ -239,7 +239,7 @@ namespace ForcePlatformCore
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.Location = new Point(10, 24);
+            label1.Location = new Point(15, 28);
             label1.Name = "label1";
             label1.Size = new Size(89, 21);
             label1.TabIndex = 2;

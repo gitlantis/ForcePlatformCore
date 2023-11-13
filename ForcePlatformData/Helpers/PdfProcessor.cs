@@ -11,7 +11,7 @@ namespace ForcePlatformData.Helpers
 
         public static void GeneratePdf()
         {
-            if (AppConfig.User != null)
+            if (AppConfig.User == null)
             {
                 using (var browser = Puppeteer.LaunchAsync(new LaunchOptions
                 {
@@ -25,8 +25,15 @@ namespace ForcePlatformData.Helpers
                     var printOptions = new PdfOptions
                     {
                         Format = PaperFormat.A4,
-                        Landscape = true,
+                        Landscape = false,
                         PrintBackground = true,
+                        MarginOptions = new MarginOptions
+                        {
+                            Top = "10mm",
+                            Bottom = "10mm",
+                            Left = "10mm",
+                            Right = "10mm"
+                        }
                     };
 
                     page.GoToAsync(url, new NavigationOptions
@@ -36,7 +43,7 @@ namespace ForcePlatformData.Helpers
 
                     var pdfBytes = page.PdfDataAsync(printOptions).Result;
 
-                    File.WriteAllBytes(Path.Join(pdfReportPath, $"report_{AppConfig.User.Id}_{DateTimeOffset.Now.ToUnixTimeSeconds()}.pdf"), pdfBytes);
+                    File.WriteAllBytes(Path.Join(pdfReportPath, $"report_{1}_{DateTimeOffset.Now.ToUnixTimeSeconds()}.pdf"), pdfBytes);
                 }
             }
             else {

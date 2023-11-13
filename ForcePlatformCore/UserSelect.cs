@@ -56,6 +56,7 @@ namespace ForcePlatformCore
 
                 Program.User = users.Where(item => item.Id == selectedId).FirstOrDefault();
                 Program.mdiParent.Text = $"Force Platform ({Program.User.FullName})";
+
                 return true;
             }
             catch (Exception)
@@ -74,8 +75,8 @@ namespace ForcePlatformCore
         {
             if (selectUser())
             {
-                var userInfo = new UserInfo();
-                userInfo.ShowDialog();
+
+                this.Close();
             }
         }
 

@@ -16,13 +16,16 @@ namespace ForcePlatformCore
         private bool startRecording = false;
         private int glCnt = 0;
         private int oldCurrentTimeMC = 0;
-        private ComPort comPort;
+
         private Form[] childForms = new Form[4];
         private HashSet<int> openPlates = new HashSet<int>();
         private HashSet<int> allPlates = new HashSet<int> { 0, 1, 2, 3 };
         private DateTime scanStarted = DateTime.Now;
         private ReportService reportService = new ReportService();
         private Camera camera;
+        private RadarForm radar;
+
+        private int radarPlate = 0;
         int zeroTime;
 
         enum filterTypes
@@ -42,18 +45,31 @@ namespace ForcePlatformCore
 
         }
 
+        private void MDIParent1_Load(object sender, EventArgs e)
+        {
+            var userSelectForm = new UserSelect();
+            userSelectForm.ShowDialog();
+
+            var settingsForm = new SettingsForm();
+            settingsForm.ShowDialog();
+
+            //// loadSettingsFromfile();    --------------------------------------------------------------------------------------
+            AdcData.DiffZ = new int[4];
+            AdcData.CurrentTimeMC = 0;
+            csvData.CsvItems = new Queue<CsvItem>();
+
+            timer1.Enabled = Program.ComPort.Connected;
+            AdcData.Init(AppConfig.Config.FilterLength);
+
+            resetAll();
+
+            this.OpenWithMode();
+        }
+
         public MainMDI()
         {
             InitializeComponent();
             // loadSettingsFromfile(); ------------------------------------------------------------------------------------
-        }
-
-        private void ShowNewForm(object sender, EventArgs e)
-        {
-            Form childForm = new Form();
-            childForm.MdiParent = this;
-            childForm.Text = "Window " + childFormNumber++;
-            childForm.Show();
         }
 
         private void ExitToolsStripMenuItem_Click(object sender, EventArgs e)
@@ -83,40 +99,9 @@ namespace ForcePlatformCore
 
         private void CloseAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            foreach (Form childForm in MdiChildren)
-            {
-                childForm.Close();
-            }
+            closeAllChilds();
         }
 
-        private void MDIParent1_Load(object sender, EventArgs e)
-        {
-            //// loadSettingsFromfile();    --------------------------------------------------------------------------------------
-            AdcData.DiffZ = new int[4];
-            AdcData.CurrentTimeMC = 0;
-            csvData.CsvItems = new Queue<CsvItem>();
-
-            //comPort = new ComPort(AppConfig.Config.AutoSelectCom, AppConfig.Config.ComPort, AppConfig.Config.FilterLength);
-            //if (!AppConfig.Config.AutoSelectCom)
-            //{
-            //    var conf = AppConfig.Config;
-            //    conf.ComPort = comPort.PortName;
-            //    AppConfig.UpdateConfig = conf;
-            //}
-
-            //timer1.Enabled = comPort.Connected;
-            AdcData.Init(AppConfig.Config.FilterLength);
-
-            AppConfig.DbContext.Database.EnsureCreated();
-            AppConfig.DbContext.Users.Load();
-
-            resetAll();
-
-            camera = new Camera();
-            camera.MdiParent = this;
-            camera.Show();
-        }
-        
         private void plateToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var i = -1;
@@ -136,6 +121,8 @@ namespace ForcePlatformCore
 
         private void showForm(int i)
         {
+            if(MdiChildren.OfType<RadarForm>() != null) radar.Close();
+
             if (i >= 0)
             {
                 childForms[i] = new DataLoggerForm(i);
@@ -204,9 +191,9 @@ namespace ForcePlatformCore
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (comPort.Connected)
+            if (Program.ComPort.Connected)
             {
-                var data = comPort.onReceive();
+                var data = Program.ComPort.onReceive();
                 AdcData.Set(data);
                 var plateData = new List<AxisItem>();
 
@@ -241,21 +228,14 @@ namespace ForcePlatformCore
                         Time = DateTime.Now.Subtract(scanStarted),
                         AxisItems = plateData,
                     });
-                    var item = new AdcBufferItem();
                 }
                 oldCurrentTimeMC = AdcData.CurrentTimeMC;
             }
         }
 
-        private void Zero()
-        {
-            for (int i = 0; i < AdcData.CurrentAdc.Length; i++) { AdcData.ZeroAdc[i] = AdcData.MiddledAdc[i]; }
-
-        }
-
         private void MDIParent1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            comPort.Disconnect();
+            Program.ComPort.Disconnect();
 
             AppConfig.DbContext?.Dispose();
             AppConfig.DbContext = null;
@@ -271,8 +251,14 @@ namespace ForcePlatformCore
             {
                 if (childForm is DataLoggerForm)
                 {
-                    DataLoggerForm activeChild = (DataLoggerForm)childForm;
+                    var activeChild = (DataLoggerForm)childForm;
                     activePlates.Add(activeChild.PlateId);
+                }
+
+                if (childForm is RadarForm)
+                {
+                    var activeChild = (RadarForm)childForm;
+                    activePlates.Add(radarPlate);
                 }
             }
 
@@ -282,8 +268,8 @@ namespace ForcePlatformCore
             {
                 AdcBuffer.BufferItems.RemoveAll(item => item.Plate == plate);
             }
-            openPlates.Clear();
-            openPlates.UnionWith(activePlates);
+            //openPlates.Clear();
+            //openPlates.UnionWith(activePlates);
         }
 
         private void toolStripButton1_Click(object sender, EventArgs e)
@@ -296,7 +282,7 @@ namespace ForcePlatformCore
             scanStarted = DateTime.Now;
             csvData.CsvItems.Clear();
             AdcBuffer.BufferItems.Clear();
-            Zero();
+            Program.ComPort.Zero();
 
             foreach (Form childForm in MdiChildren)
             {
@@ -332,7 +318,13 @@ namespace ForcePlatformCore
             {
                 if (childForm is DataLoggerForm)
                 {
-                    DataLoggerForm activeChild = (DataLoggerForm)childForm;
+                    var activeChild = (DataLoggerForm)childForm;
+                    activeChild.Pause(pauseAll);
+                }
+
+                if (childForm is RadarForm)
+                {
+                    var activeChild = (RadarForm)childForm;
                     activeChild.Pause(pauseAll);
                 }
             }
@@ -346,9 +338,9 @@ namespace ForcePlatformCore
                 return;
             }
 
-            csvData.FilterMode = CsvStaticModel.FilterType;
-            csvData.FilterLength = CsvStaticModel.FilterLength;
-            csvData.ExerciseType = CsvStaticModel.ExerciseType;
+            csvData.FilterMode = SharedStaticModel.FilterType;
+            csvData.FilterLength = SharedStaticModel.FilterLength;
+            csvData.ExerciseType = SharedStaticModel.ExerciseType;
 
             if (csvData.FilterMode.Length == 0 && csvData.ExerciseType.Length == 0)
             {
@@ -381,7 +373,7 @@ namespace ForcePlatformCore
                     var path = CsvProcessor.Save(Program.User.Id, csvData, "", openPlates.ToList());
                     reportService.AddReport(Program.User.Id, path);
 
-                    resetAll();              
+                    resetAll();
                     Program.Message("Success", $"data saved to: \r\n{path} file");
                 }
                 catch (Exception err)
@@ -407,10 +399,52 @@ namespace ForcePlatformCore
 
         private void настройкиToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SettingsForm settingForm = new SettingsForm();
+            SettingsForm settingForm = new SettingsForm(this);
             settingForm.ShowDialog();
             // loadSettingsFromfile();
+        }
 
+        private void radarChartToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            closeAllChilds();
+            radar = new RadarForm(radarPlate);
+            radar.MdiParent = this;
+            radar.Show();
+            openPlates.Add(radarPlate);
+        }
+
+        public void OpenWithMode()
+        {
+            closeAllChilds();
+            if (SharedStaticModel.ExerciseTypeIndex == 0)
+            {
+                radar = new RadarForm(radarPlate);
+                radar.MdiParent = this;
+                radar.Show();
+                openPlates.Add(radarPlate);
+            }
+
+            if (SharedStaticModel.ExerciseTypeIndex == 1)
+            {
+                showForm(0);
+                showForm(1);
+            }
+
+            if (SharedStaticModel.ExerciseTypeIndex == 2)
+            {
+                showForm(0);
+                showForm(1);
+                showForm(2);
+                showForm(3);
+            }
+        }
+
+        private void closeAllChilds()
+        {
+            foreach (Form childForm in MdiChildren)
+            {
+                childForm.Close();
+            }
         }
     }
 }

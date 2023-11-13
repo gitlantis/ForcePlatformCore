@@ -201,7 +201,6 @@
             comboBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            comboBox1.Items.AddRange(new object[] { "Скользящее экспоненциальное окно", "Усреднение" });
             comboBox1.Location = new Point(163, 10);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(871, 29);
@@ -222,7 +221,6 @@
             comboBox2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            comboBox2.Items.AddRange(new object[] { "Устойчивость, 1 платформа", "Прыжок, 2 платформы", "Походка, 4 платформы" });
             comboBox2.Location = new Point(163, 97);
             comboBox2.Name = "comboBox2";
             comboBox2.Size = new Size(871, 29);

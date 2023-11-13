@@ -16,6 +16,14 @@ namespace ForcePlatformCore
     public partial class SettingsForm : Form
     {
         public int FilterLength = AppConfig.Config.FilterLength;
+        private MainMDI mdi;
+
+        public SettingsForm(MainMDI mdi)
+        {
+            InitializeComponent();
+            this.mdi = mdi;
+        }
+
         public SettingsForm()
         {
             InitializeComponent();
@@ -30,9 +38,12 @@ namespace ForcePlatformCore
             iconPictureBox5.ImageLocation = Path.Join(Environment.CurrentDirectory, "assets", "plate_icon.png");
             iconPictureBox6.ImageLocation = Path.Join(Environment.CurrentDirectory, "assets", "plate_icon.png");
 
-            comboBox1.Text = CsvStaticModel.FilterType;
+            comboBox1.Items.AddRange(Constants.FilterTypes);
+            comboBox2.Items.AddRange(Constants.ExerciseTypes);
+
+            comboBox1.Text = SharedStaticModel.FilterType;
             textBox1.Text = AppConfig.Config.FilterLength.ToString();
-            comboBox2.Text = CsvStaticModel.ExerciseType;
+            comboBox2.Text = SharedStaticModel.ExerciseType;
         }
 
         private void iconButton1_Click(object sender, EventArgs e)
@@ -41,9 +52,15 @@ namespace ForcePlatformCore
             conf.FilterLength = Convert.ToInt32(textBox1.Text);
             AppConfig.UpdateConfig = conf;
 
-            CsvStaticModel.FilterLength = conf.FilterLength;
-            CsvStaticModel.FilterType = comboBox1.Text;
-            CsvStaticModel.ExerciseType = comboBox2.Text;
+            SharedStaticModel.FilterLength = conf.FilterLength;
+
+            SharedStaticModel.FilterType = comboBox1.Text;
+            SharedStaticModel.FilterTypeIndex = comboBox1.SelectedIndex;
+
+            SharedStaticModel.ExerciseType = comboBox2.Text;
+            SharedStaticModel.ExerciseTypeIndex = comboBox2.SelectedIndex;
+
+            if (mdi != null) mdi.OpenWithMode();
 
             this.Close();
         }
