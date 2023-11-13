@@ -1,4 +1,5 @@
 ﻿using ForcePlatformCore.Helpers;
+using ForcePlatformCore.Helpers.ComPort;
 using ForcePlatformData;
 using ForcePlatformData.Models;
 using System;
@@ -17,6 +18,7 @@ namespace ForcePlatformCore
     {
         public int FilterLength = AppConfig.Config.FilterLength;
         private MainMDI mdi;
+        private bool error = false;
 
         public SettingsForm(MainMDI mdi)
         {
@@ -44,6 +46,9 @@ namespace ForcePlatformCore
             comboBox1.Text = SharedStaticModel.FilterType;
             textBox1.Text = AppConfig.Config.FilterLength.ToString();
             comboBox2.Text = SharedStaticModel.ExerciseType;
+
+            comboBox1.SelectedIndex = 0;
+            comboBox2.SelectedIndex = 0;
         }
 
         private void iconButton1_Click(object sender, EventArgs e)
@@ -62,7 +67,24 @@ namespace ForcePlatformCore
 
             if (mdi != null) mdi.OpenWithMode();
 
-            this.Close();
+            var sharedData = Program.ComPort.SharedData.LastOrDefault();
+
+            for (int i = 0; i < 4; i++)
+            {
+                if (sharedData.DiffX[i] > 520000 || sharedData.DiffY[i] > 520000 || sharedData.DiffZ[i] > 520000)
+                {
+                    Program.Message("Warning", "Don't stand on the platform");
+                    error = true;
+                    break;
+                }
+            }
+
+            if (comboBox2.SelectedIndex == 0)
+                Program.Message("Attantion", "Experimenter should not move on this mode");
+
+            Program.ComPort.Zero();
+
+            if (!error) this.Close();
         }
 
         private void validateInt(object sender, KeyPressEventArgs e)
@@ -72,7 +94,8 @@ namespace ForcePlatformCore
 
         private void iconButton2_Click(object sender, EventArgs e)
         {
-            this.Close();
+            if (!error) this.Close();
+            else Environment.Exit(0);
         }
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)

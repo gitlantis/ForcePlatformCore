@@ -2,7 +2,12 @@
 {
     public static class AdcBuffer
     {
-        public static List<AdcBufferItem> BufferItems = new List<AdcBufferItem>();
+        public static Dictionary<int, List<AdcBufferItem>> BufferItems = new Dictionary<int, List<AdcBufferItem>> {
+            { 0,new List<AdcBufferItem>() },
+            { 1,new List<AdcBufferItem>() },
+            { 2,new List<AdcBufferItem>() },
+            { 3,new List<AdcBufferItem>() }
+        };
     }
     public class AdcBufferItem
     {

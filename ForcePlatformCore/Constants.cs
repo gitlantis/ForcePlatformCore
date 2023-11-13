@@ -9,14 +9,14 @@ namespace ForcePlatformCore
     public static class Constants
     {
         public static readonly string[] ExerciseTypes = {
-            "Устойчивость, 1 платформа",
-            "Прыжок, 2 платформы",
-            "Походка, 4 платформы",
+            "Stability, 1st platform",
+            "Jump, 2 platforms",
+            "Gait, 4 platforms",
         };
 
         public static readonly string[] FilterTypes = {
-            "Скользящее экспоненциальное окно",
-            "Усреднение"
+            "Sliding exponential window",
+            "Averaging"
         };
     }
 }

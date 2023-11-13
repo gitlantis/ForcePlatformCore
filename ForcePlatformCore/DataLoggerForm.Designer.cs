@@ -154,7 +154,7 @@
             timer1.Enabled = true;
             timer1.Tick += timer1_Tick;
             // 
-            // Form1
+            // DataLoggerForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -164,7 +164,7 @@
             Controls.Add(comboBox1);
             Controls.Add(groupBox1);
             Controls.Add(formsPlot1);
-            Name = "Form1";
+            Name = "DataLoggerForm";
             Text = "Form1";
             FormClosing += Form1_FormClosing;
             groupBox1.ResumeLayout(false);

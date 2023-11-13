@@ -7,5 +7,9 @@
         public static int FilterLength { get; set; }
         public static string ExerciseType { get; set; } = "";
         public static int ExerciseTypeIndex { get; set; } = -1;
+        public static double DiffX { get; set; } = 1;
+        public static double DiffY { get; set; } = 1;
+        public static double DiffZ { get; set; } = 1;
+        public static double Weight { get; set; } = 1;
     }
 }

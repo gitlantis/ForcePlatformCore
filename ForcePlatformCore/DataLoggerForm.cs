@@ -10,7 +10,7 @@ namespace ForcePlatformCore
         public int PlateId;
         private bool pausePlot = false;
         private AppsettingsModel? config;
-        readonly int _plateNumber = 0;
+        readonly int plateNumber = 0;
 
         readonly DataLogger LoggerDiffX;
         readonly DataLogger LoggerDiffY;
@@ -23,13 +23,13 @@ namespace ForcePlatformCore
 
         public List<int> Axis = new List<int> { 0, 1, 2 };
 
-        public DataLoggerForm(int plateNumber)
+        public DataLoggerForm(int plateId)
         {
             InitializeComponent();
 
-            this.Text = $"Plate {plateNumber + 1}";
-            _plateNumber = plateNumber;
-            PlateId = plateNumber;
+            this.Text = $"Plate {plateId + 1}";
+            plateNumber = plateId;
+            PlateId = plateId;
 
             LoggerDiffX = formsPlot1.Plot.AddDataLogger(label: "X", lineWidth: 3);
             LoggerDiffY = formsPlot1.Plot.AddDataLogger(label: "Y", lineWidth: 3);
@@ -115,16 +115,15 @@ namespace ForcePlatformCore
 
             if (!pausePlot)
             {
-                var points = AdcBuffer.BufferItems.Where(c => c.Plate == _plateNumber).ToList();
+                var points = AdcBuffer.BufferItems[plateNumber];
                 foreach (var point in points)
                 {
-                    var x = point.Time.TotalMilliseconds / 10;
+                    var x = point.Time.TotalMilliseconds / 5;
                     LoggerDiffX.Add(x, point.DiffX);
                     LoggerDiffY.Add(x, point.DiffY);
                     LoggerDiffZ.Add(x, point.DiffZ);
                 }
-
-                AdcBuffer.BufferItems.RemoveAll(item => points.Contains(item));
+                AdcBuffer.BufferItems[plateNumber].Clear();
                 formsPlot1.Refresh();
             }
         }
@@ -136,7 +135,7 @@ namespace ForcePlatformCore
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            AdcBuffer.BufferItems.RemoveAll(item => item.Plate == _plateNumber);
+            AdcBuffer.BufferItems[PlateId].Clear();
         }
 
         public void ClearLoggers()

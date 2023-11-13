@@ -36,6 +36,7 @@
             menuStrip = new MenuStrip();
             platesToolStripMenuItem = new ToolStripMenuItem();
             toolStripMenuItem1 = new ToolStripMenuItem();
+            radarChartToolStripMenuItem = new ToolStripMenuItem();
             plate1ToolStripMenuItem = new ToolStripMenuItem();
             plate2ToolStripMenuItem = new ToolStripMenuItem();
             plate3ToolStripMenuItem = new ToolStripMenuItem();
@@ -59,7 +60,6 @@
             toolStripSeparator3 = new ToolStripSeparator();
             toolStripButton1 = new ToolStripButton();
             contextMenuStrip1 = new ContextMenuStrip(components);
-            radarChartToolStripMenuItem = new ToolStripMenuItem();
             statusStrip.SuspendLayout();
             menuStrip.SuspendLayout();
             toolStrip1.SuspendLayout();
@@ -106,6 +106,13 @@
             toolStripMenuItem1.Size = new Size(136, 22);
             toolStripMenuItem1.Text = "Camera";
             toolStripMenuItem1.Click += toolStripMenuItem1_Click;
+            // 
+            // radarChartToolStripMenuItem
+            // 
+            radarChartToolStripMenuItem.Name = "radarChartToolStripMenuItem";
+            radarChartToolStripMenuItem.Size = new Size(136, 22);
+            radarChartToolStripMenuItem.Text = "Radar Chart";
+            radarChartToolStripMenuItem.Click += radarChartToolStripMenuItem_Click;
             // 
             // plate1ToolStripMenuItem
             // 
@@ -187,13 +194,12 @@
             // настройкиToolStripMenuItem
             // 
             настройкиToolStripMenuItem.Name = "настройкиToolStripMenuItem";
-            настройкиToolStripMenuItem.Size = new Size(79, 20);
-            настройкиToolStripMenuItem.Text = "Настройки";
+            настройкиToolStripMenuItem.Size = new Size(61, 20);
+            настройкиToolStripMenuItem.Text = "Settings";
             настройкиToolStripMenuItem.Click += настройкиToolStripMenuItem_Click;
             // 
             // timer1
             // 
-            timer1.Interval = 50;
             timer1.Tick += timer1_Tick;
             // 
             // timer2
@@ -279,13 +285,6 @@
             contextMenuStrip1.ImageScalingSize = new Size(24, 24);
             contextMenuStrip1.Name = "contextMenuStrip1";
             contextMenuStrip1.Size = new Size(61, 4);
-            // 
-            // radarChartToolStripMenuItem
-            // 
-            radarChartToolStripMenuItem.Name = "radarChartToolStripMenuItem";
-            radarChartToolStripMenuItem.Size = new Size(180, 22);
-            radarChartToolStripMenuItem.Text = "Radar Chart";
-            radarChartToolStripMenuItem.Click += radarChartToolStripMenuItem_Click;
             // 
             // MainMDI
             // 

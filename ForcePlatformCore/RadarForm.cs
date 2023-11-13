@@ -1,16 +1,6 @@
 ﻿using ForcePlatformData;
 using ForcePlatformData.Models;
 using ScottPlot;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace ForcePlatformCore
 {
@@ -23,7 +13,7 @@ namespace ForcePlatformCore
 
         private int stopTime = 0;
         private bool isStopped = false;
-        private double weight = 1;
+
         private int plateNumber = -1;
         public double[] convertToPolar(double X, double Y)
         {
@@ -32,10 +22,8 @@ namespace ForcePlatformCore
             double vectorVal = Math.Sqrt(X * X + Y * Y);
 
             double angle = 0;
-            //if (X < 0) angle += (double)180;
-            //if (Y < 0) angle += (double)90;
 
-            res[0] = vectorVal; // value of radius
+            res[0] = vectorVal;
             if (vectorVal != 0)
             {
                 var _temp = Math.Abs(X) / vectorVal;
@@ -51,7 +39,7 @@ namespace ForcePlatformCore
         private void initalizePlot()
         {
             plt = new Plot(1000, 1000);
-            for (int i = 0; i < 72; i++) maxValues[i++] = 100;//360/72 // 72ta seksizy
+            for (int i = 0; i < 72; i++) maxValues[i++] = 100;
             plotValues = new double[1, 72];
             formsPlot1.Plot.Clear();
             timer1.Enabled = true;
@@ -96,10 +84,13 @@ namespace ForcePlatformCore
         {
             try
             {
-                timer1.Enabled = false;
-                Thread.Sleep(2000);
-                weight = AdcBuffer.BufferItems.Where(c => c.Plate == plateNumber && c.DiffZ != 0).FirstOrDefault().DiffZ / AppConfig.Config.CalibrateZ;
-                label1.Text = $"Weight: {weight.ToString("0.000")}kg";
+                SharedStaticModel.Weight = AdcBuffer.BufferItems[plateNumber].LastOrDefault().DiffZ / AppConfig.Config.CalibrateZ;
+                SharedStaticModel.DiffX = AdcBuffer.BufferItems[plateNumber].LastOrDefault().DiffX;
+                SharedStaticModel.DiffY = AdcBuffer.BufferItems[plateNumber].LastOrDefault().DiffY;
+                SharedStaticModel.DiffZ = AdcBuffer.BufferItems[plateNumber].LastOrDefault().DiffZ;
+                AdcBuffer.BufferItems[0].Clear();
+
+                label1.Text = $"Weight: {SharedStaticModel.Weight.ToString("0.000")}kg";
                 initalizePlot();
             }
             catch { }
@@ -109,8 +100,7 @@ namespace ForcePlatformCore
         {
             if (Program.ComPort.Connected)
             {
-                //double angle = Math.Asin(X/R); vs sign Y   //cos ( // бир минут!
-                var points = AdcBuffer.BufferItems.Where(c => c.Plate == plateNumber).ToList();
+                var points = AdcBuffer.BufferItems[plateNumber];
 
                 double[] cc;
 
@@ -120,9 +110,9 @@ namespace ForcePlatformCore
                 {
                     foreach (var point in points)
                     {
-                        cc = convertToPolar((2 * point.DiffX) / (weight * 100), (2 * point.DiffY) / (weight * 100)); // X Y  X = 2*DiffX /weight *100; Y = 2*DiffY /weight * 100;
+                        cc = convertToPolar((2 * (point.DiffX- SharedStaticModel.DiffX)) / (SharedStaticModel.Weight * 100), (2 * (point.DiffY- SharedStaticModel.DiffX)) / (SharedStaticModel.Weight * 100)); 
                         double angle = cc[1];
-                        int section = (int)(angle / 360 * 72) % 72; // подгон на количество секций, angle градусда
+                        int section = (int)(angle / 360 * 72) % 72; 
                         plotValues[0, section] = cc[0];
                     }
                 }
@@ -134,7 +124,7 @@ namespace ForcePlatformCore
                 for (int i = 0; i < 72; i++) { radar.CategoryLabels[i] = (i % 18 == 0) ? (i * 5).ToString() : ""; }
 
                 formsPlot1.Refresh();
-                AdcBuffer.BufferItems.Clear();
+                AdcBuffer.BufferItems[0].Clear();
             }
         }
     }

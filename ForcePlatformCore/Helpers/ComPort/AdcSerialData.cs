@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ForcePlatformCore.Helpers.ComPort
 {
-    public class AdcSerialData
+    public class AdcSerialData //const
     {
         public int CurrentTimeMC { get; set; }
         public int FilterLength { get; set; }

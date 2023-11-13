@@ -121,7 +121,7 @@ namespace ForcePlatformCore
 
         private void showForm(int i)
         {
-            if(MdiChildren.OfType<RadarForm>() != null) radar.Close();
+            if (MdiChildren.OfType<RadarForm>().Count() > 0) radar.Close();
 
             if (i >= 0)
             {
@@ -193,43 +193,47 @@ namespace ForcePlatformCore
         {
             if (Program.ComPort.Connected)
             {
-                var data = Program.ComPort.onReceive();
-                AdcData.Set(data);
-                var plateData = new List<AxisItem>();
+                Program.ComPort.onReceive();
 
-                if (oldCurrentTimeMC != AdcData.CurrentTimeMC)
+                foreach (var queue in Program.ComPort.SharedData)
                 {
-                    foreach (var plate in openPlates)
+                    var plateData = new List<AxisItem>();
+
+                    if (oldCurrentTimeMC != queue.CurrentTimeMC)
                     {
-                        var item = new AdcBufferItem();
-                        item.Plate = plate;
-                        item.Time = DateTime.Now.Subtract(scanStarted);
-                        item.DiffX = AdcData.DiffX[plate];
-                        item.DiffY = AdcData.DiffY[plate];
-                        item.DiffZ = AdcData.DiffZ[plate];
-                        item.CurrentTimeMC = AdcData.CurrentTimeMC;
-
-                        plateData.Add(new AxisItem
+                        foreach (var plate in openPlates)
                         {
-                            Plate = plate,
-                            DiffX = AdcData.DiffX[plate],
-                            DiffY = AdcData.DiffY[plate],
-                            DiffZ = AdcData.DiffZ[plate],
+                            var item = new AdcBufferItem();
+                            item.Plate = plate;
+                            item.Time = DateTime.Now.Subtract(scanStarted);
+                            item.DiffX = queue.DiffX[plate];
+                            item.DiffY = queue.DiffY[plate];
+                            item.DiffZ = queue.DiffZ[plate];
+                            item.CurrentTimeMC = queue.CurrentTimeMC;
 
-                        });
-                        AdcBuffer.BufferItems.Add(item);
+                            plateData.Add(new AxisItem
+                            {
+                                Plate = plate,
+                                DiffX = queue.DiffX[plate],
+                                DiffY = queue.DiffY[plate],
+                                DiffZ = queue.DiffZ[plate],
+                            });
+
+                            AdcBuffer.BufferItems[plate].Add(item);
+                        }
+
+                        if (startRecording)
+                        {
+                            csvData.CsvItems.Enqueue(new CsvItem
+                            {
+                                Time = DateTime.Now.Subtract(scanStarted),
+                                AxisItems = plateData,
+                            });
+                        }
+                        oldCurrentTimeMC = queue.CurrentTimeMC;
                     }
                 }
-
-                if (startRecording)
-                {
-                    csvData.CsvItems.Enqueue(new CsvItem
-                    {
-                        Time = DateTime.Now.Subtract(scanStarted),
-                        AxisItems = plateData,
-                    });
-                }
-                oldCurrentTimeMC = AdcData.CurrentTimeMC;
+                Program.ComPort.SharedData.Clear();
             }
         }
 
@@ -266,10 +270,10 @@ namespace ForcePlatformCore
 
             foreach (var plate in missingPlates)
             {
-                AdcBuffer.BufferItems.RemoveAll(item => item.Plate == plate);
+                AdcBuffer.BufferItems[plate].Clear();
             }
-            //openPlates.Clear();
-            //openPlates.UnionWith(activePlates);
+            openPlates.Clear();
+            openPlates.UnionWith(activePlates);
         }
 
         private void toolStripButton1_Click(object sender, EventArgs e)
@@ -279,10 +283,14 @@ namespace ForcePlatformCore
 
         private void resetAll()
         {
+            Program.ComPort.Zero();
             scanStarted = DateTime.Now;
             csvData.CsvItems.Clear();
-            AdcBuffer.BufferItems.Clear();
-            Program.ComPort.Zero();
+
+            AdcBuffer.BufferItems[0].Clear();
+            AdcBuffer.BufferItems[1].Clear();
+            AdcBuffer.BufferItems[2].Clear();
+            AdcBuffer.BufferItems[3].Clear();
 
             foreach (Form childForm in MdiChildren)
             {

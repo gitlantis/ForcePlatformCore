@@ -153,9 +153,9 @@
             label4.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
             label4.Location = new Point(11, 57);
             label4.Name = "label4";
-            label4.Size = new Size(146, 21);
+            label4.Size = new Size(103, 21);
             label4.TabIndex = 15;
-            label4.Text = "Глубина фильтра";
+            label4.Text = "Filter length";
             // 
             // label3
             // 
@@ -163,9 +163,9 @@
             label3.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
             label3.Location = new Point(11, 13);
             label3.Name = "label3";
-            label3.Size = new Size(139, 21);
+            label3.Size = new Size(87, 21);
             label3.TabIndex = 13;
-            label3.Text = "Тип фильтрации";
+            label3.Text = "Filter type";
             // 
             // textBox1
             // 
@@ -212,9 +212,9 @@
             label6.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
             label6.Location = new Point(11, 100);
             label6.Name = "label6";
-            label6.Size = new Size(142, 21);
+            label6.Size = new Size(118, 21);
             label6.TabIndex = 19;
-            label6.Text = "Тип упражнения";
+            label6.Text = "Excercise type";
             // 
             // comboBox2
             // 

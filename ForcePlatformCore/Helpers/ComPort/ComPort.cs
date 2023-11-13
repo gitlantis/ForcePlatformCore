@@ -1,6 +1,7 @@
 ﻿using System.IO.Ports;
 using ForcePlatformCore;
 using ForcePlatformData;
+using Microsoft.VisualBasic.ApplicationServices;
 
 namespace ForcePlatformCore.Helpers.ComPort
 {
@@ -11,7 +12,8 @@ namespace ForcePlatformCore.Helpers.ComPort
         public string PortName = "";
         private string[] ss = new string[20];
         AdcSerialData adcData = new AdcSerialData();
-        
+        public List<AdcSerialData> SharedData = new List<AdcSerialData>();
+
         public ComPort(bool autoDetect, string port, int filterLength)
         {
             adcData.Init(filterLength);
@@ -86,10 +88,9 @@ namespace ForcePlatformCore.Helpers.ComPort
             catch (Exception) { }
         }
 
-        public AdcSerialData onReceive()
+        public AdcSerialData onReceive() // dannye vypadut
         {
-            string[] _temps = sp.ReadExisting().Split('\n');
-
+            string[] _temps = sp.ReadExisting().Split('\n'); //!!!---------------------------------------- 
             foreach (string s in _temps)
             {
                 try
@@ -102,7 +103,7 @@ namespace ForcePlatformCore.Helpers.ComPort
                         for (int i = 0; i < 16; i++) ss[i] = _s.Substring(i * 6, 6);
 
                         string ts;
-                        for (int i = 0; i < 4; i++)
+                        for (int i = 0; i < 4; i++) //ordnung 
                         {
                             ts = ss[i + 8]; ss[i + 8] = ss[i + 0]; ss[i + 0] = ts;
                             ts = ss[i + 12]; ss[i + 12] = ss[i + 4]; ss[i + 4] = ts;
@@ -111,15 +112,16 @@ namespace ForcePlatformCore.Helpers.ComPort
                         ss[16] = _s.Substring(96, 8);
 
                         int[] _tmp = new int[17];
-                        try { for (int i = 0; i < 17; i++) _tmp[i] = Convert.ToInt32(ss[i], 16) >> 4; } catch { return null; };
+                        try { for (int i = 0; i < 16; i++) _tmp[i] = Convert.ToInt32(ss[i], 16) >> 4; _tmp[16] = Convert.ToInt32(ss[16], 16); } catch { return null; };
 
                         for (int i = 0; i < 16; i++) adcData.CurrentAdc[i] = _tmp[i];
                         adcData.CurrentTimeMC = _tmp[16]; FreshData();
+                        SharedData.Add(adcData); 
                     }
                 }
-                catch { }
+                catch { }                
             }
-            return adcData;
+            return adcData;  //выдает только последний!!!!
         }
 
         private void FilterData()
@@ -154,6 +156,7 @@ namespace ForcePlatformCore.Helpers.ComPort
                 adcData.DiffX[j] = (adcData.AbsAdc[j * 4 + 0] + adcData.AbsAdc[j * 4 + 3]) - (adcData.AbsAdc[j * 4 + 1] + adcData.AbsAdc[j * 4 + 2]);
                 adcData.DiffY[j] = (adcData.AbsAdc[j * 4 + 0] + adcData.AbsAdc[j * 4 + 1]) - (adcData.AbsAdc[j * 4 + 2] + adcData.AbsAdc[j * 4 + 3]);
             };
+            
         }
 
         private void FreshData()
