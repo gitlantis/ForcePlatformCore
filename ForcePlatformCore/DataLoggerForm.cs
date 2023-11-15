@@ -1,6 +1,7 @@
 ﻿using System.Data;
 using ForcePlatformData;
 using ForcePlatformData.Models;
+using ScottPlot;
 using ScottPlot.Plottable;
 
 namespace ForcePlatformCore
@@ -22,6 +23,7 @@ namespace ForcePlatformCore
         private double coeffcent = 0;
 
         public List<int> Axis = new List<int> { 0, 1, 2 };
+        private int refresher = 0;
 
         public DataLoggerForm(int plateId)
         {
@@ -45,8 +47,7 @@ namespace ForcePlatformCore
 
             formsPlot1.Plot.XLabel("Time");
             formsPlot1.Plot.YLabel(comboBox1.Text);
-            //formsPlot1.Plot.XAxis.DateTimeFormat(true);
-            //formsPlot1.Plot.XAxis.TickLabelFormat("HH:mm:ss.ffff", true);
+
             formsPlot1.Plot.AxisAuto();
             formsPlot1.Plot.AxisScale();
 
@@ -116,15 +117,19 @@ namespace ForcePlatformCore
             if (!pausePlot)
             {
                 var points = AdcBuffer.BufferItems[plateNumber];
-                foreach (var point in points)
-                {
-                    var x = point.Time.TotalMilliseconds / 5;
-                    LoggerDiffX.Add(x, point.DiffX);
-                    LoggerDiffY.Add(x, point.DiffY);
-                    LoggerDiffZ.Add(x, point.DiffZ);
-                }
-                AdcBuffer.BufferItems[plateNumber].Clear();
+
+                var newCoordX  = points.Select(c => new ScottPlot.Coordinate(c.Time.TotalMilliseconds / 5, c.DiffX));
+                LoggerDiffY.AddRange(newCoordX);
+
+                var newCoordY = points.Select(c => new ScottPlot.Coordinate(c.Time.TotalMilliseconds / 5, c.DiffY));                   
+                LoggerDiffX.AddRange(newCoordY);
+
+                var newCoordZ = points.Select(c => new ScottPlot.Coordinate(c.Time.TotalMilliseconds / 5, c.DiffZ));
+                LoggerDiffZ.AddRange(newCoordZ);
+
                 formsPlot1.Refresh();
+
+                AdcBuffer.BufferItems[plateNumber].Clear();
             }
         }
 
