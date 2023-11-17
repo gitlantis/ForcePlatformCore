@@ -106,25 +106,32 @@ namespace ForcePlatformCore
 
                 var tmp = new double[72];
 
-                for (int i = 0; i < 72; i++)
+                //for (int i = 0; i < 72; i++)
                 {
                     foreach (var point in points)
                     {
-                        cc = convertToPolar((2 * (point.DiffX- SharedStaticModel.DiffX)) / (SharedStaticModel.Weight * 100), (2 * (point.DiffY- SharedStaticModel.DiffX)) / (SharedStaticModel.Weight * 100)); 
+                        //cc = convertToPolar((2 * (point.DiffX- SharedStaticModel.DiffX)) / (SharedStaticModel.Weight * 100), (2 * (point.DiffY- SharedStaticModel.DiffX)) / (SharedStaticModel.Weight * 100)); 
+                        var percentX = Math.Round((double)point.DiffX / point.DiffZ * 100);
+                        var percentY = Math.Round((double)point.DiffY / point.DiffZ * 100);
+                        var weight = Math.Round((double)point.DiffZ / 11600);
+
+                        cc = convertToPolar(percentX, percentY);
                         double angle = cc[1];
-                        int section = (int)(angle / 360 * 72) % 72; 
+                        int section = (int)(angle / 360 * 72) % 72;
                         plotValues[0, section] = cc[0];
+                        richTextBox1.AppendText($"{percentX} {percentY} {weight} \r\n");
+                        richTextBox1.ScrollToCaret();
                     }
                 }
-
                 formsPlot1.Plot.Clear();
                 var radar = formsPlot1.Plot.AddRadar(plotValues, independentAxes: false, maxValues: maxValues, false);
-
-                radar.CategoryLabels = new string[maxValues.Length];
-                for (int i = 0; i < 72; i++) { radar.CategoryLabels[i] = (i % 18 == 0) ? (i * 5).ToString() : ""; }
-
                 formsPlot1.Refresh();
-                AdcBuffer.BufferItems[0].Clear();
+                AdcBuffer.BufferItems[plateNumber].Clear();
+
+
+                //radar.CategoryLabels = new string[maxValues.Length];
+                //for (int i = 0; i < 72; i++) { radar.CategoryLabels[i] = (i % 18 == 0) ? (i * 5).ToString() : ""; }
+
             }
         }
     }

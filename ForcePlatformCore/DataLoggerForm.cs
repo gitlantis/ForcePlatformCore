@@ -118,13 +118,13 @@ namespace ForcePlatformCore
             {
                 var points = AdcBuffer.BufferItems[plateNumber];
 
-                var newCoordX  = points.Select(c => new ScottPlot.Coordinate(c.Time.TotalMilliseconds / 5, c.DiffX));
+                var newCoordX  = points.Select(c => new Coordinate(c.Time.TotalMilliseconds / 5, c.DiffX));
                 LoggerDiffY.AddRange(newCoordX);
 
-                var newCoordY = points.Select(c => new ScottPlot.Coordinate(c.Time.TotalMilliseconds / 5, c.DiffY));                   
+                var newCoordY = points.Select(c => new Coordinate(c.Time.TotalMilliseconds / 5, c.DiffY));                   
                 LoggerDiffX.AddRange(newCoordY);
 
-                var newCoordZ = points.Select(c => new ScottPlot.Coordinate(c.Time.TotalMilliseconds / 5, c.DiffZ));
+                var newCoordZ = points.Select(c => new Coordinate(c.Time.TotalMilliseconds / 5, c.DiffZ));
                 LoggerDiffZ.AddRange(newCoordZ);
 
                 formsPlot1.Refresh();

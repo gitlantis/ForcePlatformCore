@@ -69,15 +69,15 @@ namespace ForcePlatformCore
 
             var sharedData = Program.ComPort.SharedData.LastOrDefault();
 
-            for (int i = 0; i < 4; i++)
-            {
-                if (sharedData.DiffX[i] > 520000 || sharedData.DiffY[i] > 520000 || sharedData.DiffZ[i] > 520000)
-                {
-                    Program.Message("Warning", "Don't stand on the platform");
-                    error = true;
-                    break;
-                }
-            }
+            //for (int i = 0; i < 4; i++)
+            //{
+            //    if (sharedData.DiffX[i] > 520000 || sharedData.DiffY[i] > 520000 || sharedData.DiffZ[i] > 520000)
+            //    {
+            //        Program.Message("Warning", "Don't stand on the platform");
+            //        error = true;
+            //        break;
+            //    }
+            //}
 
             if (comboBox2.SelectedIndex == 0 && !error)
                 Program.Message("Attantion", "Experimenter should not move on this mode");

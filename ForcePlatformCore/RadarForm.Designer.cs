@@ -34,6 +34,7 @@ namespace ForcePlatformCore
             timer1 = new System.Windows.Forms.Timer(components);
             iconButton1 = new FontAwesome.Sharp.IconButton();
             label1 = new Label();
+            richTextBox1 = new RichTextBox();
             SuspendLayout();
             // 
             // formsPlot1
@@ -42,7 +43,7 @@ namespace ForcePlatformCore
             formsPlot1.Location = new Point(0, 37);
             formsPlot1.Margin = new Padding(4, 3, 4, 3);
             formsPlot1.Name = "formsPlot1";
-            formsPlot1.Size = new Size(500, 463);
+            formsPlot1.Size = new Size(848, 620);
             formsPlot1.TabIndex = 0;
             formsPlot1.MouseDown += formsPlot1_MouseDown;
             // 
@@ -61,7 +62,7 @@ namespace ForcePlatformCore
             iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton1.IconSize = 32;
             iconButton1.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButton1.Location = new Point(404, 7);
+            iconButton1.Location = new Point(752, 7);
             iconButton1.Name = "iconButton1";
             iconButton1.Size = new Size(89, 42);
             iconButton1.TabIndex = 19;
@@ -80,11 +81,20 @@ namespace ForcePlatformCore
             label1.TabIndex = 20;
             label1.Text = "Weight: 0kg ";
             // 
+            // richTextBox1
+            // 
+            richTextBox1.Location = new Point(663, 55);
+            richTextBox1.Name = "richTextBox1";
+            richTextBox1.Size = new Size(178, 584);
+            richTextBox1.TabIndex = 21;
+            richTextBox1.Text = "";
+            // 
             // RadarForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(505, 494);
+            ClientSize = new Size(853, 651);
+            Controls.Add(richTextBox1);
             Controls.Add(label1);
             Controls.Add(iconButton1);
             Controls.Add(formsPlot1);
@@ -100,5 +110,6 @@ namespace ForcePlatformCore
         private System.Windows.Forms.Timer timer1;
         private FontAwesome.Sharp.IconButton iconButton1;
         private Label label1;
+        private RichTextBox richTextBox1;
     }
 }
