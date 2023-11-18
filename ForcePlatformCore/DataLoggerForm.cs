@@ -122,7 +122,7 @@ namespace ForcePlatformCore
                 LoggerDiffX.AddRange(newCoordX);
 
 
-                LoggerDiffY.Clear();
+                LoggerDiffY.();
                 var newCoordY = points.Select(c => new Coordinate(c.Time.TotalMilliseconds / 5, c.DiffY));
                 LoggerDiffY.AddRange(newCoordY);
 

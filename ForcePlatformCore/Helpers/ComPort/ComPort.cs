@@ -91,7 +91,7 @@ namespace ForcePlatformCore.Helpers.ComPort
             catch (Exception) { }
         }
 
-        public AdcSerialData OnReceive() 
+        public void OnReceive() 
         {
             string[] _temps = sp.ReadExisting().Split('\n'); //!!!---------------------------------------- 
             
@@ -121,12 +121,15 @@ namespace ForcePlatformCore.Helpers.ComPort
 
                         for (int i = 0; i < 16; i++) adcData.CurrentAdc[i] = _tmp[i];
                         adcData.CurrentTimeMC = _tmp[16]; FreshData();
-                        SharedData.Add(adcData); 
+                        //SharedData.Add(adcData); 
+                        // add saving data here 
                     }
                 }
                 catch { }
+
             }
-            return adcData;  //выдает только последний!!!!
+            SharedData.Add(adcData); // add data for previev here!!
+           // return adcData;  //выдает только последний!!!!
         }
 
         private void FilterData()
@@ -147,10 +150,10 @@ namespace ForcePlatformCore.Helpers.ComPort
                 sums[j] = 0; tmp = 0;
                 for (int i = 0; i < adcData.FilterLength; i++)
                 {
-                    tmp++;
-                    sums[j] += adcData.FilterBuff[j, i] * tmp;
+                    tmp+=i+1;
+                    sums[j] += adcData.FilterBuff[j, i] * (i+1);
                 }
-                adcData.FilteredAdc[j] = (int)(sums[j] / tmp);
+                adcData.FilteredAdc[j] = (int) Math.Round((decimal)sums[j] / tmp);          // ошибка в фильтре :((
                 adcData.AbsAdc[j] = Math.Abs(adcData.FilteredAdc[j]);
             }
 

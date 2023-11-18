@@ -5,6 +5,7 @@ using ForcePlatformData.Helpers;
 using ForcePlatformData.Models;
 using ForcePlatformData.Service;
 using Microsoft.EntityFrameworkCore;
+using System.Windows.Forms;
 
 namespace ForcePlatformCore
 {
@@ -126,14 +127,25 @@ namespace ForcePlatformCore
 
         private void showForm(int i)
         {
-            //if (MdiChildren.OfType<RadarForm>().Count() > 0) radar.Close();
+            var child = -1;
 
-            if (i >= 0)
+            foreach (Form fm in this.MdiChildren)
+            {
+                if (fm is DataLoggerForm childForm)
+                {
+                    var form = (DataLoggerForm)childForm;
+                    if (form.PlateId == i)
+                    {
+                        child = i;
+                        break;
+                    }
+                }
+            }
+            if (child != i)
             {
                 childForms[i] = new DataLoggerForm(i);
                 childForms[i].MdiParent = this;
                 childForms[i].Show();
-                //openPlates.Add(i);
             }
         }
 
@@ -301,7 +313,7 @@ namespace ForcePlatformCore
             {
                 if (childForm is DataLoggerForm)
                 {
-                    DataLoggerForm activeChild = (DataLoggerForm)childForm;
+                    var activeChild = (DataLoggerForm)childForm;
                     activeChild.ClearLoggers();
                 }
             }
@@ -366,14 +378,22 @@ namespace ForcePlatformCore
             //    return;
             //}
             //zeroTime = AdcData.CurrentTimeMC;
+            if (Program.User.Id < 1)
+            {
+                Program.Message("Warning", "Please select a user");
+                return;
+            }
+
             startRecording = !startRecording;
             if (startRecording)
             {
+                toolStripButton4.ForeColor = Color.Red;
                 toolStripButton4.Text = "Stop recording";
-                toolStripButton4.Image = Image.FromFile("assets/stop-circle-o.png");
+                toolStripButton4.Image = Image.FromFile("assets/stop-circle-o-r.png");
             }
             else
             {
+                toolStripButton4.ForeColor = Color.Black;
                 toolStripButton4.Text = "Start recording";
                 toolStripButton4.Image = Image.FromFile("assets/play-circle-o.png");
             }
@@ -383,7 +403,7 @@ namespace ForcePlatformCore
                 try
                 {
                     var path = CsvProcessor.Save(Program.User.Id, SharedStaticModel.ExerciseTypeIndex + 1, "", csvData);
-                    reportService.AddReport(Program.User.Id, path, SharedStaticModel.ExerciseTypeIndex);
+                    reportService.AddReport(Program.User.Id, path, SharedStaticModel.ExerciseTypeIndex + 1);
 
                     resetAll();
                     Program.Message("Success", $"data saved to: \r\n{path} file");

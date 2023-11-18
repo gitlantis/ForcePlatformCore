@@ -9,6 +9,7 @@ namespace ForcePlatformCore
     {
         public int FilterLength = AppConfig.Config.FilterLength;
         private MainMDI mdi;
+        private bool error = false;
 
         public SettingsForm(MainMDI mdi)
         {
@@ -44,7 +45,7 @@ namespace ForcePlatformCore
 
         private void iconButton1_Click(object sender, EventArgs e)
         {
-            saveSettings();
+            this.Close();
         }
 
         private void saveSettings()
@@ -76,7 +77,7 @@ namespace ForcePlatformCore
             //    }
             //}
 
-            if (comboBox2.SelectedIndex == 0)
+            if (comboBox2.SelectedIndex == 0 && !error)
                 Program.Message("Attantion", "Experimenter should not move on this mode");
 
             Program.ComPort.Zero();
@@ -119,9 +120,14 @@ namespace ForcePlatformCore
             iconPictureBox6.Visible = false;
         }
 
-        private void SettingsForm_FormClosing(object sender, FormClosingEventArgs e)
+        private void SettingsForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             saveSettings();
+        }
+
+        private void comboBox2_SelectedValueChanged(object sender, EventArgs e)
+        {
+            SharedStaticModel.ExerciseTypeIndex = comboBox2.SelectedIndex;
         }
     }
 }

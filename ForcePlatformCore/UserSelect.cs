@@ -7,7 +7,6 @@ namespace ForcePlatformCore
     {
         private List<User> users = new List<User>();
         private UserService userService = new UserService();
-        private string comboboxText = "";
 
         public UserSelect()
         {
