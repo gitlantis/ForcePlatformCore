@@ -1,4 +1,5 @@
-﻿using ForcePlatformCore.Helpers;
+﻿using FontAwesome.Sharp;
+using ForcePlatformCore.Helpers;
 using ForcePlatformData;
 using ForcePlatformData.Models;
 
@@ -8,7 +9,6 @@ namespace ForcePlatformCore
     {
         public int FilterLength = AppConfig.Config.FilterLength;
         private MainMDI mdi;
-        private bool error = false;
 
         public SettingsForm(MainMDI mdi)
         {
@@ -44,6 +44,11 @@ namespace ForcePlatformCore
 
         private void iconButton1_Click(object sender, EventArgs e)
         {
+            saveSettings();
+        }
+
+        private void saveSettings()
+        {
             var conf = AppConfig.Config;
             conf.FilterLength = Convert.ToInt32(textBox1.Text);
             AppConfig.UpdateConfig = conf;
@@ -71,27 +76,15 @@ namespace ForcePlatformCore
             //    }
             //}
 
-            if (comboBox2.SelectedIndex == 0 && !error)
+            if (comboBox2.SelectedIndex == 0)
                 Program.Message("Attantion", "Experimenter should not move on this mode");
 
             Program.ComPort.Zero();
-
-            if (!error) this.Close();
         }
 
         private void validateInt(object sender, KeyPressEventArgs e)
         {
             Validator.Int(sender, e);
-        }
-
-        private void iconButton2_Click(object sender, EventArgs e)
-        {
-            Environment.Exit(0);
-        }
-
-        private void SettingsForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Environment.Exit(0);
         }
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
@@ -124,6 +117,11 @@ namespace ForcePlatformCore
             iconPictureBox4.Visible = false;
             iconPictureBox5.Visible = false;
             iconPictureBox6.Visible = false;
+        }
+
+        private void SettingsForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            saveSettings();
         }
     }
 }

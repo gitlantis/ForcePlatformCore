@@ -36,7 +36,6 @@
             button1 = new Button();
             button2 = new Button();
             label1 = new Label();
-            iconButton1 = new FontAwesome.Sharp.IconButton();
             label4 = new Label();
             label3 = new Label();
             textBox1 = new TextBox();
@@ -128,25 +127,6 @@
             label1.TabIndex = 1;
             label1.Text = "тип фильтрации:";
             // 
-            // iconButton1
-            // 
-            iconButton1.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            iconButton1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            iconButton1.ForeColor = Color.FromArgb(0, 0, 192);
-            iconButton1.IconChar = FontAwesome.Sharp.IconChar.Xmark;
-            iconButton1.IconColor = Color.FromArgb(0, 0, 192);
-            iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton1.IconSize = 32;
-            iconButton1.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButton1.Location = new Point(948, 522);
-            iconButton1.Name = "iconButton1";
-            iconButton1.Size = new Size(89, 39);
-            iconButton1.TabIndex = 16;
-            iconButton1.Text = "Close";
-            iconButton1.TextAlign = ContentAlignment.MiddleRight;
-            iconButton1.UseVisualStyleBackColor = true;
-            iconButton1.Click += iconButton2_Click;
-            // 
             // label4
             // 
             label4.AutoSize = true;
@@ -173,25 +153,25 @@
             textBox1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             textBox1.Location = new Point(163, 54);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(871, 29);
+            textBox1.Size = new Size(637, 29);
             textBox1.TabIndex = 11;
             textBox1.KeyPress += validateInt;
             // 
             // iconButton2
             // 
-            iconButton2.Anchor = AnchorStyles.Bottom;
+            iconButton2.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             iconButton2.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
             iconButton2.ForeColor = Color.FromArgb(0, 0, 192);
-            iconButton2.IconChar = FontAwesome.Sharp.IconChar.FloppyDisk;
+            iconButton2.IconChar = FontAwesome.Sharp.IconChar.Check;
             iconButton2.IconColor = Color.FromArgb(0, 0, 192);
             iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton2.IconSize = 32;
             iconButton2.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButton2.Location = new Point(479, 522);
+            iconButton2.Location = new Point(730, 479);
             iconButton2.Name = "iconButton2";
-            iconButton2.Size = new Size(89, 39);
+            iconButton2.Size = new Size(70, 39);
             iconButton2.TabIndex = 14;
-            iconButton2.Text = "Save";
+            iconButton2.Text = "Ok";
             iconButton2.TextAlign = ContentAlignment.MiddleRight;
             iconButton2.UseVisualStyleBackColor = true;
             iconButton2.Click += iconButton1_Click;
@@ -203,7 +183,7 @@
             comboBox1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             comboBox1.Location = new Point(163, 10);
             comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(871, 29);
+            comboBox1.Size = new Size(637, 29);
             comboBox1.TabIndex = 12;
             // 
             // label6
@@ -223,7 +203,7 @@
             comboBox2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             comboBox2.Location = new Point(163, 97);
             comboBox2.Name = "comboBox2";
-            comboBox2.Size = new Size(871, 29);
+            comboBox2.Size = new Size(637, 29);
             comboBox2.TabIndex = 18;
             comboBox2.SelectedIndexChanged += comboBox2_SelectedIndexChanged;
             // 
@@ -236,6 +216,7 @@
             // 
             // iconPictureBox1
             // 
+            iconPictureBox1.Anchor = AnchorStyles.None;
             iconPictureBox1.BackColor = SystemColors.Control;
             iconPictureBox1.ForeColor = SystemColors.ControlText;
             iconPictureBox1.IconChar = FontAwesome.Sharp.IconChar.None;
@@ -243,7 +224,7 @@
             iconPictureBox1.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconPictureBox1.IconSize = 218;
             iconPictureBox1.ImageLocation = "";
-            iconPictureBox1.Location = new Point(288, 142);
+            iconPictureBox1.Location = new Point(199, 140);
             iconPictureBox1.Name = "iconPictureBox1";
             iconPictureBox1.Rotation = 270D;
             iconPictureBox1.Size = new Size(218, 308);
@@ -254,6 +235,7 @@
             // 
             // iconPictureBox2
             // 
+            iconPictureBox2.Anchor = AnchorStyles.None;
             iconPictureBox2.BackColor = SystemColors.Control;
             iconPictureBox2.ForeColor = SystemColors.ControlText;
             iconPictureBox2.IconChar = FontAwesome.Sharp.IconChar.None;
@@ -261,7 +243,7 @@
             iconPictureBox2.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconPictureBox2.IconSize = 218;
             iconPictureBox2.ImageLocation = "";
-            iconPictureBox2.Location = new Point(479, 142);
+            iconPictureBox2.Location = new Point(390, 140);
             iconPictureBox2.Name = "iconPictureBox2";
             iconPictureBox2.Rotation = 270D;
             iconPictureBox2.Size = new Size(218, 308);
@@ -272,6 +254,7 @@
             // 
             // iconPictureBox5
             // 
+            iconPictureBox5.Anchor = AnchorStyles.None;
             iconPictureBox5.BackColor = SystemColors.Control;
             iconPictureBox5.ForeColor = SystemColors.ControlText;
             iconPictureBox5.IconChar = FontAwesome.Sharp.IconChar.None;
@@ -279,7 +262,7 @@
             iconPictureBox5.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconPictureBox5.IconSize = 218;
             iconPictureBox5.ImageLocation = "";
-            iconPictureBox5.Location = new Point(479, 212);
+            iconPictureBox5.Location = new Point(390, 210);
             iconPictureBox5.Name = "iconPictureBox5";
             iconPictureBox5.Rotation = 270D;
             iconPictureBox5.Size = new Size(218, 308);
@@ -290,6 +273,7 @@
             // 
             // iconPictureBox6
             // 
+            iconPictureBox6.Anchor = AnchorStyles.None;
             iconPictureBox6.BackColor = SystemColors.Control;
             iconPictureBox6.ForeColor = SystemColors.ControlText;
             iconPictureBox6.IconChar = FontAwesome.Sharp.IconChar.None;
@@ -297,7 +281,7 @@
             iconPictureBox6.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconPictureBox6.IconSize = 218;
             iconPictureBox6.ImageLocation = "";
-            iconPictureBox6.Location = new Point(665, 142);
+            iconPictureBox6.Location = new Point(576, 140);
             iconPictureBox6.Name = "iconPictureBox6";
             iconPictureBox6.Rotation = 270D;
             iconPictureBox6.Size = new Size(218, 308);
@@ -308,6 +292,7 @@
             // 
             // iconPictureBox3
             // 
+            iconPictureBox3.Anchor = AnchorStyles.None;
             iconPictureBox3.BackColor = SystemColors.Control;
             iconPictureBox3.ForeColor = SystemColors.ControlText;
             iconPictureBox3.IconChar = FontAwesome.Sharp.IconChar.None;
@@ -315,7 +300,7 @@
             iconPictureBox3.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconPictureBox3.IconSize = 218;
             iconPictureBox3.ImageLocation = "";
-            iconPictureBox3.Location = new Point(294, 142);
+            iconPictureBox3.Location = new Point(205, 140);
             iconPictureBox3.Name = "iconPictureBox3";
             iconPictureBox3.Rotation = 270D;
             iconPictureBox3.Size = new Size(218, 308);
@@ -326,6 +311,7 @@
             // 
             // iconPictureBox4
             // 
+            iconPictureBox4.Anchor = AnchorStyles.None;
             iconPictureBox4.BackColor = SystemColors.Control;
             iconPictureBox4.ForeColor = SystemColors.ControlText;
             iconPictureBox4.IconChar = FontAwesome.Sharp.IconChar.None;
@@ -333,7 +319,7 @@
             iconPictureBox4.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconPictureBox4.IconSize = 218;
             iconPictureBox4.ImageLocation = "";
-            iconPictureBox4.Location = new Point(109, 212);
+            iconPictureBox4.Location = new Point(20, 210);
             iconPictureBox4.Name = "iconPictureBox4";
             iconPictureBox4.Rotation = 270D;
             iconPictureBox4.Size = new Size(218, 308);
@@ -346,7 +332,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1046, 569);
+            ClientSize = new Size(812, 530);
             Controls.Add(iconPictureBox5);
             Controls.Add(iconPictureBox6);
             Controls.Add(iconPictureBox3);
@@ -355,7 +341,6 @@
             Controls.Add(iconPictureBox1);
             Controls.Add(label6);
             Controls.Add(comboBox2);
-            Controls.Add(iconButton1);
             Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(textBox1);
@@ -365,7 +350,7 @@
             MinimumSize = new Size(423, 218);
             Name = "SettingsForm";
             Text = "Настройки";
-            FormClosed += SettingsForm_FormClosed;
+            FormClosing += SettingsForm_FormClosing;
             Load += Form1_Load;
             KeyPress += validateInt;
             tableLayoutPanel1.ResumeLayout(false);
@@ -389,7 +374,6 @@
         private TextBox textBox1;
         private Button button1;
         private Button button2;
-        private FontAwesome.Sharp.IconButton iconButton1;
         private Label label4;
         private Label label3;
         private TextBox textBox2;
