@@ -1,4 +1,5 @@
 ﻿using System.IO.Ports;
+using System.Windows;
 using ForcePlatformCore;
 using ForcePlatformData;
 using Microsoft.VisualBasic.ApplicationServices;
@@ -10,6 +11,7 @@ namespace ForcePlatformCore.Helpers.ComPort
         private SerialPort sp;
         public bool Connected = false;
         public string PortName = "";
+        public bool Started = true;
         private string[] ss = new string[20];
         AdcSerialData adcData = new AdcSerialData();
         public List<AdcSerialData> SharedData = new List<AdcSerialData>();
@@ -44,13 +46,14 @@ namespace ForcePlatformCore.Helpers.ComPort
                         for (int i = 0; i < 6; i++)
                         {
                             Thread.Sleep(500);
-                            onReceive();
+                            OnReceive();
                             if (adcData.CurrentTimeMC == 0) break;
                         }
 
                         if (Connected)
                         {
                             PortName = portName;
+                            Started = false;
                             break;
                         }
                         Disconnect();
@@ -88,10 +91,12 @@ namespace ForcePlatformCore.Helpers.ComPort
             catch (Exception) { }
         }
 
-        public AdcSerialData onReceive() // dannye vypadut
+        public AdcSerialData OnReceive() 
         {
             string[] _temps = sp.ReadExisting().Split('\n'); //!!!---------------------------------------- 
+            
             foreach (string s in _temps)
+
             {
                 try
                 {
@@ -119,7 +124,7 @@ namespace ForcePlatformCore.Helpers.ComPort
                         SharedData.Add(adcData); 
                     }
                 }
-                catch { }                
+                catch { }
             }
             return adcData;  //выдает только последний!!!!
         }

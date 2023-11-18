@@ -365,6 +365,7 @@
             MinimumSize = new Size(423, 218);
             Name = "SettingsForm";
             Text = "Настройки";
+            FormClosed += SettingsForm_FormClosed;
             Load += Form1_Load;
             KeyPress += validateInt;
             tableLayoutPanel1.ResumeLayout(false);

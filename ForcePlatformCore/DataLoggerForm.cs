@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using System.Diagnostics;
 using ForcePlatformData;
 using ForcePlatformData.Models;
 using ScottPlot;
@@ -23,7 +24,6 @@ namespace ForcePlatformCore
         private double coeffcent = 0;
 
         public List<int> Axis = new List<int> { 0, 1, 2 };
-        private int refresher = 0;
 
         public DataLoggerForm(int plateId)
         {
@@ -116,20 +116,21 @@ namespace ForcePlatformCore
 
             if (!pausePlot)
             {
-                var points = AdcBuffer.BufferItems[plateNumber];
+                var points = SmallAdcBuffer.BufferItems[plateNumber];
+                LoggerDiffX.Clear();
+                var newCoordX = points.Select(c => new Coordinate(c.Time.TotalMilliseconds / 5, c.DiffX));
+                LoggerDiffX.AddRange(newCoordX);
 
-                var newCoordX  = points.Select(c => new Coordinate(c.Time.TotalMilliseconds / 5, c.DiffX));
-                LoggerDiffY.AddRange(newCoordX);
 
-                var newCoordY = points.Select(c => new Coordinate(c.Time.TotalMilliseconds / 5, c.DiffY));                   
-                LoggerDiffX.AddRange(newCoordY);
+                LoggerDiffY.Clear();
+                var newCoordY = points.Select(c => new Coordinate(c.Time.TotalMilliseconds / 5, c.DiffY));
+                LoggerDiffY.AddRange(newCoordY);
 
+                LoggerDiffZ.Clear();
                 var newCoordZ = points.Select(c => new Coordinate(c.Time.TotalMilliseconds / 5, c.DiffZ));
                 LoggerDiffZ.AddRange(newCoordZ);
 
                 formsPlot1.Refresh();
-
-                AdcBuffer.BufferItems[plateNumber].Clear();
             }
         }
 
@@ -140,7 +141,7 @@ namespace ForcePlatformCore
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            AdcBuffer.BufferItems[PlateId].Clear();
+            SmallAdcBuffer.BufferItems[PlateId].Clear();
         }
 
         public void ClearLoggers()

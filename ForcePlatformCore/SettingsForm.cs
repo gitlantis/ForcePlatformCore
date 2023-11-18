@@ -1,16 +1,6 @@
 ﻿using ForcePlatformCore.Helpers;
-using ForcePlatformCore.Helpers.ComPort;
 using ForcePlatformData;
 using ForcePlatformData.Models;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace ForcePlatformCore
 {
@@ -41,14 +31,15 @@ namespace ForcePlatformCore
             iconPictureBox6.ImageLocation = Path.Join(Environment.CurrentDirectory, "assets", "plate_icon.png");
 
             comboBox1.Items.AddRange(Constants.FilterTypes);
-            comboBox2.Items.AddRange(Constants.ExerciseTypes);
-
             comboBox1.Text = SharedStaticModel.FilterType;
-            textBox1.Text = AppConfig.Config.FilterLength.ToString();
-            comboBox2.Text = SharedStaticModel.ExerciseType;
-
             comboBox1.SelectedIndex = 0;
-            comboBox2.SelectedIndex = 0;
+
+            textBox1.Text = AppConfig.Config.FilterLength.ToString();
+
+            comboBox2.DataSource = AppConfig.DbContext.ExerciseType.ToList();
+            comboBox2.DisplayMember = "Name";
+            comboBox2.ValueMember = "Id";
+            comboBox2.SelectedIndex = SharedStaticModel.ExerciseTypeIndex;
         }
 
         private void iconButton1_Click(object sender, EventArgs e)
@@ -65,7 +56,8 @@ namespace ForcePlatformCore
             SharedStaticModel.ExerciseType = comboBox2.Text;
             SharedStaticModel.ExerciseTypeIndex = comboBox2.SelectedIndex;
 
-            if (mdi != null) mdi.OpenWithMode();
+            //if (mdi != null) mdi.OpenWithMode();
+            mdi.ShowAllForms();
 
             var sharedData = Program.ComPort.SharedData.LastOrDefault();
 
@@ -94,8 +86,12 @@ namespace ForcePlatformCore
 
         private void iconButton2_Click(object sender, EventArgs e)
         {
-            if (!error) this.Close();
-            else Environment.Exit(0);
+            Environment.Exit(0);
+        }
+
+        private void SettingsForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Environment.Exit(0);
         }
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)

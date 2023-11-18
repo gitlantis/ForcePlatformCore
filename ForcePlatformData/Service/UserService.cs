@@ -1,5 +1,6 @@
 ﻿using ForcePlatformData;
 using ForcePlatformData.DbModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace ForcePlatformData.Service
 {
@@ -72,6 +73,20 @@ namespace ForcePlatformData.Service
                 AppConfig.DbContext.ChangeTracker.Clear();             
                 AppConfig.DbContext.Users.Update(user);
 
+                AppConfig.DbContext.SaveChanges();
+                return user;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public User DeleteUser(User user)
+        {
+            try
+            {
+                AppConfig.DbContext.Users.Remove(user);
                 AppConfig.DbContext.SaveChanges();
                 return user;
             }

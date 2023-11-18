@@ -18,39 +18,39 @@ namespace ForcePlatformCore
         private int oldCurrentTimeMC = 0;
 
         private Form[] childForms = new Form[4];
-        private HashSet<int> openPlates = new HashSet<int>();
+        //private HashSet<int> openPlates = new HashSet<int>();
         private HashSet<int> allPlates = new HashSet<int> { 0, 1, 2, 3 };
         private DateTime scanStarted = DateTime.Now;
         private ReportService reportService = new ReportService();
         private Camera camera;
-        private RadarForm radar;
+        //private RadarForm radar;
 
-        private int radarPlate = 0;
-        int zeroTime;
+        //private int radarPlate = 0;
+        //int zeroTime;
 
-        enum filterTypes
-        {
-            swingWindow,
-            meanWindow,
-            hemming,
-            batterfort
-        }
-        int currentFilterType = (int)filterTypes.swingWindow; // :-)))
+        //enum filterTypes
+        //{
+        //    swingWindow,
+        //    meanWindow,
+        //    hemming,
+        //    batterfort
+        //}
+        //int currentFilterType = (int)filterTypes.swingWindow; // :-)))
 
 
-        private void loadSettingsFromfile()
-        {
-            // setting larni zagruzka kere
-            // filtr i glubina
+        //private void loadSettingsFromfile()
+        //{
+        //    // setting larni zagruzka kere
+        //    // filtr i glubina
 
-        }
+        //}
 
-        private void MDIParent1_Load(object sender, EventArgs e)
+        private void MDIParent1_Shown(object sender, EventArgs e)
         {
             var userSelectForm = new UserSelect();
             userSelectForm.ShowDialog();
 
-            var settingsForm = new SettingsForm();
+            var settingsForm = new SettingsForm(this);
             settingsForm.ShowDialog();
 
             //// loadSettingsFromfile();    --------------------------------------------------------------------------------------
@@ -63,7 +63,7 @@ namespace ForcePlatformCore
 
             resetAll();
 
-            this.OpenWithMode();
+            //this.OpenWithMode();
         }
 
         public MainMDI()
@@ -115,20 +115,25 @@ namespace ForcePlatformCore
 
         private void openAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            ShowAllForms();
+        }
+
+        public void ShowAllForms()
+        {
             for (int i = 0; i < 4; i++)
                 showForm(i);
         }
 
         private void showForm(int i)
         {
-            if (MdiChildren.OfType<RadarForm>().Count() > 0) radar.Close();
+            //if (MdiChildren.OfType<RadarForm>().Count() > 0) radar.Close();
 
             if (i >= 0)
             {
                 childForms[i] = new DataLoggerForm(i);
                 childForms[i].MdiParent = this;
                 childForms[i].Show();
-                openPlates.Add(i);
+                //openPlates.Add(i);
             }
         }
 
@@ -193,7 +198,7 @@ namespace ForcePlatformCore
         {
             if (Program.ComPort.Connected)
             {
-                Program.ComPort.onReceive();
+                Program.ComPort.OnReceive();
 
                 foreach (var queue in Program.ComPort.SharedData)
                 {
@@ -201,7 +206,7 @@ namespace ForcePlatformCore
 
                     if (oldCurrentTimeMC != queue.CurrentTimeMC)
                     {
-                        foreach (var plate in openPlates)
+                        foreach (var plate in new int[] { 0, 1, 2, 3 })
                         {
                             var item = new AdcBufferItem();
                             item.Plate = plate;
@@ -219,7 +224,7 @@ namespace ForcePlatformCore
                                 DiffZ = queue.DiffZ[plate],
                             });
 
-                            AdcBuffer.BufferItems[plate].Add(item);
+                            SmallAdcBuffer.PushNew(plate, item, startRecording);
                         }
 
                         if (startRecording)
@@ -245,36 +250,36 @@ namespace ForcePlatformCore
             AppConfig.DbContext = null;
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        { }
+        //private void button1_Click(object sender, EventArgs e)
+        //{ }
 
-        private void timer2_Tick(object sender, EventArgs e)
-        {
-            var activePlates = new HashSet<int>();
-            foreach (Form childForm in MdiChildren)
-            {
-                if (childForm is DataLoggerForm)
-                {
-                    var activeChild = (DataLoggerForm)childForm;
-                    activePlates.Add(activeChild.PlateId);
-                }
+        //private void timer2_Tick(object sender, EventArgs e)
+        //{
+        //    var activePlates = new HashSet<int>();
+        //    foreach (Form childForm in MdiChildren)
+        //    {
+        //        if (childForm is DataLoggerForm)
+        //        {
+        //            var activeChild = (DataLoggerForm)childForm;
+        //            activePlates.Add(activeChild.PlateId);
+        //        }
 
-                if (childForm is RadarForm)
-                {
-                    var activeChild = (RadarForm)childForm;
-                    activePlates.Add(radarPlate);
-                }
-            }
+        //        if (childForm is RadarForm)
+        //        {
+        //            var activeChild = (RadarForm)childForm;
+        //            activePlates.Add(radarPlate);
+        //        }
+        //    }
 
-            var missingPlates = new HashSet<int>(allPlates.Except(activePlates));
+        //    var missingPlates = new HashSet<int>(allPlates.Except(activePlates));
 
-            foreach (var plate in missingPlates)
-            {
-                AdcBuffer.BufferItems[plate].Clear();
-            }
-            openPlates.Clear();
-            openPlates.UnionWith(activePlates);
-        }
+        //    foreach (var plate in missingPlates)
+        //    {
+        //        AdcBuffer.BufferItems[plate].Clear();
+        //    }
+        //    openPlates.Clear();
+        //    openPlates.UnionWith(activePlates);
+        //}
 
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
@@ -287,10 +292,10 @@ namespace ForcePlatformCore
             scanStarted = DateTime.Now;
             csvData.CsvItems.Clear();
 
-            AdcBuffer.BufferItems[0].Clear();
-            AdcBuffer.BufferItems[1].Clear();
-            AdcBuffer.BufferItems[2].Clear();
-            AdcBuffer.BufferItems[3].Clear();
+            SmallAdcBuffer.BufferItems[0].Clear();
+            SmallAdcBuffer.BufferItems[1].Clear();
+            SmallAdcBuffer.BufferItems[2].Clear();
+            SmallAdcBuffer.BufferItems[3].Clear();
 
             foreach (Form childForm in MdiChildren)
             {
@@ -310,8 +315,13 @@ namespace ForcePlatformCore
 
         private void toolStripButton3_Click(object sender, EventArgs e)
         {
+            pauseIncome();
+        }
+
+        private void pauseIncome()
+        {
             pauseAll = !pauseAll;
-            //timer1.Enabled = !pauseAll;
+
             if (pauseAll)
             {
                 toolStripButton3.Text = "Continue";
@@ -329,12 +339,6 @@ namespace ForcePlatformCore
                     var activeChild = (DataLoggerForm)childForm;
                     activeChild.Pause(pauseAll);
                 }
-
-                if (childForm is RadarForm)
-                {
-                    var activeChild = (RadarForm)childForm;
-                    activeChild.Pause(pauseAll);
-                }
             }
         }
 
@@ -350,18 +354,18 @@ namespace ForcePlatformCore
             csvData.FilterLength = SharedStaticModel.FilterLength;
             csvData.ExerciseType = SharedStaticModel.ExerciseType;
 
-            if (csvData.FilterMode.Length == 0 && csvData.ExerciseType.Length == 0)
+            if (csvData.FilterMode.Length == 0 || csvData.ExerciseType.Length == 0)
             {
                 Program.Message("Warning", "Plese choose exerceise type");
                 return;
             }
 
-            if (openPlates.Count < 1)
-            {
-                Program.Message("Warning", "No plates opened to scan");
-                return;
-            }
-            zeroTime = AdcData.CurrentTimeMC;
+            //if (openPlates.Count < 1)
+            //{
+            //    Program.Message("Warning", "No plates opened to scan");
+            //    return;
+            //}
+            //zeroTime = AdcData.CurrentTimeMC;
             startRecording = !startRecording;
             if (startRecording)
             {
@@ -378,8 +382,8 @@ namespace ForcePlatformCore
             {
                 try
                 {
-                    var path = CsvProcessor.Save(Program.User.Id, csvData, "", openPlates.ToList());
-                    reportService.AddReport(Program.User.Id, path);
+                    var path = CsvProcessor.Save(Program.User.Id, SharedStaticModel.ExerciseTypeIndex + 1, "", csvData);
+                    reportService.AddReport(Program.User.Id, path, SharedStaticModel.ExerciseTypeIndex);
 
                     resetAll();
                     Program.Message("Success", $"data saved to: \r\n{path} file");
@@ -405,7 +409,7 @@ namespace ForcePlatformCore
             }
         }
 
-        private void настройкиToolStripMenuItem_Click(object sender, EventArgs e)
+        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SettingsForm settingForm = new SettingsForm(this);
             settingForm.ShowDialog();
@@ -415,37 +419,37 @@ namespace ForcePlatformCore
         private void radarChartToolStripMenuItem_Click(object sender, EventArgs e)
         {
             closeAllChilds();
-            radar = new RadarForm(radarPlate);
-            radar.MdiParent = this;
-            radar.Show();
-            openPlates.Add(radarPlate);
+            //radar = new RadarForm(radarPlate);
+            //radar.MdiParent = this;
+            //radar.Show();
+            //openPlates.Add(radarPlate);
         }
 
-        public void OpenWithMode()
-        {
-            closeAllChilds();
-            if (SharedStaticModel.ExerciseTypeIndex == 0)
-            {
-                radar = new RadarForm(radarPlate);
-                radar.MdiParent = this;
-                radar.Show();
-                openPlates.Add(radarPlate);
-            }
+        //public void OpenWithMode()
+        //{
+        //    //closeAllChilds();
+        //    //if (SharedStaticModel.ExerciseTypeIndex == 0)
+        //    //{
+        //    //    //radar = new RadarForm(radarPlate);
+        //    //    //radar.MdiParent = this;
+        //    //    //radar.Show();
+        //    //    //openPlates.Add(radarPlate);
+        //    //}
 
-            if (SharedStaticModel.ExerciseTypeIndex == 1)
-            {
-                showForm(0);
-                showForm(1);
-            }
+        //    //if (SharedStaticModel.ExerciseTypeIndex == 1)
+        //    //{
+        //    //    showForm(0);
+        //    //    showForm(1);
+        //    //}
 
-            if (SharedStaticModel.ExerciseTypeIndex == 2)
-            {
-                showForm(0);
-                showForm(1);
-                showForm(2);
-                showForm(3);
-            }
-        }
+        //    //if (SharedStaticModel.ExerciseTypeIndex == 2)
+        //    //{
+        //    showForm(0);
+        //    showForm(1);
+        //    showForm(2);
+        //    showForm(3);
+        //    //}
+        //}
 
         private void closeAllChilds()
         {

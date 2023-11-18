@@ -8,11 +8,7 @@ namespace ForcePlatformData.DbModels
         public DbSet<User> Users { get; set; }
         public DbSet<UserParams> UserParams { get; set; }
         public DbSet<Report> Reports { get; set; }
-
-        //public SqliteContext(DbContextOptionsBuilder options)
-        //{            
-        //    options.UseSqlite("");
-        //}
+        public DbSet<ExerciseType> ExerciseType { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             => optionsBuilder.UseSqlite($"Data Source={Path.Join(AppConfig.CommonPath, AppConfig.DbName)}");
@@ -28,13 +24,25 @@ namespace ForcePlatformData.DbModels
             modelBuilder.Entity<UserParams>().ToTable("UserParams");
             modelBuilder.Entity<UserParams>().HasKey(u => u.Id).HasName("PK_UserParamId");
             modelBuilder.Entity<UserParams>().HasIndex(u => u.Id).IsUnique();
-            modelBuilder.Entity<UserParams>().HasOne(d => d.User).WithOne(user=>user.UserParams);
+            modelBuilder.Entity<UserParams>().HasOne(d => d.User).WithOne(user => user.UserParams);
 
             modelBuilder.Entity<Report>().ToTable("Reports");
             modelBuilder.Entity<Report>().HasKey(u => u.Id).HasName("PK_ReportId");
             modelBuilder.Entity<Report>().HasIndex(u => u.Id).IsUnique();
+            modelBuilder.Entity<Report>().HasIndex(u => u.Id).IsUnique();
 
             modelBuilder.Entity<Report>().HasOne(u => u.User);
+            modelBuilder.Entity<Report>().HasOne(d => d.ExerciseType);
+
+            modelBuilder.Entity<ExerciseType>().ToTable("ExerciseTypes");
+            modelBuilder.Entity<ExerciseType>().HasKey(u => u.Id).HasName("PK_ExerciseTypeId");
+            modelBuilder.Entity<ExerciseType>().HasData(
+            new ExerciseType { Id = 1, Name = "Stability, 1st platform" },
+            new ExerciseType { Id = 2, Name = "Jump, 2 platforms" },
+            new ExerciseType { Id = 3, Name = "Gait, 4 platforms" });
         }
     }
 }
+
+//PM> Add-Migration ExerciseData001 -Project ForcePlatformData -StartupProject ForcePlatformCore -Context SqliteContext 
+//PM> Update-Database -Project ForcePlatformData -StartupProject ForcePlatformCore -Context SqliteContext 

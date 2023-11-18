@@ -37,6 +37,7 @@ namespace ForcePlatformCore
             label1 = new Label();
             textBox1 = new TextBox();
             iconButton5 = new FontAwesome.Sharp.IconButton();
+            iconButton6 = new FontAwesome.Sharp.IconButton();
             SuspendLayout();
             // 
             // iconButton2
@@ -49,7 +50,7 @@ namespace ForcePlatformCore
             iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton2.IconSize = 32;
             iconButton2.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButton2.Location = new Point(332, 485);
+            iconButton2.Location = new Point(498, 485);
             iconButton2.Name = "iconButton2";
             iconButton2.Size = new Size(89, 39);
             iconButton2.TabIndex = 5;
@@ -122,7 +123,7 @@ namespace ForcePlatformCore
             listBox1.ItemHeight = 15;
             listBox1.Location = new Point(12, 41);
             listBox1.Name = "listBox1";
-            listBox1.Size = new Size(504, 439);
+            listBox1.Size = new Size(670, 439);
             listBox1.TabIndex = 1;
             listBox1.DoubleClick += listBox1_DoubleClick;
             // 
@@ -141,7 +142,7 @@ namespace ForcePlatformCore
             textBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             textBox1.Location = new Point(96, 12);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(420, 23);
+            textBox1.Size = new Size(586, 23);
             textBox1.TabIndex = 0;
             textBox1.KeyPress += textBox1_KeyPress;
             // 
@@ -155,7 +156,7 @@ namespace ForcePlatformCore
             iconButton5.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton5.IconSize = 32;
             iconButton5.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButton5.Location = new Point(427, 486);
+            iconButton5.Location = new Point(593, 485);
             iconButton5.Name = "iconButton5";
             iconButton5.Size = new Size(89, 39);
             iconButton5.TabIndex = 18;
@@ -164,11 +165,31 @@ namespace ForcePlatformCore
             iconButton5.UseVisualStyleBackColor = true;
             iconButton5.Click += iconButton5_Click;
             // 
+            // iconButton6
+            // 
+            iconButton6.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            iconButton6.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            iconButton6.ForeColor = Color.FromArgb(0, 0, 192);
+            iconButton6.IconChar = FontAwesome.Sharp.IconChar.UserXmark;
+            iconButton6.IconColor = Color.FromArgb(0, 0, 192);
+            iconButton6.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton6.IconSize = 32;
+            iconButton6.ImageAlign = ContentAlignment.MiddleLeft;
+            iconButton6.Location = new Point(312, 485);
+            iconButton6.Name = "iconButton6";
+            iconButton6.Size = new Size(97, 39);
+            iconButton6.TabIndex = 19;
+            iconButton6.Text = "Delete";
+            iconButton6.TextAlign = ContentAlignment.MiddleRight;
+            iconButton6.UseVisualStyleBackColor = true;
+            iconButton6.Click += iconButton6_Click;
+            // 
             // UserSelect
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(525, 529);
+            ClientSize = new Size(691, 529);
+            Controls.Add(iconButton6);
             Controls.Add(iconButton5);
             Controls.Add(listBox1);
             Controls.Add(label1);
@@ -197,6 +218,7 @@ namespace ForcePlatformCore
         private FontAwesome.Sharp.IconButton iconButton1;
         private FontAwesome.Sharp.IconButton iconButton2;
         private FontAwesome.Sharp.IconButton iconButton5;
+        private FontAwesome.Sharp.IconButton iconButton6;
     }
 }
 

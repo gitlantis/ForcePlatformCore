@@ -4,7 +4,7 @@ namespace ForcePlatformData.Service
 {
     public class ReportService
     {
-        public int AddReport(int userId, string path)
+        public int AddReport(int userId, string path, int exerciseTypeId)
         {
             try
             {
@@ -12,6 +12,7 @@ namespace ForcePlatformData.Service
                 {
                     UserId = userId,
                     Path = path,
+                    ExerciseTypeId = exerciseTypeId,
                     CreatedDate = DateTime.Now
                 };
                 AppConfig.DbContext.Add(report);

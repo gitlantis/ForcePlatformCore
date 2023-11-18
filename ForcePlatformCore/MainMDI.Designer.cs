@@ -50,7 +50,6 @@
             cascadeToolStripMenuItem = new ToolStripMenuItem();
             настройкиToolStripMenuItem = new ToolStripMenuItem();
             timer1 = new System.Windows.Forms.Timer(components);
-            timer2 = new System.Windows.Forms.Timer(components);
             toolStrip1 = new ToolStrip();
             toolStripButton2 = new ToolStripButton();
             toolStripSeparator1 = new ToolStripSeparator();
@@ -196,17 +195,12 @@
             настройкиToolStripMenuItem.Name = "настройкиToolStripMenuItem";
             настройкиToolStripMenuItem.Size = new Size(61, 20);
             настройкиToolStripMenuItem.Text = "Settings";
-            настройкиToolStripMenuItem.Click += настройкиToolStripMenuItem_Click;
+            настройкиToolStripMenuItem.Click += settingsToolStripMenuItem_Click;
             // 
             // timer1
             // 
+            timer1.Interval = 50;
             timer1.Tick += timer1_Tick;
-            // 
-            // timer2
-            // 
-            timer2.Enabled = true;
-            timer2.Interval = 1000;
-            timer2.Tick += timer2_Tick;
             // 
             // toolStrip1
             // 
@@ -301,7 +295,7 @@
             Name = "MainMDI";
             Text = "Force Platrom";
             FormClosing += MDIParent1_FormClosing;
-            Load += MDIParent1_Load;
+            Shown += MDIParent1_Shown;
             statusStrip.ResumeLayout(false);
             statusStrip.PerformLayout();
             menuStrip.ResumeLayout(false);
@@ -330,7 +324,6 @@
         private ToolStripMenuItem cascadeToolStripMenuItem;
         private ToolStripMenuItem cellToolStripMenuItem;
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Timer timer2;
         private ToolStrip toolStrip1;
         private ToolStripButton toolStripButton1;
         private ContextMenuStrip contextMenuStrip1;

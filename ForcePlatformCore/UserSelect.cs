@@ -8,6 +8,7 @@ namespace ForcePlatformCore
         private List<User> users = new List<User>();
         private UserService userService = new UserService();
         private string comboboxText = "";
+
         public UserSelect()
         {
             InitializeComponent();
@@ -102,12 +103,34 @@ namespace ForcePlatformCore
                 }
             }
             catch { }
-
         }
 
         private void iconButton5_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void iconButton6_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var selectedValue = listBox1.SelectedValue;
+                int selectedId = (int)selectedValue;
+
+                var selectedUser = users.Where(item => item.Id == selectedId).FirstOrDefault();
+
+                if (selectedUser != null)
+                {
+                    DialogResult result = MessageBox.Show($"Do you want remove {selectedUser.FullName}?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                    if (result == DialogResult.Yes)
+                    {
+                        userService.DeleteUser(selectedUser);
+                        UpdateUsers(textBox1.Text);
+                    }
+                }
+            }
+            catch { }
         }
     }
 }

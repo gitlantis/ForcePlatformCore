@@ -7,11 +7,11 @@ namespace ForcePlatformData.Helpers
     {
         private static string path = Path.Join(AppConfig.CommonPath, AppConfig.Config.ReportsPath);
 
-        public static string Save(int userId, CsvModel data, string param, List<int> openPlates)
+        public static string Save(int userId, int exerciseType, string param, CsvModel data)
         {
             try
             {
-                string csvFilePath = $"platform_data_{userId}_{DateTimeOffset.Now.ToUnixTimeSeconds()}.csv";
+                string csvFilePath = $"platform_data_{userId}_{exerciseType}_{DateTimeOffset.Now.ToUnixTimeSeconds()}.csv";
 
                 bool exists = Directory.Exists(path);
 
@@ -20,19 +20,17 @@ namespace ForcePlatformData.Helpers
 
                 using (StreamWriter writer = new StreamWriter(Path.Join(path, csvFilePath), false, Encoding.UTF8))
                 {
-                    var line = data.CsvItems.Dequeue();  
-                    
+                    var line = data.CsvItems.Dequeue();
+
                     var headline = "Time,";
                     var secondLine = $"{line.Time.ToString(@"hh\:mm\:ss\.ffff")},";
 
-                    foreach ( var item in line.AxisItems)
+                    foreach (var item in line.AxisItems)
                     {
-                        if (openPlates.Contains(item.Plate))
-                        {
-                            headline += $"p{item.Plate + 1}X,p{item.Plate + 1}Y,p{item.Plate + 1}Z,";
-                            secondLine += $"{item.DiffX},{item.DiffY},{item.DiffZ},";
-                        }
+                        headline += $"p{item.Plate + 1}X,p{item.Plate + 1}Y,p{item.Plate + 1}Z,";
+                        secondLine += $"{item.DiffX},{item.DiffY},{item.DiffZ},";
                     }
+
                     headline += "FilterType,FilterLength,ExserciseType";
                     secondLine += $"{data.FilterMode},{data.FilterLength},{data.ExerciseType}";
 
@@ -45,8 +43,7 @@ namespace ForcePlatformData.Helpers
                         var raw = $"{line.Time.ToString(@"hh\:mm\:ss\.ffff")},";
                         foreach (var item in line.AxisItems)
                         {
-                            if (openPlates.Contains(item.Plate))
-                                raw += $"{item.DiffX},{item.DiffY},{item.DiffZ},";
+                            raw += $"{item.DiffX},{item.DiffY},{item.DiffZ},";
                         }
                         writer.WriteLine(raw);
                     }

@@ -82,25 +82,25 @@ namespace ForcePlatformCore
 
         private void iconButton1_Click(object sender, EventArgs e)
         {
-            try
-            {
-                SharedStaticModel.Weight = AdcBuffer.BufferItems[plateNumber].LastOrDefault().DiffZ / AppConfig.Config.CalibrateZ;
-                SharedStaticModel.DiffX = AdcBuffer.BufferItems[plateNumber].LastOrDefault().DiffX;
-                SharedStaticModel.DiffY = AdcBuffer.BufferItems[plateNumber].LastOrDefault().DiffY;
-                SharedStaticModel.DiffZ = AdcBuffer.BufferItems[plateNumber].LastOrDefault().DiffZ;
-                AdcBuffer.BufferItems[0].Clear();
+            //try
+            //{
+            //    SharedStaticModel.Weight = AdcBuffer.BufferItems[plateNumber].LastOrDefault().DiffZ / AppConfig.Config.CalibrateZ;
+            //    SharedStaticModel.DiffX = AdcBuffer.BufferItems[plateNumber].LastOrDefault().DiffX;
+            //    SharedStaticModel.DiffY = AdcBuffer.BufferItems[plateNumber].LastOrDefault().DiffY;
+            //    SharedStaticModel.DiffZ = AdcBuffer.BufferItems[plateNumber].LastOrDefault().DiffZ;
+            //    AdcBuffer.BufferItems[0].Clear();
 
-                label1.Text = $"Weight: {SharedStaticModel.Weight.ToString("0.000")}kg";
-                initalizePlot();
-            }
-            catch { }
+            //    label1.Text = $"Weight: {SharedStaticModel.Weight.ToString("0.000")}kg";
+            //    initalizePlot();
+            //}
+            //catch { }
         }
 
         private void drawRadarChart()
         {
             if (Program.ComPort.Connected)
             {
-                var points = AdcBuffer.BufferItems[plateNumber];
+                var points = SmallAdcBuffer.BufferItems[plateNumber];
 
                 double[] cc;
 
@@ -126,12 +126,7 @@ namespace ForcePlatformCore
                 formsPlot1.Plot.Clear();
                 var radar = formsPlot1.Plot.AddRadar(plotValues, independentAxes: false, maxValues: maxValues, false);
                 formsPlot1.Refresh();
-                AdcBuffer.BufferItems[plateNumber].Clear();
-
-
-                //radar.CategoryLabels = new string[maxValues.Length];
-                //for (int i = 0; i < 72; i++) { radar.CategoryLabels[i] = (i % 18 == 0) ? (i * 5).ToString() : ""; }
-
+                SmallAdcBuffer.BufferItems[plateNumber].Clear();
             }
         }
     }
