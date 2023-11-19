@@ -1,4 +1,5 @@
 ﻿using ForcePlatformData;
+using ForcePlatformData.Helpers;
 using ForcePlatformData.Service;
 using System;
 using System.Collections.Generic;
@@ -109,12 +110,24 @@ namespace ForcePlatformSmart
         private void MainMDI_Load(object sender, EventArgs e)
         {
             var userService = new UserService();
+            var reportService = new ReportService();
             var users = userService.TakeSome(10);
 
             foreach(var user in users)
             {
                 richTextBox1.AppendText($"{user.FullName} \r\n");
             }
+
+            var reports = reportService.GetReports(users.FirstOrDefault().Id);
+            var report = reportService.GetReportById(reports.FirstOrDefault().Id);
+
+            var csvLines = CsvProcessor.Read(report.Path);
+
+            foreach(var line in csvLines)
+            {
+                richTextBox1.AppendText($"{string.Join(",", line)} \r\n");
+            }
+
         }
     }
 }

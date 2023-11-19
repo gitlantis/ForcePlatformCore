@@ -36,5 +36,18 @@ namespace ForcePlatformData.Service
                 throw e;
             }
         }
+
+        public Report GetReportById(int id)
+        {
+            try
+            {
+                var report = AppConfig.DbContext.Reports.Where(c => c.Id== id).FirstOrDefault();
+                return report;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
     }
 }
