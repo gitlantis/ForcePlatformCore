@@ -61,30 +61,15 @@ namespace ForcePlatformCore
 
             for (int i = 0; i < 4; i++)
             {
-                LoggerDiffX[i] = formsPlot1.Plot.AddDataLogger(label: $"p{i}X", lineWidth: 3);
+                LoggerDiffX[i] = formsPlot1.Plot.AddDataLogger(label: $"p{i+1}X", lineWidth: 3);
                 LoggerDiffX[i].ViewSlide();
-                LoggerDiffY[i] = formsPlot1.Plot.AddDataLogger(label: $"p{i}X", lineWidth: 3);
+                LoggerDiffY[i] = formsPlot1.Plot.AddDataLogger(label: $"p{i+1}Y", lineWidth: 3);
                 LoggerDiffY[i].ViewSlide();
-                LoggerDiffZ[i] = formsPlot1.Plot.AddDataLogger(label: $"p{i}X", lineWidth: 3);
+                LoggerDiffZ[i] = formsPlot1.Plot.AddDataLogger(label: $"p{i+1}Z", lineWidth: 3);
                 LoggerDiffZ[i].ViewSlide();
             }
 
-            //LoggerDiffP1Y = formsPlot1.Plot.AddDataLogger(label: "p1Y", lineWidth: 3);
-            //LoggerDiffP1Z = formsPlot1.Plot.AddDataLogger(label: "p1Z", lineWidth: 3);
-
-            //LoggerDiffP2X = formsPlot1.Plot.AddDataLogger(label: "p2X", lineWidth: 3);
-            //LoggerDiffP2Y = formsPlot1.Plot.AddDataLogger(label: "p2Y", lineWidth: 3);
-            //LoggerDiffP2Z = formsPlot1.Plot.AddDataLogger(label: "p2Z", lineWidth: 3);
-
-            //LoggerDiffP3X = formsPlot1.Plot.AddDataLogger(label: "p3X", lineWidth: 3);
-            //LoggerDiffP3Y = formsPlot1.Plot.AddDataLogger(label: "p3Y", lineWidth: 3);
-            //LoggerDiffP3Z = formsPlot1.Plot.AddDataLogger(label: "p3Z", lineWidth: 3);
-
-            //LoggerDiffP4X = formsPlot1.Plot.AddDataLogger(label: "p4X", lineWidth: 3);
-            //LoggerDiffP4Y = formsPlot1.Plot.AddDataLogger(label: "p4Y", lineWidth: 3);
-            //LoggerDiffP4Z = formsPlot1.Plot.AddDataLogger(label: "p4Z", lineWidth: 3);
-
-            formsPlot1.Plot.Legend(checkBox4.Checked);
+            formsPlot1.Plot.Legend(checkBox13.Checked);
 
             var style = new ScottPlot.Styles.Black();
             var palette = new ScottPlot.Palettes.Category10();
@@ -97,22 +82,6 @@ namespace ForcePlatformCore
 
             formsPlot1.Plot.AxisAuto();
             formsPlot1.Plot.AxisScale();
-
-            //LoggerDiffP1X.ViewSlide();
-            //LoggerDiffP1Y.ViewSlide();
-            //LoggerDiffP1Z.ViewSlide();
-
-            //LoggerDiffP2X.ViewSlide();
-            //LoggerDiffP2Y.ViewSlide();
-            //LoggerDiffP2Z.ViewSlide();
-
-            //LoggerDiffP3X.ViewSlide();
-            //LoggerDiffP3Y.ViewSlide();
-            //LoggerDiffP3Z.ViewSlide();
-
-            //LoggerDiffP4X.ViewSlide();
-            //LoggerDiffP4Y.ViewSlide();
-            //LoggerDiffP4Z.ViewSlide();
 
             textBoxes[0] = textBox1;
             textBoxes[1] = textBox2;
@@ -141,22 +110,6 @@ namespace ForcePlatformCore
         private void formsPlot1_MouseDown(object sender, MouseEventArgs e)
         {
             isStopped = true;
-            //LoggerDiffP1X.ManageAxisLimits = !isStopped;
-            //LoggerDiffP1Y.ManageAxisLimits = !isStopped;
-            //LoggerDiffP1Z.ManageAxisLimits = !isStopped;
-
-            //LoggerDiffP2X.ManageAxisLimits = !isStopped;
-            //LoggerDiffP2Y.ManageAxisLimits = !isStopped;
-            //LoggerDiffP2Z.ManageAxisLimits = !isStopped;
-
-            //LoggerDiffP3X.ManageAxisLimits = !isStopped;
-            //LoggerDiffP3Y.ManageAxisLimits = !isStopped;
-            //LoggerDiffP3Z.ManageAxisLimits = !isStopped;
-
-            //LoggerDiffP4X.ManageAxisLimits = !isStopped;
-            //LoggerDiffP4Y.ManageAxisLimits = !isStopped;
-            //LoggerDiffP4Z.ManageAxisLimits = !isStopped;
-
             stopPlot(isStopped);
 
             formsPlot1.Configuration.Pan = isStopped;
@@ -166,7 +119,7 @@ namespace ForcePlatformCore
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-           
+
         }
         private void stopPlot(bool stopped)
         {
@@ -197,7 +150,6 @@ namespace ForcePlatformCore
                 for (var plate = 0; plate < 4; plate++)
                 {
                     var points = SmallAdcBuffer.BufferItems[plate];
-                    //addData(points);
                     LoggerDiffX[plate].Clear();
                     var newCoordX = points.Select(c => new Coordinate(c.Time.TotalMilliseconds / 5, c.DiffX));
                     LoggerDiffX[plate].AddRange(newCoordX);
@@ -225,13 +177,6 @@ namespace ForcePlatformCore
             }
         }
 
-        private void addData(List<AdcBufferItem> items)
-        {
-            for (int i = 0; i < 4; i++)
-            {
-
-            }
-        }
         public void Pause(bool isPaused)
         {
             pausePlot = isPaused;
@@ -306,7 +251,8 @@ namespace ForcePlatformCore
                     double? percX = (point.DiffX / point.DiffZ) * 100;
                     double? percY = (point.DiffY / point.DiffZ) * 100;
 
-                    if (temp < 5) { 
+                    if (temp < 5)
+                    {
                         temp = null;
                         percX = null;
                         percY = null;
@@ -315,13 +261,13 @@ namespace ForcePlatformCore
                     if (comboBox1.SelectedIndex == 1)
                     {
                         var force = temp * AppConfig.Config.FreeFallAcc;
-                        textBoxes[2 + (plate * 3)].Text = force!=null?string.Format("{0:0.0}", force):"---.-";
+                        textBoxes[2 + (plate * 3)].Text = force != null ? string.Format("{0:0.0}", force) : "---.-";
                     }
                     else
-                        textBoxes[2 + (plate * 3)].Text = temp!=null?string.Format("{0:0.0}", temp) : "---.-";
+                        textBoxes[2 + (plate * 3)].Text = temp != null ? string.Format("{0:0.0}", temp) : "---.-";
 
-                    textBoxes[0 + (plate * 3)].Text = percX!=null?string.Format("{0:0.0}", percX) + " %" : "---.- %";
-                    textBoxes[1 + (plate * 3)].Text = percY!=null?string.Format("{0:0.0}", percY) + " %":"---.- %";
+                    textBoxes[0 + (plate * 3)].Text = percX != null ? string.Format("{0:0.0}", percX) + " %" : "---.- %";
+                    textBoxes[1 + (plate * 3)].Text = percY != null ? string.Format("{0:0.0}", percY) + " %" : "---.- %";
 
                 }
             }

@@ -1,4 +1,5 @@
-﻿using ScottPlot;
+﻿using ForcePlatformData.DbModels;
+using ScottPlot;
 
 namespace ForcePlatformSmart
 {
@@ -11,8 +12,8 @@ namespace ForcePlatformSmart
 
         private int stopTime = 0;
         private bool isStopped = false;
+        private User user = new User();
 
-        private int plateNumber = -1;
         public double[] convertToPolar(double X, double Y)
         {
             double[] res = new double[2] { 0, 0 };
@@ -43,9 +44,10 @@ namespace ForcePlatformSmart
             timer1.Enabled = true;
         }
 
-        public RadarForm(int plateNumber)
+        public RadarForm(User selectedUser)
         {
-            this.plateNumber = plateNumber;
+            user = selectedUser;
+
             InitializeComponent();
 
             initalizePlot();

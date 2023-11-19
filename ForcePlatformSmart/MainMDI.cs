@@ -1,6 +1,8 @@
 ﻿using ForcePlatformData;
+using ForcePlatformData.DbModels;
 using ForcePlatformData.Helpers;
 using ForcePlatformData.Service;
+using ScottPlot.Plottable;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,6 +18,8 @@ namespace ForcePlatformSmart
     public partial class MainMDI : Form
     {
         private int childFormNumber = 0;
+        UserService userService = new UserService();
+        ReportService reportService = new ReportService();
 
         public MainMDI()
         {
@@ -109,11 +113,9 @@ namespace ForcePlatformSmart
 
         private void MainMDI_Load(object sender, EventArgs e)
         {
-            var userService = new UserService();
-            var reportService = new ReportService();
             var users = userService.TakeSome(10);
 
-            foreach(var user in users)
+            foreach (var user in users)
             {
                 richTextBox1.AppendText($"{user.FullName} \r\n");
             }
@@ -123,11 +125,59 @@ namespace ForcePlatformSmart
 
             var csvLines = CsvProcessor.Read(report.Path);
 
-            foreach(var line in csvLines)
+            foreach (var line in csvLines)
             {
                 richTextBox1.AppendText($"{string.Join(",", line)} \r\n");
             }
 
+            dataGridView1.Dock = DockStyle.Fill;
+            dataGridView1.AutoGenerateColumns = true;
+            dataGridView1.ReadOnly = true;
+            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
+            dataGridView1.DataSource = userService.TakeAll();
+
+            DataGridViewButtonColumn buttonColumn = new DataGridViewButtonColumn();
+            buttonColumn.HeaderText = "Action";
+            buttonColumn.Text = "Info";
+            buttonColumn.UseColumnTextForButtonValue = true;
+            dataGridView1.Columns.Add(buttonColumn);
+        }
+
+        private void dataGridView1_CellMouseClick(object sender, DataGridViewCellEventArgs e)
+        {
+            
+        }
+
+        private void dataGridView1_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                var selectedRow = dataGridView1.Rows[e.RowIndex];
+
+                var user = (User)selectedRow.DataBoundItem;
+
+                var radarChart = new RadarForm(user);
+                //radarChart.MdiParent = this;
+                radarChart.ShowDialog();
+            }
+        }
+
+        private void dataGridView1_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            var actionColumn = dataGridView1.Columns.Cast<DataGridViewColumn>().FirstOrDefault(col => col.HeaderText == "Action");
+
+            if (e.RowIndex >= 0 && actionColumn != null && e.ColumnIndex == actionColumn.Index)
+            {
+                // Access the selected row
+                var selectedRow = dataGridView1.Rows[e.RowIndex];
+
+                // Access the data in the row (assuming MyObject class)
+                var user = (User)selectedRow.DataBoundItem;
+
+                var userInfo = new UserInfo(user);
+                userInfo.ShowDialog();
+            }
         }
     }
 }

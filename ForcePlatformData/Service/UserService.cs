@@ -36,6 +36,19 @@ namespace ForcePlatformData.Service
             }
         }
 
+        public List<User> TakeAll()
+        {
+            try
+            {
+                var users = AppConfig.DbContext.Users.ToList();
+                return users;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
         public UserParams TakeUserParams(int userId)
         {
             try
@@ -53,6 +66,7 @@ namespace ForcePlatformData.Service
         {
             try
             {
+                user.Id = 0;
                 user.CreatedDate = DateTime.Now;
                 user.EditedDate = DateTime.Now;
 

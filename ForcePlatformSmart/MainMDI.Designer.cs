@@ -83,9 +83,15 @@
             toolStripStatusLabel = new ToolStripStatusLabel();
             toolTip = new ToolTip(components);
             richTextBox1 = new RichTextBox();
+            userBindingSource = new BindingSource(components);
+            reportBindingSource = new BindingSource(components);
+            dataGridView1 = new DataGridView();
             menuStrip.SuspendLayout();
             toolStrip.SuspendLayout();
             statusStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)userBindingSource).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)reportBindingSource).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // menuStrip
@@ -95,7 +101,7 @@
             menuStrip.MdiWindowListItem = windowsMenu;
             menuStrip.Name = "menuStrip";
             menuStrip.Padding = new Padding(7, 2, 0, 2);
-            menuStrip.Size = new Size(817, 24);
+            menuStrip.Size = new Size(1209, 24);
             menuStrip.TabIndex = 0;
             menuStrip.Text = "MenuStrip";
             // 
@@ -395,7 +401,7 @@
             toolStrip.Items.AddRange(new ToolStripItem[] { newToolStripButton, openToolStripButton, saveToolStripButton, toolStripSeparator1, printToolStripButton, printPreviewToolStripButton, toolStripSeparator2, helpToolStripButton });
             toolStrip.Location = new Point(0, 24);
             toolStrip.Name = "toolStrip";
-            toolStrip.Size = new Size(817, 25);
+            toolStrip.Size = new Size(1209, 25);
             toolStrip.TabIndex = 1;
             toolStrip.Text = "ToolStrip";
             // 
@@ -471,7 +477,7 @@
             statusStrip.Location = new Point(0, 574);
             statusStrip.Name = "statusStrip";
             statusStrip.Padding = new Padding(1, 0, 16, 0);
-            statusStrip.Size = new Size(817, 22);
+            statusStrip.Size = new Size(1209, 22);
             statusStrip.TabIndex = 2;
             statusStrip.Text = "StatusStrip";
             // 
@@ -483,17 +489,37 @@
             // 
             // richTextBox1
             // 
-            richTextBox1.Location = new Point(38, 98);
+            richTextBox1.Location = new Point(0, 265);
             richTextBox1.Name = "richTextBox1";
             richTextBox1.Size = new Size(381, 319);
             richTextBox1.TabIndex = 4;
             richTextBox1.Text = "";
             // 
+            // userBindingSource
+            // 
+            userBindingSource.DataSource = typeof(ForcePlatformData.DbModels.User);
+            // 
+            // reportBindingSource
+            // 
+            reportBindingSource.DataSource = typeof(ForcePlatformData.DbModels.Report);
+            // 
+            // dataGridView1
+            // 
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Location = new Point(0, 52);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.RowTemplate.Height = 25;
+            dataGridView1.Size = new Size(881, 464);
+            dataGridView1.TabIndex = 9;
+            dataGridView1.CellMouseDoubleClick += dataGridView1_CellMouseDoubleClick;
+            dataGridView1.CellMouseClick += dataGridView1_CellMouseClick;
+            // 
             // MainMDI
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(817, 596);
+            ClientSize = new Size(1209, 596);
+            Controls.Add(dataGridView1);
             Controls.Add(richTextBox1);
             Controls.Add(statusStrip);
             Controls.Add(toolStrip);
@@ -510,6 +536,9 @@
             toolStrip.PerformLayout();
             statusStrip.ResumeLayout(false);
             statusStrip.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)userBindingSource).EndInit();
+            ((System.ComponentModel.ISupportInitialize)reportBindingSource).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -569,6 +598,9 @@
         private ToolStripButton helpToolStripButton;
         private ToolTip toolTip;
         private RichTextBox richTextBox1;
+        private BindingSource reportBindingSource;
+        private BindingSource userBindingSource;
+        private DataGridView dataGridView1;
     }
 }
 
