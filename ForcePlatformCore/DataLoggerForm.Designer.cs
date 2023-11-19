@@ -75,7 +75,7 @@
             formsPlot1.Location = new Point(0, 0);
             formsPlot1.Margin = new Padding(4, 3, 4, 3);
             formsPlot1.Name = "formsPlot1";
-            formsPlot1.Size = new Size(1326, 684);
+            formsPlot1.Size = new Size(1377, 684);
             formsPlot1.TabIndex = 0;
             formsPlot1.MouseDown += formsPlot1_MouseDown;
             // 
@@ -89,30 +89,30 @@
             groupBox1.Controls.Add(checkBox2);
             groupBox1.Controls.Add(checkBox1);
             groupBox1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            groupBox1.Location = new Point(1355, 67);
+            groupBox1.Location = new Point(1384, 67);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(279, 129);
+            groupBox1.Size = new Size(250, 129);
             groupBox1.TabIndex = 1;
             groupBox1.TabStop = false;
             groupBox1.Text = "Plate 1";
             // 
             // textBox3
             // 
-            textBox3.Location = new Point(158, 89);
+            textBox3.Location = new Point(139, 89);
             textBox3.Name = "textBox3";
             textBox3.Size = new Size(100, 29);
             textBox3.TabIndex = 11;
             // 
             // textBox2
             // 
-            textBox2.Location = new Point(158, 58);
+            textBox2.Location = new Point(139, 58);
             textBox2.Name = "textBox2";
             textBox2.Size = new Size(100, 29);
             textBox2.TabIndex = 10;
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(158, 27);
+            textBox1.Location = new Point(139, 27);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(100, 29);
             textBox1.TabIndex = 9;
@@ -124,12 +124,13 @@
             checkBox3.CheckState = CheckState.Checked;
             checkBox3.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
             checkBox3.ForeColor = Color.Green;
-            checkBox3.Location = new Point(36, 91);
+            checkBox3.Location = new Point(17, 91);
             checkBox3.Name = "checkBox3";
             checkBox3.Size = new Size(116, 25);
             checkBox3.TabIndex = 2;
             checkBox3.Text = "Z Axis Load";
             checkBox3.UseVisualStyleBackColor = true;
+            checkBox3.CheckedChanged += checkBox_CheckedChanged;
             // 
             // checkBox2
             // 
@@ -138,12 +139,13 @@
             checkBox2.CheckState = CheckState.Checked;
             checkBox2.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
             checkBox2.ForeColor = Color.Coral;
-            checkBox2.Location = new Point(36, 60);
+            checkBox2.Location = new Point(17, 60);
             checkBox2.Name = "checkBox2";
             checkBox2.Size = new Size(116, 25);
             checkBox2.TabIndex = 1;
             checkBox2.Text = "Y Axis Load";
             checkBox2.UseVisualStyleBackColor = true;
+            checkBox2.CheckedChanged += checkBox_CheckedChanged;
             // 
             // checkBox1
             // 
@@ -152,12 +154,13 @@
             checkBox1.CheckState = CheckState.Checked;
             checkBox1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
             checkBox1.ForeColor = Color.RoyalBlue;
-            checkBox1.Location = new Point(36, 29);
+            checkBox1.Location = new Point(17, 29);
             checkBox1.Name = "checkBox1";
             checkBox1.Size = new Size(116, 25);
             checkBox1.TabIndex = 0;
             checkBox1.Text = "X Axis Load";
             checkBox1.UseVisualStyleBackColor = true;
+            checkBox1.CheckedChanged += checkBox_CheckedChanged;
             // 
             // comboBox1
             // 
@@ -199,30 +202,30 @@
             groupBox2.Controls.Add(checkBox5);
             groupBox2.Controls.Add(checkBox6);
             groupBox2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            groupBox2.Location = new Point(1355, 202);
+            groupBox2.Location = new Point(1384, 202);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(279, 129);
+            groupBox2.Size = new Size(250, 129);
             groupBox2.TabIndex = 3;
             groupBox2.TabStop = false;
             groupBox2.Text = "Plate 2";
             // 
             // textBox4
             // 
-            textBox4.Location = new Point(158, 27);
+            textBox4.Location = new Point(139, 26);
             textBox4.Name = "textBox4";
             textBox4.Size = new Size(100, 29);
             textBox4.TabIndex = 14;
             // 
             // textBox5
             // 
-            textBox5.Location = new Point(158, 58);
+            textBox5.Location = new Point(139, 57);
             textBox5.Name = "textBox5";
             textBox5.Size = new Size(100, 29);
             textBox5.TabIndex = 13;
             // 
             // textBox6
             // 
-            textBox6.Location = new Point(158, 89);
+            textBox6.Location = new Point(139, 88);
             textBox6.Name = "textBox6";
             textBox6.Size = new Size(100, 29);
             textBox6.TabIndex = 12;
@@ -234,12 +237,13 @@
             checkBox4.CheckState = CheckState.Checked;
             checkBox4.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
             checkBox4.ForeColor = Color.Green;
-            checkBox4.Location = new Point(36, 91);
+            checkBox4.Location = new Point(17, 30);
             checkBox4.Name = "checkBox4";
             checkBox4.Size = new Size(116, 25);
             checkBox4.TabIndex = 2;
-            checkBox4.Text = "Z Axis Load";
+            checkBox4.Text = "X Axis Load";
             checkBox4.UseVisualStyleBackColor = true;
+            checkBox4.CheckedChanged += checkBox_CheckedChanged;
             // 
             // checkBox5
             // 
@@ -248,12 +252,13 @@
             checkBox5.CheckState = CheckState.Checked;
             checkBox5.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
             checkBox5.ForeColor = Color.Coral;
-            checkBox5.Location = new Point(36, 60);
+            checkBox5.Location = new Point(17, 59);
             checkBox5.Name = "checkBox5";
             checkBox5.Size = new Size(116, 25);
             checkBox5.TabIndex = 1;
             checkBox5.Text = "Y Axis Load";
             checkBox5.UseVisualStyleBackColor = true;
+            checkBox5.CheckedChanged += checkBox_CheckedChanged;
             // 
             // checkBox6
             // 
@@ -262,12 +267,13 @@
             checkBox6.CheckState = CheckState.Checked;
             checkBox6.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
             checkBox6.ForeColor = Color.RoyalBlue;
-            checkBox6.Location = new Point(36, 29);
+            checkBox6.Location = new Point(17, 90);
             checkBox6.Name = "checkBox6";
             checkBox6.Size = new Size(116, 25);
             checkBox6.TabIndex = 0;
-            checkBox6.Text = "X Axis Load";
+            checkBox6.Text = "Z Axis Load";
             checkBox6.UseVisualStyleBackColor = true;
+            checkBox6.CheckedChanged += checkBox_CheckedChanged;
             // 
             // groupBox3
             // 
@@ -279,30 +285,30 @@
             groupBox3.Controls.Add(checkBox8);
             groupBox3.Controls.Add(checkBox9);
             groupBox3.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            groupBox3.Location = new Point(1355, 337);
+            groupBox3.Location = new Point(1384, 337);
             groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(279, 129);
+            groupBox3.Size = new Size(250, 129);
             groupBox3.TabIndex = 3;
             groupBox3.TabStop = false;
             groupBox3.Text = "Plate 3";
             // 
             // textBox7
             // 
-            textBox7.Location = new Point(158, 27);
+            textBox7.Location = new Point(139, 27);
             textBox7.Name = "textBox7";
             textBox7.Size = new Size(100, 29);
             textBox7.TabIndex = 14;
             // 
             // textBox8
             // 
-            textBox8.Location = new Point(158, 59);
+            textBox8.Location = new Point(139, 59);
             textBox8.Name = "textBox8";
             textBox8.Size = new Size(100, 29);
             textBox8.TabIndex = 13;
             // 
             // textBox9
             // 
-            textBox9.Location = new Point(158, 90);
+            textBox9.Location = new Point(139, 90);
             textBox9.Name = "textBox9";
             textBox9.Size = new Size(100, 29);
             textBox9.TabIndex = 12;
@@ -314,12 +320,13 @@
             checkBox7.CheckState = CheckState.Checked;
             checkBox7.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
             checkBox7.ForeColor = Color.Green;
-            checkBox7.Location = new Point(36, 91);
+            checkBox7.Location = new Point(17, 29);
             checkBox7.Name = "checkBox7";
             checkBox7.Size = new Size(116, 25);
             checkBox7.TabIndex = 2;
-            checkBox7.Text = "Z Axis Load";
+            checkBox7.Text = "X Axis Load";
             checkBox7.UseVisualStyleBackColor = true;
+            checkBox7.CheckedChanged += checkBox_CheckedChanged;
             // 
             // checkBox8
             // 
@@ -328,12 +335,13 @@
             checkBox8.CheckState = CheckState.Checked;
             checkBox8.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
             checkBox8.ForeColor = Color.Coral;
-            checkBox8.Location = new Point(36, 60);
+            checkBox8.Location = new Point(17, 60);
             checkBox8.Name = "checkBox8";
             checkBox8.Size = new Size(116, 25);
             checkBox8.TabIndex = 1;
             checkBox8.Text = "Y Axis Load";
             checkBox8.UseVisualStyleBackColor = true;
+            checkBox8.CheckedChanged += checkBox_CheckedChanged;
             // 
             // checkBox9
             // 
@@ -342,12 +350,13 @@
             checkBox9.CheckState = CheckState.Checked;
             checkBox9.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
             checkBox9.ForeColor = Color.RoyalBlue;
-            checkBox9.Location = new Point(36, 29);
+            checkBox9.Location = new Point(17, 92);
             checkBox9.Name = "checkBox9";
             checkBox9.Size = new Size(116, 25);
             checkBox9.TabIndex = 0;
-            checkBox9.Text = "X Axis Load";
+            checkBox9.Text = "Z Axis Load";
             checkBox9.UseVisualStyleBackColor = true;
+            checkBox9.CheckedChanged += checkBox_CheckedChanged;
             // 
             // groupBox4
             // 
@@ -359,30 +368,30 @@
             groupBox4.Controls.Add(checkBox11);
             groupBox4.Controls.Add(checkBox12);
             groupBox4.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            groupBox4.Location = new Point(1355, 472);
+            groupBox4.Location = new Point(1384, 472);
             groupBox4.Name = "groupBox4";
-            groupBox4.Size = new Size(279, 129);
+            groupBox4.Size = new Size(250, 129);
             groupBox4.TabIndex = 3;
             groupBox4.TabStop = false;
             groupBox4.Text = "Plate 4";
             // 
             // textBox10
             // 
-            textBox10.Location = new Point(158, 24);
+            textBox10.Location = new Point(139, 24);
             textBox10.Name = "textBox10";
             textBox10.Size = new Size(100, 29);
             textBox10.TabIndex = 14;
             // 
             // textBox11
             // 
-            textBox11.Location = new Point(158, 56);
+            textBox11.Location = new Point(139, 56);
             textBox11.Name = "textBox11";
             textBox11.Size = new Size(100, 29);
             textBox11.TabIndex = 13;
             // 
             // textBox12
             // 
-            textBox12.Location = new Point(158, 88);
+            textBox12.Location = new Point(139, 88);
             textBox12.Name = "textBox12";
             textBox12.Size = new Size(100, 29);
             textBox12.TabIndex = 12;
@@ -394,12 +403,13 @@
             checkBox10.CheckState = CheckState.Checked;
             checkBox10.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
             checkBox10.ForeColor = Color.Green;
-            checkBox10.Location = new Point(36, 91);
+            checkBox10.Location = new Point(17, 28);
             checkBox10.Name = "checkBox10";
             checkBox10.Size = new Size(116, 25);
             checkBox10.TabIndex = 2;
-            checkBox10.Text = "Z Axis Load";
+            checkBox10.Text = "X Axis Load";
             checkBox10.UseVisualStyleBackColor = true;
+            checkBox10.CheckedChanged += checkBox_CheckedChanged;
             // 
             // checkBox11
             // 
@@ -408,12 +418,13 @@
             checkBox11.CheckState = CheckState.Checked;
             checkBox11.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
             checkBox11.ForeColor = Color.Coral;
-            checkBox11.Location = new Point(36, 60);
+            checkBox11.Location = new Point(17, 60);
             checkBox11.Name = "checkBox11";
             checkBox11.Size = new Size(116, 25);
             checkBox11.TabIndex = 1;
             checkBox11.Text = "Y Axis Load";
             checkBox11.UseVisualStyleBackColor = true;
+            checkBox11.CheckedChanged += checkBox_CheckedChanged;
             // 
             // checkBox12
             // 
@@ -422,15 +433,17 @@
             checkBox12.CheckState = CheckState.Checked;
             checkBox12.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
             checkBox12.ForeColor = Color.RoyalBlue;
-            checkBox12.Location = new Point(36, 29);
+            checkBox12.Location = new Point(17, 90);
             checkBox12.Name = "checkBox12";
             checkBox12.Size = new Size(116, 25);
             checkBox12.TabIndex = 0;
-            checkBox12.Text = "X Axis Load";
+            checkBox12.Text = "Z Axis Load";
             checkBox12.UseVisualStyleBackColor = true;
+            checkBox12.CheckedChanged += checkBox_CheckedChanged;
             // 
             // checkBox13
             // 
+            checkBox13.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             checkBox13.AutoSize = true;
             checkBox13.Checked = true;
             checkBox13.CheckState = CheckState.Checked;

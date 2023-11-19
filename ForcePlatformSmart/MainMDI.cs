@@ -158,7 +158,6 @@ namespace ForcePlatformSmart
                 var user = (User)selectedRow.DataBoundItem;
 
                 var radarChart = new RadarForm(user);
-                //radarChart.MdiParent = this;
                 radarChart.Show();
             }
         }
@@ -169,10 +168,8 @@ namespace ForcePlatformSmart
 
             if (e.RowIndex >= 0 && actionColumn != null && e.ColumnIndex == actionColumn.Index)
             {
-                // Access the selected row
                 var selectedRow = dataGridView1.Rows[e.RowIndex];
 
-                // Access the data in the row (assuming MyObject class)
                 var user = (User)selectedRow.DataBoundItem;
 
                 var userInfo = new UserInfo(user);

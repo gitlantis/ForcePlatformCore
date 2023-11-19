@@ -59,6 +59,7 @@
             toolStripSeparator3 = new ToolStripSeparator();
             toolStripButton1 = new ToolStripButton();
             contextMenuStrip1 = new ContextMenuStrip(components);
+            v0010ToolStripMenuItem = new ToolStripMenuItem();
             statusStrip.SuspendLayout();
             menuStrip.SuspendLayout();
             toolStrip1.SuspendLayout();
@@ -84,7 +85,7 @@
             // menuStrip
             // 
             menuStrip.ImageScalingSize = new Size(24, 24);
-            menuStrip.Items.AddRange(new ToolStripItem[] { platesToolStripMenuItem, windowToolStripMenuItem, настройкиToolStripMenuItem });
+            menuStrip.Items.AddRange(new ToolStripItem[] { platesToolStripMenuItem, windowToolStripMenuItem, настройкиToolStripMenuItem, v0010ToolStripMenuItem });
             menuStrip.Location = new Point(0, 0);
             menuStrip.Name = "menuStrip";
             menuStrip.Padding = new Padding(7, 2, 0, 2);
@@ -280,6 +281,13 @@
             contextMenuStrip1.Name = "contextMenuStrip1";
             contextMenuStrip1.Size = new Size(61, 4);
             // 
+            // v0010ToolStripMenuItem
+            // 
+            v0010ToolStripMenuItem.Enabled = false;
+            v0010ToolStripMenuItem.Name = "v0010ToolStripMenuItem";
+            v0010ToolStripMenuItem.Size = new Size(55, 20);
+            v0010ToolStripMenuItem.Text = "v0.0.10";
+            // 
             // MainMDI
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -336,6 +344,7 @@
         private ToolStripMenuItem toolStripMenuItem1;
         private ToolStripMenuItem настройкиToolStripMenuItem;
         private ToolStripMenuItem radarChartToolStripMenuItem;
+        private ToolStripMenuItem v0010ToolStripMenuItem;
     }
 }
 

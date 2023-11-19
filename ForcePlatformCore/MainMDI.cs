@@ -291,7 +291,7 @@ namespace ForcePlatformCore
             Program.ComPort.Zero();
             scanStarted = DateTime.Now;
             csvData.CsvItems.Clear();
-            
+
             Program.ComPort.recordIncer = 0;
 
             SmallAdcBuffer.BufferItems[0].Clear();
@@ -411,7 +411,7 @@ namespace ForcePlatformCore
                                     DiffZ = queue.DiffZ[plate],
                                 });
                             }
-                            
+
                             csvData.CsvItems.Enqueue(new CsvItem
                             {
                                 Time = time,
@@ -427,7 +427,7 @@ namespace ForcePlatformCore
 
                     resetAll();
                     Program.Message("Success", $"data saved to: \r\n{path} file");
-                    Program.ComPort.recordIncer =0;
+                    Program.ComPort.recordIncer = 0;
                     if (!startRecording) Program.ComPort.ResetSaverData();
 
 

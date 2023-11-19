@@ -1,15 +1,8 @@
 ﻿using System.Data;
-using System.Diagnostics;
-using System.Linq;
-using System.Windows;
-using System.Windows.Media.Media3D;
-using System.Windows.Media.TextFormatting;
 using ForcePlatformCore.Helpers.ComPort;
-using ForcePlatformCore.Models;
 using ForcePlatformData;
 using ForcePlatformData.Models;
 using ScottPlot;
-using ScottPlot.Drawing.Colormaps;
 using ScottPlot.Plottable;
 
 namespace ForcePlatformCore
@@ -25,21 +18,6 @@ namespace ForcePlatformCore
         readonly DataLogger[] LoggerDiffX = new DataLogger[4];
         readonly DataLogger[] LoggerDiffY = new DataLogger[4];
         readonly DataLogger[] LoggerDiffZ = new DataLogger[4];
-        //    LoggerDiffP1X;
-        //readonly DataLogger LoggerDiffP1Y;
-        //readonly DataLogger LoggerDiffP1Z;
-
-        //readonly DataLogger LoggerDiffP2X;
-        //readonly DataLogger LoggerDiffP2Y;
-        //readonly DataLogger LoggerDiffP2Z;
-
-        //readonly DataLogger LoggerDiffP3X;
-        //readonly DataLogger LoggerDiffP3Y;
-        //readonly DataLogger LoggerDiffP3Z;
-
-        //readonly DataLogger LoggerDiffP4X;
-        //readonly DataLogger LoggerDiffP4Y;
-        //readonly DataLogger LoggerDiffP4Z;
 
         private bool isStopped = false;
         private List<CsvModel> csvData = new List<CsvModel>();
@@ -51,7 +29,7 @@ namespace ForcePlatformCore
             { 2,new AxisItem() },
             { 3,new AxisItem() }
         };
-        public List<int> Axis = new List<int> { 0, 1, 2 };
+        CheckBox[] checkBoxes = new CheckBox[12];
 
         public DataLoggerForm()
         {
@@ -59,14 +37,32 @@ namespace ForcePlatformCore
 
             this.Text = $"Plate data";
 
+            checkBoxes[0] = checkBox1;
+            checkBoxes[1] = checkBox2;
+            checkBoxes[2] = checkBox3;
+            checkBoxes[3] = checkBox4;
+            checkBoxes[4] = checkBox5;
+            checkBoxes[5] = checkBox6;
+            checkBoxes[6] = checkBox7;
+            checkBoxes[7] = checkBox8;
+            checkBoxes[8] = checkBox9;
+            checkBoxes[9] = checkBox10;
+            checkBoxes[10] = checkBox11;
+            checkBoxes[11] = checkBox12;
+
             for (int i = 0; i < 4; i++)
             {
-                LoggerDiffX[i] = formsPlot1.Plot.AddDataLogger(label: $"p{i+1}X", lineWidth: 3);
+                LoggerDiffX[i] = formsPlot1.Plot.AddDataLogger(label: $"p{i + 1}X", lineWidth: 3);
                 LoggerDiffX[i].ViewSlide();
-                LoggerDiffY[i] = formsPlot1.Plot.AddDataLogger(label: $"p{i+1}Y", lineWidth: 3);
+                checkBoxes[0 + (i * 3)].ForeColor = LoggerDiffX[i].LineColor;
+
+                LoggerDiffY[i] = formsPlot1.Plot.AddDataLogger(label: $"p{i + 1}Y", lineWidth: 3);
                 LoggerDiffY[i].ViewSlide();
-                LoggerDiffZ[i] = formsPlot1.Plot.AddDataLogger(label: $"p{i+1}Z", lineWidth: 3);
+                checkBoxes[1 + (i * 3)].ForeColor = LoggerDiffY[i].LineColor;
+
+                LoggerDiffZ[i] = formsPlot1.Plot.AddDataLogger(label: $"p{i + 1}Z", lineWidth: 3);
                 LoggerDiffZ[i].ViewSlide();
+                checkBoxes[2 + (i * 3)].ForeColor = LoggerDiffZ[i].LineColor;
             }
 
             formsPlot1.Plot.Legend(checkBox13.Checked);
@@ -97,9 +93,7 @@ namespace ForcePlatformCore
             textBoxes[11] = textBox12;
 
             for (int box = 0; box < textBoxes.Length; box++)
-            {
                 textBoxes[box].ReadOnly = true;
-            }
 
             formsPlot1.Refresh();
 
@@ -173,7 +167,6 @@ namespace ForcePlatformCore
                     weight[plate] = axisItem;
                 }
                 formsPlot1.Refresh();
-
             }
         }
 
@@ -198,40 +191,9 @@ namespace ForcePlatformCore
             formsPlot1.Refresh();
         }
 
-        private void addRemoveAxis(DataLogger dataLogger, CheckBox checkBox, int index)
-        {
-            for (var plate = 0; plate < 4; plate++)
-            {
-                dataLogger.IsVisible = checkBox.Checked;
-                if (checkBox.Checked) Axis.Add(index);
-                else Axis.RemoveAll(item => item == index);
-            }
-        }
-
-        //private void checkBoxXCheckedChanged(object sender, EventArgs e)
-        //{
-
-        //    formsPlot1.Refresh();
-        //}
-
-        //private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        //{
-        //    AddRemoveAxis(LoggerDiffX, checkBox1, 0);
-        //}
-
-        //private void checkBox2_CheckedChanged(object sender, EventArgs e)
-        //{
-        //    AddRemoveAxis(LoggerDiffY, checkBox2, 1);
-        //}
-
-        //private void checkBox3_CheckedChanged(object sender, EventArgs e)
-        //{
-        //    AddRemoveAxis(LoggerDiffZ, checkBox3, 2);
-        //}
-
         private void checkBox13_CheckedChanged(object sender, EventArgs e)
         {
-            formsPlot1.Plot.Legend(checkBox4.Checked);
+            formsPlot1.Plot.Legend(checkBox13.Checked);
             formsPlot1.Refresh();
         }
 
@@ -280,6 +242,16 @@ namespace ForcePlatformCore
 
             if (comboBox1.SelectedIndex == 0) coeffcent = 1.0 / config.CalibrateZ;
             else coeffcent = config.FreeFallAcc / config.CalibrateZ;
+        }
+
+        private void checkBox_CheckedChanged(object sender, EventArgs e)
+        {
+            for (var i = 0; i < 4; i++)
+            {
+                LoggerDiffX[i].IsVisible = checkBoxes[0 + (i * 3)].Checked;
+                LoggerDiffY[i].IsVisible = checkBoxes[1 + (i * 3)].Checked;
+                LoggerDiffZ[i].IsVisible = checkBoxes[2 + (i * 3)].Checked;
+            }
         }
     }
 }
