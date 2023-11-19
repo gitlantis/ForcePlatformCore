@@ -5,6 +5,7 @@ using ForcePlatformData.Helpers;
 using ForcePlatformData.Models;
 using ForcePlatformData.Service;
 using Microsoft.EntityFrameworkCore;
+using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
 namespace ForcePlatformCore
@@ -18,12 +19,12 @@ namespace ForcePlatformCore
         private int glCnt = 0;
         private int oldCurrentTimeMC = 0;
 
-        private Form[] childForms = new Form[4];
         //private HashSet<int> openPlates = new HashSet<int>();
-        private HashSet<int> allPlates = new HashSet<int> { 0, 1, 2, 3 };
         private DateTime scanStarted = DateTime.Now;
         private ReportService reportService = new ReportService();
         private Camera camera;
+        private DataLoggerForm dataLogger = new DataLoggerForm();
+
         //private RadarForm radar;
 
         //private int radarPlate = 0;
@@ -105,48 +106,52 @@ namespace ForcePlatformCore
 
         private void plateToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var i = -1;
-            if (sender == plate1ToolStripMenuItem) i = 0;
-            if (sender == plate2ToolStripMenuItem) i = 1;
-            if (sender == plate3ToolStripMenuItem) i = 2;
-            if (sender == plate4ToolStripMenuItem) i = 3;
+            //var i = -1;
+            //if (sender == plate1ToolStripMenuItem) i = 0;
+            //if (sender == plate2ToolStripMenuItem) i = 1;
+            //if (sender == plate3ToolStripMenuItem) i = 2;
+            //if (sender == plate4ToolStripMenuItem) i = 3;
 
-            showForm(i);
+            showDataLogger();
         }
 
         private void openAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ShowAllForms();
+            showDataLogger();
         }
 
         public void ShowAllForms()
         {
-            for (int i = 0; i < 4; i++)
-                showForm(i);
+            //for (int i = 0; i < 4; i++)
+            //    showForm(i);
+            showDataLogger();
         }
 
-        private void showForm(int i)
+        private void showDataLogger()
         {
-            var child = -1;
+            //var child = -1;
 
-            foreach (Form fm in this.MdiChildren)
-            {
-                if (fm is DataLoggerForm childForm)
-                {
-                    var form = (DataLoggerForm)childForm;
-                    if (form.PlateId == i)
-                    {
-                        child = i;
-                        break;
-                    }
-                }
-            }
-            if (child != i)
-            {
-                childForms[i] = new DataLoggerForm(i);
-                childForms[i].MdiParent = this;
-                childForms[i].Show();
-            }
+            //foreach (Form fm in this.MdiChildren)
+            //{
+            //    if (fm is DataLoggerForm childForm)
+            //    {
+            //        var form = (DataLoggerForm)childForm;
+            //        if (form.PlateId == i)
+            //        {
+            //            child = i;
+            //            break;
+            //        }
+            //    }
+            //}
+            //if (child != i)
+            //{
+            //    childForm = new DataLoggerForm();
+            //    childForm.MdiParent = this;
+            //    childForm.Show();
+            //}
+            dataLogger = new DataLoggerForm();
+            dataLogger.MdiParent = this;
+            dataLogger.Show();
         }
 
         private void closeAllToolStripMenuItem_Click_1(object sender, EventArgs e)
@@ -214,39 +219,22 @@ namespace ForcePlatformCore
 
                 foreach (var queue in Program.ComPort.SharedData)
                 {
-                    var plateData = new List<AxisItem>();
-
                     if (oldCurrentTimeMC != queue.CurrentTimeMC)
                     {
                         foreach (var plate in new int[] { 0, 1, 2, 3 })
                         {
+                            //var plate = 0;//shuni kuraylik bitta
                             var item = new AdcBufferItem();
-                            item.Plate = plate;
                             item.Time = DateTime.Now.Subtract(scanStarted);
                             item.DiffX = queue.DiffX[plate];
                             item.DiffY = queue.DiffY[plate];
                             item.DiffZ = queue.DiffZ[plate];
                             item.CurrentTimeMC = queue.CurrentTimeMC;
 
-                            plateData.Add(new AxisItem
-                            {
-                                Plate = plate,
-                                DiffX = queue.DiffX[plate],
-                                DiffY = queue.DiffY[plate],
-                                DiffZ = queue.DiffZ[plate],
-                            });
-
                             SmallAdcBuffer.PushNew(plate, item, startRecording);
                         }
 
-                        if (startRecording)
-                        {
-                            csvData.CsvItems.Enqueue(new CsvItem
-                            {
-                                Time = DateTime.Now.Subtract(scanStarted),
-                                AxisItems = plateData,
-                            });
-                        }
+                        dataLogger.RefreshPlot(queue);
                         oldCurrentTimeMC = queue.CurrentTimeMC;
                     }
                 }
@@ -303,6 +291,8 @@ namespace ForcePlatformCore
             Program.ComPort.Zero();
             scanStarted = DateTime.Now;
             csvData.CsvItems.Clear();
+            
+            Program.ComPort.recordIncer = 0;
 
             SmallAdcBuffer.BufferItems[0].Clear();
             SmallAdcBuffer.BufferItems[1].Clear();
@@ -385,8 +375,10 @@ namespace ForcePlatformCore
             }
 
             startRecording = !startRecording;
+
             if (startRecording)
             {
+                Program.ComPort.StartRecording = startRecording;
                 toolStripButton4.ForeColor = Color.Red;
                 toolStripButton4.Text = "Stop recording";
                 toolStripButton4.Image = Image.FromFile("assets/stop-circle-o-r.png");
@@ -402,11 +394,43 @@ namespace ForcePlatformCore
             {
                 try
                 {
+                    var _oldCurrentTimeMC = 0;
+                    foreach (var queue in Program.ComPort.SaverData)
+                    {
+                        var plateData = new List<AxisItem>();
+                        if (_oldCurrentTimeMC != queue.CurrentTimeMC)
+                        {
+                            var time = queue.CurrentTimeMC;
+                            for (int plate = 0; plate < 4; plate++)
+                            {
+                                plateData.Add(new AxisItem
+                                {
+                                    Plate = plate,
+                                    DiffX = queue.DiffX[plate],
+                                    DiffY = queue.DiffY[plate],
+                                    DiffZ = queue.DiffZ[plate],
+                                });
+                            }
+                            
+                            csvData.CsvItems.Enqueue(new CsvItem
+                            {
+                                Time = time,
+                                AxisItems = plateData,
+                            });
+                            _oldCurrentTimeMC = queue.CurrentTimeMC;
+                        }
+
+                    }//sababi listda faqat bir xil danny // list ishlatmang? massiv oling 1 minutga etadigan? dinamic memory? nuevogo
+
                     var path = CsvProcessor.Save(Program.User.Id, SharedStaticModel.ExerciseTypeIndex + 1, "", csvData);
                     reportService.AddReport(Program.User.Id, path, SharedStaticModel.ExerciseTypeIndex + 1);
 
                     resetAll();
                     Program.Message("Success", $"data saved to: \r\n{path} file");
+                    Program.ComPort.recordIncer =0;
+                    if (!startRecording) Program.ComPort.ResetSaverData();
+
+
                 }
                 catch (Exception err)
                 {

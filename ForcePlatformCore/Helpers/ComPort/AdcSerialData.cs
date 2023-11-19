@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ForcePlatformCore.Models;
+using ScottPlot.Drawing.Colormaps;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -37,6 +39,16 @@ namespace ForcePlatformCore.Helpers.ComPort
             DiffZ = new int[4];
             DiffX = new int[4];
             DiffY = new int[4];
+        }
+
+        public AdcSerialData() // obyazatelen
+        {
+            this.Init(20); // def filterLength
+        }
+
+        public AdcSerialData( int filterLenth)
+        {
+            this.Init(filterLenth); 
         }
     }
 }

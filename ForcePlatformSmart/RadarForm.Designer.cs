@@ -1,5 +1,5 @@
 ﻿
-namespace ForcePlatformCore
+namespace ForcePlatformSmart
 {
     partial class RadarForm
     {

@@ -10,10 +10,18 @@
 
   <ItemGroup>
     <PackageReference Include="FontAwesome.Sharp" Version="6.3.0" />
+    <PackageReference Include="ScottPlot" Version="4.1.68" />
+    <PackageReference Include="ScottPlot.WinForms" Version="4.1.68" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\ForcePlatformData\ForcePlatformData.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="RadarForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>

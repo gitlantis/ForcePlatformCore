@@ -14,6 +14,8 @@ namespace ForcePlatformData.DbModels
         public int UserId { get; set; }
         public string Path { get; set; }
         public int ExerciseTypeId { get; set; }
+        //public int FilterType { get; set; }
+        //public int FilterLength { get; set; }
         public DateTime CreatedDate { get; set; }
         public virtual User User { get; set; }
         public virtual ExerciseType ExerciseType { get; set; }

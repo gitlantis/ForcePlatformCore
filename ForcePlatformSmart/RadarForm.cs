@@ -1,8 +1,6 @@
-﻿using ForcePlatformData;
-using ForcePlatformData.Models;
-using ScottPlot;
+﻿using ScottPlot;
 
-namespace ForcePlatformCore
+namespace ForcePlatformSmart
 {
     public partial class RadarForm : Form
     {
@@ -98,36 +96,31 @@ namespace ForcePlatformCore
 
         private void drawRadarChart()
         {
-            if (Program.ComPort.Connected)
-            {
-                var points = SmallAdcBuffer.BufferItems[plateNumber];
-
+           
                 double[] cc;
 
                 var tmp = new double[72];
 
                 //for (int i = 0; i < 72; i++)
                 {
-                    foreach (var point in points)
-                    {
-                        //cc = convertToPolar((2 * (point.DiffX- SharedStaticModel.DiffX)) / (SharedStaticModel.Weight * 100), (2 * (point.DiffY- SharedStaticModel.DiffX)) / (SharedStaticModel.Weight * 100)); 
-                        var percentX = Math.Round((double)point.DiffX / point.DiffZ * 100);
-                        var percentY = Math.Round((double)point.DiffY / point.DiffZ * 100);
-                        var weight = Math.Round((double)point.DiffZ / 11600);
+                    //foreach (var point in points)
+                    //{
+                    //    //cc = convertToPolar((2 * (point.DiffX- SharedStaticModel.DiffX)) / (SharedStaticModel.Weight * 100), (2 * (point.DiffY- SharedStaticModel.DiffX)) / (SharedStaticModel.Weight * 100)); 
+                    //    var percentX = Math.Round((double)point.DiffX / point.DiffZ * 100);
+                    //    var percentY = Math.Round((double)point.DiffY / point.DiffZ * 100);
+                    //    var weight = Math.Round((double)point.DiffZ / 11600);
 
-                        cc = convertToPolar(percentX, percentY);
-                        double angle = cc[1];
-                        int section = (int)(angle / 360 * 72) % 72;
-                        plotValues[0, section] = cc[0];
-                        richTextBox1.AppendText($"{percentX} {percentY} {weight} \r\n");
-                        richTextBox1.ScrollToCaret();
-                    }
+                    //    cc = convertToPolar(percentX, percentY);
+                    //    double angle = cc[1];
+                    //    int section = (int)(angle / 360 * 72) % 72;
+                    //    plotValues[0, section] = cc[0];
+                    //    richTextBox1.AppendText($"{percentX} {percentY} {weight} \r\n");
+                    //    richTextBox1.ScrollToCaret();
+                    //}
                 }
                 formsPlot1.Plot.Clear();
                 var radar = formsPlot1.Plot.AddRadar(plotValues, independentAxes: false, maxValues: maxValues, false);
                 formsPlot1.Refresh();
-                SmallAdcBuffer.BufferItems[plateNumber].Clear();
-            }
         }
     }
 }

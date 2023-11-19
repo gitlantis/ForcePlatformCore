@@ -14,11 +14,17 @@ namespace ForcePlatformCore.Helpers.ComPort
         public bool Started = true;
         private string[] ss = new string[20];
         AdcSerialData adcData = new AdcSerialData();
-        public List<AdcSerialData> SharedData = new List<AdcSerialData>();
+        public bool StartRecording = false;
+        public List<ReadySerialData> SharedData = new List<ReadySerialData>();
+        public ReadySerialData[] SaverData = new ReadySerialData[30000]; // i counterkerak gl/o/coutter bor 
+        public int recordIncer = 0;
 
         public ComPort(bool autoDetect, string port, int filterLength)
         {
             adcData.Init(filterLength);
+
+
+            for (int i = 0; i < SaverData.Length; i++) { SaverData[i] = new ReadySerialData(); }; // memory yorilib ketadi :)
 
             if (autoDetect) AutoDetect("");
             else AutoDetect(port);
@@ -91,10 +97,11 @@ namespace ForcePlatformCore.Helpers.ComPort
             catch (Exception) { }
         }
 
-        public void OnReceive() 
+        int incer = 0;
+        public void OnReceive()
         {
             string[] _temps = sp.ReadExisting().Split('\n'); //!!!---------------------------------------- 
-            
+
             foreach (string s in _temps)
 
             {
@@ -117,19 +124,37 @@ namespace ForcePlatformCore.Helpers.ComPort
                         ss[16] = _s.Substring(96, 8);
 
                         int[] _tmp = new int[17];
-                        try { for (int i = 0; i < 16; i++) _tmp[i] = Convert.ToInt32(ss[i], 16) >> 4; _tmp[16] = Convert.ToInt32(ss[16], 16); } catch { return null; };
+                        try { for (int i = 0; i < 16; i++) _tmp[i] = Convert.ToInt32(ss[i], 16) >> 4; _tmp[16] = Convert.ToInt32(ss[16], 16); } catch { return; };
 
                         for (int i = 0; i < 16; i++) adcData.CurrentAdc[i] = _tmp[i];
                         adcData.CurrentTimeMC = _tmp[16]; FreshData();
                         //SharedData.Add(adcData); 
                         // add saving data here 
+                        if (StartRecording)
+                        {
+                            SaverData[recordIncer].Set(adcData.FilterLength, adcData.CurrentTimeMC, adcData.DiffX, adcData.DiffY, adcData.DiffZ);
+                            if (recordIncer < 29999) recordIncer++; else { StartRecording = false; }; // do stop  and save here? po // qolganini keyin qushaman
+                        }
                     }
                 }
                 catch { }
-
             }
-            SharedData.Add(adcData); // add data for previev here!!
-           // return adcData;  //выдает только последний!!!!
+
+            if (incer % 2 == 0)//2ta dannydan bittasini oladi
+            {
+                SharedData.Add(new ReadySerialData { FilterLength = adcData.FilterLength, CurrentTimeMC = adcData.CurrentTimeMC, DiffX = adcData.DiffX, DiffY = adcData.DiffY, DiffZ = adcData.DiffZ });
+               
+            }
+            incer++;
+        }
+
+        public void ResetSaverData()
+        {
+            SaverData = new ReadySerialData[30000];
+            for (int i = 0; i < SaverData.Length; i++)
+            {
+                SaverData[i] = new ReadySerialData();
+            }
         }
 
         private void FilterData()
@@ -150,10 +175,10 @@ namespace ForcePlatformCore.Helpers.ComPort
                 sums[j] = 0; tmp = 0;
                 for (int i = 0; i < adcData.FilterLength; i++)
                 {
-                    tmp+=i+1;
-                    sums[j] += adcData.FilterBuff[j, i] * (i+1);
+                    tmp += i + 1;
+                    sums[j] += adcData.FilterBuff[j, i] * (i + 1);
                 }
-                adcData.FilteredAdc[j] = (int) Math.Round((decimal)sums[j] / tmp);          // ошибка в фильтре :((
+                adcData.FilteredAdc[j] = (int)Math.Round((decimal)sums[j] / tmp);          
                 adcData.AbsAdc[j] = Math.Abs(adcData.FilteredAdc[j]);
             }
 
@@ -164,12 +189,14 @@ namespace ForcePlatformCore.Helpers.ComPort
                 adcData.DiffX[j] = (adcData.AbsAdc[j * 4 + 0] + adcData.AbsAdc[j * 4 + 3]) - (adcData.AbsAdc[j * 4 + 1] + adcData.AbsAdc[j * 4 + 2]);
                 adcData.DiffY[j] = (adcData.AbsAdc[j * 4 + 0] + adcData.AbsAdc[j * 4 + 1]) - (adcData.AbsAdc[j * 4 + 2] + adcData.AbsAdc[j * 4 + 3]);
             };
-            
+
         }
 
         private void FreshData()
         {
-            for (int i = 0; i < adcData.CurrentAdc.Length; i++) { adcData.ZeroedAdc[i] = adcData.CurrentAdc[i] - adcData.ZeroAdc[i]; adcData.MiddledAdc[i] = (int)((adcData.FilterLength * adcData.MiddledAdc[i] + adcData.CurrentAdc[i]) / (adcData.FilterLength + 1)); }
+            for (int i = 0; i < adcData.CurrentAdc.Length; i++) { adcData.ZeroedAdc[i] =  adcData.CurrentAdc[i] - adcData.ZeroAdc[i];
+                adcData.MiddledAdc[i] = (int)((adcData.FilterLength * adcData.MiddledAdc[i] + adcData.CurrentAdc[i]) / (adcData.FilterLength + 1)); 
+            }
             FilterData();
         }
     }
