@@ -159,7 +159,7 @@ namespace ForcePlatformSmart
 
                 var radarChart = new RadarForm(user);
                 //radarChart.MdiParent = this;
-                radarChart.ShowDialog();
+                radarChart.Show();
             }
         }
 
