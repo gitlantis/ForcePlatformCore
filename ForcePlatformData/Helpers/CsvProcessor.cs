@@ -57,6 +57,17 @@ namespace ForcePlatformData.Helpers
 
         }
 
+        public static List<string[]> Read(string fileName)
+        {
+            string[] lines = File.ReadAllLines(Path.Join(AppConfig.CommonPath, AppConfig.Config.ReportsPath, fileName));
+            var result = new List<string[]>();
+            foreach (string line in lines)
+            {
+                // Split the line into an array of values
+                string[] values = line.Split(',');
+                result.Add(values);
+            }
+            return result;
+        }
     }
-
 }
