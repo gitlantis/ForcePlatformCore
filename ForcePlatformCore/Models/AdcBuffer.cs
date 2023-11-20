@@ -12,19 +12,19 @@ namespace ForcePlatformData.Models
             { 3,new List<AdcBufferItem>() }
         };
 
-        public static void PushNew(int indx, AdcBufferItem data, bool isRecording)
+        public static void PushNew(int indx, AdcBufferItem data)
         {
             BufferItems[indx].Add(data);
-            if (BufferItems[indx].Count > 200 && !isRecording) { BufferItems[indx].RemoveAt(0); };
+            if (BufferItems[indx].Count > 200) { BufferItems[indx].RemoveAt(0); };
         }
     }
 
     public class AdcBufferItem
     {
         public TimeSpan Time { get; set; }
-        public int DiffX { get; set; }
-        public int DiffY { get; set; }
-        public int DiffZ { get; set; }
+        public double DiffX { get; set; }
+        public double DiffY { get; set; }
+        public double DiffZ { get; set; }
         public int CurrentTimeMC { get; set; }
     }
 }

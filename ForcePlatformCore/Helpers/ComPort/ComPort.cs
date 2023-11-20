@@ -12,12 +12,13 @@ namespace ForcePlatformCore.Helpers.ComPort
         public bool Connected = false;
         public string PortName = "";
         public bool Started = true;
-        private string[] ss = new string[20];
         AdcSerialData adcData = new AdcSerialData();
         public bool StartRecording = false;
         public List<ReadySerialData> SharedData = new List<ReadySerialData>();
         public ReadySerialData[] SaverData; 
-        public int recordIncer = 0;
+        private int recordIncer = 0;
+        
+        public static event EventHandler BufferIsFull;
 
         public ComPort(bool autoDetect, string port, int filterLength)
         {
@@ -129,12 +130,12 @@ namespace ForcePlatformCore.Helpers.ComPort
                         adcData.CurrentTimeMC = _tmp[16]; FreshData();
                         if (StartRecording)
                         {
-                            SaverData[recordIncer].Set(adcData.FilterLength, adcData.CurrentTimeMC, adcData.DiffX, adcData.DiffY, adcData.DiffZ);
+                            SaverData[recordIncer].Set(adcData.FilterLength, adcData.CurrentTimeMC, adcData.DiffX, adcData.DiffY, adcData.DiffZ, DateTime.Now.TimeOfDay);
                             if (recordIncer < 29999) recordIncer++; 
-                            else { 
-                                recordIncer = 30000; 
-                                StartRecording = false; 
-                            }; // do stop  and save here? po // qolganini keyin qushaman
+                            else {
+                                StartRecording = false;
+                                BufferIsFull.Invoke(null, EventArgs.Empty);
+                            }; 
                         }
                     }
                 }
@@ -143,15 +144,16 @@ namespace ForcePlatformCore.Helpers.ComPort
 
             if (incer % 2 == 0)
             {
-                SharedData.Add(new ReadySerialData { FilterLength = adcData.FilterLength, CurrentTimeMC = adcData.CurrentTimeMC, DiffX = adcData.DiffX, DiffY = adcData.DiffY, DiffZ = adcData.DiffZ });
-               
+                SharedData.Add(new ReadySerialData { FilterLength = adcData.FilterLength, CurrentTimeMC = adcData.CurrentTimeMC, DiffX = adcData.DiffX, DiffY = adcData.DiffY, DiffZ = adcData.DiffZ });               
             }
             incer++;
         }
 
         public void ResetSaverData()
         {
+            SharedData = new List<ReadySerialData>();
             SaverData = new ReadySerialData[30000];
+            recordIncer = 0;
             for (int i = 0; i < SaverData.Length; i++)
             {
                 SaverData[i] = new ReadySerialData();
@@ -190,7 +192,6 @@ namespace ForcePlatformCore.Helpers.ComPort
                 adcData.DiffX[j] = (adcData.AbsAdc[j * 4 + 0] + adcData.AbsAdc[j * 4 + 3]) - (adcData.AbsAdc[j * 4 + 1] + adcData.AbsAdc[j * 4 + 2]);
                 adcData.DiffY[j] = (adcData.AbsAdc[j * 4 + 0] + adcData.AbsAdc[j * 4 + 1]) - (adcData.AbsAdc[j * 4 + 2] + adcData.AbsAdc[j * 4 + 3]);
             };
-
         }
 
         private void FreshData()

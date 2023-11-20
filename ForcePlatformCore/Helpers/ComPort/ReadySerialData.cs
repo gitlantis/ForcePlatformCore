@@ -8,24 +8,25 @@ using System.Threading.Tasks;
 
 namespace ForcePlatformCore.Helpers.ComPort
 {
-    public class ReadySerialData //const
+    public class ReadySerialData 
     {
         public int CurrentTimeMC { get; set; }
         public int FilterLength { get; set; }
+        public TimeSpan Time { get; set; }
         public int[] DiffX { get; set; }
         public int[] DiffY { get; set; }
         public int[] DiffZ { get; set; }
 
-        public ReadySerialData() // new () да ишлайдиган ok
+        public ReadySerialData() 
         {
             DiffZ = new int[4];
             DiffX = new int[4];
             DiffY = new int[4];
         }
 
-        public void Set(int FilterLength, int CurrentTimeMC, int[] DiffX, int[] DiffY, int[] DiffZ)
+        public void Set(int FilterLength, int CurrentTimeMC, int[] DiffX, int[] DiffY, int[] DiffZ, TimeSpan time)
         {
-            // prisvaivanie qilish kerak
+            Time = time;
             this.FilterLength = FilterLength;
             this.CurrentTimeMC = CurrentTimeMC;
             for (int i = 0; i < DiffX.Length; i++)

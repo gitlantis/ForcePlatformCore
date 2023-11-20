@@ -31,6 +31,7 @@
             components = new System.ComponentModel.Container();
             formsPlot1 = new ScottPlot.FormsPlot();
             groupBox1 = new GroupBox();
+            checkBox14 = new CheckBox();
             textBox3 = new TextBox();
             textBox2 = new TextBox();
             textBox1 = new TextBox();
@@ -41,6 +42,7 @@
             label1 = new Label();
             timer1 = new System.Windows.Forms.Timer(components);
             groupBox2 = new GroupBox();
+            checkBox15 = new CheckBox();
             textBox4 = new TextBox();
             textBox5 = new TextBox();
             textBox6 = new TextBox();
@@ -48,6 +50,7 @@
             checkBox5 = new CheckBox();
             checkBox6 = new CheckBox();
             groupBox3 = new GroupBox();
+            checkBox16 = new CheckBox();
             textBox7 = new TextBox();
             textBox8 = new TextBox();
             textBox9 = new TextBox();
@@ -55,6 +58,7 @@
             checkBox8 = new CheckBox();
             checkBox9 = new CheckBox();
             groupBox4 = new GroupBox();
+            checkBox17 = new CheckBox();
             textBox10 = new TextBox();
             textBox11 = new TextBox();
             textBox12 = new TextBox();
@@ -82,6 +86,7 @@
             // groupBox1
             // 
             groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            groupBox1.Controls.Add(checkBox14);
             groupBox1.Controls.Add(textBox3);
             groupBox1.Controls.Add(textBox2);
             groupBox1.Controls.Add(textBox1);
@@ -95,6 +100,18 @@
             groupBox1.TabIndex = 1;
             groupBox1.TabStop = false;
             groupBox1.Text = "Plate 1";
+            // 
+            // checkBox14
+            // 
+            checkBox14.AutoSize = true;
+            checkBox14.Checked = true;
+            checkBox14.CheckState = CheckState.Checked;
+            checkBox14.Location = new Point(69, 4);
+            checkBox14.Name = "checkBox14";
+            checkBox14.Size = new Size(15, 14);
+            checkBox14.TabIndex = 8;
+            checkBox14.UseVisualStyleBackColor = true;
+            checkBox14.CheckedChanged += checkBox_CheckedChanged;
             // 
             // textBox3
             // 
@@ -195,6 +212,7 @@
             // groupBox2
             // 
             groupBox2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            groupBox2.Controls.Add(checkBox15);
             groupBox2.Controls.Add(textBox4);
             groupBox2.Controls.Add(textBox5);
             groupBox2.Controls.Add(textBox6);
@@ -208,6 +226,18 @@
             groupBox2.TabIndex = 3;
             groupBox2.TabStop = false;
             groupBox2.Text = "Plate 2";
+            // 
+            // checkBox15
+            // 
+            checkBox15.AutoSize = true;
+            checkBox15.Checked = true;
+            checkBox15.CheckState = CheckState.Checked;
+            checkBox15.Location = new Point(69, 5);
+            checkBox15.Name = "checkBox15";
+            checkBox15.Size = new Size(15, 14);
+            checkBox15.TabIndex = 15;
+            checkBox15.UseVisualStyleBackColor = true;
+            checkBox15.CheckedChanged += checkBox_CheckedChanged;
             // 
             // textBox4
             // 
@@ -278,6 +308,7 @@
             // groupBox3
             // 
             groupBox3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            groupBox3.Controls.Add(checkBox16);
             groupBox3.Controls.Add(textBox7);
             groupBox3.Controls.Add(textBox8);
             groupBox3.Controls.Add(textBox9);
@@ -291,6 +322,18 @@
             groupBox3.TabIndex = 3;
             groupBox3.TabStop = false;
             groupBox3.Text = "Plate 3";
+            // 
+            // checkBox16
+            // 
+            checkBox16.AutoSize = true;
+            checkBox16.Checked = true;
+            checkBox16.CheckState = CheckState.Checked;
+            checkBox16.Location = new Point(69, 5);
+            checkBox16.Name = "checkBox16";
+            checkBox16.Size = new Size(15, 14);
+            checkBox16.TabIndex = 16;
+            checkBox16.UseVisualStyleBackColor = true;
+            checkBox16.CheckedChanged += checkBox_CheckedChanged;
             // 
             // textBox7
             // 
@@ -361,6 +404,7 @@
             // groupBox4
             // 
             groupBox4.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            groupBox4.Controls.Add(checkBox17);
             groupBox4.Controls.Add(textBox10);
             groupBox4.Controls.Add(textBox11);
             groupBox4.Controls.Add(textBox12);
@@ -374,6 +418,18 @@
             groupBox4.TabIndex = 3;
             groupBox4.TabStop = false;
             groupBox4.Text = "Plate 4";
+            // 
+            // checkBox17
+            // 
+            checkBox17.AutoSize = true;
+            checkBox17.Checked = true;
+            checkBox17.CheckState = CheckState.Checked;
+            checkBox17.Location = new Point(69, 5);
+            checkBox17.Name = "checkBox17";
+            checkBox17.Size = new Size(15, 14);
+            checkBox17.TabIndex = 15;
+            checkBox17.UseVisualStyleBackColor = true;
+            checkBox17.CheckedChanged += checkBox_CheckedChanged;
             // 
             // textBox10
             // 
@@ -520,5 +576,9 @@
         private TextBox textBox10;
         private TextBox textBox11;
         private TextBox textBox12;
+        private CheckBox checkBox14;
+        private CheckBox checkBox15;
+        private CheckBox checkBox16;
+        private CheckBox checkBox17;
     }
 }

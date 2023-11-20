@@ -1,5 +1,7 @@
 ﻿using ForcePlatformData.Models;
+using Microsoft.VisualBasic;
 using System.Text;
+using static ForcePlatformData.Constants;
 
 namespace ForcePlatformData.Helpers
 {
@@ -7,10 +9,10 @@ namespace ForcePlatformData.Helpers
     {
         private static string path = Path.Join(AppConfig.CommonPath, AppConfig.Config.ReportsPath);
 
-        public static string Save(int userId, int exerciseType, string param, CsvModel data)
+        public static string Save(int userId, int exerciseType, string param, CsvModel data, Constants.Units unit)
         {
             try
-            {
+            {   
                 string csvFilePath = $"platform_data_{userId}_{exerciseType}_{DateTimeOffset.Now.ToUnixTimeSeconds()}.csv";
 
                 bool exists = Directory.Exists(path);
@@ -20,27 +22,23 @@ namespace ForcePlatformData.Helpers
 
                 using (StreamWriter writer = new StreamWriter(Path.Join(path, csvFilePath), false, Encoding.UTF8))
                 {
-                    var line = data.CsvItems.Dequeue();
+                    var firstLine = data.CsvItems.Dequeue();
 
                     var headline = "Time,";
-                    var secondLine = $"{line.Time},";
+                    var secondLine = $"{firstLine.Time.ToString(@"hh\:mm\:ss\.ffff")},";
 
-                    foreach (var item in line.AxisItems)
+                    foreach (var item in firstLine.AxisItems)
                     {
-                        headline += $"p{item.Plate + 1}X,p{item.Plate + 1}Y,p{item.Plate + 1}Z,";
+                        headline += $"p{item.Plate + 1}X,p{item.Plate + 1}Y,p{item.Plate + 1}Z({unit}),";
                         secondLine += $"{item.DiffX},{item.DiffY},{item.DiffZ},";
                     }
-
-                    //headline += "FilterType,FilterLength,ExserciseType";
-                    //secondLine += $"{data.FilterMode},{data.FilterLength},{data.ExerciseType}";
 
                     writer.WriteLine(headline);
                     writer.WriteLine(secondLine);
 
-                    while (data.CsvItems.Count > 0)
+                    foreach(var line in data.CsvItems)
                     {
-                        line = data.CsvItems.Dequeue();
-                        var raw = $"{line.Time},";
+                        var raw = $"{line.Time.ToString(@"hh\:mm\:ss\.ffff")},";
                         foreach (var item in line.AxisItems)
                         {
                             raw += $"{item.DiffX},{item.DiffY},{item.DiffZ},";

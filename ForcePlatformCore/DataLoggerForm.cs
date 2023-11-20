@@ -3,6 +3,7 @@ using ForcePlatformCore.Helpers.ComPort;
 using ForcePlatformData;
 using ForcePlatformData.Models;
 using ScottPlot;
+using ScottPlot.Drawing.Colormaps;
 using ScottPlot.Plottable;
 
 namespace ForcePlatformCore
@@ -29,12 +30,14 @@ namespace ForcePlatformCore
             { 3,new AxisItem() }
         };
         CheckBox[] checkBoxes = new CheckBox[12];
-
-        public DataLoggerForm()
+        private MainMDI mainMdi;
+        public DataLoggerForm(MainMDI mdi)
         {
             InitializeComponent();
 
             this.Text = $"Plate data";
+
+            mainMdi = mdi;
 
             checkBoxes[0] = checkBox1;
             checkBoxes[1] = checkBox2;
@@ -72,6 +75,7 @@ namespace ForcePlatformCore
             formsPlot1.Plot.Style(style);
             formsPlot1.Plot.Palette = palette;
 
+            comboBox1.SelectedIndex = (int)Constants.Units.N;
             formsPlot1.Plot.XLabel("Time");
             formsPlot1.Plot.YLabel(comboBox1.Text);
 
@@ -119,7 +123,7 @@ namespace ForcePlatformCore
             for (int i = 0; i < 4; i++)
             {
                 LoggerDiffX[i].ManageAxisLimits = !stopped;
-                LoggerDiffZ[i].ManageAxisLimits = !stopped;
+                LoggerDiffY[i].ManageAxisLimits = !stopped;
                 LoggerDiffZ[i].ManageAxisLimits = !stopped;
             }
         }
@@ -196,41 +200,38 @@ namespace ForcePlatformCore
             formsPlot1.Refresh();
         }
 
-        public static double[] values = new double[12];
-        public static double weight_koef_kg = AppConfig.Config.CalibrateZ; // потом закроем :)) ------------------------------------------------------
-
         private void timer1_Tick(object sender, EventArgs e)
         {
             for (var plate = 0; plate < 4; plate++)
             {
                 var point = weight[plate];
 
-                //if (points.Count > 0)
+                double? temp = point.DiffZ / AppConfig.Config.CalibrateZ;
+
+                double? percX = (point.DiffX / point.DiffZ) * 100;
+                double? percY = (point.DiffY / point.DiffZ) * 100;
+
+                if (temp < 5)
                 {
-                    double? temp = point.DiffZ / weight_koef_kg;
-
-                    double? percX = (point.DiffX / point.DiffZ) * 100;
-                    double? percY = (point.DiffY / point.DiffZ) * 100;
-
-                    if (temp < 5)
-                    {
-                        temp = null;
-                        percX = null;
-                        percY = null;
-                    }
-
-                    if (comboBox1.SelectedIndex == 1)
-                    {
-                        var force = temp * AppConfig.Config.FreeFallAcc;
-                        textBoxes[2 + (plate * 3)].Text = force != null ? string.Format("{0:0.0}", force) : "---.-";
-                    }
-                    else
-                        textBoxes[2 + (plate * 3)].Text = temp != null ? string.Format("{0:0.0}", temp) : "---.-";
-
-                    textBoxes[0 + (plate * 3)].Text = percX != null ? string.Format("{0:0.0}", percX) + " %" : "---.- %";
-                    textBoxes[1 + (plate * 3)].Text = percY != null ? string.Format("{0:0.0}", percY) + " %" : "---.- %";
-
+                    temp = null;
+                    percX = null;
+                    percY = null;
                 }
+
+                if (comboBox1.SelectedIndex == (int)Constants.Units.N)
+                {
+                    mainMdi.Unit = Constants.Units.N;
+                    var force = temp * AppConfig.Config.FreeFallAcc;
+                    textBoxes[2 + (plate * 3)].Text = force != null ? string.Format("{0:0.0}", force) : "---.-";
+                }
+                else
+                {
+                    mainMdi.Unit = Constants.Units.KgF;
+                    textBoxes[2 + (plate * 3)].Text = temp != null ? string.Format("{0:0.0}", temp) : "---.-";
+                }
+
+                textBoxes[0 + (plate * 3)].Text = percX != null ? string.Format("{0:0.0}", percX) + " %" : "---.- %";
+                textBoxes[1 + (plate * 3)].Text = percY != null ? string.Format("{0:0.0}", percY) + " %" : "---.- %";
             }
         }
 
@@ -245,11 +246,17 @@ namespace ForcePlatformCore
 
         private void checkBox_CheckedChanged(object sender, EventArgs e)
         {
+            var gCheckBoxes = new CheckBox[4];
+            gCheckBoxes[0] = checkBox14;
+            gCheckBoxes[1] = checkBox15;
+            gCheckBoxes[2] = checkBox16;
+            gCheckBoxes[3] = checkBox17;
+
             for (var i = 0; i < 4; i++)
             {
-                LoggerDiffX[i].IsVisible = checkBoxes[0 + (i * 3)].Checked;
-                LoggerDiffY[i].IsVisible = checkBoxes[1 + (i * 3)].Checked;
-                LoggerDiffZ[i].IsVisible = checkBoxes[2 + (i * 3)].Checked;
+                LoggerDiffX[i].IsVisible = checkBoxes[0 + (i * 3)].Checked & gCheckBoxes[i].Checked;
+                LoggerDiffY[i].IsVisible = checkBoxes[1 + (i * 3)].Checked & gCheckBoxes[i].Checked;
+                LoggerDiffZ[i].IsVisible = checkBoxes[2 + (i * 3)].Checked & gCheckBoxes[i].Checked;
             }
         }
     }
