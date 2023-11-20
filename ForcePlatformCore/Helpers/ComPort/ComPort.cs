@@ -16,15 +16,14 @@ namespace ForcePlatformCore.Helpers.ComPort
         AdcSerialData adcData = new AdcSerialData();
         public bool StartRecording = false;
         public List<ReadySerialData> SharedData = new List<ReadySerialData>();
-        public ReadySerialData[] SaverData = new ReadySerialData[30000]; // i counterkerak gl/o/coutter bor 
+        public ReadySerialData[] SaverData; 
         public int recordIncer = 0;
 
         public ComPort(bool autoDetect, string port, int filterLength)
         {
             adcData.Init(filterLength);
 
-
-            for (int i = 0; i < SaverData.Length; i++) { SaverData[i] = new ReadySerialData(); }; // memory yorilib ketadi :)
+            ResetSaverData();
 
             if (autoDetect) AutoDetect("");
             else AutoDetect(port);
@@ -100,7 +99,7 @@ namespace ForcePlatformCore.Helpers.ComPort
         int incer = 0;
         public void OnReceive()
         {
-            string[] _temps = sp.ReadExisting().Split('\n'); //!!!---------------------------------------- 
+            string[] _temps = sp.ReadExisting().Split('\n'); 
 
             foreach (string s in _temps)
 
@@ -115,7 +114,7 @@ namespace ForcePlatformCore.Helpers.ComPort
                         for (int i = 0; i < 16; i++) ss[i] = _s.Substring(i * 6, 6);
 
                         string ts;
-                        for (int i = 0; i < 4; i++) //ordnung 
+                        for (int i = 0; i < 4; i++)  
                         {
                             ts = ss[i + 8]; ss[i + 8] = ss[i + 0]; ss[i + 0] = ts;
                             ts = ss[i + 12]; ss[i + 12] = ss[i + 4]; ss[i + 4] = ts;
@@ -128,19 +127,21 @@ namespace ForcePlatformCore.Helpers.ComPort
 
                         for (int i = 0; i < 16; i++) adcData.CurrentAdc[i] = _tmp[i];
                         adcData.CurrentTimeMC = _tmp[16]; FreshData();
-                        //SharedData.Add(adcData); 
-                        // add saving data here 
                         if (StartRecording)
                         {
                             SaverData[recordIncer].Set(adcData.FilterLength, adcData.CurrentTimeMC, adcData.DiffX, adcData.DiffY, adcData.DiffZ);
-                            if (recordIncer < 29999) recordIncer++; else { StartRecording = false; }; // do stop  and save here? po // qolganini keyin qushaman
+                            if (recordIncer < 29999) recordIncer++; 
+                            else { 
+                                recordIncer = 30000; 
+                                StartRecording = false; 
+                            }; // do stop  and save here? po // qolganini keyin qushaman
                         }
                     }
                 }
                 catch { }
             }
 
-            if (incer % 2 == 0)//2ta dannydan bittasini oladi
+            if (incer % 2 == 0)
             {
                 SharedData.Add(new ReadySerialData { FilterLength = adcData.FilterLength, CurrentTimeMC = adcData.CurrentTimeMC, DiffX = adcData.DiffX, DiffY = adcData.DiffY, DiffZ = adcData.DiffZ });
                

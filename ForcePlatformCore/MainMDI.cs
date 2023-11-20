@@ -19,33 +19,10 @@ namespace ForcePlatformCore
         private int glCnt = 0;
         private int oldCurrentTimeMC = 0;
 
-        //private HashSet<int> openPlates = new HashSet<int>();
         private DateTime scanStarted = DateTime.Now;
         private ReportService reportService = new ReportService();
         private Camera camera;
         private DataLoggerForm dataLogger = new DataLoggerForm();
-
-        //private RadarForm radar;
-
-        //private int radarPlate = 0;
-        //int zeroTime;
-
-        //enum filterTypes
-        //{
-        //    swingWindow,
-        //    meanWindow,
-        //    hemming,
-        //    batterfort
-        //}
-        //int currentFilterType = (int)filterTypes.swingWindow; // :-)))
-
-
-        //private void loadSettingsFromfile()
-        //{
-        //    // setting larni zagruzka kere
-        //    // filtr i glubina
-
-        //}
 
         private void MDIParent1_Shown(object sender, EventArgs e)
         {
@@ -55,7 +32,6 @@ namespace ForcePlatformCore
             var settingsForm = new SettingsForm(this);
             settingsForm.ShowDialog();
 
-            //// loadSettingsFromfile();    --------------------------------------------------------------------------------------
             AdcData.DiffZ = new int[4];
             AdcData.CurrentTimeMC = 0;
             csvData.CsvItems = new Queue<CsvItem>();
@@ -64,14 +40,11 @@ namespace ForcePlatformCore
             AdcData.Init(AppConfig.Config.FilterLength);
 
             resetAll();
-
-            //this.OpenWithMode();
         }
 
         public MainMDI()
         {
             InitializeComponent();
-            // loadSettingsFromfile(); ------------------------------------------------------------------------------------
         }
 
         private void ExitToolsStripMenuItem_Click(object sender, EventArgs e)
@@ -99,56 +72,18 @@ namespace ForcePlatformCore
             LayoutMdi(MdiLayout.ArrangeIcons);
         }
 
-        private void CloseAllToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            closeAllChilds();
-        }
-
         private void plateToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //var i = -1;
-            //if (sender == plate1ToolStripMenuItem) i = 0;
-            //if (sender == plate2ToolStripMenuItem) i = 1;
-            //if (sender == plate3ToolStripMenuItem) i = 2;
-            //if (sender == plate4ToolStripMenuItem) i = 3;
-
             showDataLogger();
         }
 
-        private void openAllToolStripMenuItem_Click(object sender, EventArgs e)
+        public void ShowPlateLogger()
         {
-            showDataLogger();
-        }
-
-        public void ShowAllForms()
-        {
-            //for (int i = 0; i < 4; i++)
-            //    showForm(i);
             showDataLogger();
         }
 
         private void showDataLogger()
         {
-            //var child = -1;
-
-            //foreach (Form fm in this.MdiChildren)
-            //{
-            //    if (fm is DataLoggerForm childForm)
-            //    {
-            //        var form = (DataLoggerForm)childForm;
-            //        if (form.PlateId == i)
-            //        {
-            //            child = i;
-            //            break;
-            //        }
-            //    }
-            //}
-            //if (child != i)
-            //{
-            //    childForm = new DataLoggerForm();
-            //    childForm.MdiParent = this;
-            //    childForm.Show();
-            //}
             dataLogger = new DataLoggerForm();
             dataLogger.MdiParent = this;
             dataLogger.Show();
@@ -223,7 +158,6 @@ namespace ForcePlatformCore
                     {
                         foreach (var plate in new int[] { 0, 1, 2, 3 })
                         {
-                            //var plate = 0;//shuni kuraylik bitta
                             var item = new AdcBufferItem();
                             item.Time = DateTime.Now.Subtract(scanStarted);
                             item.DiffX = queue.DiffX[plate];
@@ -249,37 +183,6 @@ namespace ForcePlatformCore
             AppConfig.DbContext?.Dispose();
             AppConfig.DbContext = null;
         }
-
-        //private void button1_Click(object sender, EventArgs e)
-        //{ }
-
-        //private void timer2_Tick(object sender, EventArgs e)
-        //{
-        //    var activePlates = new HashSet<int>();
-        //    foreach (Form childForm in MdiChildren)
-        //    {
-        //        if (childForm is DataLoggerForm)
-        //        {
-        //            var activeChild = (DataLoggerForm)childForm;
-        //            activePlates.Add(activeChild.PlateId);
-        //        }
-
-        //        if (childForm is RadarForm)
-        //        {
-        //            var activeChild = (RadarForm)childForm;
-        //            activePlates.Add(radarPlate);
-        //        }
-        //    }
-
-        //    var missingPlates = new HashSet<int>(allPlates.Except(activePlates));
-
-        //    foreach (var plate in missingPlates)
-        //    {
-        //        AdcBuffer.BufferItems[plate].Clear();
-        //    }
-        //    openPlates.Clear();
-        //    openPlates.UnionWith(activePlates);
-        //}
 
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
@@ -362,12 +265,6 @@ namespace ForcePlatformCore
                 return;
             }
 
-            //if (openPlates.Count < 1)
-            //{
-            //    Program.Message("Warning", "No plates opened to scan");
-            //    return;
-            //}
-            //zeroTime = AdcData.CurrentTimeMC;
             if (Program.User.Id < 1)
             {
                 Program.Message("Warning", "Please select a user");
@@ -420,7 +317,7 @@ namespace ForcePlatformCore
                             _oldCurrentTimeMC = queue.CurrentTimeMC;
                         }
 
-                    }//sababi listda faqat bir xil danny // list ishlatmang? massiv oling 1 minutga etadigan? dinamic memory? nuevogo
+                    }
 
                     var path = CsvProcessor.Save(Program.User.Id, SharedStaticModel.ExerciseTypeIndex + 1, "", csvData);
                     reportService.AddReport(Program.User.Id, path, SharedStaticModel.ExerciseTypeIndex + 1);
@@ -457,43 +354,12 @@ namespace ForcePlatformCore
         {
             SettingsForm settingForm = new SettingsForm(this);
             settingForm.ShowDialog();
-            // loadSettingsFromfile();
         }
 
         private void radarChartToolStripMenuItem_Click(object sender, EventArgs e)
         {
             closeAllChilds();
-            //radar = new RadarForm(radarPlate);
-            //radar.MdiParent = this;
-            //radar.Show();
-            //openPlates.Add(radarPlate);
         }
-
-        //public void OpenWithMode()
-        //{
-        //    //closeAllChilds();
-        //    //if (SharedStaticModel.ExerciseTypeIndex == 0)
-        //    //{
-        //    //    //radar = new RadarForm(radarPlate);
-        //    //    //radar.MdiParent = this;
-        //    //    //radar.Show();
-        //    //    //openPlates.Add(radarPlate);
-        //    //}
-
-        //    //if (SharedStaticModel.ExerciseTypeIndex == 1)
-        //    //{
-        //    //    showForm(0);
-        //    //    showForm(1);
-        //    //}
-
-        //    //if (SharedStaticModel.ExerciseTypeIndex == 2)
-        //    //{
-        //    showForm(0);
-        //    showForm(1);
-        //    showForm(2);
-        //    showForm(3);
-        //    //}
-        //}
 
         private void closeAllChilds()
         {

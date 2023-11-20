@@ -12,7 +12,7 @@ namespace ForcePlatformSmart
         private ReportService reportService = new ReportService();
         private List<Report> reports = new List<Report>();
         private User user = new User();
-        
+
         public UserInfo()
         {
             InitializeComponent();
@@ -30,6 +30,8 @@ namespace ForcePlatformSmart
             textBox3.Text = user.MiddleName;
 
             var param = userService.TakeUserParams(user.Id);
+            user.UserParams = param;
+
             textBox4.Text = param.BodyHeight.ToString();
             textBox5.Text = param.BodyWeight.ToString();
 
@@ -61,16 +63,12 @@ namespace ForcePlatformSmart
                 var selectedValue = listBox1.SelectedValue;
                 int selectedId = (int)selectedValue;
                 var filePath = reports.Where(c => c.Id == selectedId).FirstOrDefault().Path;
-                var fullPath = Path.Join(Environment.CurrentDirectory, AppConfig.Config.ReportsPath, filePath);
 
-                if (File.Exists(fullPath))
-                {
-                    Process.Start("notepad.exe", fullPath);
-                }
-                else
-                {
-                    Program.Message("Error", "The file does not exist: " + fullPath);
-                }
+                var analyticsForm = new AnalyticsForm(user, filePath);
+                analyticsForm.ShowDialog();
+
+                //Process.Start("notepad.exe", fullPath);
+
             }
             catch (Exception ex)
             {

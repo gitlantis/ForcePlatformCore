@@ -13,7 +13,6 @@ namespace ForcePlatformCore
         private bool pausePlot = false;
         private AppsettingsModel? config;
         private TextBox[] textBoxes = new TextBox[12];
-        readonly int plateNumber = 0;
 
         readonly DataLogger[] LoggerDiffX = new DataLogger[4];
         readonly DataLogger[] LoggerDiffY = new DataLogger[4];

@@ -78,17 +78,25 @@ namespace ForcePlatformCore
                 Double.TryParse(textBox4.Text, out val);
                 user.UserParams.RightSole = val;
                 user.UserParams.Gender = comboBox2.Text;
+                
+                DialogResult result = new DialogResult() ;
                 if (this.Text.Equals("Add"))
                 {
                     var id = userService.AddUser(user);
-                    Program.Message("Success", $"{user.FullName} added successfully");
+                    result = Program.Message("Success", $"{user.FullName} added successfully");
                 }
                 else
                 {
                     user.Id = Program.User.Id;
                     userService.EditUser(user);
-                    Program.Message("Success", $"{user.FullName} updated successfully");
+                    result = Program.Message("Success", $"{user.FullName} updated successfully");
                 }
+                
+                if (result == DialogResult.OK)
+                {
+                    this.Close();
+                }
+
                 userSelectReference.UpdateUsers("");
             }
             catch (Exception ex)

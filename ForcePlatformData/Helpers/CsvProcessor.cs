@@ -69,5 +69,19 @@ namespace ForcePlatformData.Helpers
             }
             return result;
         }
+
+        public static string[] ReadLines(string fileName)
+        {
+            string[] lines=new string[0];
+            try
+            {
+                string fullPath = Path.Join(AppConfig.CommonPath, AppConfig.Config.ReportsPath, fileName);
+                if (File.Exists(fullPath))
+                    lines = File.ReadAllLines(fullPath);
+            }
+            catch {  }
+            
+            return lines;
+        }
     }
 }

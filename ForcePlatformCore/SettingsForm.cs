@@ -62,20 +62,9 @@ namespace ForcePlatformCore
             SharedStaticModel.ExerciseType = comboBox2.Text;
             SharedStaticModel.ExerciseTypeIndex = comboBox2.SelectedIndex;
 
-            //if (mdi != null) mdi.OpenWithMode();
-            mdi.ShowAllForms();
+            mdi.ShowPlateLogger();
 
             var sharedData = Program.ComPort.SharedData.LastOrDefault();
-
-            //for (int i = 0; i < 4; i++)
-            //{
-            //    if (sharedData.DiffX[i] > 520000 || sharedData.DiffY[i] > 520000 || sharedData.DiffZ[i] > 520000)
-            //    {
-            //        Program.Message("Warning", "Don't stand on the platform");
-            //        error = true;
-            //        break;
-            //    }
-            //}
 
             if (comboBox2.SelectedIndex == 0 && !error)
                 Program.Message("Attantion", "Experimenter should not move on this mode");
@@ -120,14 +109,14 @@ namespace ForcePlatformCore
             iconPictureBox6.Visible = false;
         }
 
-        private void SettingsForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            saveSettings();
-        }
-
         private void comboBox2_SelectedValueChanged(object sender, EventArgs e)
         {
             SharedStaticModel.ExerciseTypeIndex = comboBox2.SelectedIndex;
+        }
+
+        private void SettingsForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            saveSettings();
         }
     }
 }

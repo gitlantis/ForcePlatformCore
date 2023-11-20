@@ -350,8 +350,8 @@
             Controls.Add(tableLayoutPanel1);
             MinimumSize = new Size(423, 218);
             Name = "SettingsForm";
-            Text = "Настройки";
-            FormClosed += SettingsForm_FormClosed;
+            Text = "Settings";
+            FormClosing += SettingsForm_FormClosing;
             Load += Form1_Load;
             KeyPress += validateInt;
             tableLayoutPanel1.ResumeLayout(false);
