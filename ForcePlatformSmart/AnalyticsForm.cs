@@ -1,4 +1,5 @@
-﻿using ForcePlatformData.DbModels;
+﻿using ForcePlatformData;
+using ForcePlatformData.DbModels;
 using ForcePlatformData.Helpers;
 using ForcePlatformData.Models;
 using System.Windows.Forms.DataVisualization.Charting;
@@ -121,8 +122,9 @@ namespace ForcePlatformSmart
             double r = Math.Sqrt((x * x) + (y * y));
             double q = Math.Atan(Math.Abs(x) / Math.Abs(y)) * 180 / Math.PI;
 
-            if (x < 0) q = 360 - q;
-            if (y < 0) q = 180 - q;
+            if (x < 0 && y > 0) q = 360 - q;
+            if (x > 0 && y < 0) q = 180 - q;
+            if (x < 0 && y < 0) q = 270 - (90 - q);
 
             x = q;
             y = r;
@@ -198,13 +200,20 @@ namespace ForcePlatformSmart
             chart1.Series[9].Enabled = checkBox5.Checked;
             chart1.Series[10].Enabled = checkBox5.Checked;
             chart1.Series[11].Enabled = checkBox5.Checked;
-
         }
 
         private void iconButton2_Click(object sender, EventArgs e)
         {
-            while (currData.Count > 0 && (currData[0].data[3] + currData[0].data[6] + currData[0].data[9] + currData[0].data[12]) < 5000)
+            var unitValue = 2.8;
+            if (userReport.Unit == Units.N.ToString()) unitValue = unitValue * AppConfig.Config.FreeFallAcc;
+
+            while (currData.Count > 0 && (currData[0].data[3] + currData[0].data[6] + currData[0].data[9] + currData[0].data[12]) < unitValue)
                 currData.RemoveAt(0);
+
+            loadFastLine(chart1, currData, userReport.Unit);
+            loadPolarChartRadar(chart2, currData);
+            loadHistogram(chart3, currData, userReport.Unit);
+            loadPolarChartTrack(chart4, currData);
         }
 
         private void iconButton1_Click(object sender, EventArgs e)
