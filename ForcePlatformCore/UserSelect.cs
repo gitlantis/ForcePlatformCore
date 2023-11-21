@@ -1,4 +1,5 @@
 ﻿using ForcePlatformData.DbModels;
+using ForcePlatformData.Helpers;
 using ForcePlatformData.Service;
 
 namespace ForcePlatformCore
@@ -7,6 +8,7 @@ namespace ForcePlatformCore
     {
         private List<User> users = new List<User>();
         private UserService userService = new UserService();
+        private ReportService reportService = new ReportService();
 
         public UserSelect()
         {
@@ -73,33 +75,22 @@ namespace ForcePlatformCore
 
         private void listBox1_DoubleClick(object sender, EventArgs e)
         {
-            if (selectUser())
-            {
-
-                this.Close();
-            }
+            if (selectUser()) this.Close();            
         }
 
         public void UpdateUsers(string keyword)
         {
             try
             {
-                if (keyword.Length < 1)
-                {
-                    users = userService.TakeSome(30);
-                    listBox1.DataSource = users;
-                    listBox1.DisplayMember = "FullName";
-                    listBox1.ValueMember = "Id";
-                }
-                else
-                {
-                    listBox1.BeginUpdate();
-                    users = userService.FindUser(keyword);
-                    listBox1.DataSource = users;
-                    listBox1.DisplayMember = "FullName";
-                    listBox1.ValueMember = "Id";
-                    listBox1.EndUpdate();
-                }
+                listBox1.BeginUpdate();
+
+                if (keyword.Length < 1) users = userService.TakeSome(30);
+                else users = userService.FindUser(keyword);
+                               
+                listBox1.DataSource = users;
+                listBox1.DisplayMember = "FullName";
+                listBox1.ValueMember = "Id";
+                listBox1.EndUpdate();                
             }
             catch { }
         }
@@ -124,8 +115,17 @@ namespace ForcePlatformCore
 
                     if (result == DialogResult.Yes)
                     {
-                        userService.DeleteUser(selectedUser);
-                        UpdateUsers(textBox1.Text);
+                        result = MessageBox.Show($"All files also will be removed?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                        if (result == DialogResult.Yes)
+                        {
+                            var reports = reportService.GetReportsByUserId(selectedUser.Id);
+                            foreach(var report in reports) {
+                                CsvProcessor.Delete(report.Path);
+                            }
+                            userService.DeleteUser(selectedUser);
+                            UpdateUsers(textBox1.Text);
+                        }
                     }
                 }
             }

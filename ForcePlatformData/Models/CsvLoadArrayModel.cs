@@ -8,11 +8,11 @@ namespace ForcePlatformData.Models
 {
     public class CsvLoadArrayModel
     {
-        public int[] data;
+        public double[] data;
 
         public CsvLoadArrayModel()
         {
-            data = new int[13];
+            data = new double[13];
         }
 
         public CsvLoadArrayModel(string[] strs) : this()
@@ -21,7 +21,7 @@ namespace ForcePlatformData.Models
             for (int i = 0; i < 13; i++)
                 try
                 {
-                    data[i] = Int32.Parse(strs[i]);
+                    data[i] = double.Parse(strs[i]);
                 }
                 catch { };
 

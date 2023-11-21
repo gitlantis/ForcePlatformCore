@@ -28,12 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series15 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series14 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
@@ -51,9 +45,13 @@
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series13 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series14 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series15 = new System.Windows.Forms.DataVisualization.Charting.Series();
             tableLayoutPanel1 = new TableLayoutPanel();
-            chart4 = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            chart3 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             panel2 = new Panel();
             checkBox5 = new CheckBox();
             checkBox4 = new CheckBox();
@@ -65,16 +63,18 @@
             panel1 = new Panel();
             chart2 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             panel3 = new Panel();
+            chart3 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             panel4 = new Panel();
+            chart4 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)chart4).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)chart3).BeginInit();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)chart1).BeginInit();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)chart2).BeginInit();
             panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)chart3).BeginInit();
             panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)chart4).BeginInit();
             SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -99,46 +99,6 @@
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             tableLayoutPanel1.Size = new Size(1231, 855);
             tableLayoutPanel1.TabIndex = 0;
-            // 
-            // chart4
-            // 
-            chart4.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            chartArea4.Name = "ChartArea1";
-            chart4.ChartAreas.Add(chartArea4);
-            legend4.Name = "Legend1";
-            chart4.Legends.Add(legend4);
-            chart4.Location = new Point(0, 0);
-            chart4.Name = "chart4";
-            series15.BorderWidth = 3;
-            series15.ChartArea = "ChartArea1";
-            series15.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Polar;
-            series15.IsVisibleInLegend = false;
-            series15.Legend = "Legend1";
-            series15.Name = "Series1";
-            chart4.Series.Add(series15);
-            chart4.Size = new Size(610, 398);
-            chart4.TabIndex = 3;
-            chart4.Text = "chart4";
-            // 
-            // chart3
-            // 
-            chart3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            chartArea3.Name = "ChartArea1";
-            chart3.ChartAreas.Add(chartArea3);
-            legend3.Name = "Legend1";
-            chart3.Legends.Add(legend3);
-            chart3.Location = new Point(0, 0);
-            chart3.Name = "chart3";
-            series14.ChartArea = "ChartArea1";
-            series14.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.RangeColumn;
-            series14.IsVisibleInLegend = false;
-            series14.Legend = "Legend1";
-            series14.Name = "Series1";
-            series14.YValuesPerPoint = 2;
-            chart3.Series.Add(series14);
-            chart3.Size = new Size(609, 398);
-            chart3.TabIndex = 2;
-            chart3.Text = "chart3";
             // 
             // panel2
             // 
@@ -376,6 +336,26 @@
             panel3.Size = new Size(609, 398);
             panel3.TabIndex = 32;
             // 
+            // chart3
+            // 
+            chart3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            chartArea3.Name = "ChartArea1";
+            chart3.ChartAreas.Add(chartArea3);
+            legend3.Name = "Legend1";
+            chart3.Legends.Add(legend3);
+            chart3.Location = new Point(0, 0);
+            chart3.Name = "chart3";
+            series14.ChartArea = "ChartArea1";
+            series14.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.RangeColumn;
+            series14.IsVisibleInLegend = false;
+            series14.Legend = "Legend1";
+            series14.Name = "Series1";
+            series14.YValuesPerPoint = 2;
+            chart3.Series.Add(series14);
+            chart3.Size = new Size(609, 398);
+            chart3.TabIndex = 2;
+            chart3.Text = "chart3";
+            // 
             // panel4
             // 
             panel4.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
@@ -384,6 +364,26 @@
             panel4.Name = "panel4";
             panel4.Size = new Size(610, 398);
             panel4.TabIndex = 33;
+            // 
+            // chart4
+            // 
+            chart4.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            chartArea4.Name = "ChartArea1";
+            chart4.ChartAreas.Add(chartArea4);
+            legend4.Name = "Legend1";
+            chart4.Legends.Add(legend4);
+            chart4.Location = new Point(0, 0);
+            chart4.Name = "chart4";
+            series15.BorderWidth = 3;
+            series15.ChartArea = "ChartArea1";
+            series15.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Polar;
+            series15.IsVisibleInLegend = false;
+            series15.Legend = "Legend1";
+            series15.Name = "Series1";
+            chart4.Series.Add(series15);
+            chart4.Size = new Size(610, 398);
+            chart4.TabIndex = 3;
+            chart4.Text = "chart4";
             // 
             // AnalyticsForm
             // 
@@ -395,15 +395,15 @@
             Text = "Statistics";
             Load += Form1_Load;
             tableLayoutPanel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)chart4).EndInit();
-            ((System.ComponentModel.ISupportInitialize)chart3).EndInit();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)chart1).EndInit();
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)chart2).EndInit();
             panel3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)chart3).EndInit();
             panel4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)chart4).EndInit();
             ResumeLayout(false);
         }
 

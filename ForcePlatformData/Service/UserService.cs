@@ -14,7 +14,7 @@ namespace ForcePlatformData.Service
         {
             try
             {
-                var users = AppConfig.DbContext.Users.Where(c=>c.Name.Contains(keywoard) || c.Surname.Contains(keywoard) || c.MiddleName.Contains(keywoard)).ToList();
+               var users = AppConfig.DbContext.Users.Where(c => (c.Name + c.Surname + c.MiddleName).ToLower().Contains(keywoard.ToLower())).OrderByDescending(c => c.CreatedDate).ToList();
                 return users;
             }
             catch (Exception e)
@@ -27,7 +27,7 @@ namespace ForcePlatformData.Service
         {
             try
             {
-                var users = AppConfig.DbContext.Users.Take(limit).ToList();
+                var users = AppConfig.DbContext.Users.Take(limit).OrderByDescending(c => c.CreatedDate).ToList();
                 return users;
             }
             catch (Exception e)
@@ -36,11 +36,11 @@ namespace ForcePlatformData.Service
             }
         }
 
-        public List<User> TakeAll()
+        public List<User> GetAll()
         {
             try
             {
-                var users = AppConfig.DbContext.Users.ToList();
+                var users = AppConfig.DbContext.Users.OrderByDescending(c => c.CreatedDate).ToList();
                 return users;
             }
             catch (Exception e)
@@ -49,7 +49,7 @@ namespace ForcePlatformData.Service
             }
         }
 
-        public UserParams TakeUserParams(int userId)
+        public UserParams GetUserParams(int userId)
         {
             try
             {

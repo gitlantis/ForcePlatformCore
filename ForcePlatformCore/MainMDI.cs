@@ -14,7 +14,6 @@ namespace ForcePlatformCore
         private bool startRecording = false;
         private int oldCurrentTimeMC = 0;
 
-        private TimeSpan scanStartedTime = DateTime.Now.TimeOfDay;
         private ReportService reportService = new ReportService();
         private Camera camera;
         private DataLoggerForm dataLogger;
@@ -176,18 +175,16 @@ namespace ForcePlatformCore
                     {
                         foreach (var plate in new int[] { 0, 1, 2, 3 })
                         {
-                            //var percX = (queue.DiffX[plate] / queue.DiffZ[plate]) * 100;
-                            //var percY = (queue.DiffY[plate] / queue.DiffZ[plate]) * 100;
-
                             var item = new AdcBufferItem();
-                            item.Time = DateTime.Now.TimeOfDay;
-                            item.DiffX = queue.DiffX[plate];//percX;
-                            item.DiffY = queue.DiffY[plate];//percY;
-                            item.DiffZ = queue.DiffZ[plate];// Converter.ToUnit(queue.DiffZ[plate], Unit);
+                            item.Time = queue.CurrentTimeMC;
+                            item.DiffX = queue.DiffX[plate];
+                            item.DiffY = queue.DiffY[plate];
+                            item.DiffZ = queue.DiffZ[plate];
                             item.CurrentTimeMC = queue.CurrentTimeMC;
 
                             SmallAdcBuffer.PushNew(plate, item);
                         }
+                        
                         dataLogger.RefreshPlot(queue);
                         oldCurrentTimeMC = queue.CurrentTimeMC;
                     }
@@ -296,8 +293,6 @@ namespace ForcePlatformCore
 
             if (startRecording)
             {
-                scanStartedTime = DateTime.Now.TimeOfDay;
-
                 csvData.CsvItems.Clear();
                 Program.ComPort.ResetSaverData();
 
@@ -322,40 +317,41 @@ namespace ForcePlatformCore
         {
             try
             {
-                var _oldCurrentTimeMC = 0;
+                var oldCurrTimeMC = 0;
+                var scanStartedTime = Program.ComPort.SaverData[0].CurrentTimeMC;
                 foreach (var queue in Program.ComPort.SaverData)
                 {
                     var plateData = new List<AxisItem>();
-                    if (_oldCurrentTimeMC != queue.CurrentTimeMC)
+                    if (oldCurrTimeMC != queue.CurrentTimeMC)
                     {
                         var time = queue.CurrentTimeMC;
                         for (int plate = 0; plate < 4; plate++)
                         {
-                            //var percX = (queue.DiffX[plate] / queue.DiffZ[plate]) * 100;
-                            //var percY = (queue.DiffY[plate] / queue.DiffZ[plate]) * 100;
+                            var percX = ((double)queue.DiffX[plate] / queue.DiffZ[plate]) * 100;
+                            var percY = ((double)queue.DiffY[plate] / queue.DiffZ[plate]) * 100;
 
                             plateData.Add(new AxisItem
                             {
                                 Plate = plate,
-                                DiffX = queue.DiffX[plate],//percX,
-                                DiffY = queue.DiffY[plate],//percY,
+                                DiffX = percX,
+                                DiffY = percY,
                                 DiffZ = Converter.ToUnit(queue.DiffZ[plate], Unit),
                             });
                         }
 
                         csvData.CsvItems.Enqueue(new CsvItem
                         {
-                            Time = (queue.Time-scanStartedTime),
+                            Time = queue.CurrentTimeMC - scanStartedTime,
                             AxisItems = plateData,
                         });
-                        _oldCurrentTimeMC = queue.CurrentTimeMC;
+                        oldCurrTimeMC = queue.CurrentTimeMC;
                     }
                 }
 
-                var path = CsvProcessor.Save(Program.User.Id, SharedStaticModel.ExerciseTypeIndex + 1, "", csvData, Unit);
-                reportService.AddReport(Program.User.Id, path, SharedStaticModel.ExerciseTypeIndex + 1);
-                csvData.CsvItems.Clear();
-                
+                var path = CsvProcessor.Save(Program.User.Id, SharedStaticModel.ExerciseTypeIndex + 1, csvData, Unit);
+                reportService.AddReport(Program.User.Id, path, SharedStaticModel.ExerciseTypeIndex + 1, Unit);
+
+                csvData.CsvItems.Clear();                
                 resetAll();
 
                 Program.Message("Success", $"data saved to: \r\n{path} file");

@@ -114,10 +114,6 @@ namespace ForcePlatformCore
             Program.ComPort.Zero();
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
         private void stopPlot(bool stopped)
         {
             for (int i = 0; i < 4; i++)
@@ -148,15 +144,15 @@ namespace ForcePlatformCore
                 {
                     var points = SmallAdcBuffer.BufferItems[plate];
                     LoggerDiffX[plate].Clear();
-                    var newCoordX = points.Select(c => new Coordinate(c.Time.TotalMilliseconds / 5, c.DiffX));
+                    var newCoordX = points.Select(c => new Coordinate(c.Time / 5, c.DiffX));
                     LoggerDiffX[plate].AddRange(newCoordX);
 
                     LoggerDiffY[plate].Clear();
-                    var newCoordY = points.Select(c => new Coordinate(c.Time.TotalMilliseconds / 5, c.DiffY));
+                    var newCoordY = points.Select(c => new Coordinate(c.Time / 5, c.DiffY));
                     LoggerDiffY[plate].AddRange(newCoordY);
 
                     LoggerDiffZ[plate].Clear();
-                    var newCoordZ = points.Select(c => new Coordinate(c.Time.TotalMilliseconds / 5, c.DiffZ));
+                    var newCoordZ = points.Select(c => new Coordinate(c.Time / 5, c.DiffZ));
                     LoggerDiffZ[plate].AddRange(newCoordZ);
 
                     var axisItem = new AxisItem

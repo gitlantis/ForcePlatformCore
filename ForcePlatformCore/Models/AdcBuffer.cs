@@ -21,7 +21,7 @@ namespace ForcePlatformData.Models
 
     public class AdcBufferItem
     {
-        public TimeSpan Time { get; set; }
+        public int Time { get; set; }
         public double DiffX { get; set; }
         public double DiffY { get; set; }
         public double DiffZ { get; set; }

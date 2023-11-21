@@ -70,33 +70,27 @@
             searchToolStripMenuItem = new ToolStripMenuItem();
             toolStripSeparator8 = new ToolStripSeparator();
             aboutToolStripMenuItem = new ToolStripMenuItem();
-            toolStrip = new ToolStrip();
-            newToolStripButton = new ToolStripButton();
-            openToolStripButton = new ToolStripButton();
-            saveToolStripButton = new ToolStripButton();
-            toolStripSeparator1 = new ToolStripSeparator();
-            printToolStripButton = new ToolStripButton();
-            printPreviewToolStripButton = new ToolStripButton();
-            toolStripSeparator2 = new ToolStripSeparator();
-            helpToolStripButton = new ToolStripButton();
+            v0010ToolStripMenuItem = new ToolStripMenuItem();
             statusStrip = new StatusStrip();
             toolStripStatusLabel = new ToolStripStatusLabel();
             toolTip = new ToolTip(components);
-            richTextBox1 = new RichTextBox();
             userBindingSource = new BindingSource(components);
             reportBindingSource = new BindingSource(components);
             dataGridView1 = new DataGridView();
+            toolStrip = new ToolStrip();
+            toolStripLabel1 = new ToolStripLabel();
+            toolStripTextBox1 = new ToolStripTextBox();
             menuStrip.SuspendLayout();
-            toolStrip.SuspendLayout();
             statusStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)userBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)reportBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            toolStrip.SuspendLayout();
             SuspendLayout();
             // 
             // menuStrip
             // 
-            menuStrip.Items.AddRange(new ToolStripItem[] { fileMenu, editMenu, viewMenu, toolsMenu, windowsMenu, helpMenu });
+            menuStrip.Items.AddRange(new ToolStripItem[] { fileMenu, editMenu, viewMenu, toolsMenu, windowsMenu, helpMenu, v0010ToolStripMenuItem });
             menuStrip.Location = new Point(0, 0);
             menuStrip.MdiWindowListItem = windowsMenu;
             menuStrip.Name = "menuStrip";
@@ -121,7 +115,6 @@
             newToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.N;
             newToolStripMenuItem.Size = new Size(146, 22);
             newToolStripMenuItem.Text = "&New";
-            newToolStripMenuItem.Click += ShowNewForm;
             // 
             // openToolStripMenuItem
             // 
@@ -131,7 +124,6 @@
             openToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.O;
             openToolStripMenuItem.Size = new Size(146, 22);
             openToolStripMenuItem.Text = "&Open";
-            openToolStripMenuItem.Click += OpenFile;
             // 
             // toolStripSeparator3
             // 
@@ -152,7 +144,6 @@
             saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
             saveAsToolStripMenuItem.Size = new Size(146, 22);
             saveAsToolStripMenuItem.Text = "Save &As";
-            saveAsToolStripMenuItem.Click += SaveAsToolStripMenuItem_Click;
             // 
             // toolStripSeparator4
             // 
@@ -192,7 +183,6 @@
             exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             exitToolStripMenuItem.Size = new Size(146, 22);
             exitToolStripMenuItem.Text = "E&xit";
-            exitToolStripMenuItem.Click += ExitToolsStripMenuItem_Click;
             // 
             // editMenu
             // 
@@ -232,7 +222,6 @@
             cutToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.X;
             cutToolStripMenuItem.Size = new Size(164, 22);
             cutToolStripMenuItem.Text = "Cu&t";
-            cutToolStripMenuItem.Click += CutToolStripMenuItem_Click;
             // 
             // copyToolStripMenuItem
             // 
@@ -242,7 +231,6 @@
             copyToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.C;
             copyToolStripMenuItem.Size = new Size(164, 22);
             copyToolStripMenuItem.Text = "&Copy";
-            copyToolStripMenuItem.Click += CopyToolStripMenuItem_Click;
             // 
             // pasteToolStripMenuItem
             // 
@@ -252,7 +240,6 @@
             pasteToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.V;
             pasteToolStripMenuItem.Size = new Size(164, 22);
             pasteToolStripMenuItem.Text = "&Paste";
-            pasteToolStripMenuItem.Click += PasteToolStripMenuItem_Click;
             // 
             // toolStripSeparator7
             // 
@@ -318,7 +305,6 @@
             newWindowToolStripMenuItem.Name = "newWindowToolStripMenuItem";
             newWindowToolStripMenuItem.Size = new Size(150, 22);
             newWindowToolStripMenuItem.Text = "&New Window";
-            newWindowToolStripMenuItem.Click += ShowNewForm;
             // 
             // cascadeToolStripMenuItem
             // 
@@ -396,80 +382,12 @@
             aboutToolStripMenuItem.Size = new Size(168, 22);
             aboutToolStripMenuItem.Text = "&About ... ...";
             // 
-            // toolStrip
+            // v0010ToolStripMenuItem
             // 
-            toolStrip.Items.AddRange(new ToolStripItem[] { newToolStripButton, openToolStripButton, saveToolStripButton, toolStripSeparator1, printToolStripButton, printPreviewToolStripButton, toolStripSeparator2, helpToolStripButton });
-            toolStrip.Location = new Point(0, 24);
-            toolStrip.Name = "toolStrip";
-            toolStrip.Size = new Size(1209, 25);
-            toolStrip.TabIndex = 1;
-            toolStrip.Text = "ToolStrip";
-            // 
-            // newToolStripButton
-            // 
-            newToolStripButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            newToolStripButton.Image = (Image)resources.GetObject("newToolStripButton.Image");
-            newToolStripButton.ImageTransparentColor = Color.Black;
-            newToolStripButton.Name = "newToolStripButton";
-            newToolStripButton.Size = new Size(23, 22);
-            newToolStripButton.Text = "New";
-            newToolStripButton.Click += ShowNewForm;
-            // 
-            // openToolStripButton
-            // 
-            openToolStripButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            openToolStripButton.Image = (Image)resources.GetObject("openToolStripButton.Image");
-            openToolStripButton.ImageTransparentColor = Color.Black;
-            openToolStripButton.Name = "openToolStripButton";
-            openToolStripButton.Size = new Size(23, 22);
-            openToolStripButton.Text = "Open";
-            openToolStripButton.Click += OpenFile;
-            // 
-            // saveToolStripButton
-            // 
-            saveToolStripButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            saveToolStripButton.Image = (Image)resources.GetObject("saveToolStripButton.Image");
-            saveToolStripButton.ImageTransparentColor = Color.Black;
-            saveToolStripButton.Name = "saveToolStripButton";
-            saveToolStripButton.Size = new Size(23, 22);
-            saveToolStripButton.Text = "Save";
-            // 
-            // toolStripSeparator1
-            // 
-            toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(6, 25);
-            // 
-            // printToolStripButton
-            // 
-            printToolStripButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            printToolStripButton.Image = (Image)resources.GetObject("printToolStripButton.Image");
-            printToolStripButton.ImageTransparentColor = Color.Black;
-            printToolStripButton.Name = "printToolStripButton";
-            printToolStripButton.Size = new Size(23, 22);
-            printToolStripButton.Text = "Print";
-            // 
-            // printPreviewToolStripButton
-            // 
-            printPreviewToolStripButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            printPreviewToolStripButton.Image = (Image)resources.GetObject("printPreviewToolStripButton.Image");
-            printPreviewToolStripButton.ImageTransparentColor = Color.Black;
-            printPreviewToolStripButton.Name = "printPreviewToolStripButton";
-            printPreviewToolStripButton.Size = new Size(23, 22);
-            printPreviewToolStripButton.Text = "Print Preview";
-            // 
-            // toolStripSeparator2
-            // 
-            toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new Size(6, 25);
-            // 
-            // helpToolStripButton
-            // 
-            helpToolStripButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            helpToolStripButton.Image = (Image)resources.GetObject("helpToolStripButton.Image");
-            helpToolStripButton.ImageTransparentColor = Color.Black;
-            helpToolStripButton.Name = "helpToolStripButton";
-            helpToolStripButton.Size = new Size(23, 22);
-            helpToolStripButton.Text = "Help";
+            v0010ToolStripMenuItem.Enabled = false;
+            v0010ToolStripMenuItem.Name = "v0010ToolStripMenuItem";
+            v0010ToolStripMenuItem.Size = new Size(55, 20);
+            v0010ToolStripMenuItem.Text = "v0.0.10";
             // 
             // statusStrip
             // 
@@ -487,14 +405,6 @@
             toolStripStatusLabel.Size = new Size(39, 17);
             toolStripStatusLabel.Text = "Status";
             // 
-            // richTextBox1
-            // 
-            richTextBox1.Location = new Point(0, 265);
-            richTextBox1.Name = "richTextBox1";
-            richTextBox1.Size = new Size(381, 319);
-            richTextBox1.TabIndex = 4;
-            richTextBox1.Text = "";
-            // 
             // userBindingSource
             // 
             userBindingSource.DataSource = typeof(ForcePlatformData.DbModels.User);
@@ -505,14 +415,38 @@
             // 
             // dataGridView1
             // 
+            dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Location = new Point(0, 52);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowTemplate.Height = 25;
-            dataGridView1.Size = new Size(881, 464);
+            dataGridView1.Size = new Size(1209, 519);
             dataGridView1.TabIndex = 9;
-            dataGridView1.CellMouseDoubleClick += dataGridView1_CellMouseDoubleClick;
             dataGridView1.CellMouseClick += dataGridView1_CellMouseClick;
+            dataGridView1.CellMouseDoubleClick += dataGridView1_CellMouseDoubleClick;
+            // 
+            // toolStrip
+            // 
+            toolStrip.Items.AddRange(new ToolStripItem[] { toolStripLabel1, toolStripTextBox1 });
+            toolStrip.Location = new Point(0, 24);
+            toolStrip.Name = "toolStrip";
+            toolStrip.Size = new Size(1209, 25);
+            toolStrip.TabIndex = 1;
+            toolStrip.Text = "ToolStrip";
+            // 
+            // toolStripLabel1
+            // 
+            toolStripLabel1.Name = "toolStripLabel1";
+            toolStripLabel1.Size = new Size(70, 22);
+            toolStripLabel1.Text = "Search user:";
+            // 
+            // toolStripTextBox1
+            // 
+            toolStripTextBox1.BackColor = SystemColors.Highlight;
+            toolStripTextBox1.ForeColor = SystemColors.Window;
+            toolStripTextBox1.Name = "toolStripTextBox1";
+            toolStripTextBox1.Size = new Size(200, 25);
+            toolStripTextBox1.KeyPress += toolStripTextBox1_KeyPress;
             // 
             // MainMDI
             // 
@@ -520,7 +454,6 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1209, 596);
             Controls.Add(dataGridView1);
-            Controls.Add(richTextBox1);
             Controls.Add(statusStrip);
             Controls.Add(toolStrip);
             Controls.Add(menuStrip);
@@ -532,13 +465,13 @@
             Load += MainMDI_Load;
             menuStrip.ResumeLayout(false);
             menuStrip.PerformLayout();
-            toolStrip.ResumeLayout(false);
-            toolStrip.PerformLayout();
             statusStrip.ResumeLayout(false);
             statusStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)userBindingSource).EndInit();
             ((System.ComponentModel.ISupportInitialize)reportBindingSource).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            toolStrip.ResumeLayout(false);
+            toolStrip.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -546,10 +479,7 @@
 
 
         private MenuStrip menuStrip;
-        private ToolStrip toolStrip;
         private StatusStrip statusStrip;
-        private ToolStripSeparator toolStripSeparator1;
-        private ToolStripSeparator toolStripSeparator2;
         private ToolStripSeparator toolStripSeparator3;
         private ToolStripSeparator toolStripSeparator4;
         private ToolStripSeparator toolStripSeparator5;
@@ -590,17 +520,14 @@
         private ToolStripMenuItem contentsToolStripMenuItem;
         private ToolStripMenuItem indexToolStripMenuItem;
         private ToolStripMenuItem searchToolStripMenuItem;
-        private ToolStripButton newToolStripButton;
-        private ToolStripButton openToolStripButton;
-        private ToolStripButton saveToolStripButton;
-        private ToolStripButton printToolStripButton;
-        private ToolStripButton printPreviewToolStripButton;
-        private ToolStripButton helpToolStripButton;
         private ToolTip toolTip;
-        private RichTextBox richTextBox1;
         private BindingSource reportBindingSource;
         private BindingSource userBindingSource;
         private DataGridView dataGridView1;
+        private ToolStrip toolStrip;
+        private ToolStripTextBox toolStripTextBox1;
+        private ToolStripLabel toolStripLabel1;
+        private ToolStripMenuItem v0010ToolStripMenuItem;
     }
 }
 

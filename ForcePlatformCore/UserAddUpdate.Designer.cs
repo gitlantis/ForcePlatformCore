@@ -65,9 +65,25 @@ namespace ForcePlatformCore
             label15 = new Label();
             iconButton2 = new FontAwesome.Sharp.IconButton();
             iconButton1 = new FontAwesome.Sharp.IconButton();
+            groupBox4 = new GroupBox();
+            label17 = new Label();
+            label18 = new Label();
+            label19 = new Label();
+            textBox15 = new TextBox();
+            textBox16 = new TextBox();
+            textBox17 = new TextBox();
+            textBox12 = new TextBox();
+            textBox13 = new TextBox();
+            textBox14 = new TextBox();
+            groupBox5 = new GroupBox();
+            label20 = new Label();
+            label21 = new Label();
+            label22 = new Label();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox3.SuspendLayout();
+            groupBox4.SuspendLayout();
+            groupBox5.SuspendLayout();
             SuspendLayout();
             // 
             // groupBox1
@@ -365,7 +381,7 @@ namespace ForcePlatformCore
             // textBox9
             // 
             textBox9.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            textBox9.Location = new Point(102, 92);
+            textBox9.Location = new Point(102, 22);
             textBox9.Name = "textBox9";
             textBox9.Size = new Size(150, 29);
             textBox9.TabIndex = 19;
@@ -403,7 +419,7 @@ namespace ForcePlatformCore
             // textBox11
             // 
             textBox11.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            textBox11.Location = new Point(102, 22);
+            textBox11.Location = new Point(102, 92);
             textBox11.Name = "textBox11";
             textBox11.Size = new Size(150, 29);
             textBox11.TabIndex = 15;
@@ -429,7 +445,7 @@ namespace ForcePlatformCore
             iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton2.IconSize = 32;
             iconButton2.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButton2.Location = new Point(274, 356);
+            iconButton2.Location = new Point(274, 498);
             iconButton2.Name = "iconButton2";
             iconButton2.Size = new Size(89, 39);
             iconButton2.TabIndex = 4;
@@ -448,7 +464,7 @@ namespace ForcePlatformCore
             iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton1.IconSize = 32;
             iconButton1.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButton1.Location = new Point(541, 356);
+            iconButton1.Location = new Point(541, 498);
             iconButton1.Name = "iconButton1";
             iconButton1.Size = new Size(89, 39);
             iconButton1.TabIndex = 17;
@@ -457,11 +473,157 @@ namespace ForcePlatformCore
             iconButton1.UseVisualStyleBackColor = true;
             iconButton1.Click += iconButton1_Click;
             // 
+            // groupBox4
+            // 
+            groupBox4.Controls.Add(label17);
+            groupBox4.Controls.Add(label18);
+            groupBox4.Controls.Add(label19);
+            groupBox4.Controls.Add(textBox15);
+            groupBox4.Controls.Add(textBox16);
+            groupBox4.Controls.Add(textBox17);
+            groupBox4.Location = new Point(323, 356);
+            groupBox4.Name = "groupBox4";
+            groupBox4.Size = new Size(305, 137);
+            groupBox4.TabIndex = 19;
+            groupBox4.TabStop = false;
+            groupBox4.Text = "Right Arm";
+            // 
+            // label17
+            // 
+            label17.AutoSize = true;
+            label17.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label17.Location = new Point(17, 23);
+            label17.Name = "label17";
+            label17.Size = new Size(96, 21);
+            label17.TabIndex = 22;
+            label17.Text = "Upper limb";
+            // 
+            // label18
+            // 
+            label18.AutoSize = true;
+            label18.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label18.Location = new Point(17, 58);
+            label18.Name = "label18";
+            label18.Size = new Size(73, 21);
+            label18.TabIndex = 21;
+            label18.Text = "Forearm";
+            // 
+            // label19
+            // 
+            label19.AutoSize = true;
+            label19.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label19.Location = new Point(17, 95);
+            label19.Name = "label19";
+            label19.Size = new Size(51, 21);
+            label19.TabIndex = 20;
+            label19.Text = "Hand";
+            // 
+            // textBox15
+            // 
+            textBox15.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            textBox15.Location = new Point(113, 20);
+            textBox15.Name = "textBox15";
+            textBox15.Size = new Size(150, 29);
+            textBox15.TabIndex = 19;
+            textBox15.KeyPress += validateDouble;
+            // 
+            // textBox16
+            // 
+            textBox16.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            textBox16.Location = new Point(113, 57);
+            textBox16.Name = "textBox16";
+            textBox16.Size = new Size(150, 29);
+            textBox16.TabIndex = 17;
+            textBox16.KeyPress += validateDouble;
+            // 
+            // textBox17
+            // 
+            textBox17.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            textBox17.Location = new Point(113, 94);
+            textBox17.Name = "textBox17";
+            textBox17.Size = new Size(150, 29);
+            textBox17.TabIndex = 15;
+            textBox17.KeyPress += validateDouble;
+            // 
+            // textBox12
+            // 
+            textBox12.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            textBox12.Location = new Point(117, 18);
+            textBox12.Name = "textBox12";
+            textBox12.Size = new Size(150, 29);
+            textBox12.TabIndex = 19;
+            textBox12.KeyPress += validateDouble;
+            // 
+            // textBox13
+            // 
+            textBox13.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            textBox13.Location = new Point(117, 55);
+            textBox13.Name = "textBox13";
+            textBox13.Size = new Size(150, 29);
+            textBox13.TabIndex = 17;
+            textBox13.KeyPress += validateDouble;
+            // 
+            // textBox14
+            // 
+            textBox14.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            textBox14.Location = new Point(117, 92);
+            textBox14.Name = "textBox14";
+            textBox14.Size = new Size(150, 29);
+            textBox14.TabIndex = 15;
+            textBox14.KeyPress += validateDouble;
+            // 
+            // groupBox5
+            // 
+            groupBox5.Controls.Add(label20);
+            groupBox5.Controls.Add(textBox12);
+            groupBox5.Controls.Add(label21);
+            groupBox5.Controls.Add(label22);
+            groupBox5.Controls.Add(textBox14);
+            groupBox5.Controls.Add(textBox13);
+            groupBox5.Location = new Point(12, 356);
+            groupBox5.Name = "groupBox5";
+            groupBox5.Size = new Size(305, 137);
+            groupBox5.TabIndex = 18;
+            groupBox5.TabStop = false;
+            groupBox5.Text = "Left Arm";
+            // 
+            // label20
+            // 
+            label20.AutoSize = true;
+            label20.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label20.Location = new Point(15, 23);
+            label20.Name = "label20";
+            label20.Size = new Size(96, 21);
+            label20.TabIndex = 18;
+            label20.Text = "Upper limb";
+            // 
+            // label21
+            // 
+            label21.AutoSize = true;
+            label21.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label21.Location = new Point(15, 58);
+            label21.Name = "label21";
+            label21.Size = new Size(73, 21);
+            label21.TabIndex = 16;
+            label21.Text = "Forearm";
+            // 
+            // label22
+            // 
+            label22.AutoSize = true;
+            label22.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label22.Location = new Point(15, 95);
+            label22.Name = "label22";
+            label22.Size = new Size(51, 21);
+            label22.TabIndex = 14;
+            label22.Text = "Hand";
+            // 
             // UserAddUpdate
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(644, 401);
+            ClientSize = new Size(644, 543);
+            Controls.Add(groupBox4);
+            Controls.Add(groupBox5);
             Controls.Add(iconButton1);
             Controls.Add(iconButton2);
             Controls.Add(groupBox3);
@@ -479,6 +641,10 @@ namespace ForcePlatformCore
             groupBox2.PerformLayout();
             groupBox3.ResumeLayout(false);
             groupBox3.PerformLayout();
+            groupBox4.ResumeLayout(false);
+            groupBox4.PerformLayout();
+            groupBox5.ResumeLayout(false);
+            groupBox5.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -520,5 +686,19 @@ namespace ForcePlatformCore
         private ComboBox comboBox2;
         private Label label16;
         private FontAwesome.Sharp.IconButton iconButton1;
+        private GroupBox groupBox4;
+        private TextBox textBox12;
+        private TextBox textBox13;
+        private TextBox textBox14;
+        private GroupBox groupBox5;
+        private TextBox textBox15;
+        private Label label20;
+        private TextBox textBox16;
+        private Label label21;
+        private TextBox textBox17;
+        private Label label22;
+        private Label label17;
+        private Label label18;
+        private Label label19;
     }
 }

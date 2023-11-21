@@ -7,7 +7,7 @@ namespace ForcePlatformCore
 {
     public partial class UserInfo : Form
     {
-        private string stdDetails = "{0, -150}{1, -20}";
+        private string stdDetails = "{0, -140}{1, -20}";
         private UserService userService = new UserService();
         private ReportService reportService = new ReportService();
         private List<Report> reports = new List<Report>();
@@ -23,21 +23,31 @@ namespace ForcePlatformCore
             textBox2.Text = Program.User.Surname;
             textBox3.Text = Program.User.MiddleName;
 
-            var param = userService.TakeUserParams(Program.User.Id);
-            textBox4.Text = param.BodyHeight.ToString();
-            textBox5.Text = param.BodyWeight.ToString();
+            var param = userService.GetUserParams(Program.User.Id);
 
-            textBox6.Text = param.LeftTigh.ToString() + " " + param.LengthUnit;
-            textBox7.Text = param.LeftShin.ToString() + " " + param.LengthUnit;
-            textBox8.Text = param.LeftSole.ToString() + " " + param.LengthUnit;
+            textBox4.Text = param?.BodyHeight.ToString();
+            textBox5.Text = param?.BodyWeight.ToString();
 
-            textBox9.Text = param.RightTigh.ToString() + " " + param.LengthUnit;
-            textBox10.Text = param.RightShin.ToString() + " " + param.LengthUnit;
-            textBox11.Text = param.RightSole.ToString() + " " + param.LengthUnit;
+            textBox6.Text = param?.LeftTigh.ToString() + " " + param?.LengthUnit;
+            textBox7.Text = param?.LeftShin.ToString() + " " + param?.LengthUnit;
+            textBox8.Text = param?.LeftSole.ToString() + " " + param?.LengthUnit;
+
+            textBox9.Text = param?.RightTigh.ToString() + " " + param?.LengthUnit;
+            textBox10.Text = param?.RightShin.ToString() + " " + param?.LengthUnit;
+            textBox11.Text = param?.RightSole.ToString() + " " + param?.LengthUnit;
+
+            textBox14.Text = param?.LeftUpperLimb.ToString() + " " + param?.LengthUnit;
+            textBox15.Text = param?.LeftForearm.ToString() + " " + param?.LengthUnit;
+            textBox16.Text = param?.LeftHand.ToString() + " " + param?.LengthUnit;
+
+            textBox17.Text = param?.RightUpperLimb.ToString() + " " + param?.LengthUnit;
+            textBox18.Text = param?.RightForearm.ToString() + " " + param?.LengthUnit;
+            textBox19.Text = param?.RightHand.ToString() + " " + param?.LengthUnit;
+
             textBox12.Text = Program.User.BirthDate.ToString("MM/dd/yyyy");
-            textBox12.Text = param.Gender;
+            textBox13.Text = param?.Gender;
 
-            reports = reportService.GetReports(Program.User.Id);
+            reports = reportService.GetReportsByUserId(Program.User.Id);
 
             listBox1.Items.Clear();
 

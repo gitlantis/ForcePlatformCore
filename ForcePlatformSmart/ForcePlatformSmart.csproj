@@ -26,9 +26,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="RadarForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Update="UserInfo.cs">
       <SubType>Form</SubType>
     </Compile>

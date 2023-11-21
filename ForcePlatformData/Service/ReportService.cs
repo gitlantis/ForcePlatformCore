@@ -1,10 +1,11 @@
 ﻿using ForcePlatformData.DbModels;
+using static ForcePlatformData.Constants;
 
 namespace ForcePlatformData.Service
 {
     public class ReportService
     {
-        public int AddReport(int userId, string path, int exerciseTypeId)
+        public int AddReport(int userId, string path, int exerciseTypeId, Units unit)
         {
             try
             {
@@ -12,6 +13,7 @@ namespace ForcePlatformData.Service
                 {
                     UserId = userId,
                     Path = path,
+                    Unit = unit.ToString(),
                     ExerciseTypeId = exerciseTypeId,
                     CreatedDate = DateTime.Now
                 };
@@ -24,11 +26,11 @@ namespace ForcePlatformData.Service
                 throw e;
             }
         }
-        public List<Report> GetReports(int userId)
+        public List<Report> GetReportsByUserId(int userId)
         {
             try
             {
-                var reports = AppConfig.DbContext.Reports.Where(c=>c.UserId==userId).ToList();
+                var reports = AppConfig.DbContext.Reports.Where(c => c.UserId == userId).OrderByDescending(c => c.CreatedDate).ToList();
                 return reports;
             }
             catch (Exception e)
@@ -41,7 +43,7 @@ namespace ForcePlatformData.Service
         {
             try
             {
-                var report = AppConfig.DbContext.Reports.Where(c => c.Id== id).FirstOrDefault();
+                var report = AppConfig.DbContext.Reports.Where(c => c.Id == id).FirstOrDefault();
                 return report;
             }
             catch (Exception e)

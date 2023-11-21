@@ -61,12 +61,27 @@
             label7 = new Label();
             groupBox4 = new GroupBox();
             listBox1 = new ListBox();
-            iconButton2 = new FontAwesome.Sharp.IconButton();
             iconButton1 = new FontAwesome.Sharp.IconButton();
+            groupBox5 = new GroupBox();
+            label17 = new Label();
+            label18 = new Label();
+            label19 = new Label();
+            textBox17 = new TextBox();
+            textBox19 = new TextBox();
+            textBox18 = new TextBox();
+            textBox15 = new TextBox();
+            textBox16 = new TextBox();
+            groupBox6 = new GroupBox();
+            label20 = new Label();
+            textBox14 = new TextBox();
+            label21 = new Label();
+            label22 = new Label();
             groupBox3.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox1.SuspendLayout();
             groupBox4.SuspendLayout();
+            groupBox5.SuspendLayout();
+            groupBox6.SuspendLayout();
             SuspendLayout();
             // 
             // textBox9
@@ -129,7 +144,7 @@
             groupBox3.Controls.Add(label15);
             groupBox3.Location = new Point(325, 178);
             groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(305, 137);
+            groupBox3.Size = new Size(305, 130);
             groupBox3.TabIndex = 3;
             groupBox3.TabStop = false;
             groupBox3.Text = "Right Foot";
@@ -204,7 +219,7 @@
             groupBox2.Controls.Add(label10);
             groupBox2.Location = new Point(12, 178);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(305, 137);
+            groupBox2.Size = new Size(305, 130);
             groupBox2.TabIndex = 2;
             groupBox2.TabStop = false;
             groupBox2.Text = "Left Foot";
@@ -417,42 +432,24 @@
             // 
             groupBox4.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             groupBox4.Controls.Add(listBox1);
-            groupBox4.Location = new Point(12, 321);
+            groupBox4.Location = new Point(12, 457);
             groupBox4.Name = "groupBox4";
-            groupBox4.Size = new Size(618, 310);
+            groupBox4.Size = new Size(618, 318);
             groupBox4.TabIndex = 0;
             groupBox4.TabStop = false;
             groupBox4.Text = "Reports";
             // 
             // listBox1
             // 
-            listBox1.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            listBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             listBox1.FormattingEnabled = true;
             listBox1.ItemHeight = 15;
             listBox1.Items.AddRange(new object[] { "" });
             listBox1.Location = new Point(6, 22);
             listBox1.Name = "listBox1";
-            listBox1.Size = new Size(606, 274);
+            listBox1.Size = new Size(606, 289);
             listBox1.TabIndex = 0;
             listBox1.DoubleClick += listBox1_DoubleClick;
-            // 
-            // iconButton2
-            // 
-            iconButton2.Anchor = AnchorStyles.Bottom;
-            iconButton2.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            iconButton2.ForeColor = Color.FromArgb(0, 0, 192);
-            iconButton2.IconChar = FontAwesome.Sharp.IconChar.Print;
-            iconButton2.IconColor = Color.FromArgb(0, 0, 192);
-            iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton2.IconSize = 32;
-            iconButton2.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButton2.Location = new Point(262, 637);
-            iconButton2.Name = "iconButton2";
-            iconButton2.Size = new Size(89, 39);
-            iconButton2.TabIndex = 6;
-            iconButton2.Text = "Print";
-            iconButton2.TextAlign = ContentAlignment.MiddleRight;
-            iconButton2.UseVisualStyleBackColor = true;
             // 
             // iconButton1
             // 
@@ -464,7 +461,7 @@
             iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton1.IconSize = 32;
             iconButton1.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButton1.Location = new Point(541, 637);
+            iconButton1.Location = new Point(541, 780);
             iconButton1.Name = "iconButton1";
             iconButton1.Size = new Size(89, 39);
             iconButton1.TabIndex = 18;
@@ -473,13 +470,158 @@
             iconButton1.UseVisualStyleBackColor = true;
             iconButton1.Click += iconButton1_Click;
             // 
+            // groupBox5
+            // 
+            groupBox5.Controls.Add(label17);
+            groupBox5.Controls.Add(label18);
+            groupBox5.Controls.Add(label19);
+            groupBox5.Controls.Add(textBox17);
+            groupBox5.Controls.Add(textBox19);
+            groupBox5.Controls.Add(textBox18);
+            groupBox5.Location = new Point(325, 321);
+            groupBox5.Name = "groupBox5";
+            groupBox5.Size = new Size(305, 130);
+            groupBox5.TabIndex = 21;
+            groupBox5.TabStop = false;
+            groupBox5.Text = "Right Arm";
+            // 
+            // label17
+            // 
+            label17.AutoSize = true;
+            label17.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label17.Location = new Point(17, 23);
+            label17.Name = "label17";
+            label17.Size = new Size(96, 21);
+            label17.TabIndex = 22;
+            label17.Text = "Upper limb";
+            // 
+            // label18
+            // 
+            label18.AutoSize = true;
+            label18.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label18.Location = new Point(17, 58);
+            label18.Name = "label18";
+            label18.Size = new Size(73, 21);
+            label18.TabIndex = 21;
+            label18.Text = "Forearm";
+            // 
+            // label19
+            // 
+            label19.AutoSize = true;
+            label19.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label19.Location = new Point(17, 95);
+            label19.Name = "label19";
+            label19.Size = new Size(51, 21);
+            label19.TabIndex = 20;
+            label19.Text = "Hand";
+            // 
+            // textBox17
+            // 
+            textBox17.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            textBox17.Location = new Point(119, 23);
+            textBox17.Name = "textBox17";
+            textBox17.ReadOnly = true;
+            textBox17.Size = new Size(150, 29);
+            textBox17.TabIndex = 15;
+            // 
+            // textBox19
+            // 
+            textBox19.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            textBox19.Location = new Point(119, 92);
+            textBox19.Name = "textBox19";
+            textBox19.ReadOnly = true;
+            textBox19.Size = new Size(150, 29);
+            textBox19.TabIndex = 17;
+            // 
+            // textBox18
+            // 
+            textBox18.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            textBox18.Location = new Point(119, 58);
+            textBox18.Name = "textBox18";
+            textBox18.ReadOnly = true;
+            textBox18.Size = new Size(150, 29);
+            textBox18.TabIndex = 15;
+            // 
+            // textBox15
+            // 
+            textBox15.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            textBox15.Location = new Point(117, 53);
+            textBox15.Name = "textBox15";
+            textBox15.ReadOnly = true;
+            textBox15.Size = new Size(150, 29);
+            textBox15.TabIndex = 19;
+            // 
+            // textBox16
+            // 
+            textBox16.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            textBox16.Location = new Point(117, 88);
+            textBox16.Name = "textBox16";
+            textBox16.ReadOnly = true;
+            textBox16.Size = new Size(150, 29);
+            textBox16.TabIndex = 17;
+            // 
+            // groupBox6
+            // 
+            groupBox6.Controls.Add(label20);
+            groupBox6.Controls.Add(textBox14);
+            groupBox6.Controls.Add(label21);
+            groupBox6.Controls.Add(textBox15);
+            groupBox6.Controls.Add(textBox16);
+            groupBox6.Controls.Add(label22);
+            groupBox6.Location = new Point(12, 321);
+            groupBox6.Name = "groupBox6";
+            groupBox6.Size = new Size(305, 130);
+            groupBox6.TabIndex = 20;
+            groupBox6.TabStop = false;
+            groupBox6.Text = "Left Arm";
+            // 
+            // label20
+            // 
+            label20.AutoSize = true;
+            label20.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label20.Location = new Point(15, 23);
+            label20.Name = "label20";
+            label20.Size = new Size(96, 21);
+            label20.TabIndex = 18;
+            label20.Text = "Upper limb";
+            // 
+            // textBox14
+            // 
+            textBox14.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            textBox14.Location = new Point(117, 18);
+            textBox14.Name = "textBox14";
+            textBox14.ReadOnly = true;
+            textBox14.Size = new Size(150, 29);
+            textBox14.TabIndex = 19;
+            // 
+            // label21
+            // 
+            label21.AutoSize = true;
+            label21.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label21.Location = new Point(15, 58);
+            label21.Name = "label21";
+            label21.Size = new Size(73, 21);
+            label21.TabIndex = 16;
+            label21.Text = "Forearm";
+            // 
+            // label22
+            // 
+            label22.AutoSize = true;
+            label22.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label22.Location = new Point(15, 95);
+            label22.Name = "label22";
+            label22.Size = new Size(51, 21);
+            label22.TabIndex = 14;
+            label22.Text = "Hand";
+            // 
             // UserInfo
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(641, 683);
+            ClientSize = new Size(641, 823);
+            Controls.Add(groupBox5);
+            Controls.Add(groupBox6);
             Controls.Add(iconButton1);
-            Controls.Add(iconButton2);
             Controls.Add(groupBox4);
             Controls.Add(groupBox3);
             Controls.Add(groupBox2);
@@ -495,6 +637,10 @@
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             groupBox4.ResumeLayout(false);
+            groupBox5.ResumeLayout(false);
+            groupBox5.PerformLayout();
+            groupBox6.ResumeLayout(false);
+            groupBox6.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -531,9 +677,22 @@
         private GroupBox groupBox4;
         private ListBox listBox1;
         private TextBox textBox6;
-        private FontAwesome.Sharp.IconButton iconButton2;
         private TextBox textBox13;
         private Label label9;
         private FontAwesome.Sharp.IconButton iconButton1;
+        private GroupBox groupBox5;
+        private Label label17;
+        private Label label18;
+        private Label label19;
+        private TextBox textBox15;
+        private TextBox textBox16;
+        private TextBox textBox17;
+        private GroupBox groupBox6;
+        private Label label20;
+        private TextBox textBox14;
+        private Label label21;
+        private Label label22;
+        private TextBox textBox18;
+        private TextBox textBox19;
     }
 }

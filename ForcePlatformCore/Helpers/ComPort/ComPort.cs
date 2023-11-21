@@ -33,6 +33,7 @@ namespace ForcePlatformCore.Helpers.ComPort
         public void Zero()
         {
             for (int i = 0; i < adcData.CurrentAdc.Length; i++) { adcData.ZeroAdc[i] = adcData.MiddledAdc[i]; }
+            SharedData = new List<ReadySerialData>();
         }
 
         private void AutoDetect(string port)
@@ -189,7 +190,7 @@ namespace ForcePlatformCore.Helpers.ComPort
 
             for (int j = 0; j < 4; j++)
             {
-                adcData.DiffX[j] = (adcData.AbsAdc[j * 4 + 0] + adcData.AbsAdc[j * 4 + 3]) - (adcData.AbsAdc[j * 4 + 1] + adcData.AbsAdc[j * 4 + 2]);
+                adcData.DiffX[j] = ((adcData.AbsAdc[j * 4 + 0] + adcData.AbsAdc[j * 4 + 3]) - (adcData.AbsAdc[j * 4 + 1] + adcData.AbsAdc[j * 4 + 2]))*(-1);
                 adcData.DiffY[j] = (adcData.AbsAdc[j * 4 + 0] + adcData.AbsAdc[j * 4 + 1]) - (adcData.AbsAdc[j * 4 + 2] + adcData.AbsAdc[j * 4 + 3]);
             };
         }

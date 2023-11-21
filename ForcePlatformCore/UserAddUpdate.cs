@@ -30,7 +30,7 @@ namespace ForcePlatformCore
                 textBox3.Text = Program.User.MiddleName;
                 dateTimePicker1.Value = Program.User.BirthDate;
 
-                user.UserParams = userService.TakeUserParams(Program.User.Id);
+                user.UserParams = userService.GetUserParams(Program.User.Id);
                 textBox4.Text = user.UserParams.BodyHeight.ToString();
                 textBox5.Text = user.UserParams.BodyWeight.ToString();
 
@@ -44,6 +44,15 @@ namespace ForcePlatformCore
                 textBox10.Text = user.UserParams.RightShin.ToString();
                 textBox11.Text = user.UserParams.RightSole.ToString();
                 textBox11.Text = user.UserParams.RightSole.ToString();
+
+                textBox12.Text = user.UserParams.LeftUpperLimb.ToString();
+                textBox13.Text = user.UserParams.LeftForearm.ToString();
+                textBox14.Text = user.UserParams.LeftHand.ToString();
+
+                textBox15.Text = user.UserParams.RightUpperLimb.ToString();
+                textBox16.Text = user.UserParams.RightForearm.ToString();
+                textBox17.Text = user.UserParams.RightHand.ToString();
+
                 comboBox2.Text = user.UserParams.Gender;
             }
         }
@@ -56,30 +65,46 @@ namespace ForcePlatformCore
                 user.Surname = textBox2.Text;
                 user.MiddleName = textBox3.Text;
                 user.BirthDate = dateTimePicker1.Value;
+
                 double val = 0;
                 Double.TryParse(textBox4.Text, out val);
                 user.UserParams.BodyHeight = val;
-                Double.TryParse(textBox4.Text, out val);
+                Double.TryParse(textBox5.Text, out val);
                 user.UserParams.BodyWeight = val;
 
                 user.UserParams.LengthUnit = comboBox1.Text;
 
-                Double.TryParse(textBox4.Text, out val);
+                Double.TryParse(textBox6.Text, out val);
                 user.UserParams.LeftTigh = val;
-                Double.TryParse(textBox4.Text, out val);
+                Double.TryParse(textBox7.Text, out val);
                 user.UserParams.LeftShin = val;
-                Double.TryParse(textBox4.Text, out val);
+                Double.TryParse(textBox8.Text, out val);
                 user.UserParams.LeftSole = val;
 
-                Double.TryParse(textBox4.Text, out val);
+                Double.TryParse(textBox9.Text, out val);
                 user.UserParams.RightTigh = val;
-                Double.TryParse(textBox4.Text, out val);
+                Double.TryParse(textBox10.Text, out val);
                 user.UserParams.RightShin = val;
-                Double.TryParse(textBox4.Text, out val);
+                Double.TryParse(textBox11.Text, out val);
                 user.UserParams.RightSole = val;
+
+                Double.TryParse(textBox12.Text, out val);
+                user.UserParams.LeftUpperLimb = val;
+                Double.TryParse(textBox13.Text, out val);
+                user.UserParams.LeftForearm = val;
+                Double.TryParse(textBox14.Text, out val);
+                user.UserParams.LeftHand = val;
+
+                Double.TryParse(textBox15.Text, out val);
+                user.UserParams.RightUpperLimb = val;
+                Double.TryParse(textBox16.Text, out val);
+                user.UserParams.RightForearm = val;
+                Double.TryParse(textBox17.Text, out val);
+                user.UserParams.RightHand = val;
+
                 user.UserParams.Gender = comboBox2.Text;
-                
-                DialogResult result = new DialogResult() ;
+
+                DialogResult result = new DialogResult();
                 if (this.Text.Equals("Add"))
                 {
                     var id = userService.AddUser(user);
@@ -91,7 +116,7 @@ namespace ForcePlatformCore
                     userService.EditUser(user);
                     result = Program.Message("Success", $"{user.FullName} updated successfully");
                 }
-                
+
                 if (result == DialogResult.OK)
                 {
                     this.Close();

@@ -41,14 +41,9 @@ namespace ForcePlatformCore.Helpers.ComPort
             DiffY = new int[4];
         }
 
-        public AdcSerialData() // obyazatelen
+        public AdcSerialData() 
         {
-            this.Init(20); // def filterLength
-        }
-
-        public AdcSerialData( int filterLenth)
-        {
-            this.Init(filterLenth); 
+            this.Init(20); 
         }
     }
 }

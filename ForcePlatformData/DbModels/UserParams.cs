@@ -15,6 +15,12 @@ namespace ForcePlatformData.DbModels
         public double? RightSole { get; set; }
         public double? RightShin { get; set; }
         public double? RightTigh { get; set; }
+        public double? LeftHand{ get; set; }
+        public double? LeftForearm { get; set; }
+        public double? LeftUpperLimb { get; set; }
+        public double? RightHand { get; set; }
+        public double? RightForearm { get; set; }
+        public double? RightUpperLimb { get; set; }
         public string LengthUnit { get; set; } = "sm";
         public double? BodyHeight { get; set; }
         public double? BodyWeight { get; set; }
