@@ -10,7 +10,9 @@ namespace ForcePlatformCore
 {
     public partial class DataLoggerForm : Form
     {
+        private MainMDI mainMdi;
         public int PlateId;
+        private List<ReadySerialData> loggerData = new List<ReadySerialData>();
         private bool pausePlot = false;
         private AppsettingsModel? config;
         private TextBox[] textBoxes = new TextBox[12];
@@ -30,7 +32,7 @@ namespace ForcePlatformCore
             { 3,new AxisItem() }
         };
         CheckBox[] checkBoxes = new CheckBox[12];
-        private MainMDI mainMdi;
+
         public DataLoggerForm(MainMDI mdi)
         {
             InitializeComponent();
@@ -82,6 +84,8 @@ namespace ForcePlatformCore
             formsPlot1.Plot.AxisAuto();
             formsPlot1.Plot.AxisScale();
 
+            formsPlot1.Refresh();
+
             textBoxes[0] = textBox1;
             textBoxes[1] = textBox2;
             textBoxes[2] = textBox3;
@@ -97,8 +101,6 @@ namespace ForcePlatformCore
 
             for (int box = 0; box < textBoxes.Length; box++)
                 textBoxes[box].ReadOnly = true;
-
-            formsPlot1.Refresh();
 
             this.config = AppConfig.Config;
             comboBox1.SelectedIndex = 1;
@@ -116,6 +118,7 @@ namespace ForcePlatformCore
 
         private void stopPlot(bool stopped)
         {
+            stopTime = 0;
             for (int i = 0; i < 4; i++)
             {
                 LoggerDiffX[i].ManageAxisLimits = !stopped;
@@ -123,9 +126,10 @@ namespace ForcePlatformCore
                 LoggerDiffZ[i].ManageAxisLimits = !stopped;
             }
         }
-        public void RefreshPlot(ReadySerialData data)
+
+        public void RefreshPlot()
         {
-            if (stopTime >= 50)
+            if (stopTime >= 100)
             {
                 isStopped = false;
                 stopTime = 0;
@@ -140,35 +144,12 @@ namespace ForcePlatformCore
 
             if (!pausePlot)
             {
-                for (var plate = 0; plate < 4; plate++)
-                {
-                    var points = SmallAdcBuffer.BufferItems[plate];
-                    LoggerDiffX[plate].Clear();
-                    var newCoordX = points.Select(c => new Coordinate(c.Time / 5, c.DiffX));
-                    LoggerDiffX[plate].AddRange(newCoordX);
+                var points = Program.ComPort.SharedData;
+                pushToBuffer(points);
+                Program.ComPort.SharedData.Clear();
 
-                    LoggerDiffY[plate].Clear();
-                    var newCoordY = points.Select(c => new Coordinate(c.Time / 5, c.DiffY));
-                    LoggerDiffY[plate].AddRange(newCoordY);
-
-                    LoggerDiffZ[plate].Clear();
-                    var newCoordZ = points.Select(c => new Coordinate(c.Time / 5, c.DiffZ));
-                    LoggerDiffZ[plate].AddRange(newCoordZ);
-
-                    var axisItem = new AxisItem
-                    {
-                        Plate = plate,
-                        DiffX = points.Select(c => c.DiffX).LastOrDefault(),
-                        DiffY = points.Select(c => c.DiffY).LastOrDefault(),
-                        DiffZ = points.Select(c => c.DiffZ).LastOrDefault(),
-
-                    };
-                    weight[plate] = axisItem;
-                }
-                formsPlot1.Refresh();
             }
         }
-
         public void Pause(bool isPaused)
         {
             pausePlot = isPaused;
@@ -200,12 +181,14 @@ namespace ForcePlatformCore
         {
             for (var plate = 0; plate < 4; plate++)
             {
-                var point = weight[plate];
+                var diffX = weight[plate].DiffX;
+                var diffY = weight[plate].DiffY;
+                var diffZ = weight[plate].DiffZ;
 
-                double? temp = point.DiffZ / AppConfig.Config.CalibrateZ;
+                double? temp = diffZ / AppConfig.Config.CalibrateZ;
 
-                double? percX = (point.DiffX / point.DiffZ) * 100;
-                double? percY = (point.DiffY / point.DiffZ) * 100;
+                double? percX = (diffX / diffZ) * 100;
+                double? percY = (diffY / diffZ) * 100;
 
                 if (temp < 5)
                 {
@@ -255,5 +238,39 @@ namespace ForcePlatformCore
                 LoggerDiffZ[i].IsVisible = checkBoxes[2 + (i * 3)].Checked & gCheckBoxes[i].Checked;
             }
         }
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            for (var plate = 0; plate < 4; plate++)
+            {
+                LoggerDiffX[plate].Clear();
+                var newCoordsX = loggerData.Select(c => new Coordinate(c.CurrentTimeMC / 5, c.DiffX[plate]));
+                LoggerDiffX[plate].AddRange(newCoordsX);
+                LoggerDiffY[plate].Clear();
+                var newCoordsY = loggerData.Select(c => new Coordinate(c.CurrentTimeMC / 5, c.DiffY[plate]));
+                LoggerDiffY[plate].AddRange(newCoordsY);
+                LoggerDiffZ[plate].Clear();
+                var newCoordsZ = loggerData.Select(c => new Coordinate(c.CurrentTimeMC / 5, c.DiffZ[plate]));
+                LoggerDiffZ[plate].AddRange(newCoordsZ);
+
+                var loggerLastElement = loggerData.LastOrDefault(new ReadySerialData { DiffX = new int[4], DiffY = new int[4], DiffZ = new int[4] });
+                weight[plate].DiffX = loggerLastElement.DiffX[plate];
+                weight[plate].DiffY = loggerLastElement.DiffY[plate];
+                weight[plate].DiffZ = loggerLastElement.DiffZ[plate];
+            }
+            formsPlot1.Refresh();
+        }
+        private void pushToBuffer(List<ReadySerialData> serialData)
+        {
+            foreach (var data in serialData)
+            {
+                var newSerialData = new ReadySerialData();
+                newSerialData.Set(data.FilterLength, data.CurrentTimeMC, data.DiffX,data.DiffY,data.DiffZ);
+                loggerData.Add(newSerialData);
+                if (loggerData.Count > 200) loggerData.RemoveAt(0);
+            } 
+
+        }
     }
 }
+

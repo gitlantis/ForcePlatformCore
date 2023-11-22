@@ -2,7 +2,9 @@
 using System.Windows;
 using ForcePlatformCore;
 using ForcePlatformData;
+using ForcePlatformData.Models;
 using Microsoft.VisualBasic.ApplicationServices;
+using ScottPlot.Drawing.Colormaps;
 
 namespace ForcePlatformCore.Helpers.ComPort
 {
@@ -15,9 +17,10 @@ namespace ForcePlatformCore.Helpers.ComPort
         AdcSerialData adcData = new AdcSerialData();
         public bool StartRecording = false;
         public List<ReadySerialData> SharedData = new List<ReadySerialData>();
-        public ReadySerialData[] SaverData; 
+        public List<ReadySerialData> SaverData;
         private int recordIncer = 0;
-        
+        private int oldTimeSharedMC = 0;
+
         public static event EventHandler BufferIsFull;
 
         public ComPort(bool autoDetect, string port, int filterLength)
@@ -33,7 +36,7 @@ namespace ForcePlatformCore.Helpers.ComPort
         public void Zero()
         {
             for (int i = 0; i < adcData.CurrentAdc.Length; i++) { adcData.ZeroAdc[i] = adcData.MiddledAdc[i]; }
-            SharedData = new List<ReadySerialData>();
+            ResetSaverData();
         }
 
         private void AutoDetect(string port)
@@ -61,6 +64,7 @@ namespace ForcePlatformCore.Helpers.ComPort
                         {
                             PortName = portName;
                             Started = false;
+                            Zero();
                             break;
                         }
                         Disconnect();
@@ -101,10 +105,9 @@ namespace ForcePlatformCore.Helpers.ComPort
         int incer = 0;
         public void OnReceive()
         {
-            string[] _temps = sp.ReadExisting().Split('\n'); 
+            string[] _temps = sp.ReadExisting().Split('\n');
 
             foreach (string s in _temps)
-
             {
                 try
                 {
@@ -116,7 +119,7 @@ namespace ForcePlatformCore.Helpers.ComPort
                         for (int i = 0; i < 16; i++) ss[i] = _s.Substring(i * 6, 6);
 
                         string ts;
-                        for (int i = 0; i < 4; i++)  
+                        for (int i = 0; i < 4; i++)
                         {
                             ts = ss[i + 8]; ss[i + 8] = ss[i + 0]; ss[i + 0] = ts;
                             ts = ss[i + 12]; ss[i + 12] = ss[i + 4]; ss[i + 4] = ts;
@@ -129,14 +132,19 @@ namespace ForcePlatformCore.Helpers.ComPort
 
                         for (int i = 0; i < 16; i++) adcData.CurrentAdc[i] = _tmp[i];
                         adcData.CurrentTimeMC = _tmp[16]; FreshData();
+                        
                         if (StartRecording)
                         {
-                            SaverData[recordIncer].Set(adcData.FilterLength, adcData.CurrentTimeMC, adcData.DiffX, adcData.DiffY, adcData.DiffZ, DateTime.Now.TimeOfDay);
-                            if (recordIncer < 29999) recordIncer++; 
-                            else {
+                            var newData = new ReadySerialData();
+                            newData.Set(adcData.FilterLength,adcData.CurrentTimeMC,adcData.DiffX,adcData.DiffY,adcData.DiffZ);
+                            SaverData.Add(newData);
+
+                            if (recordIncer < 29999) recordIncer++;
+                            else
+                            {
                                 StartRecording = false;
                                 BufferIsFull.Invoke(null, EventArgs.Empty);
-                            }; 
+                            };
                         }
                     }
                 }
@@ -145,7 +153,8 @@ namespace ForcePlatformCore.Helpers.ComPort
 
             if (incer % 2 == 0)
             {
-                SharedData.Add(new ReadySerialData { FilterLength = adcData.FilterLength, CurrentTimeMC = adcData.CurrentTimeMC, DiffX = adcData.DiffX, DiffY = adcData.DiffY, DiffZ = adcData.DiffZ });               
+                pushNew(new ReadySerialData { FilterLength = adcData.FilterLength, CurrentTimeMC = adcData.CurrentTimeMC, DiffX = adcData.DiffX, DiffY = adcData.DiffY, DiffZ = adcData.DiffZ });
+                oldTimeSharedMC = adcData.CurrentTimeMC;
             }
             incer++;
         }
@@ -153,12 +162,8 @@ namespace ForcePlatformCore.Helpers.ComPort
         public void ResetSaverData()
         {
             SharedData = new List<ReadySerialData>();
-            SaverData = new ReadySerialData[30000];
+            SaverData = new List<ReadySerialData>();
             recordIncer = 0;
-            for (int i = 0; i < SaverData.Length; i++)
-            {
-                SaverData[i] = new ReadySerialData();
-            }
         }
 
         private void FilterData()
@@ -182,7 +187,7 @@ namespace ForcePlatformCore.Helpers.ComPort
                     tmp += i + 1;
                     sums[j] += adcData.FilterBuff[j, i] * (i + 1);
                 }
-                adcData.FilteredAdc[j] = (int)Math.Round((decimal)sums[j] / tmp);          
+                adcData.FilteredAdc[j] = (int)Math.Round((decimal)sums[j] / tmp);
                 adcData.AbsAdc[j] = Math.Abs(adcData.FilteredAdc[j]);
             }
 
@@ -190,17 +195,25 @@ namespace ForcePlatformCore.Helpers.ComPort
 
             for (int j = 0; j < 4; j++)
             {
-                adcData.DiffX[j] = ((adcData.AbsAdc[j * 4 + 0] + adcData.AbsAdc[j * 4 + 3]) - (adcData.AbsAdc[j * 4 + 1] + adcData.AbsAdc[j * 4 + 2]))*(-1);
+                adcData.DiffX[j] = ((adcData.AbsAdc[j * 4 + 0] + adcData.AbsAdc[j * 4 + 3]) - (adcData.AbsAdc[j * 4 + 1] + adcData.AbsAdc[j * 4 + 2])) * (-1);
                 adcData.DiffY[j] = (adcData.AbsAdc[j * 4 + 0] + adcData.AbsAdc[j * 4 + 1]) - (adcData.AbsAdc[j * 4 + 2] + adcData.AbsAdc[j * 4 + 3]);
             };
         }
 
         private void FreshData()
         {
-            for (int i = 0; i < adcData.CurrentAdc.Length; i++) { adcData.ZeroedAdc[i] =  adcData.CurrentAdc[i] - adcData.ZeroAdc[i];
-                adcData.MiddledAdc[i] = (int)((adcData.FilterLength * adcData.MiddledAdc[i] + adcData.CurrentAdc[i]) / (adcData.FilterLength + 1)); 
+            for (int i = 0; i < adcData.CurrentAdc.Length; i++)
+            {
+                adcData.ZeroedAdc[i] = adcData.CurrentAdc[i] - adcData.ZeroAdc[i];
+                adcData.MiddledAdc[i] = (int)((adcData.FilterLength * adcData.MiddledAdc[i] + adcData.CurrentAdc[i]) / (adcData.FilterLength + 1));
             }
             FilterData();
+        }
+
+        private void pushNew(ReadySerialData data)
+        {
+            SharedData.Add(data);
+            if (SharedData.Count > 10000) { SharedData.Clear(); };
         }
     }
 }

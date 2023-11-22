@@ -12,7 +12,6 @@ namespace ForcePlatformCore
         private bool pauseAll = false;
         private CsvModel csvData = new CsvModel();
         private bool startRecording = false;
-        private int oldCurrentTimeMC = 0;
 
         private ReportService reportService = new ReportService();
         private Camera camera;
@@ -41,7 +40,7 @@ namespace ForcePlatformCore
 
         public void ComPortBufferStore(object sender, EventArgs e)
         {
-            if(startRecording) recordStartStop();
+            if (startRecording) recordStartStop();
 
             Program.ComPort.Zero();
             Program.ComPort.ResetSaverData();
@@ -168,28 +167,7 @@ namespace ForcePlatformCore
             if (Program.ComPort.Connected)
             {
                 Program.ComPort.OnReceive();
-
-                foreach (var queue in Program.ComPort.SharedData)
-                {
-                    if (oldCurrentTimeMC != queue.CurrentTimeMC)
-                    {
-                        foreach (var plate in new int[] { 0, 1, 2, 3 })
-                        {
-                            var item = new AdcBufferItem();
-                            item.Time = queue.CurrentTimeMC;
-                            item.DiffX = queue.DiffX[plate];
-                            item.DiffY = queue.DiffY[plate];
-                            item.DiffZ = queue.DiffZ[plate];
-                            item.CurrentTimeMC = queue.CurrentTimeMC;
-
-                            SmallAdcBuffer.PushNew(plate, item);
-                        }
-                        
-                        dataLogger.RefreshPlot(queue);
-                        oldCurrentTimeMC = queue.CurrentTimeMC;
-                    }
-                }
-                Program.ComPort.SharedData.Clear();
+                dataLogger.RefreshPlot();
             }
         }
 
@@ -307,51 +285,52 @@ namespace ForcePlatformCore
                 toolStripButton4.Image = Image.FromFile("assets/play-circle-o.png");
             }
 
-            if (!startRecording)
-            {
-                saveDataToCsv();
-            }
+            if (!startRecording) saveDataToCsv();
         }
 
         private void saveDataToCsv()
         {
             try
             {
-                var oldCurrTimeMC = 0;
-                var scanStartedTime = Program.ComPort.SaverData[0].CurrentTimeMC;
+                var firstElement = true;
+                var scanStartedTime = 0;
                 foreach (var queue in Program.ComPort.SaverData)
                 {
-                    var plateData = new List<AxisItem>();
-                    if (oldCurrTimeMC != queue.CurrentTimeMC)
+                    if (firstElement)
                     {
-                        var time = queue.CurrentTimeMC;
-                        for (int plate = 0; plate < 4; plate++)
-                        {
-                            var percX = ((double)queue.DiffX[plate] / queue.DiffZ[plate]) * 100;
-                            var percY = ((double)queue.DiffY[plate] / queue.DiffZ[plate]) * 100;
-
-                            plateData.Add(new AxisItem
-                            {
-                                Plate = plate,
-                                DiffX = percX,
-                                DiffY = percY,
-                                DiffZ = Converter.ToUnit(queue.DiffZ[plate], Unit),
-                            });
-                        }
-
-                        csvData.CsvItems.Enqueue(new CsvItem
-                        {
-                            Time = queue.CurrentTimeMC - scanStartedTime,
-                            AxisItems = plateData,
-                        });
-                        oldCurrTimeMC = queue.CurrentTimeMC;
+                        scanStartedTime = queue.CurrentTimeMC;
+                        firstElement = false;
                     }
+
+                    var plateData = new List<AxisItem>();
+
+                    var time = queue.CurrentTimeMC;
+                    for (int plate = 0; plate < 4; plate++)
+                    {
+                        var percX = queue.DiffZ[plate] != 0 ? ((double)queue.DiffX[plate] / queue.DiffZ[plate]) * 100 : 0;
+                        var percY = queue.DiffZ[plate] != 0 ? ((double)queue.DiffY[plate] / queue.DiffZ[plate]) * 100 : 0;
+
+                        plateData.Add(new AxisItem
+                        {
+                            Plate = plate,
+                            DiffX = percX,
+                            DiffY = percY,
+                            DiffZ = Converter.ToUnit(queue.DiffZ[plate], Unit),
+                        });
+                    }
+
+                    csvData.CsvItems.Enqueue(new CsvItem
+                    {
+                        Time = queue.CurrentTimeMC - scanStartedTime,
+                        AxisItems = plateData,
+                    });
                 }
 
                 var path = CsvProcessor.Save(Program.User.Id, SharedStaticModel.ExerciseTypeIndex + 1, csvData, Unit);
                 reportService.AddReport(Program.User.Id, path, SharedStaticModel.ExerciseTypeIndex + 1, Unit);
 
-                csvData.CsvItems.Clear();                
+                csvData.CsvItems.Clear();
+                Program.ComPort.SaverData.Clear();
                 resetAll();
 
                 Program.Message("Success", $"data saved to: \r\n{path} file");

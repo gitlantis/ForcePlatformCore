@@ -64,8 +64,6 @@ namespace ForcePlatformCore
 
             mdi.ShowPlateLogger();
 
-            var sharedData = Program.ComPort.SharedData.LastOrDefault();
-
             if (comboBox2.SelectedIndex == 0 && !error)
                 Program.Message("Attantion", "Experimenter should not move on this mode");
 

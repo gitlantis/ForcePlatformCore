@@ -12,7 +12,6 @@ namespace ForcePlatformCore.Helpers.ComPort
     {
         public int CurrentTimeMC { get; set; }
         public int FilterLength { get; set; }
-        public TimeSpan Time { get; set; }
         public int[] DiffX { get; set; }
         public int[] DiffY { get; set; }
         public int[] DiffZ { get; set; }
@@ -24,20 +23,17 @@ namespace ForcePlatformCore.Helpers.ComPort
             DiffY = new int[4];
         }
 
-        public void Set(int FilterLength, int CurrentTimeMC, int[] DiffX, int[] DiffY, int[] DiffZ, TimeSpan time)
+        public void Set(int FilterLength, int CurrentTimeMC, int[] DiffX, int[] DiffY, int[] DiffZ)
         {
-            Time = time;
             this.FilterLength = FilterLength;
             this.CurrentTimeMC = CurrentTimeMC;
             for (int i = 0; i < DiffX.Length; i++)
             {
                 this.DiffX[i] = DiffX[i];
                 this.DiffY[i] = DiffY[i];
-                this.DiffZ[i] = DiffZ[i];
+                this.DiffZ[i] = DiffZ[i] > 5000 ? DiffZ[i] : 0;
             }
         }
-
-
     }
 }
 

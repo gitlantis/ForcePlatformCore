@@ -66,6 +66,7 @@
             checkBox11 = new CheckBox();
             checkBox12 = new CheckBox();
             checkBox13 = new CheckBox();
+            timer2 = new System.Windows.Forms.Timer(components);
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox3.SuspendLayout();
@@ -79,7 +80,7 @@
             formsPlot1.Location = new Point(0, 0);
             formsPlot1.Margin = new Padding(4, 3, 4, 3);
             formsPlot1.Name = "formsPlot1";
-            formsPlot1.Size = new Size(1377, 684);
+            formsPlot1.Size = new Size(1377, 645);
             formsPlot1.TabIndex = 0;
             formsPlot1.MouseDown += formsPlot1_MouseDown;
             // 
@@ -512,11 +513,17 @@
             checkBox13.UseVisualStyleBackColor = true;
             checkBox13.CheckedChanged += checkBox13_CheckedChanged;
             // 
+            // timer2
+            // 
+            timer2.Enabled = true;
+            timer2.Interval = 50;
+            timer2.Tick += timer2_Tick;
+            // 
             // DataLoggerForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1646, 684);
+            ClientSize = new Size(1646, 644);
             Controls.Add(checkBox13);
             Controls.Add(groupBox4);
             Controls.Add(groupBox3);
@@ -579,5 +586,7 @@
         private CheckBox checkBox15;
         private CheckBox checkBox16;
         private CheckBox checkBox17;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private System.Windows.Forms.Timer timer2;
     }
 }

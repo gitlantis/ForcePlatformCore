@@ -53,12 +53,10 @@
             System.Windows.Forms.DataVisualization.Charting.Series series15 = new System.Windows.Forms.DataVisualization.Charting.Series();
             tableLayoutPanel1 = new TableLayoutPanel();
             panel2 = new Panel();
-            iconButton1 = new FontAwesome.Sharp.IconButton();
             checkBox5 = new CheckBox();
             checkBox4 = new CheckBox();
             checkBox3 = new CheckBox();
             checkBox2 = new CheckBox();
-            iconButton2 = new FontAwesome.Sharp.IconButton();
             chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             panel1 = new Panel();
             chart2 = new System.Windows.Forms.DataVisualization.Charting.Chart();
@@ -67,6 +65,9 @@
             panel4 = new Panel();
             chart4 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             panel5 = new Panel();
+            iconButton1 = new FontAwesome.Sharp.IconButton();
+            iconButton2 = new FontAwesome.Sharp.IconButton();
+            formsPlot1 = new ScottPlot.FormsPlot();
             tableLayoutPanel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)chart1).BeginInit();
@@ -105,6 +106,7 @@
             // panel2
             // 
             panel2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panel2.Controls.Add(formsPlot1);
             panel2.Controls.Add(checkBox5);
             panel2.Controls.Add(checkBox4);
             panel2.Controls.Add(checkBox3);
@@ -114,24 +116,6 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(609, 406);
             panel2.TabIndex = 15;
-            // 
-            // iconButton1
-            // 
-            iconButton1.Anchor = AnchorStyles.Right;
-            iconButton1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            iconButton1.ForeColor = Color.FromArgb(0, 0, 192);
-            iconButton1.IconChar = FontAwesome.Sharp.IconChar.FilePdf;
-            iconButton1.IconColor = Color.FromArgb(0, 0, 192);
-            iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton1.IconSize = 32;
-            iconButton1.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButton1.Location = new Point(467, 4);
-            iconButton1.Name = "iconButton1";
-            iconButton1.Size = new Size(141, 41);
-            iconButton1.TabIndex = 34;
-            iconButton1.Text = "Save report";
-            iconButton1.TextAlign = ContentAlignment.MiddleRight;
-            iconButton1.UseVisualStyleBackColor = true;
             // 
             // checkBox5
             // 
@@ -192,25 +176,6 @@
             checkBox2.Text = "Plate 1";
             checkBox2.UseVisualStyleBackColor = false;
             checkBox2.CheckedChanged += checkBox_CheckedChanged;
-            // 
-            // iconButton2
-            // 
-            iconButton2.Anchor = AnchorStyles.Right;
-            iconButton2.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            iconButton2.ForeColor = Color.FromArgb(0, 0, 192);
-            iconButton2.IconChar = FontAwesome.Sharp.IconChar.Scissors;
-            iconButton2.IconColor = Color.FromArgb(0, 0, 192);
-            iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton2.IconSize = 32;
-            iconButton2.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButton2.Location = new Point(352, 5);
-            iconButton2.Name = "iconButton2";
-            iconButton2.Size = new Size(109, 41);
-            iconButton2.TabIndex = 29;
-            iconButton2.Text = "Trim spaces";
-            iconButton2.TextAlign = ContentAlignment.MiddleRight;
-            iconButton2.UseVisualStyleBackColor = true;
-            iconButton2.Click += iconButton2_Click;
             // 
             // chart1
             // 
@@ -395,6 +360,52 @@
             panel5.Size = new Size(610, 49);
             panel5.TabIndex = 34;
             // 
+            // iconButton1
+            // 
+            iconButton1.Anchor = AnchorStyles.Right;
+            iconButton1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            iconButton1.ForeColor = Color.FromArgb(0, 0, 192);
+            iconButton1.IconChar = FontAwesome.Sharp.IconChar.FilePdf;
+            iconButton1.IconColor = Color.FromArgb(0, 0, 192);
+            iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton1.IconSize = 32;
+            iconButton1.ImageAlign = ContentAlignment.MiddleLeft;
+            iconButton1.Location = new Point(467, 4);
+            iconButton1.Name = "iconButton1";
+            iconButton1.Size = new Size(141, 41);
+            iconButton1.TabIndex = 34;
+            iconButton1.Text = "Save report";
+            iconButton1.TextAlign = ContentAlignment.MiddleRight;
+            iconButton1.UseVisualStyleBackColor = true;
+            // 
+            // iconButton2
+            // 
+            iconButton2.Anchor = AnchorStyles.Right;
+            iconButton2.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            iconButton2.ForeColor = Color.FromArgb(0, 0, 192);
+            iconButton2.IconChar = FontAwesome.Sharp.IconChar.Scissors;
+            iconButton2.IconColor = Color.FromArgb(0, 0, 192);
+            iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton2.IconSize = 32;
+            iconButton2.ImageAlign = ContentAlignment.MiddleLeft;
+            iconButton2.Location = new Point(352, 5);
+            iconButton2.Name = "iconButton2";
+            iconButton2.Size = new Size(109, 41);
+            iconButton2.TabIndex = 29;
+            iconButton2.Text = "Trim spaces";
+            iconButton2.TextAlign = ContentAlignment.MiddleRight;
+            iconButton2.UseVisualStyleBackColor = true;
+            iconButton2.Click += iconButton2_Click;
+            // 
+            // formsPlot1
+            // 
+            formsPlot1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            formsPlot1.Location = new Point(-3, -3);
+            formsPlot1.Margin = new Padding(4, 3, 4, 3);
+            formsPlot1.Name = "formsPlot1";
+            formsPlot1.Size = new Size(518, 406);
+            formsPlot1.TabIndex = 34;
+            // 
             // AnalyticsForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -436,5 +447,6 @@
         private Panel panel4;
         private FontAwesome.Sharp.IconButton iconButton1;
         private Panel panel5;
+        private ScottPlot.FormsPlot formsPlot1;
     }
 }

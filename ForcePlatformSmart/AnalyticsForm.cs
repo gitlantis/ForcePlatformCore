@@ -2,6 +2,8 @@
 using ForcePlatformData.DbModels;
 using ForcePlatformData.Helpers;
 using ForcePlatformData.Models;
+using ScottPlot;
+using ScottPlot.Plottable;
 using System.Windows.Forms.DataVisualization.Charting;
 using static ForcePlatformData.Constants;
 
@@ -12,6 +14,10 @@ namespace ForcePlatformSmart
         private Report userReport;
         private List<CsvLoadArrayModel> currData = new List<CsvLoadArrayModel>();
         private User user;
+        readonly DataLogger[] LoggerDiffX = new DataLogger[4];
+        readonly DataLogger[] LoggerDiffY = new DataLogger[4];
+        readonly DataLogger[] LoggerDiffZ = new DataLogger[4];
+
         public AnalyticsForm(User user, Report report)
         {
             this.user = user;
@@ -26,6 +32,34 @@ namespace ForcePlatformSmart
 
             chart1.MouseWheel += chart1_MouseWheel;
             chart3.MouseWheel += chart1_MouseWheel;
+
+            for (int i = 0; i < 4; i++)
+            {
+                LoggerDiffX[i] = formsPlot1.Plot.AddDataLogger(label: $"p{i + 1}X", lineWidth: 3);
+                LoggerDiffX[i].ViewSlide();
+
+                LoggerDiffY[i] = formsPlot1.Plot.AddDataLogger(label: $"p{i + 1}Y", lineWidth: 3);
+                LoggerDiffY[i].ViewSlide();
+
+                LoggerDiffZ[i] = formsPlot1.Plot.AddDataLogger(label: $"p{i + 1}Z", lineWidth: 3);
+                LoggerDiffZ[i].ViewSlide();
+            }
+            formsPlot1.Plot.Legend(true);
+
+            var style = new ScottPlot.Styles.Black();
+            var palette = new ScottPlot.Palettes.Category10();
+
+            formsPlot1.Plot.Style(style);
+            formsPlot1.Plot.Palette = palette;
+
+            formsPlot1.Plot.XLabel("Time");
+            formsPlot1.Plot.YLabel(userReport.Unit);
+
+            formsPlot1.Plot.AxisAuto();
+            formsPlot1.Plot.AxisScale();
+
+            formsPlot1.Refresh();
+
         }
 
         private void chart1_MouseWheel(object sender, MouseEventArgs e)
@@ -107,14 +141,21 @@ namespace ForcePlatformSmart
             foreach (CsvLoadArrayModel dd in data)
             {
                 var timeShift = dd.data[0];
-                if (timeShift > 0)
+                for (var plate = 0; plate < 4; plate++)
                 {
-                    if (checkBox2.Checked) for (int i = 1; i < 4; i++) chart.Series[i - 1].Points.AddXY(timeShift, dd.data[i]);
-                    if (checkBox3.Checked) for (int i = 4; i < 7; i++) chart.Series[i - 1].Points.AddXY(timeShift, dd.data[i]);
-                    if (checkBox4.Checked) for (int i = 7; i < 10; i++) chart.Series[i - 1].Points.AddXY(timeShift, dd.data[i]);
-                    if (checkBox5.Checked) for (int i = 10; i < 13; i++) chart.Series[i - 1].Points.AddXY(timeShift, dd.data[i]);
+                    LoggerDiffX[plate].Add(dd.data[0], dd.data[1 + (plate * 3)]);
+                    LoggerDiffX[plate].Add(dd.data[0], dd.data[2 + (plate * 3)]);
+                    LoggerDiffX[plate].Add(dd.data[0], dd.data[3 + (plate * 3)]);
                 }
+                //if (timeShift > 0)
+                //{
+                //    if (checkBox2.Checked) for (int i = 1; i < 4; i++) chart.Series[i - 1].Points.AddXY(timeShift, dd.data[i]);
+                //    if (checkBox3.Checked) for (int i = 4; i < 7; i++) chart.Series[i - 1].Points.AddXY(timeShift, dd.data[i]);
+                //    if (checkBox4.Checked) for (int i = 7; i < 10; i++) chart.Series[i - 1].Points.AddXY(timeShift, dd.data[i]);
+                //    if (checkBox5.Checked) for (int i = 10; i < 13; i++) chart.Series[i - 1].Points.AddXY(timeShift, dd.data[i]);
+                //}
             }
+            formsPlot1.Refresh();
         }
 
         private void convertToPolarChartCoords(ref double x, ref double y)
