@@ -61,6 +61,7 @@
             checkBox13 = new CheckBox();
             checkBox14 = new CheckBox();
             checkBox15 = new CheckBox();
+            formsPlot2 = new ScottPlot.FormsPlot();
             panel4 = new Panel();
             checkBox16 = new CheckBox();
             checkBox17 = new CheckBox();
@@ -341,6 +342,7 @@
             panel3.Controls.Add(checkBox13);
             panel3.Controls.Add(checkBox14);
             panel3.Controls.Add(checkBox15);
+            panel3.Controls.Add(formsPlot2);
             panel3.Location = new Point(3, 415);
             panel3.Name = "panel3";
             panel3.Size = new Size(609, 406);
@@ -348,73 +350,83 @@
             // 
             // checkBox11
             // 
-            checkBox11.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            checkBox11.Anchor = AnchorStyles.Top;
             checkBox11.AutoSize = true;
             checkBox11.BackColor = SystemColors.ButtonHighlight;
             checkBox11.Checked = true;
             checkBox11.CheckState = CheckState.Checked;
-            checkBox11.Location = new Point(535, 275);
+            checkBox11.Location = new Point(140, 3);
             checkBox11.Name = "checkBox11";
             checkBox11.Size = new Size(61, 19);
-            checkBox11.TabIndex = 49;
+            checkBox11.TabIndex = 55;
             checkBox11.Text = "Plate 1";
             checkBox11.UseVisualStyleBackColor = false;
             // 
             // checkBox12
             // 
-            checkBox12.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            checkBox12.Anchor = AnchorStyles.Top;
             checkBox12.AutoSize = true;
             checkBox12.BackColor = SystemColors.ButtonHighlight;
             checkBox12.Checked = true;
             checkBox12.CheckState = CheckState.Checked;
-            checkBox12.Location = new Point(535, 300);
+            checkBox12.Location = new Point(207, 3);
             checkBox12.Name = "checkBox12";
             checkBox12.Size = new Size(61, 19);
-            checkBox12.TabIndex = 48;
+            checkBox12.TabIndex = 54;
             checkBox12.Text = "Plate 2";
             checkBox12.UseVisualStyleBackColor = false;
             // 
             // checkBox13
             // 
-            checkBox13.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            checkBox13.Anchor = AnchorStyles.Top;
             checkBox13.AutoSize = true;
             checkBox13.BackColor = SystemColors.ButtonHighlight;
             checkBox13.Checked = true;
             checkBox13.CheckState = CheckState.Checked;
-            checkBox13.Location = new Point(535, 326);
+            checkBox13.Location = new Point(274, 3);
             checkBox13.Name = "checkBox13";
             checkBox13.Size = new Size(61, 19);
-            checkBox13.TabIndex = 47;
+            checkBox13.TabIndex = 53;
             checkBox13.Text = "Plate 3";
             checkBox13.UseVisualStyleBackColor = false;
             // 
             // checkBox14
             // 
-            checkBox14.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            checkBox14.Anchor = AnchorStyles.Top;
             checkBox14.AutoSize = true;
             checkBox14.BackColor = SystemColors.ButtonHighlight;
             checkBox14.Checked = true;
             checkBox14.CheckState = CheckState.Checked;
-            checkBox14.Location = new Point(535, 351);
+            checkBox14.Location = new Point(341, 3);
             checkBox14.Name = "checkBox14";
             checkBox14.Size = new Size(61, 19);
-            checkBox14.TabIndex = 46;
+            checkBox14.TabIndex = 52;
             checkBox14.Text = "Plate 4";
             checkBox14.UseVisualStyleBackColor = false;
             // 
             // checkBox15
             // 
-            checkBox15.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            checkBox15.Anchor = AnchorStyles.Top;
             checkBox15.AutoSize = true;
             checkBox15.BackColor = SystemColors.ButtonHighlight;
             checkBox15.Checked = true;
             checkBox15.CheckState = CheckState.Checked;
-            checkBox15.Location = new Point(535, 376);
+            checkBox15.Location = new Point(408, 3);
             checkBox15.Name = "checkBox15";
             checkBox15.Size = new Size(65, 19);
-            checkBox15.TabIndex = 45;
+            checkBox15.TabIndex = 51;
             checkBox15.Text = "Legend";
             checkBox15.UseVisualStyleBackColor = false;
+            // 
+            // formsPlot2
+            // 
+            formsPlot2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            formsPlot2.BackColor = Color.White;
+            formsPlot2.Location = new Point(-3, 0);
+            formsPlot2.Margin = new Padding(4, 3, 4, 3);
+            formsPlot2.Name = "formsPlot2";
+            formsPlot2.Size = new Size(612, 409);
+            formsPlot2.TabIndex = 50;
             // 
             // panel4
             // 
@@ -512,7 +524,7 @@
             chart2.ChartAreas.Add(chartArea2);
             legend2.Name = "Legend1";
             chart2.Legends.Add(legend2);
-            chart2.Location = new Point(0, 2);
+            chart2.Location = new Point(0, 0);
             chart2.Name = "chart2";
             series5.BorderWidth = 2;
             series5.ChartArea = "ChartArea1";
@@ -542,7 +554,7 @@
             chart2.Series.Add(series6);
             chart2.Series.Add(series7);
             chart2.Series.Add(series8);
-            chart2.Size = new Size(610, 409);
+            chart2.Size = new Size(610, 411);
             chart2.TabIndex = 50;
             chart2.Text = "chart2";
             // 
@@ -652,5 +664,6 @@
         private CheckBox checkBox19;
         private CheckBox checkBox20;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart2;
+        private ScottPlot.FormsPlot formsPlot2;
     }
 }

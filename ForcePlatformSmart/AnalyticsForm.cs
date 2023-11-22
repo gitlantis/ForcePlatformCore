@@ -172,6 +172,38 @@ namespace ForcePlatformSmart
             }
         }
 
+        public void loadHeatmap(Chart chart, List<CsvLoadArrayModel> data)
+        {
+            for (int plate = 0; plate < 4; plate++)
+            {
+                chart.Series[plate].Points.Clear();
+            }
+
+            var plates = new bool[] {
+                checkBox16.Checked,
+                checkBox17.Checked,
+                checkBox18.Checked,
+                checkBox19.Checked
+            };
+
+            foreach (CsvLoadArrayModel da in data)
+            {
+                for (int plate = 0; plate < 4; plate++)
+                {
+                    chart.Series[plate].LegendText = $"Plate {plate + 1}";
+                    chart.Series[plate].IsVisibleInLegend = checkBox20.Checked & plates[plate];
+
+                    if (!plates[plate]) continue;
+
+                    var x = da.data[1 + (plate * 3)];
+                    var y = da.data[2 + (plate * 3)];
+
+                    convertToPolarChartCoords(ref x, ref y);
+
+                    chart.Series[plate].Points.AddXY(x, y);
+                }
+            }
+        }
         public void loadPolarChartTrack(Chart chart, List<CsvLoadArrayModel> data)
         {
             for (int plate = 0; plate < 4; plate++)
