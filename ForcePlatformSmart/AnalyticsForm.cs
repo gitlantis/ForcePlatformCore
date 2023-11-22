@@ -16,6 +16,9 @@ namespace ForcePlatformSmart
         private Report userReport;
         private List<CsvLoadArrayModel> currData = new List<CsvLoadArrayModel>();
         private User user;
+        
+        List<double> fastLineXLabels = new List<double>();
+        int oldDivider = 0;
 
         public AnalyticsForm(User user, Report report)
         {
@@ -46,14 +49,39 @@ namespace ForcePlatformSmart
             }
 
             drawCharts(currData);
+            formsPlot1.MouseWheel += fastLine_MouseWheel;
 
         }
+
+        private void fastLine_MouseWheel(object? sender, MouseEventArgs e)
+        {
+            var limits = formsPlot1.Plot.GetAxisLimits();
+            double visibleWidth = limits.XMax - limits.XMin;
+
+            var estimatedPoints = (int)Math.Round(visibleWidth / formsPlot1.Plot.GetSettings(false).Axes.Count);
+            var points = estimatedPoints / 0.2;
+            var divider = (int)(points / 500);
+
+            if (divider != oldDivider)
+            {
+                updateFastLineTicks(divider);
+                oldDivider = divider;
+            }
+        }
+        private void updateFastLineTicks(int divider)
+        {
+            var plotDataTimeStr = fastLineXLabels.Select((c, index) => (index % (divider > 0 ? divider : 1) != 0) ? "" : c.ToString()).ToArray();
+            formsPlot1.Plot.XAxis.ManualTickPositions(fastLineXLabels.ToArray(), plotDataTimeStr);
+            formsPlot1.Render();
+        }
+
         private void drawCharts(List<CsvLoadArrayModel> csvata)
         {
             loadFastLine(formsPlot1, csvata, userReport.Unit);
             loadPolarChartRadar(chart1, csvata);
             loadPolarChartTrack(chart2, csvata);
         }
+
         private void loadFastLine(FormsPlot plot, List<CsvLoadArrayModel> data, string unit)
         {
             var plotDataTime = new double[data.Count];
@@ -71,8 +99,11 @@ namespace ForcePlatformSmart
 
             plot.Plot.Clear();
 
+            fastLineXLabels = data.Select(c => c.data[0]).ToList();
+
+            var divider = (int)(data.Count() / 550);
             plotDataTime = data.Select(c => c.data[0]).ToArray();
-            plotDataTimeStr = data.Select(c => c.data[0].ToString()).ToArray();
+            plotDataTimeStr = data.Select((c, index) => (index % (divider > 0 ? divider : 1) != 0) ? "" : c.data[0].ToString()).ToArray();
 
             for (var plate = 0; plate < 4; plate++)
             {
