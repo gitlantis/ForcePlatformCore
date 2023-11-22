@@ -40,7 +40,13 @@ namespace ForcePlatformCore
 
         public void ComPortBufferStore(object sender, EventArgs e)
         {
-            if (startRecording) recordStartStop();
+            if (startRecording)
+            {
+                toolStripButton4.ForeColor = Color.Orange;
+                toolStripButton4.Text = "Saving data";
+
+                recordStartStop();
+            }
 
             Program.ComPort.Zero();
             Program.ComPort.ResetSaverData();
@@ -280,12 +286,12 @@ namespace ForcePlatformCore
             }
             else
             {
+                saveDataToCsv();
+
                 toolStripButton4.ForeColor = Color.Black;
                 toolStripButton4.Text = "Start recording";
                 toolStripButton4.Image = Image.FromFile("assets/play-circle-o.png");
             }
-
-            if (!startRecording) saveDataToCsv();
         }
 
         private void saveDataToCsv()

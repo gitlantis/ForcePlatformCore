@@ -2,10 +2,12 @@
 using ForcePlatformData.DbModels;
 using ForcePlatformData.Helpers;
 using ForcePlatformData.Models;
+using Newtonsoft.Json.Linq;
 using ScottPlot;
 using ScottPlot.Plottable;
 using System.Windows.Forms.DataVisualization.Charting;
 using static ForcePlatformData.Constants;
+using static ScottPlot.Plottable.PopulationPlot;
 
 namespace ForcePlatformSmart
 {
@@ -14,9 +16,6 @@ namespace ForcePlatformSmart
         private Report userReport;
         private List<CsvLoadArrayModel> currData = new List<CsvLoadArrayModel>();
         private User user;
-        readonly DataLogger[] LoggerDiffX = new DataLogger[4];
-        readonly DataLogger[] LoggerDiffY = new DataLogger[4];
-        readonly DataLogger[] LoggerDiffZ = new DataLogger[4];
 
         public AnalyticsForm(User user, Report report)
         {
@@ -24,67 +23,6 @@ namespace ForcePlatformSmart
             this.userReport = report;
 
             InitializeComponent();
-
-            chart1.ChartAreas[0].AxisX.ScaleView.Zoomable = true;
-            chart2.ChartAreas[0].AxisX.ScaleView.Zoomable = true;
-            chart3.ChartAreas[0].AxisX.ScaleView.Zoomable = true;
-            chart4.ChartAreas[0].AxisX.ScaleView.Zoomable = true;
-
-            chart1.MouseWheel += chart1_MouseWheel;
-            chart3.MouseWheel += chart1_MouseWheel;
-
-            for (int i = 0; i < 4; i++)
-            {
-                LoggerDiffX[i] = formsPlot1.Plot.AddDataLogger(label: $"p{i + 1}X", lineWidth: 3);
-                LoggerDiffX[i].ViewSlide();
-
-                LoggerDiffY[i] = formsPlot1.Plot.AddDataLogger(label: $"p{i + 1}Y", lineWidth: 3);
-                LoggerDiffY[i].ViewSlide();
-
-                LoggerDiffZ[i] = formsPlot1.Plot.AddDataLogger(label: $"p{i + 1}Z", lineWidth: 3);
-                LoggerDiffZ[i].ViewSlide();
-            }
-            formsPlot1.Plot.Legend(true);
-
-            var style = new ScottPlot.Styles.Black();
-            var palette = new ScottPlot.Palettes.Category10();
-
-            formsPlot1.Plot.Style(style);
-            formsPlot1.Plot.Palette = palette;
-
-            formsPlot1.Plot.XLabel("Time");
-            formsPlot1.Plot.YLabel(userReport.Unit);
-
-            formsPlot1.Plot.AxisAuto();
-            formsPlot1.Plot.AxisScale();
-
-            formsPlot1.Refresh();
-
-        }
-
-        private void chart1_MouseWheel(object sender, MouseEventArgs e)
-        {
-            var chart = (Chart)sender;
-            var xAxis = chart.ChartAreas[0].AxisX;
-
-            try
-            {
-                if (e.Delta < 0)
-                {
-                    xAxis.ScaleView.ZoomReset();
-                }
-                else if (e.Delta > 0)
-                {
-                    var xMin = xAxis.ScaleView.ViewMinimum;
-                    var xMax = xAxis.ScaleView.ViewMaximum;
-
-                    var posXStart = xAxis.PixelPositionToValue(e.Location.X) - (xMax - xMin) / 4;
-                    var posXFinish = xAxis.PixelPositionToValue(e.Location.X) + (xMax - xMin) / 4;
-
-                    xAxis.ScaleView.Zoom(posXStart, posXFinish);
-                }
-            }
-            catch { }
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -107,55 +45,59 @@ namespace ForcePlatformSmart
                 Program.Message("Error", ex.Message);
             }
 
-            loadFastLine(chart1, currData, userReport.Unit);
-            loadPolarChartRadar(chart2, currData);
-            loadHistogram(chart3, currData, userReport.Unit);
-            loadPolarChartTrack(chart4, currData);
+            drawCharts(currData);
+
         }
-
-        private void loadHistogram(Chart chart, List<CsvLoadArrayModel> data, string unit)
+        private void drawCharts(List<CsvLoadArrayModel> csvata)
         {
-            chart.ChartAreas[0].AxisX.Title = "Time(msec)";
-            chart.ChartAreas[0].AxisY.Title = unit;
-
-            foreach (CsvLoadArrayModel da in data)
-            {
-                if ((da.data[1] > 0.0 && da.data[2] > 0.0) || (da.data[1] < 0.0 && da.data[2] < 0.0))
-                {
-                    var x = da.data[1]; // %%
-                    var y = da.data[2];
-
-                    chart.Series[0].Points.AddXY(x, y);
-                }
-                else continue;
-            }
+            loadFastLine(formsPlot1, csvata, userReport.Unit);
+            loadPolarChartRadar(chart1, csvata);
+            loadPolarChartTrack(chart2, csvata);
         }
-
-        private void loadFastLine(Chart chart, List<CsvLoadArrayModel> data, string unit)
+        private void loadFastLine(FormsPlot plot, List<CsvLoadArrayModel> data, string unit)
         {
-            chart.ChartAreas[0].AxisX.Title = "Time(msec)";
-            chart.ChartAreas[0].AxisY.Title = unit;
+            var plotDataTime = new double[data.Count];
+            var plotDataTimeStr = new string[data.Count];
+            var plotDataX = new Dictionary<int, double[]>();
+            var plotDataY = new Dictionary<int, double[]>();
+            var plotDataZ = new Dictionary<int, double[]>();
 
-            foreach (Series s in chart.Series) s.Points.Clear();
+            var plates = new bool[] {
+                checkBox1.Checked,
+                checkBox2.Checked,
+                checkBox3.Checked,
+                checkBox4.Checked
+            };
 
-            foreach (CsvLoadArrayModel dd in data)
+            plot.Plot.Clear();
+
+            plotDataTime = data.Select(c => c.data[0]).ToArray();
+            plotDataTimeStr = data.Select(c => c.data[0].ToString()).ToArray();
+
+            for (var plate = 0; plate < 4; plate++)
             {
-                var timeShift = dd.data[0];
-                for (var plate = 0; plate < 4; plate++)
-                {
-                    LoggerDiffX[plate].Add(dd.data[0], dd.data[1 + (plate * 3)]);
-                    LoggerDiffX[plate].Add(dd.data[0], dd.data[2 + (plate * 3)]);
-                    LoggerDiffX[plate].Add(dd.data[0], dd.data[3 + (plate * 3)]);
-                }
-                //if (timeShift > 0)
-                //{
-                //    if (checkBox2.Checked) for (int i = 1; i < 4; i++) chart.Series[i - 1].Points.AddXY(timeShift, dd.data[i]);
-                //    if (checkBox3.Checked) for (int i = 4; i < 7; i++) chart.Series[i - 1].Points.AddXY(timeShift, dd.data[i]);
-                //    if (checkBox4.Checked) for (int i = 7; i < 10; i++) chart.Series[i - 1].Points.AddXY(timeShift, dd.data[i]);
-                //    if (checkBox5.Checked) for (int i = 10; i < 13; i++) chart.Series[i - 1].Points.AddXY(timeShift, dd.data[i]);
-                //}
+                if (!plates[plate]) continue;
+
+                var valsX = data.Select(c => c.data[1 + (plate * 3)] * c.data[3 + (plate * 3)] / 100).ToArray();
+                plot.Plot.AddSignal(valsX, 1, null, $"p{plate + 1}X").LineWidth = 2;
+
+                var valsY = data.Select(c => c.data[2 + (plate * 3)] * c.data[3 + (plate * 3)] / 100).ToArray();
+                plot.Plot.AddSignal(valsY, 1, null, $"p{plate + 1}Y").LineWidth = 2;
+
+                var valsZ = data.Select(c => c.data[3 + (plate * 3)]).ToArray();
+                plot.Plot.AddSignal(valsZ, 1, null, $"p{plate + 1}Z").LineWidth = 2;
             }
-            formsPlot1.Refresh();
+
+            plot.Plot.XAxis.ManualTickPositions(plotDataTime, plotDataTimeStr);
+            plot.Plot.XAxis.TickLabelStyle(rotation: 90);
+
+            formsPlot1.Plot.Legend(checkBox5.Checked, location: Alignment.UpperLeft);
+
+            plot.Plot.XLabel("Time (msec)");
+            plot.Plot.YLabel(unit);
+            plot.Configuration.LockVerticalAxis = true;
+
+            plot.Refresh();
         }
 
         private void convertToPolarChartCoords(ref double x, ref double y)
@@ -171,76 +113,96 @@ namespace ForcePlatformSmart
             y = r;
         }
 
-        public void loadPolarChartTrack(Chart chart, List<CsvLoadArrayModel> data)  // Traektoria
+        private void loadPolarChartRadar(Chart chart, List<CsvLoadArrayModel> data)
         {
-            chart.Series[0].Points.Clear();
-
-            foreach (CsvLoadArrayModel da in data)
+            for (int plate = 0; plate < 4; plate++)
             {
-                //if (da.data[3] > 5000)
-                {
-                    double x = da.data[1]; // %%
-                    double y = da.data[2];
-
-
-                    convertToPolarChartCoords(ref x, ref y);
-
-                    chart.Series[0].Points.AddXY(x, y);
-                }
-                //else continue;
+                chart.Series[plate].Points.Clear();
             }
-        }
 
-        private void loadPolarChartRadar(Chart chart, List<CsvLoadArrayModel> data)  // Radar
-        {
-            chart.Series[0].Points.Clear();
+            var plates = new bool[] {
+                checkBox6.Checked,
+                checkBox7.Checked,
+                checkBox8.Checked,
+                checkBox9.Checked
+            };
 
-            List<CoordinateModel> cr = new List<CoordinateModel>();
+            var cr = new Dictionary<int, List<CoordinateModel>>
+            {
+                { 0, new List<CoordinateModel>()},
+                { 1, new List<CoordinateModel>()},
+                { 2, new List<CoordinateModel>()},
+                { 3, new List<CoordinateModel>()}
+            };
 
             foreach (CsvLoadArrayModel da in data)
             {
 
-                //if (da.data[3] > 15000)
+                for (int plate = 0; plate < 4; plate++)
                 {
-                    double x = da.data[1]; // %%
-                    double y = da.data[2];
+                    if (!plates[plate]) continue;
+
+                    var x = da.data[1 + (plate * 3)];
+                    var y = da.data[2 + (plate * 3)];
+
                     convertToPolarChartCoords(ref x, ref y);
-                    cr.Add(new CoordinateModel(x, y));
+                    cr[plate].Add(new CoordinateModel(x, y));
                 }
-                //else continue;
             }
-            cr.Sort();
 
-            for (int i = 0; i < 361; i++)
+            for (int plate = 0; plate < 4; plate++)
             {
-                double y = 0;
-                int cnt = 0;
-                foreach (CoordinateModel da in cr) if (da.X >= i && da.X < (i + 1)) { y += da.Y; cnt++; }
+                chart.Series[plate].LegendText = $"Plate {plate + 1}";
+                chart.Series[plate].IsVisibleInLegend = checkBox10.Checked & plates[plate];
 
-                if (cnt > 0) y /= cnt;
+                if (!plates[plate]) continue;
 
-                chart.Series[0].Points.AddXY(i, y);
+                cr[plate].Sort();
+
+                for (int i = 0; i < 361; i++)
+                {
+                    var y = 0.0;
+                    var cnt = 0;
+                    foreach (CoordinateModel da in cr[plate]) if (da.X >= i && da.X < (i + 1)) { y += da.Y; cnt++; }
+
+                    if (cnt > 0) y /= cnt;
+
+                    chart.Series[plate].Points.AddXY(i, y);
+                }
             }
         }
 
-        private void checkBox_CheckedChanged(object sender, EventArgs e)
+        public void loadPolarChartTrack(Chart chart, List<CsvLoadArrayModel> data)
         {
+            for (int plate = 0; plate < 4; plate++)
+            {
+                chart.Series[plate].Points.Clear();
+            }
 
-            chart1.Series[0].Enabled = checkBox2.Checked;
-            chart1.Series[1].Enabled = checkBox2.Checked;
-            chart1.Series[2].Enabled = checkBox2.Checked;
+            var plates = new bool[] {
+                checkBox16.Checked,
+                checkBox17.Checked,
+                checkBox18.Checked,
+                checkBox19.Checked
+            };
 
-            chart1.Series[3].Enabled = checkBox3.Checked;
-            chart1.Series[4].Enabled = checkBox3.Checked;
-            chart1.Series[5].Enabled = checkBox3.Checked;
+            foreach (CsvLoadArrayModel da in data)
+            {
+                for (int plate = 0; plate < 4; plate++)
+                {
+                    chart.Series[plate].LegendText = $"Plate {plate + 1}";
+                    chart.Series[plate].IsVisibleInLegend = checkBox20.Checked & plates[plate];
 
-            chart1.Series[6].Enabled = checkBox4.Checked;
-            chart1.Series[7].Enabled = checkBox4.Checked;
-            chart1.Series[8].Enabled = checkBox4.Checked;
+                    if (!plates[plate]) continue;
 
-            chart1.Series[9].Enabled = checkBox5.Checked;
-            chart1.Series[10].Enabled = checkBox5.Checked;
-            chart1.Series[11].Enabled = checkBox5.Checked;
+                    var x = da.data[1 + (plate * 3)];
+                    var y = da.data[2 + (plate * 3)];
+
+                    convertToPolarChartCoords(ref x, ref y);
+
+                    chart.Series[plate].Points.AddXY(x, y);
+                }
+            }
         }
 
         private void iconButton2_Click(object sender, EventArgs e)
@@ -251,33 +213,37 @@ namespace ForcePlatformSmart
             while (currData.Count > 0 && (currData[0].data[3] + currData[0].data[6] + currData[0].data[9] + currData[0].data[12]) < unitValue)
                 currData.RemoveAt(0);
 
-            loadFastLine(chart1, currData, userReport.Unit);
-            loadPolarChartRadar(chart2, currData);
-            loadHistogram(chart3, currData, userReport.Unit);
-            loadPolarChartTrack(chart4, currData);
+            drawCharts(currData);
         }
 
         private void iconButton1_Click(object sender, EventArgs e)
         {
-            var chart1Size = chart1.Size;
+            formsPlot1.Visible = false;
+            var chart1Size = formsPlot1.Size;
+            formsPlot1.Size = new Size(1500, 900);
+            formsPlot1.Plot.SaveFig("assets/images/chart1.png");
+            formsPlot1.Size = chart1Size;
+            formsPlot1.Visible = true;
+
+            chart1.Visible = false;
+            var chart2Size = chart1.Size;
             chart1.Size = new Size(1500, 900);
-            chart1.SaveImage("assets/images/chart1.png", ChartImageFormat.Png);
-            chart1.Size = chart1Size;
+            chart1.SaveImage("assets/images/chart2.png", ChartImageFormat.Png);
+            chart1.Size = chart2Size;
+            chart1.Visible = true;
 
-            var chart2Size = chart2.Size;
+            //var chart3Size = chart3.Size;
+            //chart3.Size = new Size(1500, 900);
+            //chart3.SaveImage("assets/images/chart3.png", ChartImageFormat.Png);
+            //chart3.Size = chart3Size;
+
+            chart2.Visible = false;
+            var chart4Size = chart2.Size;
             chart2.Size = new Size(1500, 900);
-            chart2.SaveImage("assets/images/chart2.png", ChartImageFormat.Png);
-            chart2.Size = chart2Size;
+            chart2.SaveImage("assets/images/chart4.png", ChartImageFormat.Png);
+            chart2.Size = chart4Size;
+            chart2.Visible = true;
 
-            var chart3Size = chart3.Size;
-            chart3.Size = new Size(1500, 900);
-            chart3.SaveImage("assets/images/chart3.png", ChartImageFormat.Png);
-            chart3.Size = chart3Size;
-
-            var chart4Size = chart4.Size;
-            chart4.Size = new Size(1500, 900);
-            chart4.SaveImage("assets/images/chart4.png", ChartImageFormat.Png);
-            chart4.Size = chart4Size;
 
             try
             {
@@ -288,6 +254,11 @@ namespace ForcePlatformSmart
             {
                 Program.Message("Error", ex.Message);
             }
+        }
+
+        private void checkBox_CheckedChanged(object sender, EventArgs e)
+        {
+            drawCharts(currData);
         }
     }
 

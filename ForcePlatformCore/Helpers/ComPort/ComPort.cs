@@ -1,10 +1,4 @@
 ﻿using System.IO.Ports;
-using System.Windows;
-using ForcePlatformCore;
-using ForcePlatformData;
-using ForcePlatformData.Models;
-using Microsoft.VisualBasic.ApplicationServices;
-using ScottPlot.Drawing.Colormaps;
 
 namespace ForcePlatformCore.Helpers.ComPort
 {
@@ -19,7 +13,6 @@ namespace ForcePlatformCore.Helpers.ComPort
         public List<ReadySerialData> SharedData = new List<ReadySerialData>();
         public List<ReadySerialData> SaverData;
         private int recordIncer = 0;
-        private int oldTimeSharedMC = 0;
 
         public static event EventHandler BufferIsFull;
 
@@ -154,7 +147,6 @@ namespace ForcePlatformCore.Helpers.ComPort
             if (incer % 2 == 0)
             {
                 pushNew(new ReadySerialData { FilterLength = adcData.FilterLength, CurrentTimeMC = adcData.CurrentTimeMC, DiffX = adcData.DiffX, DiffY = adcData.DiffY, DiffZ = adcData.DiffZ });
-                oldTimeSharedMC = adcData.CurrentTimeMC;
             }
             incer++;
         }
