@@ -74,6 +74,21 @@ namespace ForcePlatformSmart
 
         private void listBox1_DoubleClick(object sender, EventArgs e)
         {
+            openReportWindow();
+        }
+
+        private void iconButton1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void iconButton2_Click(object sender, EventArgs e)
+        {
+            openReportWindow();
+        }
+
+        private void openReportWindow()
+        {
             try
             {
                 var selectedValue = listBox1.SelectedValue;
@@ -87,11 +102,6 @@ namespace ForcePlatformSmart
             {
                 Program.Message("Error", ex.Message);
             }
-        }
-
-        private void iconButton1_Click(object sender, EventArgs e)
-        {
-            this.Close();
         }
     }
 }

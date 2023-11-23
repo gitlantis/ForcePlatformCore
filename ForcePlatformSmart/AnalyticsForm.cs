@@ -48,7 +48,7 @@ namespace ForcePlatformSmart
                 Program.Message("Error", ex.Message);
             }
 
-            drawCharts(currData);
+            drawCharts();
             formsPlot1.MouseWheel += fastLine_MouseWheel;
 
         }
@@ -75,11 +75,12 @@ namespace ForcePlatformSmart
             formsPlot1.Render();
         }
 
-        private void drawCharts(List<CsvLoadArrayModel> csvata)
+        private void drawCharts()
         {
-            loadFastLine(formsPlot1, csvata, userReport.Unit);
-            loadPolarChartRadar(chart1, csvata);
-            loadPolarChartTrack(chart2, csvata);
+            loadFastLine(formsPlot1, currData, userReport.Unit);
+            loadHeatmap(formsPlot2, currData);
+            loadPolarChartRadar(chart1, currData);
+            loadPolarChartTrack(chart2, currData);
         }
 
         private void loadFastLine(FormsPlot plot, List<CsvLoadArrayModel> data, string unit)
@@ -129,19 +130,6 @@ namespace ForcePlatformSmart
             plot.Configuration.LockVerticalAxis = true;
 
             plot.Refresh();
-        }
-
-        private void convertToPolarChartCoords(ref double x, ref double y)
-        {
-            double r = Math.Sqrt((x * x) + (y * y));
-            double q = Math.Atan(Math.Abs(x) / Math.Abs(y)) * 180 / Math.PI;
-
-            if (x < 0 && y > 0) q = 360 - q;
-            if (x > 0 && y < 0) q = 180 - q;
-            if (x < 0 && y < 0) q = 270 - (90 - q);
-
-            x = q;
-            y = r;
         }
 
         private void loadPolarChartRadar(Chart chart, List<CsvLoadArrayModel> data)
@@ -203,37 +191,23 @@ namespace ForcePlatformSmart
             }
         }
 
-        public void loadHeatmap(Chart chart, List<CsvLoadArrayModel> data)
+        public void loadHeatmap(FormsPlot plot, List<CsvLoadArrayModel> data)
         {
-            for (int plate = 0; plate < 4; plate++)
-            {
-                chart.Series[plate].Points.Clear();
-            }
+            //var plates = new bool[] {
+            //    checkBox16.Checked,
+            //    checkBox17.Checked,
+            //    checkBox18.Checked,
+            //    checkBox19.Checked
+            //};
 
-            var plates = new bool[] {
-                checkBox16.Checked,
-                checkBox17.Checked,
-                checkBox18.Checked,
-                checkBox19.Checked
-            };
+            var result = calculateHeatmap(data);
 
-            foreach (CsvLoadArrayModel da in data)
-            {
-                for (int plate = 0; plate < 4; plate++)
-                {
-                    chart.Series[plate].LegendText = $"Plate {plate + 1}";
-                    chart.Series[plate].IsVisibleInLegend = checkBox20.Checked & plates[plate];
+            plot.Plot.Clear();
 
-                    if (!plates[plate]) continue;
+            plot.Plot.AddHeatmap(result[0]);
 
-                    var x = da.data[1 + (plate * 3)];
-                    var y = da.data[2 + (plate * 3)];
-
-                    convertToPolarChartCoords(ref x, ref y);
-
-                    chart.Series[plate].Points.AddXY(x, y);
-                }
-            }
+            plot.Refresh();
+            
         }
         public void loadPolarChartTrack(Chart chart, List<CsvLoadArrayModel> data)
         {
@@ -268,6 +242,56 @@ namespace ForcePlatformSmart
             }
         }
 
+        private Dictionary<int, double[,]> calculateHeatmap(List<CsvLoadArrayModel> data)
+        {
+            var col = 75;
+            var raw = 50;
+
+            var result = new Dictionary<int, double[,]> {
+                { 0, new double[raw,col] },
+                { 1, new double[raw,col] },
+                { 2, new double[raw,col] },
+                { 3, new double[raw,col] }
+            };
+
+            foreach (var line in data)
+            {
+                for (var plate = 0; plate < 4; plate++)
+                {
+                    if (line.data[3 + (plate * 3)] > 0)
+                    {
+                        var x = line.data[1 + (plate * 3)];
+                        var y = line.data[2 + (plate * 3)];
+                        var z = line.data[3 + (plate * 3)];
+
+                        var heatCol = (int)((100 + x) * col / 200);
+                        var heatRaw = (int)((100 + y) * raw / 200);
+
+                        var tmp = result[plate][heatRaw, heatCol];
+                        var avg = (tmp + z);
+
+                        if (z > 0) avg /= 2;
+
+                        result[plate][heatRaw, heatCol] = avg;
+                    }
+                }
+            }
+            return result;
+        }
+
+        private void convertToPolarChartCoords(ref double x, ref double y)
+        {
+            double r = Math.Sqrt((x * x) + (y * y));
+            double q = Math.Atan(Math.Abs(x) / Math.Abs(y)) * 180 / Math.PI;
+
+            if (x < 0 && y > 0) q = 360 - q;
+            if (x > 0 && y < 0) q = 180 - q;
+            if (x < 0 && y < 0) q = 270 - (90 - q);
+
+            x = q;
+            y = r;
+        }
+
         private void iconButton2_Click(object sender, EventArgs e)
         {
             var unitValue = 2.8;
@@ -276,7 +300,7 @@ namespace ForcePlatformSmart
             while (currData.Count > 0 && (currData[0].data[3] + currData[0].data[6] + currData[0].data[9] + currData[0].data[12]) < unitValue)
                 currData.RemoveAt(0);
 
-            drawCharts(currData);
+            drawCharts();
         }
 
         private void iconButton1_Click(object sender, EventArgs e)
@@ -319,9 +343,24 @@ namespace ForcePlatformSmart
             }
         }
 
-        private void checkBox_CheckedChanged(object sender, EventArgs e)
+        private void checkBoxFastLine_CheckedChanged(object sender, EventArgs e)
         {
-            drawCharts(currData);
+            loadFastLine(formsPlot1, currData, userReport.Unit);
+        }
+
+        private void checkBoxRadar_CheckedChanged(object sender, EventArgs e)
+        {
+            loadPolarChartRadar(chart1, currData);
+        }
+
+        private void checkBoxHeatmap_CheckedChanged(object sender, EventArgs e)
+        {
+            loadHeatmap(formsPlot2, currData);
+        }
+
+        private void checkBoxTrack_CheckedChanged(object sender, EventArgs e)
+        {
+            loadPolarChartTrack(chart2, currData);
         }
     }
 

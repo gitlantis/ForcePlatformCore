@@ -457,7 +457,7 @@
             iconButton2.Anchor = AnchorStyles.Bottom;
             iconButton2.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
             iconButton2.ForeColor = Color.FromArgb(0, 0, 192);
-            iconButton2.IconChar = FontAwesome.Sharp.IconChar.Print;
+            iconButton2.IconChar = FontAwesome.Sharp.IconChar.ChartColumn;
             iconButton2.IconColor = Color.FromArgb(0, 0, 192);
             iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton2.IconSize = 32;
@@ -466,9 +466,10 @@
             iconButton2.Name = "iconButton2";
             iconButton2.Size = new Size(89, 39);
             iconButton2.TabIndex = 6;
-            iconButton2.Text = "Print";
+            iconButton2.Text = "View";
             iconButton2.TextAlign = ContentAlignment.MiddleRight;
             iconButton2.UseVisualStyleBackColor = true;
+            iconButton2.Click += iconButton2_Click;
             // 
             // iconButton1
             // 

@@ -132,7 +132,7 @@
             checkBox1.TabIndex = 39;
             checkBox1.Text = "Plate 1";
             checkBox1.UseVisualStyleBackColor = false;
-            checkBox1.CheckedChanged += checkBox_CheckedChanged;
+            checkBox1.CheckedChanged += checkBoxFastLine_CheckedChanged;
             // 
             // checkBox5
             // 
@@ -147,7 +147,7 @@
             checkBox5.TabIndex = 38;
             checkBox5.Text = "Legend";
             checkBox5.UseVisualStyleBackColor = false;
-            checkBox5.CheckedChanged += checkBox_CheckedChanged;
+            checkBox5.CheckedChanged += checkBoxFastLine_CheckedChanged;
             // 
             // checkBox4
             // 
@@ -162,7 +162,7 @@
             checkBox4.TabIndex = 37;
             checkBox4.Text = "Plate 4";
             checkBox4.UseVisualStyleBackColor = false;
-            checkBox4.CheckedChanged += checkBox_CheckedChanged;
+            checkBox4.CheckedChanged += checkBoxFastLine_CheckedChanged;
             // 
             // checkBox3
             // 
@@ -177,7 +177,7 @@
             checkBox3.TabIndex = 36;
             checkBox3.Text = "Plate 3";
             checkBox3.UseVisualStyleBackColor = false;
-            checkBox3.CheckedChanged += checkBox_CheckedChanged;
+            checkBox3.CheckedChanged += checkBoxFastLine_CheckedChanged;
             // 
             // checkBox2
             // 
@@ -192,7 +192,7 @@
             checkBox2.TabIndex = 35;
             checkBox2.Text = "Plate 2";
             checkBox2.UseVisualStyleBackColor = false;
-            checkBox2.CheckedChanged += checkBox_CheckedChanged;
+            checkBox2.CheckedChanged += checkBoxFastLine_CheckedChanged;
             // 
             // formsPlot1
             // 
@@ -231,7 +231,7 @@
             checkBox6.TabIndex = 50;
             checkBox6.Text = "Plate 1";
             checkBox6.UseVisualStyleBackColor = false;
-            checkBox6.CheckedChanged += checkBox_CheckedChanged;
+            checkBox6.CheckedChanged += checkBoxRadar_CheckedChanged;
             // 
             // checkBox7
             // 
@@ -246,7 +246,7 @@
             checkBox7.TabIndex = 49;
             checkBox7.Text = "Plate 2";
             checkBox7.UseVisualStyleBackColor = false;
-            checkBox7.CheckedChanged += checkBox_CheckedChanged;
+            checkBox7.CheckedChanged += checkBoxRadar_CheckedChanged;
             // 
             // checkBox10
             // 
@@ -261,7 +261,7 @@
             checkBox10.TabIndex = 46;
             checkBox10.Text = "Legend";
             checkBox10.UseVisualStyleBackColor = false;
-            checkBox10.CheckedChanged += checkBox_CheckedChanged;
+            checkBox10.CheckedChanged += checkBoxRadar_CheckedChanged;
             // 
             // checkBox9
             // 
@@ -276,7 +276,7 @@
             checkBox9.TabIndex = 47;
             checkBox9.Text = "Plate 4";
             checkBox9.UseVisualStyleBackColor = false;
-            checkBox9.CheckedChanged += checkBox_CheckedChanged;
+            checkBox9.CheckedChanged += checkBoxRadar_CheckedChanged;
             // 
             // checkBox8
             // 
@@ -291,7 +291,7 @@
             checkBox8.TabIndex = 48;
             checkBox8.Text = "Plate 3";
             checkBox8.UseVisualStyleBackColor = false;
-            checkBox8.CheckedChanged += checkBox_CheckedChanged;
+            checkBox8.CheckedChanged += checkBoxRadar_CheckedChanged;
             // 
             // chart1
             // 
@@ -455,7 +455,7 @@
             checkBox16.TabIndex = 55;
             checkBox16.Text = "Plate 1";
             checkBox16.UseVisualStyleBackColor = false;
-            checkBox16.CheckedChanged += checkBox_CheckedChanged;
+            checkBox16.CheckedChanged += checkBoxTrack_CheckedChanged;
             // 
             // checkBox17
             // 
@@ -470,7 +470,7 @@
             checkBox17.TabIndex = 54;
             checkBox17.Text = "Plate 2";
             checkBox17.UseVisualStyleBackColor = false;
-            checkBox17.CheckedChanged += checkBox_CheckedChanged;
+            checkBox17.CheckedChanged += checkBoxTrack_CheckedChanged;
             // 
             // checkBox18
             // 
@@ -485,7 +485,7 @@
             checkBox18.TabIndex = 53;
             checkBox18.Text = "Plate 3";
             checkBox18.UseVisualStyleBackColor = false;
-            checkBox18.CheckedChanged += checkBox_CheckedChanged;
+            checkBox18.CheckedChanged += checkBoxTrack_CheckedChanged;
             // 
             // checkBox19
             // 
@@ -500,7 +500,7 @@
             checkBox19.TabIndex = 52;
             checkBox19.Text = "Plate 4";
             checkBox19.UseVisualStyleBackColor = false;
-            checkBox19.CheckedChanged += checkBox_CheckedChanged;
+            checkBox19.CheckedChanged += checkBoxTrack_CheckedChanged;
             // 
             // checkBox20
             // 
@@ -515,7 +515,7 @@
             checkBox20.TabIndex = 51;
             checkBox20.Text = "Legend";
             checkBox20.UseVisualStyleBackColor = false;
-            checkBox20.CheckedChanged += checkBox_CheckedChanged;
+            checkBox20.CheckedChanged += checkBoxTrack_CheckedChanged;
             // 
             // chart2
             // 
