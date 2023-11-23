@@ -44,5 +44,5 @@ namespace ForcePlatformData.DbModels
     }
 }
 
-//PM> Add-Migration ExerciseData001 -Project ForcePlatformData -StartupProject ForcePlatformCore -Context SqliteContext 
+//PM> Add-Migration BasMigration001 -Project ForcePlatformData -StartupProject ForcePlatformCore -Context SqliteContext 
 //PM> Update-Database -Project ForcePlatformData -StartupProject ForcePlatformCore -Context SqliteContext 

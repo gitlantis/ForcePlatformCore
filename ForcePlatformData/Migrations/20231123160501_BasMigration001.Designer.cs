@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ForcePlatformData.Migrations
 {
     [DbContext(typeof(SqliteContext))]
-    [Migration("20231118103442_ExerciseData001")]
-    partial class ExerciseData001
+    [Migration("20231123160501_BasMigration001")]
+    partial class BasMigration001
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -66,6 +66,10 @@ namespace ForcePlatformData.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Path")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Unit")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -136,6 +140,12 @@ namespace ForcePlatformData.Migrations
                     b.Property<string>("Gender")
                         .HasColumnType("TEXT");
 
+                    b.Property<double?>("LeftForearm")
+                        .HasColumnType("REAL");
+
+                    b.Property<double?>("LeftHand")
+                        .HasColumnType("REAL");
+
                     b.Property<double?>("LeftShin")
                         .HasColumnType("REAL");
 
@@ -145,9 +155,18 @@ namespace ForcePlatformData.Migrations
                     b.Property<double?>("LeftTigh")
                         .HasColumnType("REAL");
 
+                    b.Property<double?>("LeftUpperLimb")
+                        .HasColumnType("REAL");
+
                     b.Property<string>("LengthUnit")
                         .IsRequired()
                         .HasColumnType("TEXT");
+
+                    b.Property<double?>("RightForearm")
+                        .HasColumnType("REAL");
+
+                    b.Property<double?>("RightHand")
+                        .HasColumnType("REAL");
 
                     b.Property<double?>("RightShin")
                         .HasColumnType("REAL");
@@ -156,6 +175,9 @@ namespace ForcePlatformData.Migrations
                         .HasColumnType("REAL");
 
                     b.Property<double?>("RightTigh")
+                        .HasColumnType("REAL");
+
+                    b.Property<double?>("RightUpperLimb")
                         .HasColumnType("REAL");
 
                     b.Property<int>("UserId")

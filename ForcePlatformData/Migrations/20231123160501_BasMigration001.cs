@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ForcePlatformData.Migrations
 {
     /// <inheritdoc />
-    public partial class ExerciseData001 : Migration
+    public partial class BasMigration001 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -52,6 +52,7 @@ namespace ForcePlatformData.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     UserId = table.Column<int>(type: "INTEGER", nullable: false),
                     Path = table.Column<string>(type: "TEXT", nullable: false),
+                    Unit = table.Column<string>(type: "TEXT", nullable: false),
                     ExerciseTypeId = table.Column<int>(type: "INTEGER", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
@@ -86,6 +87,12 @@ namespace ForcePlatformData.Migrations
                     RightSole = table.Column<double>(type: "REAL", nullable: true),
                     RightShin = table.Column<double>(type: "REAL", nullable: true),
                     RightTigh = table.Column<double>(type: "REAL", nullable: true),
+                    LeftHand = table.Column<double>(type: "REAL", nullable: true),
+                    LeftForearm = table.Column<double>(type: "REAL", nullable: true),
+                    LeftUpperLimb = table.Column<double>(type: "REAL", nullable: true),
+                    RightHand = table.Column<double>(type: "REAL", nullable: true),
+                    RightForearm = table.Column<double>(type: "REAL", nullable: true),
+                    RightUpperLimb = table.Column<double>(type: "REAL", nullable: true),
                     LengthUnit = table.Column<string>(type: "TEXT", nullable: false),
                     BodyHeight = table.Column<double>(type: "REAL", nullable: true),
                     BodyWeight = table.Column<double>(type: "REAL", nullable: true)
