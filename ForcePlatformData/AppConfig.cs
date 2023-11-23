@@ -10,7 +10,7 @@ namespace ForcePlatformData
         private static IConfiguration Configuration { get; set; }
         public static SqliteContext DbContext = new SqliteContext();
         public static User User { get; set; }
-        
+        public static AppsettingsModel Config => Get();
         public static AppsettingsModel? UpdateConfig
         {
             set
@@ -19,52 +19,60 @@ namespace ForcePlatformData
             }
         }
 
-        public static AppsettingsModel Config => Get();
-
         public static string CommonPath = AppsettingsModel.CommonPath;
         public static string DbName = AppsettingsModel.DbName;
 
         private static AppsettingsModel Get()
         {
-            if (!Directory.Exists(CommonPath))
-                Directory.CreateDirectory(CommonPath);
-
-            var commonFiles = new Dictionary<string, string>
+            try
             {
-                { Path.Join(Environment.CurrentDirectory, AppsettingsModel.AppSettingsName), Path.Join(CommonPath, AppsettingsModel.AppSettingsName)},
-                { Path.Join(Environment.CurrentDirectory, AppConfig.DbName), Path.Join(CommonPath, AppConfig.DbName)}
-            };
+                if (!Directory.Exists(CommonPath))
+                    Directory.CreateDirectory(CommonPath);
 
-            foreach (var file in commonFiles)
-                if (!File.Exists(file.Value))
-                    File.Copy(file.Key, file.Value);
+                var commonFiles = new Dictionary<string, string>
+                {
+                    { Path.Join(Environment.CurrentDirectory, AppsettingsModel.AppSettingsName), Path.Join(CommonPath, AppsettingsModel.AppSettingsName)},
+                    { Path.Join(Environment.CurrentDirectory, AppConfig.DbName), Path.Join(CommonPath, AppConfig.DbName)}
+                };
 
-            var builder = new ConfigurationBuilder().AddJsonFile(Path.Join(CommonPath, AppsettingsModel.AppSettingsName), optional: true, reloadOnChange: true);
-            Configuration = builder.Build();
-            var result = Configuration.Get<AppsettingsModel>();
+                foreach (var file in commonFiles)
+                    if (!File.Exists(file.Value))
+                        File.Copy(file.Key, file.Value);
 
-            var reportPath = Path.Join(CommonPath, result.ReportsPath);
-            if (!Directory.Exists(reportPath))
-                Directory.CreateDirectory(reportPath);
+                var builder = new ConfigurationBuilder().AddJsonFile(Path.Join(CommonPath, AppsettingsModel.AppSettingsName), optional: true, reloadOnChange: true);
+                Configuration = builder.Build();
+                var result = Configuration.Get<AppsettingsModel>();
 
-            var pdfReportPath = Path.Join(CommonPath, result.PdfReportPath);
-            if (!Directory.Exists(pdfReportPath))
-                Directory.CreateDirectory(pdfReportPath);
+                var reportPath = Path.Join(CommonPath, result.ReportsPath);
+                if (!Directory.Exists(reportPath))
+                    Directory.CreateDirectory(reportPath);
 
-            return result;
+                var pdfReportPath = Path.Join(CommonPath, result.PdfReportPath);
+                if (!Directory.Exists(pdfReportPath))
+                    Directory.CreateDirectory(pdfReportPath);
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public static void Update(AppsettingsModel model)
         {
-            var jsonOptions = new JsonSerializerOptions
+            try
             {
-                WriteIndented = true,
-            };
-            File.WriteAllText(Path.Join(CommonPath, AppsettingsModel.AppSettingsName), JsonSerializer.Serialize(model, jsonOptions));
+                var jsonOptions = new JsonSerializerOptions
+                {
+                    WriteIndented = true,
+                };
+                File.WriteAllText(Path.Join(CommonPath, AppsettingsModel.AppSettingsName), JsonSerializer.Serialize(model, jsonOptions));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
-
-
-
-
 }

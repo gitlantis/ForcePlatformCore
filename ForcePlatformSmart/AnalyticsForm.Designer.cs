@@ -71,7 +71,6 @@
             chart2 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             panel5 = new Panel();
             iconButton1 = new FontAwesome.Sharp.IconButton();
-            iconButton2 = new FontAwesome.Sharp.IconButton();
             tableLayoutPanel1.SuspendLayout();
             panel2.SuspendLayout();
             panel1.SuspendLayout();
@@ -567,7 +566,6 @@
             // 
             panel5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             panel5.Controls.Add(iconButton1);
-            panel5.Controls.Add(iconButton2);
             panel5.Location = new Point(618, 827);
             panel5.Name = "panel5";
             panel5.Size = new Size(610, 49);
@@ -591,25 +589,6 @@
             iconButton1.TextAlign = ContentAlignment.MiddleRight;
             iconButton1.UseVisualStyleBackColor = true;
             iconButton1.Click += iconButton1_Click;
-            // 
-            // iconButton2
-            // 
-            iconButton2.Anchor = AnchorStyles.Right;
-            iconButton2.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            iconButton2.ForeColor = Color.FromArgb(0, 0, 192);
-            iconButton2.IconChar = FontAwesome.Sharp.IconChar.Scissors;
-            iconButton2.IconColor = Color.FromArgb(0, 0, 192);
-            iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton2.IconSize = 32;
-            iconButton2.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButton2.Location = new Point(352, 5);
-            iconButton2.Name = "iconButton2";
-            iconButton2.Size = new Size(109, 41);
-            iconButton2.TabIndex = 29;
-            iconButton2.Text = "Trim spaces";
-            iconButton2.TextAlign = ContentAlignment.MiddleRight;
-            iconButton2.UseVisualStyleBackColor = true;
-            iconButton2.Click += iconButton2_Click;
             // 
             // AnalyticsForm
             // 
@@ -644,7 +623,6 @@
         private CheckBox checkBox4;
         private CheckBox checkBox3;
         private CheckBox checkBox2;
-        private FontAwesome.Sharp.IconButton iconButton2;
         private Panel panel1;
         private Panel panel3;
         private Panel panel4;

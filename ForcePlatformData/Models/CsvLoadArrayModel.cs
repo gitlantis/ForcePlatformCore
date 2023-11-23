@@ -12,18 +12,17 @@ namespace ForcePlatformData.Models
 
         public CsvLoadArrayModel()
         {
-            data = new double[13];
+            data = new double[14];
         }
 
         public CsvLoadArrayModel(string[] strs) : this()
         {
 
-            for (int i = 0; i < 13; i++)
-                try
-                {
-                    data[i] = double.Parse(strs[i]);
-                }
-                catch { };
+            for (int i = 0; i < 14; i++)
+            {
+                double.TryParse(strs[i], out double val);
+                data[i] = val;
+            };
 
         }
     }

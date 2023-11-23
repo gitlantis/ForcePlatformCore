@@ -40,7 +40,6 @@
             label3 = new Label();
             textBox1 = new TextBox();
             iconButton2 = new FontAwesome.Sharp.IconButton();
-            comboBox1 = new ComboBox();
             label6 = new Label();
             comboBox2 = new ComboBox();
             imageList1 = new ImageList(components);
@@ -50,6 +49,7 @@
             iconPictureBox6 = new FontAwesome.Sharp.IconPictureBox();
             iconPictureBox3 = new FontAwesome.Sharp.IconPictureBox();
             iconPictureBox4 = new FontAwesome.Sharp.IconPictureBox();
+            textBox3 = new TextBox();
             tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox2).BeginInit();
@@ -131,7 +131,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label4.Location = new Point(11, 57);
+            label4.Location = new Point(11, 60);
             label4.Name = "label4";
             label4.Size = new Size(103, 21);
             label4.TabIndex = 15;
@@ -141,19 +141,18 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label3.Location = new Point(11, 13);
+            label3.Location = new Point(312, 59);
             label3.Name = "label3";
-            label3.Size = new Size(87, 21);
+            label3.Size = new Size(139, 21);
             label3.TabIndex = 13;
-            label3.Text = "Filter type";
+            label3.Text = "Calibrate Weight";
             // 
             // textBox1
             // 
-            textBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             textBox1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             textBox1.Location = new Point(163, 54);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(602, 29);
+            textBox1.Size = new Size(134, 29);
             textBox1.TabIndex = 11;
             textBox1.KeyPress += validateInt;
             // 
@@ -167,7 +166,7 @@
             iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton2.IconSize = 32;
             iconButton2.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButton2.Location = new Point(695, 464);
+            iconButton2.Location = new Point(695, 420);
             iconButton2.Name = "iconButton2";
             iconButton2.Size = new Size(70, 39);
             iconButton2.TabIndex = 14;
@@ -176,21 +175,11 @@
             iconButton2.UseVisualStyleBackColor = true;
             iconButton2.Click += iconButton1_Click;
             // 
-            // comboBox1
-            // 
-            comboBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBox1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            comboBox1.Location = new Point(163, 10);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(602, 29);
-            comboBox1.TabIndex = 12;
-            // 
             // label6
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label6.Location = new Point(11, 100);
+            label6.Location = new Point(11, 15);
             label6.Name = "label6";
             label6.Size = new Size(118, 21);
             label6.TabIndex = 19;
@@ -201,7 +190,7 @@
             comboBox2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            comboBox2.Location = new Point(163, 97);
+            comboBox2.Location = new Point(163, 12);
             comboBox2.Name = "comboBox2";
             comboBox2.Size = new Size(602, 29);
             comboBox2.TabIndex = 18;
@@ -225,7 +214,7 @@
             iconPictureBox1.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconPictureBox1.IconSize = 218;
             iconPictureBox1.ImageLocation = "";
-            iconPictureBox1.Location = new Point(181, 132);
+            iconPictureBox1.Location = new Point(187, 90);
             iconPictureBox1.Name = "iconPictureBox1";
             iconPictureBox1.Rotation = 270D;
             iconPictureBox1.Size = new Size(218, 308);
@@ -244,7 +233,7 @@
             iconPictureBox2.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconPictureBox2.IconSize = 218;
             iconPictureBox2.ImageLocation = "";
-            iconPictureBox2.Location = new Point(372, 132);
+            iconPictureBox2.Location = new Point(378, 90);
             iconPictureBox2.Name = "iconPictureBox2";
             iconPictureBox2.Rotation = 270D;
             iconPictureBox2.Size = new Size(218, 308);
@@ -263,7 +252,7 @@
             iconPictureBox5.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconPictureBox5.IconSize = 218;
             iconPictureBox5.ImageLocation = "";
-            iconPictureBox5.Location = new Point(372, 202);
+            iconPictureBox5.Location = new Point(372, 160);
             iconPictureBox5.Name = "iconPictureBox5";
             iconPictureBox5.Rotation = 270D;
             iconPictureBox5.Size = new Size(218, 308);
@@ -282,7 +271,7 @@
             iconPictureBox6.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconPictureBox6.IconSize = 218;
             iconPictureBox6.ImageLocation = "";
-            iconPictureBox6.Location = new Point(558, 132);
+            iconPictureBox6.Location = new Point(558, 90);
             iconPictureBox6.Name = "iconPictureBox6";
             iconPictureBox6.Rotation = 270D;
             iconPictureBox6.Size = new Size(218, 308);
@@ -301,7 +290,7 @@
             iconPictureBox3.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconPictureBox3.IconSize = 218;
             iconPictureBox3.ImageLocation = "";
-            iconPictureBox3.Location = new Point(187, 132);
+            iconPictureBox3.Location = new Point(187, 90);
             iconPictureBox3.Name = "iconPictureBox3";
             iconPictureBox3.Rotation = 270D;
             iconPictureBox3.Size = new Size(218, 308);
@@ -320,7 +309,7 @@
             iconPictureBox4.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconPictureBox4.IconSize = 218;
             iconPictureBox4.ImageLocation = "";
-            iconPictureBox4.Location = new Point(2, 202);
+            iconPictureBox4.Location = new Point(2, 160);
             iconPictureBox4.Name = "iconPictureBox4";
             iconPictureBox4.Rotation = 270D;
             iconPictureBox4.Size = new Size(218, 308);
@@ -329,11 +318,21 @@
             iconPictureBox4.TabStop = false;
             iconPictureBox4.Visible = false;
             // 
+            // textBox3
+            // 
+            textBox3.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            textBox3.Location = new Point(457, 54);
+            textBox3.Name = "textBox3";
+            textBox3.Size = new Size(163, 29);
+            textBox3.TabIndex = 34;
+            textBox3.KeyPress += validateInt;
+            // 
             // SettingsForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(777, 515);
+            ClientSize = new Size(777, 471);
+            Controls.Add(textBox3);
             Controls.Add(iconPictureBox5);
             Controls.Add(iconPictureBox6);
             Controls.Add(iconPictureBox3);
@@ -346,7 +345,6 @@
             Controls.Add(label3);
             Controls.Add(textBox1);
             Controls.Add(iconButton2);
-            Controls.Add(comboBox1);
             Controls.Add(tableLayoutPanel1);
             MinimumSize = new Size(423, 218);
             Name = "SettingsForm";
@@ -379,7 +377,6 @@
         private Label label3;
         private TextBox textBox2;
         private FontAwesome.Sharp.IconButton iconButton2;
-        private ComboBox comboBox1;
         private Label label6;
         private ComboBox comboBox2;
         private ImageList imageList1;
@@ -389,5 +386,6 @@
         private FontAwesome.Sharp.IconPictureBox iconPictureBox6;
         private FontAwesome.Sharp.IconPictureBox iconPictureBox3;
         private FontAwesome.Sharp.IconPictureBox iconPictureBox4;
+        private TextBox textBox3;
     }
 }

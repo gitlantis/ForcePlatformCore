@@ -24,7 +24,6 @@ namespace ForcePlatformCore
         private bool isStopped = false;
         private List<CsvModel> csvData = new List<CsvModel>();
         private int stopTime = 0;
-        private double coeffcent = 0;
         private Dictionary<int, AxisItem> weight = new Dictionary<int, AxisItem> {
             { 0,new AxisItem() },
             { 1,new AxisItem() },
@@ -185,7 +184,7 @@ namespace ForcePlatformCore
                 var diffY = weight[plate].DiffY;
                 var diffZ = weight[plate].DiffZ;
 
-                double? temp = diffZ / AppConfig.Config.CalibrateZ;
+                double? temp = diffZ / config.CalibrateZ;
 
                 double? percX = (diffX / diffZ) * 100;
                 double? percY = (diffY / diffZ) * 100;
@@ -200,7 +199,7 @@ namespace ForcePlatformCore
                 if (comboBox1.SelectedIndex == (int)Constants.Units.N)
                 {
                     mainMdi.Unit = Constants.Units.N;
-                    var force = temp * AppConfig.Config.FreeFallAcc;
+                    var force = temp * config.FreeFallAcc;
                     textBoxes[2 + (plate * 3)].Text = force != null ? string.Format("{0:0.0}", force) : "---.-";
                 }
                 else
@@ -218,9 +217,6 @@ namespace ForcePlatformCore
         {
             formsPlot1.Plot.XLabel("Time");
             formsPlot1.Plot.YLabel(comboBox1.Text);
-
-            if (comboBox1.SelectedIndex == 0) coeffcent = 1.0 / config.CalibrateZ;
-            else coeffcent = config.FreeFallAcc / config.CalibrateZ;
         }
 
         private void checkBox_CheckedChanged(object sender, EventArgs e)
@@ -265,10 +261,10 @@ namespace ForcePlatformCore
             foreach (var data in serialData)
             {
                 var newSerialData = new ReadySerialData();
-                newSerialData.Set(data.FilterLength, data.CurrentTimeMC, data.DiffX,data.DiffY,data.DiffZ);
+                newSerialData.Set(data.FilterLength, data.CurrentTimeMC, data.DiffX, data.DiffY, data.DiffZ);
                 loggerData.Add(newSerialData);
                 if (loggerData.Count > 200) loggerData.RemoveAt(0);
-            } 
+            }
 
         }
     }

@@ -15,17 +15,21 @@ namespace ForcePlatformCore
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
             mdiParent = new MainMDI();
 
-            AppConfig.DbContext.Database.EnsureCreated();
-
-            ComPort = new ComPort(AppConfig.Config.AutoSelectCom, AppConfig.Config.ComPort, AppConfig.Config.FilterLength);
-            if (!AppConfig.Config.AutoSelectCom)
+            try
             {
-                var conf = AppConfig.Config;
-                conf.ComPort = ComPort.PortName;
-                AppConfig.UpdateConfig = conf;
+                AppConfig.DbContext.Database.EnsureCreated();
+                ComPort = new ComPort(AppConfig.Config.AutoSelectCom, AppConfig.Config.ComPort, AppConfig.Config.FilterLength);
+                if (!AppConfig.Config.AutoSelectCom)
+                {
+                    var conf = AppConfig.Config;
+                    conf.ComPort = ComPort.PortName;
+                    AppConfig.UpdateConfig = conf;
+                }
+            }
+            catch (Exception ex) {
+                Message("Error", ex.Message);
             }
 
             Application.Run(mdiParent);

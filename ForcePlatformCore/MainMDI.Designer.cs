@@ -44,7 +44,6 @@
             cellToolStripMenuItem = new ToolStripMenuItem();
             cascadeToolStripMenuItem = new ToolStripMenuItem();
             настройкиToolStripMenuItem = new ToolStripMenuItem();
-            v0010ToolStripMenuItem = new ToolStripMenuItem();
             timer1 = new System.Windows.Forms.Timer(components);
             toolStrip1 = new ToolStrip();
             toolStripButton2 = new ToolStripButton();
@@ -55,6 +54,7 @@
             toolStripSeparator3 = new ToolStripSeparator();
             toolStripButton1 = new ToolStripButton();
             contextMenuStrip1 = new ContextMenuStrip(components);
+            toolStripLabel1 = new ToolStripLabel();
             statusStrip.SuspendLayout();
             menuStrip.SuspendLayout();
             toolStrip1.SuspendLayout();
@@ -80,7 +80,7 @@
             // menuStrip
             // 
             menuStrip.ImageScalingSize = new Size(24, 24);
-            menuStrip.Items.AddRange(new ToolStripItem[] { platesToolStripMenuItem, windowToolStripMenuItem, настройкиToolStripMenuItem, v0010ToolStripMenuItem });
+            menuStrip.Items.AddRange(new ToolStripItem[] { platesToolStripMenuItem, windowToolStripMenuItem, настройкиToolStripMenuItem });
             menuStrip.Location = new Point(0, 0);
             menuStrip.Name = "menuStrip";
             menuStrip.Padding = new Padding(7, 2, 0, 2);
@@ -98,21 +98,21 @@
             // toolStripMenuItem1
             // 
             toolStripMenuItem1.Name = "toolStripMenuItem1";
-            toolStripMenuItem1.Size = new Size(180, 22);
+            toolStripMenuItem1.Size = new Size(137, 22);
             toolStripMenuItem1.Text = "Camera";
             toolStripMenuItem1.Click += toolStripMenuItem1_Click;
             // 
             // plate1ToolStripMenuItem
             // 
             plate1ToolStripMenuItem.Name = "plate1ToolStripMenuItem";
-            plate1ToolStripMenuItem.Size = new Size(180, 22);
+            plate1ToolStripMenuItem.Size = new Size(137, 22);
             plate1ToolStripMenuItem.Text = "Plate logger";
             plate1ToolStripMenuItem.Click += plateToolStripMenuItem_Click;
             // 
             // closeAllToolStripMenuItem
             // 
             closeAllToolStripMenuItem.Name = "closeAllToolStripMenuItem";
-            closeAllToolStripMenuItem.Size = new Size(180, 22);
+            closeAllToolStripMenuItem.Size = new Size(137, 22);
             closeAllToolStripMenuItem.Text = "CloseAll";
             closeAllToolStripMenuItem.Click += closeAllToolStripMenuItem_Click_1;
             // 
@@ -126,28 +126,28 @@
             // tileHorizontalToolStripMenuItem
             // 
             tileHorizontalToolStripMenuItem.Name = "tileHorizontalToolStripMenuItem";
-            tileHorizontalToolStripMenuItem.Size = new Size(180, 22);
+            tileHorizontalToolStripMenuItem.Size = new Size(150, 22);
             tileHorizontalToolStripMenuItem.Text = "Tile Horizontal";
             tileHorizontalToolStripMenuItem.Click += tileHorizontalToolStripMenuItem_Click_1;
             // 
             // tileVerticalToolStripMenuItem
             // 
             tileVerticalToolStripMenuItem.Name = "tileVerticalToolStripMenuItem";
-            tileVerticalToolStripMenuItem.Size = new Size(180, 22);
+            tileVerticalToolStripMenuItem.Size = new Size(150, 22);
             tileVerticalToolStripMenuItem.Text = "TileVertical";
             tileVerticalToolStripMenuItem.Click += tileVerticalToolStripMenuItem_Click_1;
             // 
             // cellToolStripMenuItem
             // 
             cellToolStripMenuItem.Name = "cellToolStripMenuItem";
-            cellToolStripMenuItem.Size = new Size(180, 22);
+            cellToolStripMenuItem.Size = new Size(150, 22);
             cellToolStripMenuItem.Text = "Table";
             cellToolStripMenuItem.Click += cellToolStripMenuItem_Click;
             // 
             // cascadeToolStripMenuItem
             // 
             cascadeToolStripMenuItem.Name = "cascadeToolStripMenuItem";
-            cascadeToolStripMenuItem.Size = new Size(180, 22);
+            cascadeToolStripMenuItem.Size = new Size(150, 22);
             cascadeToolStripMenuItem.Text = "Cascade";
             cascadeToolStripMenuItem.Click += cascadeToolStripMenuItem_Click_1;
             // 
@@ -158,13 +158,6 @@
             настройкиToolStripMenuItem.Text = "Settings";
             настройкиToolStripMenuItem.Click += settingsToolStripMenuItem_Click;
             // 
-            // v0010ToolStripMenuItem
-            // 
-            v0010ToolStripMenuItem.Enabled = false;
-            v0010ToolStripMenuItem.Name = "v0010ToolStripMenuItem";
-            v0010ToolStripMenuItem.Size = new Size(55, 20);
-            v0010ToolStripMenuItem.Text = "v0.0.10";
-            // 
             // timer1
             // 
             timer1.Interval = 50;
@@ -173,7 +166,7 @@
             // toolStrip1
             // 
             toolStrip1.ImageScalingSize = new Size(24, 24);
-            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripButton2, toolStripSeparator1, toolStripButton4, toolStripSeparator2, toolStripButton3, toolStripSeparator3, toolStripButton1 });
+            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripButton2, toolStripSeparator1, toolStripButton4, toolStripSeparator2, toolStripButton3, toolStripSeparator3, toolStripButton1, toolStripLabel1 });
             toolStrip1.Location = new Point(0, 24);
             toolStrip1.Name = "toolStrip1";
             toolStrip1.Padding = new Padding(0, 0, 2, 0);
@@ -248,6 +241,13 @@
             contextMenuStrip1.Name = "contextMenuStrip1";
             contextMenuStrip1.Size = new Size(61, 4);
             // 
+            // toolStripLabel1
+            // 
+            toolStripLabel1.Alignment = ToolStripItemAlignment.Right;
+            toolStripLabel1.Name = "toolStripLabel1";
+            toolStripLabel1.Size = new Size(43, 30);
+            toolStripLabel1.Text = "v0.0.10";
+            // 
             // MainMDI
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -299,7 +299,7 @@
         private ToolStripSeparator toolStripSeparator1;
         private ToolStripMenuItem toolStripMenuItem1;
         private ToolStripMenuItem настройкиToolStripMenuItem;
-        private ToolStripMenuItem v0010ToolStripMenuItem;
+        private ToolStripLabel toolStripLabel1;
     }
 }
 

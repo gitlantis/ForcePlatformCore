@@ -186,7 +186,7 @@
             comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox1.FormattingEnabled = true;
             comboBox1.Items.AddRange(new object[] { "kgF", "N" });
-            comboBox1.Location = new Point(1437, 28);
+            comboBox1.Location = new Point(1453, 28);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(137, 23);
             comboBox1.TabIndex = 4;
@@ -197,7 +197,7 @@
             label1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.Location = new Point(1384, 28);
+            label1.Location = new Point(1400, 28);
             label1.Name = "label1";
             label1.Size = new Size(39, 21);
             label1.TabIndex = 6;

@@ -64,15 +64,15 @@ namespace ForcePlatformSmart
 
             if (divider != oldDivider)
             {
-                updateFastLineTicks(divider);
+                updateFastLineTicks(formsPlot1, divider);
                 oldDivider = divider;
             }
         }
-        private void updateFastLineTicks(int divider)
+        private void updateFastLineTicks(FormsPlot plot, int divider)
         {
             var plotDataTimeStr = fastLineXLabels.Select((c, index) => (index % (divider > 0 ? divider : 1) != 0) ? "" : c.ToString()).ToArray();
-            formsPlot1.Plot.XAxis.ManualTickPositions(fastLineXLabels.ToArray(), plotDataTimeStr);
-            formsPlot1.Render();
+            plot.Plot.XAxis.ManualTickPositions(fastLineXLabels.ToArray(), plotDataTimeStr);
+            plot.Render();
         }
 
         private void drawCharts()
@@ -85,7 +85,6 @@ namespace ForcePlatformSmart
 
         private void loadFastLine(FormsPlot plot, List<CsvLoadArrayModel> data, string unit)
         {
-            var plotDataTime = new double[data.Count];
             var plotDataTimeStr = new string[data.Count];
             var plotDataX = new Dictionary<int, double[]>();
             var plotDataY = new Dictionary<int, double[]>();
@@ -103,8 +102,6 @@ namespace ForcePlatformSmart
             fastLineXLabels = data.Select(c => c.data[0]).ToList();
 
             var divider = (int)(data.Count() / 550);
-            plotDataTime = data.Select(c => c.data[0]).ToArray();
-            plotDataTimeStr = data.Select((c, index) => (index % (divider > 0 ? divider : 1) != 0) ? "" : c.data[0].ToString()).ToArray();
 
             for (var plate = 0; plate < 4; plate++)
             {
@@ -120,7 +117,7 @@ namespace ForcePlatformSmart
                 plot.Plot.AddSignal(valsZ, 1, null, $"p{plate + 1}Z").LineWidth = 2;
             }
 
-            plot.Plot.XAxis.ManualTickPositions(plotDataTime, plotDataTimeStr);
+            updateFastLineTicks(plot, divider);
             plot.Plot.XAxis.TickLabelStyle(rotation: 90);
 
             formsPlot1.Plot.Legend(checkBox5.Checked, location: Alignment.UpperLeft);
@@ -203,8 +200,8 @@ namespace ForcePlatformSmart
             var cells = 50;
             var result = calculateHeatmap(data, cells);
 
-            var labels = new double[cells+1];
-            var labelsStr = new string[cells+1];
+            var labels = new double[cells + 1];
+            var labelsStr = new string[cells + 1];
 
             for (int i = -1 * (cells / 2), j = 0; i <= cells / 2; i++, j++)
             {
@@ -320,17 +317,6 @@ namespace ForcePlatformSmart
             y = r;
         }
 
-        private void iconButton2_Click(object sender, EventArgs e)
-        {
-            var unitValue = 2.8;
-            if (userReport.Unit == Units.N.ToString()) unitValue = unitValue * AppConfig.Config.FreeFallAcc;
-
-            while (currData.Count > 0 && (currData[0].data[3] + currData[0].data[6] + currData[0].data[9] + currData[0].data[12]) < unitValue)
-                currData.RemoveAt(0);
-
-            drawCharts();
-        }
-
         private void iconButton1_Click(object sender, EventArgs e)
         {
             formsPlot1.Visible = false;
@@ -353,6 +339,7 @@ namespace ForcePlatformSmart
             formsPlot2.Size = new Size(1500, 900);
             formsPlot2.Plot.SaveFig("assets/images/chart3.png");
             formsPlot2.Size = chart1Size;
+            formsPlot2.Plot.Title("");
             formsPlot2.Visible = true;
 
             chart2.Visible = false;

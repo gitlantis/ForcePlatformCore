@@ -7,7 +7,7 @@ namespace ForcePlatformCore
 {
     public partial class SettingsForm : Form
     {
-        public int FilterLength = AppConfig.Config.FilterLength;
+        private AppsettingsModel appConfig = new AppsettingsModel();
         private MainMDI mdi;
         private bool error = false;
 
@@ -24,23 +24,28 @@ namespace ForcePlatformCore
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            iconPictureBox1.ImageLocation = Path.Join(Environment.CurrentDirectory, "assets", "plate_icon.png");
-            iconPictureBox2.ImageLocation = Path.Join(Environment.CurrentDirectory, "assets", "plate_icon.png");
-            iconPictureBox3.ImageLocation = Path.Join(Environment.CurrentDirectory, "assets", "plate_icon.png");
-            iconPictureBox4.ImageLocation = Path.Join(Environment.CurrentDirectory, "assets", "plate_icon.png");
-            iconPictureBox5.ImageLocation = Path.Join(Environment.CurrentDirectory, "assets", "plate_icon.png");
-            iconPictureBox6.ImageLocation = Path.Join(Environment.CurrentDirectory, "assets", "plate_icon.png");
+            try
+            {
+                iconPictureBox1.ImageLocation = Path.Join(Environment.CurrentDirectory, "assets", "plate_icon.png");
+                iconPictureBox2.ImageLocation = Path.Join(Environment.CurrentDirectory, "assets", "plate_icon.png");
+                iconPictureBox3.ImageLocation = Path.Join(Environment.CurrentDirectory, "assets", "plate_icon.png");
+                iconPictureBox4.ImageLocation = Path.Join(Environment.CurrentDirectory, "assets", "plate_icon.png");
+                iconPictureBox5.ImageLocation = Path.Join(Environment.CurrentDirectory, "assets", "plate_icon.png");
+                iconPictureBox6.ImageLocation = Path.Join(Environment.CurrentDirectory, "assets", "plate_icon.png");
 
-            comboBox1.Items.AddRange(Constants.FilterTypes);
-            comboBox1.Text = SharedStaticModel.FilterType;
-            comboBox1.SelectedIndex = 0;
+                appConfig = AppConfig.Config;
+                textBox1.Text = appConfig.FilterLength.ToString();
+                textBox3.Text = appConfig.CalibrateZ.ToString();
 
-            textBox1.Text = AppConfig.Config.FilterLength.ToString();
-
-            comboBox2.DataSource = AppConfig.DbContext.ExerciseType.ToList();
-            comboBox2.DisplayMember = "Name";
-            comboBox2.ValueMember = "Id";
-            comboBox2.SelectedIndex = SharedStaticModel.ExerciseTypeIndex;
+                comboBox2.DataSource = AppConfig.DbContext.ExerciseType.ToList();
+                comboBox2.DisplayMember = "Name";
+                comboBox2.ValueMember = "Id";
+                comboBox2.SelectedIndex = SharedStaticModel.ExerciseTypeIndex;
+            }
+            catch (Exception ex)
+            {
+                Program.Message("Message", ex.Message);
+            }
         }
 
         private void iconButton1_Click(object sender, EventArgs e)
@@ -50,24 +55,27 @@ namespace ForcePlatformCore
 
         private void saveSettings()
         {
-            var conf = AppConfig.Config;
-            conf.FilterLength = Convert.ToInt32(textBox1.Text);
-            AppConfig.UpdateConfig = conf;
+            try
+            {
+                var conf = appConfig;
+                conf.FilterLength = Convert.ToInt32(textBox1.Text);
+                conf.CalibrateZ = Convert.ToInt32(textBox3.Text);
+                AppConfig.UpdateConfig = conf;
 
-            SharedStaticModel.FilterLength = conf.FilterLength;
+                SharedStaticModel.FilterLength = conf.FilterLength;
 
-            SharedStaticModel.FilterType = comboBox1.Text;
-            SharedStaticModel.FilterTypeIndex = comboBox1.SelectedIndex;
+                SharedStaticModel.ExerciseType = comboBox2.Text;
+                SharedStaticModel.ExerciseTypeIndex = comboBox2.SelectedIndex;
 
-            SharedStaticModel.ExerciseType = comboBox2.Text;
-            SharedStaticModel.ExerciseTypeIndex = comboBox2.SelectedIndex;
+                mdi.ShowPlateLogger();
 
-            mdi.ShowPlateLogger();
-
-            if (comboBox2.SelectedIndex == 0 && !error)
-                Program.Message("Attantion", "Experimenter should not move on this mode");
-
-            Program.ComPort.Zero();
+                if (comboBox2.SelectedIndex == 0 && !error)
+                    Program.Message("Attantion", "Experimenter should not move on this mode");
+            }
+            catch (Exception ex)
+            {
+                Program.Message("Error", ex.Message);
+            }
         }
 
         private void validateInt(object sender, KeyPressEventArgs e)

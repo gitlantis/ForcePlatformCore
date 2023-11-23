@@ -16,16 +16,6 @@ namespace ForcePlatformSmart
             InitializeComponent();
         }
 
-        private void ToolBarToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            toolStrip.Visible = toolBarToolStripMenuItem.Checked;
-        }
-
-        private void StatusBarToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            statusStrip.Visible = statusBarToolStripMenuItem.Checked;
-        }
-
         private void CascadeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             LayoutMdi(MdiLayout.Cascade);
@@ -65,19 +55,6 @@ namespace ForcePlatformSmart
             redrawDataGrid();
         }
 
-        private void dataGridView1_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            //if (e.RowIndex >= 0)
-            //{
-            //    var selectedRow = dataGridView1.Rows[e.RowIndex];
-
-            //    var user = (User)selectedRow.DataBoundItem;
-
-            //    var radarChart = new RadarForm(user);
-            //    radarChart.Show();
-            //}
-        }
-
         private void dataGridView1_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             try
@@ -93,7 +70,8 @@ namespace ForcePlatformSmart
                     var userInfo = new UserInfo(user);
                     userInfo.Show();
                 }
-            }catch{ }
+            }
+            catch { }
         }
 
         private void toolStripTextBox1_KeyPress(object sender, KeyPressEventArgs e)

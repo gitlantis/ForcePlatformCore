@@ -36,8 +36,8 @@ namespace ForcePlatformData.Helpers
                         secondLine += $"{item.DiffX},{item.DiffY},{item.DiffZ},";
                     }
 
-                    writer.WriteLine(headline);
-                    writer.WriteLine(secondLine);
+                    writer.WriteLine($"{headline}UcTime");
+                    writer.WriteLine($"{secondLine}{firstLine.UcTime}");
 
                     foreach (var line in data.CsvItems)
                     {
@@ -46,7 +46,7 @@ namespace ForcePlatformData.Helpers
                         {
                             raw += $"{item.DiffX},{item.DiffY},{item.DiffZ},";
                         }
-                        writer.WriteLine(raw);
+                        writer.WriteLine($"{raw}{line.UcTime}");
                     }
                 }
                 return csvFileName;

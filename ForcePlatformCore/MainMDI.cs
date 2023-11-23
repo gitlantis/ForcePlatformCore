@@ -1,4 +1,5 @@
-﻿using ForcePlatformCore.Helpers.ComPort;
+﻿using Emgu.CV.Ocl;
+using ForcePlatformCore.Helpers.ComPort;
 using ForcePlatformCore.Models;
 using ForcePlatformData;
 using ForcePlatformData.Helpers;
@@ -12,10 +13,12 @@ namespace ForcePlatformCore
         private bool pauseAll = false;
         private CsvModel csvData = new CsvModel();
         private bool startRecording = false;
+        private DateTime startRecrdTime = DateTime.Now;
 
         private ReportService reportService = new ReportService();
         private Camera camera;
         private DataLoggerForm dataLogger;
+        private AppsettingsModel config;
         public Constants.Units Unit = Constants.Units.KgF;
         private void MDIParent1_Shown(object sender, EventArgs e)
         {
@@ -31,8 +34,8 @@ namespace ForcePlatformCore
 
             timer1.Enabled = Program.ComPort.Connected;
             ComPort.BufferIsFull += ComPortBufferStore;
-
-            AdcData.Init(AppConfig.Config.FilterLength);
+            config = AppConfig.Config;
+            AdcData.Init(config.FilterLength);
 
             ComPortBufferStore(null, EventArgs.Empty);
             resetAll();
@@ -89,6 +92,7 @@ namespace ForcePlatformCore
 
         public void ShowPlateLogger()
         {
+            closeAllChilds();
             showDataLogger();
         }
 
@@ -283,6 +287,7 @@ namespace ForcePlatformCore
                 toolStripButton4.ForeColor = Color.Red;
                 toolStripButton4.Text = "Stop recording";
                 toolStripButton4.Image = Image.FromFile("assets/stop-circle-o-r.png");
+                startRecrdTime = DateTime.Now;
             }
             else
             {
@@ -300,6 +305,19 @@ namespace ForcePlatformCore
             {
                 var firstElement = true;
                 var scanStartedTime = 0;
+                var stopRecrdTime = DateTime.Now;
+                int portDataCaunt = Program.ComPort.SaverData.Count;
+
+                var elapsedTime = stopRecrdTime - startRecrdTime;
+                var elapsedTimeArr = new int[portDataCaunt];
+                var step = (int)(elapsedTime.TotalMilliseconds / portDataCaunt);
+
+                for (int i = 0, j = 0; i < portDataCaunt; i++, j += step)
+                {
+                    elapsedTimeArr[i] = j;
+                }
+
+                int timeCount = 0;
                 foreach (var queue in Program.ComPort.SaverData)
                 {
                     if (firstElement)
@@ -313,21 +331,23 @@ namespace ForcePlatformCore
                     var time = queue.CurrentTimeMC;
                     for (int plate = 0; plate < 4; plate++)
                     {
-                        var percX = queue.DiffZ[plate] != 0 ? ((double)queue.DiffX[plate] / queue.DiffZ[plate]) * 100 : 0;
-                        var percY = queue.DiffZ[plate] != 0 ? ((double)queue.DiffY[plate] / queue.DiffZ[plate]) * 100 : 0;
+                        var diffZ = queue.DiffZ[plate] / config.CalibrateZ;
+                        var percX = queue.DiffZ[plate] != 0 ? ((double)queue.DiffX[plate] / diffZ) * 100 : 0;
+                        var percY = queue.DiffZ[plate] != 0 ? ((double)queue.DiffY[plate] / diffZ) * 100 : 0;
 
                         plateData.Add(new AxisItem
                         {
                             Plate = plate,
                             DiffX = percX,
                             DiffY = percY,
-                            DiffZ = Converter.ToUnit(queue.DiffZ[plate], Unit),
+                            DiffZ = Converter.ToUnit(diffZ, Unit),
                         });
                     }
 
                     csvData.CsvItems.Enqueue(new CsvItem
                     {
-                        Time = queue.CurrentTimeMC - scanStartedTime,
+                        Time = elapsedTimeArr[timeCount++],
+                        UcTime = queue.CurrentTimeMC - scanStartedTime,
                         AxisItems = plateData,
                     });
                 }
