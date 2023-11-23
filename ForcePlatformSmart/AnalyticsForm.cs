@@ -5,6 +5,7 @@ using ForcePlatformData.Models;
 using Newtonsoft.Json.Linq;
 using ScottPlot;
 using ScottPlot.Plottable;
+using System.Security.Cryptography;
 using System.Windows.Forms.DataVisualization.Charting;
 using static ForcePlatformData.Constants;
 using static ScottPlot.Plottable.PopulationPlot;
@@ -16,9 +17,9 @@ namespace ForcePlatformSmart
         private Report userReport;
         private List<CsvLoadArrayModel> currData = new List<CsvLoadArrayModel>();
         private User user;
-        
-        List<double> fastLineXLabels = new List<double>();
-        int oldDivider = 0;
+        private string heatmapTitle = "";
+        private List<double> fastLineXLabels = new List<double>();
+        private int oldDivider = 0;
 
         public AnalyticsForm(User user, Report report)
         {
@@ -50,7 +51,6 @@ namespace ForcePlatformSmart
 
             drawCharts();
             formsPlot1.MouseWheel += fastLine_MouseWheel;
-
         }
 
         private void fastLine_MouseWheel(object? sender, MouseEventArgs e)
@@ -193,22 +193,48 @@ namespace ForcePlatformSmart
 
         public void loadHeatmap(FormsPlot plot, List<CsvLoadArrayModel> data)
         {
-            //var plates = new bool[] {
-            //    checkBox16.Checked,
-            //    checkBox17.Checked,
-            //    checkBox18.Checked,
-            //    checkBox19.Checked
-            //};
+            var plates = new bool[] {
+                checkBox11.Checked,
+                checkBox12.Checked,
+                checkBox13.Checked,
+                checkBox14.Checked
+            };
 
-            var result = calculateHeatmap(data);
+            var cells = 50;
+            var result = calculateHeatmap(data, cells);
+
+            var labels = new double[cells+1];
+            var labelsStr = new string[cells+1];
+
+            for (int i = -1 * (cells / 2), j = 0; i <= cells / 2; i++, j++)
+            {
+                labels[j] = j;
+                labelsStr[j] = (i * 4).ToString();
+            }
 
             plot.Plot.Clear();
+            heatmapTitle = "Plates: ";
+            for (int plate = 0; plate < 4; plate++)
+            {
+                if (!plates[plate]) continue;
+                heatmapTitle += $"{plate + 1},";
+                plot.Plot.AddHeatmap(result[plate], lockScales: false);
+            }
+            heatmapTitle = heatmapTitle.Substring(0, heatmapTitle.Length - 1);
+            plot.Plot.Grid(enable: true, color: Color.Black, lineStyle: LineStyle.Solid, onTop: true);
+            plot.Plot.Margins(0, 0);
+            plot.Configuration.LockHorizontalAxis = true;
+            plot.Configuration.LockVerticalAxis = true;
 
-            plot.Plot.AddHeatmap(result[0]);
+            plot.Plot.XLabel("x %");
+            plot.Plot.YLabel("y %");
+
+            plot.Plot.XAxis.ManualTickPositions(labels, labelsStr);
+            plot.Plot.YAxis.ManualTickPositions(labels, labelsStr);
 
             plot.Refresh();
-            
         }
+
         public void loadPolarChartTrack(Chart chart, List<CsvLoadArrayModel> data)
         {
             for (int plate = 0; plate < 4; plate++)
@@ -242,38 +268,40 @@ namespace ForcePlatformSmart
             }
         }
 
-        private Dictionary<int, double[,]> calculateHeatmap(List<CsvLoadArrayModel> data)
+        private Dictionary<int, double?[,]> calculateHeatmap(List<CsvLoadArrayModel> data, int cells)
         {
-            var col = 75;
-            var raw = 50;
+            var raw = cells;
+            var col = cells;
 
-            var result = new Dictionary<int, double[,]> {
-                { 0, new double[raw,col] },
-                { 1, new double[raw,col] },
-                { 2, new double[raw,col] },
-                { 3, new double[raw,col] }
+            var arr = new double?[raw, col];
+
+            for (int i = 0; i < raw; i++)
+                for (int j = 0; j < col; j++)
+                    arr[i, j] = null;
+
+            var result = new Dictionary<int, double?[,]> {
+                { 0, new double?[raw,col] },
+                { 1, new double?[raw,col] },
+                { 2, new double?[raw,col] },
+                { 3, new double?[raw,col] }
             };
 
             foreach (var line in data)
             {
                 for (var plate = 0; plate < 4; plate++)
                 {
-                    if (line.data[3 + (plate * 3)] > 0)
+                    var x = line.data[1 + (plate * 3)];
+                    var y = line.data[2 + (plate * 3)];
+
+                    var heatCol = (int)((100 + x) * col / 200);
+                    var heatRaw = (int)((100 + y) * raw / 200);
+
+                    if ((result[plate][heatRaw, heatCol] == null) || (heatRaw == raw / 2 && heatCol == col / 2))
                     {
-                        var x = line.data[1 + (plate * 3)];
-                        var y = line.data[2 + (plate * 3)];
-                        var z = line.data[3 + (plate * 3)];
-
-                        var heatCol = (int)((100 + x) * col / 200);
-                        var heatRaw = (int)((100 + y) * raw / 200);
-
-                        var tmp = result[plate][heatRaw, heatCol];
-                        var avg = (tmp + z);
-
-                        if (z > 0) avg /= 2;
-
-                        result[plate][heatRaw, heatCol] = avg;
+                        result[plate][heatRaw, heatCol] = -1;
                     }
+
+                    result[plate][heatRaw, heatCol]--;
                 }
             }
             return result;
@@ -319,10 +347,13 @@ namespace ForcePlatformSmart
             chart1.Size = chart2Size;
             chart1.Visible = true;
 
-            //var chart3Size = chart3.Size;
-            //chart3.Size = new Size(1500, 900);
-            //chart3.SaveImage("assets/images/chart3.png", ChartImageFormat.Png);
-            //chart3.Size = chart3Size;
+            formsPlot2.Visible = false;
+            var chart3Size = formsPlot2.Size;
+            formsPlot2.Plot.Title(heatmapTitle);
+            formsPlot2.Size = new Size(1500, 900);
+            formsPlot2.Plot.SaveFig("assets/images/chart3.png");
+            formsPlot2.Size = chart1Size;
+            formsPlot2.Visible = true;
 
             chart2.Visible = false;
             var chart4Size = chart2.Size;
@@ -331,11 +362,9 @@ namespace ForcePlatformSmart
             chart2.Size = chart4Size;
             chart2.Visible = true;
 
-
             try
             {
                 var result = PdfProcessor.GeneratePdf(user);
-                //Program.Message("Success", $"File successfully saved to {result}");
             }
             catch (Exception ex)
             {
@@ -363,6 +392,4 @@ namespace ForcePlatformSmart
             loadPolarChartTrack(chart2, currData);
         }
     }
-
-
 }

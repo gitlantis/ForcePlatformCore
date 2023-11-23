@@ -355,12 +355,13 @@
             checkBox11.BackColor = SystemColors.ButtonHighlight;
             checkBox11.Checked = true;
             checkBox11.CheckState = CheckState.Checked;
-            checkBox11.Location = new Point(140, 3);
+            checkBox11.Location = new Point(165, 3);
             checkBox11.Name = "checkBox11";
             checkBox11.Size = new Size(61, 19);
             checkBox11.TabIndex = 55;
             checkBox11.Text = "Plate 1";
             checkBox11.UseVisualStyleBackColor = false;
+            checkBox11.CheckedChanged += checkBoxHeatmap_CheckedChanged;
             // 
             // checkBox12
             // 
@@ -369,12 +370,13 @@
             checkBox12.BackColor = SystemColors.ButtonHighlight;
             checkBox12.Checked = true;
             checkBox12.CheckState = CheckState.Checked;
-            checkBox12.Location = new Point(207, 3);
+            checkBox12.Location = new Point(232, 3);
             checkBox12.Name = "checkBox12";
             checkBox12.Size = new Size(61, 19);
             checkBox12.TabIndex = 54;
             checkBox12.Text = "Plate 2";
             checkBox12.UseVisualStyleBackColor = false;
+            checkBox12.CheckedChanged += checkBoxHeatmap_CheckedChanged;
             // 
             // checkBox13
             // 
@@ -383,12 +385,13 @@
             checkBox13.BackColor = SystemColors.ButtonHighlight;
             checkBox13.Checked = true;
             checkBox13.CheckState = CheckState.Checked;
-            checkBox13.Location = new Point(274, 3);
+            checkBox13.Location = new Point(299, 3);
             checkBox13.Name = "checkBox13";
             checkBox13.Size = new Size(61, 19);
             checkBox13.TabIndex = 53;
             checkBox13.Text = "Plate 3";
             checkBox13.UseVisualStyleBackColor = false;
+            checkBox13.CheckedChanged += checkBoxHeatmap_CheckedChanged;
             // 
             // checkBox14
             // 
@@ -397,12 +400,13 @@
             checkBox14.BackColor = SystemColors.ButtonHighlight;
             checkBox14.Checked = true;
             checkBox14.CheckState = CheckState.Checked;
-            checkBox14.Location = new Point(341, 3);
+            checkBox14.Location = new Point(366, 3);
             checkBox14.Name = "checkBox14";
             checkBox14.Size = new Size(61, 19);
             checkBox14.TabIndex = 52;
             checkBox14.Text = "Plate 4";
             checkBox14.UseVisualStyleBackColor = false;
+            checkBox14.CheckedChanged += checkBoxHeatmap_CheckedChanged;
             // 
             // checkBox15
             // 
@@ -411,12 +415,13 @@
             checkBox15.BackColor = SystemColors.ButtonHighlight;
             checkBox15.Checked = true;
             checkBox15.CheckState = CheckState.Checked;
-            checkBox15.Location = new Point(408, 3);
+            checkBox15.Location = new Point(433, 3);
             checkBox15.Name = "checkBox15";
             checkBox15.Size = new Size(65, 19);
             checkBox15.TabIndex = 51;
             checkBox15.Text = "Legend";
             checkBox15.UseVisualStyleBackColor = false;
+            checkBox15.Visible = false;
             // 
             // formsPlot2
             // 
