@@ -153,7 +153,7 @@
             textBox1.Location = new Point(163, 54);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(134, 29);
-            textBox1.TabIndex = 11;
+            textBox1.TabIndex = 1;
             textBox1.KeyPress += validateInt;
             // 
             // iconButton2
@@ -169,7 +169,7 @@
             iconButton2.Location = new Point(695, 420);
             iconButton2.Name = "iconButton2";
             iconButton2.Size = new Size(70, 39);
-            iconButton2.TabIndex = 14;
+            iconButton2.TabIndex = 3;
             iconButton2.Text = "Ok";
             iconButton2.TextAlign = ContentAlignment.MiddleRight;
             iconButton2.UseVisualStyleBackColor = true;
@@ -193,7 +193,7 @@
             comboBox2.Location = new Point(163, 12);
             comboBox2.Name = "comboBox2";
             comboBox2.Size = new Size(602, 29);
-            comboBox2.TabIndex = 18;
+            comboBox2.TabIndex = 0;
             comboBox2.SelectedIndexChanged += comboBox2_SelectedIndexChanged;
             comboBox2.SelectedValueChanged += comboBox2_SelectedValueChanged;
             // 
@@ -324,7 +324,7 @@
             textBox3.Location = new Point(457, 54);
             textBox3.Name = "textBox3";
             textBox3.Size = new Size(163, 29);
-            textBox3.TabIndex = 34;
+            textBox3.TabIndex = 2;
             textBox3.KeyPress += validateInt;
             // 
             // SettingsForm

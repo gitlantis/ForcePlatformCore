@@ -255,11 +255,10 @@ namespace ForcePlatformCore
                 return;
             }
 
-            csvData.FilterMode = SharedStaticModel.FilterType;
             csvData.FilterLength = SharedStaticModel.FilterLength;
             csvData.ExerciseType = SharedStaticModel.ExerciseType;
 
-            if (csvData.FilterMode.Length == 0 || csvData.ExerciseType.Length == 0)
+            if (csvData.ExerciseType.Length == 0)
             {
                 Program.Message("Warning", "Plese choose exerceise type");
                 return;

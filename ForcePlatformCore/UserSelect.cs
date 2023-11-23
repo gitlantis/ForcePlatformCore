@@ -75,7 +75,7 @@ namespace ForcePlatformCore
 
         private void listBox1_DoubleClick(object sender, EventArgs e)
         {
-            if (selectUser()) this.Close();            
+            if (selectUser()) this.Close();
         }
 
         public void UpdateUsers(string keyword)
@@ -86,11 +86,11 @@ namespace ForcePlatformCore
 
                 if (keyword.Length < 1) users = userService.TakeSome(30);
                 else users = userService.FindUser(keyword);
-                               
+
                 listBox1.DataSource = users;
                 listBox1.DisplayMember = "FullName";
                 listBox1.ValueMember = "Id";
-                listBox1.EndUpdate();                
+                listBox1.EndUpdate();
             }
             catch { }
         }
@@ -120,7 +120,8 @@ namespace ForcePlatformCore
                         if (result == DialogResult.Yes)
                         {
                             var reports = reportService.GetReportsByUserId(selectedUser.Id);
-                            foreach(var report in reports) {
+                            foreach (var report in reports)
+                            {
                                 CsvProcessor.Delete(report.Path);
                             }
                             userService.DeleteUser(selectedUser);

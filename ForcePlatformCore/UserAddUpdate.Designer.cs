@@ -122,7 +122,7 @@ namespace ForcePlatformCore
             comboBox2.Location = new Point(446, 96);
             comboBox2.Name = "comboBox2";
             comboBox2.Size = new Size(101, 29);
-            comboBox2.TabIndex = 18;
+            comboBox2.TabIndex = 178;
             // 
             // label16
             // 
@@ -164,7 +164,7 @@ namespace ForcePlatformCore
             textBox5.Location = new Point(446, 60);
             textBox5.Name = "textBox5";
             textBox5.Size = new Size(101, 29);
-            textBox5.TabIndex = 14;
+            textBox5.TabIndex = 6;
             // 
             // textBox4
             // 
@@ -173,7 +173,7 @@ namespace ForcePlatformCore
             textBox4.Location = new Point(446, 25);
             textBox4.Name = "textBox4";
             textBox4.Size = new Size(101, 29);
-            textBox4.TabIndex = 13;
+            textBox4.TabIndex = 5;
             textBox4.KeyPress += validateDouble;
             // 
             // label6
@@ -203,7 +203,7 @@ namespace ForcePlatformCore
             dateTimePicker1.Location = new Point(134, 121);
             dateTimePicker1.Name = "dateTimePicker1";
             dateTimePicker1.Size = new Size(207, 23);
-            dateTimePicker1.TabIndex = 10;
+            dateTimePicker1.TabIndex = 4;
             // 
             // label4
             // 
@@ -231,7 +231,7 @@ namespace ForcePlatformCore
             textBox3.Location = new Point(134, 86);
             textBox3.Name = "textBox3";
             textBox3.Size = new Size(205, 29);
-            textBox3.TabIndex = 5;
+            textBox3.TabIndex = 3;
             // 
             // label2
             // 
@@ -249,7 +249,7 @@ namespace ForcePlatformCore
             textBox2.Location = new Point(134, 54);
             textBox2.Name = "textBox2";
             textBox2.Size = new Size(205, 29);
-            textBox2.TabIndex = 3;
+            textBox2.TabIndex = 2;
             // 
             // label1
             // 
@@ -290,7 +290,7 @@ namespace ForcePlatformCore
             textBox8.Location = new Point(102, 92);
             textBox8.Name = "textBox8";
             textBox8.Size = new Size(150, 29);
-            textBox8.TabIndex = 19;
+            textBox8.TabIndex = 11;
             textBox8.KeyPress += validateDouble;
             // 
             // label12
@@ -309,7 +309,7 @@ namespace ForcePlatformCore
             textBox7.Location = new Point(102, 57);
             textBox7.Name = "textBox7";
             textBox7.Size = new Size(150, 29);
-            textBox7.TabIndex = 17;
+            textBox7.TabIndex = 10;
             textBox7.KeyPress += validateDouble;
             // 
             // label11
@@ -328,7 +328,7 @@ namespace ForcePlatformCore
             textBox6.Location = new Point(102, 22);
             textBox6.Name = "textBox6";
             textBox6.Size = new Size(150, 29);
-            textBox6.TabIndex = 15;
+            textBox6.TabIndex = 9;
             textBox6.KeyPress += validateDouble;
             // 
             // label10
@@ -384,7 +384,7 @@ namespace ForcePlatformCore
             textBox9.Location = new Point(102, 22);
             textBox9.Name = "textBox9";
             textBox9.Size = new Size(150, 29);
-            textBox9.TabIndex = 19;
+            textBox9.TabIndex = 12;
             textBox9.KeyPress += validateDouble;
             // 
             // label13
@@ -403,7 +403,7 @@ namespace ForcePlatformCore
             textBox10.Location = new Point(102, 57);
             textBox10.Name = "textBox10";
             textBox10.Size = new Size(150, 29);
-            textBox10.TabIndex = 17;
+            textBox10.TabIndex = 13;
             textBox10.KeyPress += validateDouble;
             // 
             // label14
@@ -422,7 +422,7 @@ namespace ForcePlatformCore
             textBox11.Location = new Point(102, 92);
             textBox11.Name = "textBox11";
             textBox11.Size = new Size(150, 29);
-            textBox11.TabIndex = 15;
+            textBox11.TabIndex = 14;
             textBox11.KeyPress += validateDouble;
             // 
             // label15
@@ -448,7 +448,7 @@ namespace ForcePlatformCore
             iconButton2.Location = new Point(274, 498);
             iconButton2.Name = "iconButton2";
             iconButton2.Size = new Size(89, 39);
-            iconButton2.TabIndex = 4;
+            iconButton2.TabIndex = 21;
             iconButton2.Text = "Save";
             iconButton2.TextAlign = ContentAlignment.MiddleRight;
             iconButton2.UseVisualStyleBackColor = true;
@@ -467,7 +467,7 @@ namespace ForcePlatformCore
             iconButton1.Location = new Point(541, 498);
             iconButton1.Name = "iconButton1";
             iconButton1.Size = new Size(89, 39);
-            iconButton1.TabIndex = 17;
+            iconButton1.TabIndex = 22;
             iconButton1.Text = "Close";
             iconButton1.TextAlign = ContentAlignment.MiddleRight;
             iconButton1.UseVisualStyleBackColor = true;
@@ -484,7 +484,7 @@ namespace ForcePlatformCore
             groupBox4.Location = new Point(323, 356);
             groupBox4.Name = "groupBox4";
             groupBox4.Size = new Size(305, 137);
-            groupBox4.TabIndex = 19;
+            groupBox4.TabIndex = 5;
             groupBox4.TabStop = false;
             groupBox4.Text = "Right Arm";
             // 
@@ -524,7 +524,7 @@ namespace ForcePlatformCore
             textBox15.Location = new Point(113, 20);
             textBox15.Name = "textBox15";
             textBox15.Size = new Size(150, 29);
-            textBox15.TabIndex = 19;
+            textBox15.TabIndex = 18;
             textBox15.KeyPress += validateDouble;
             // 
             // textBox16
@@ -533,7 +533,7 @@ namespace ForcePlatformCore
             textBox16.Location = new Point(113, 57);
             textBox16.Name = "textBox16";
             textBox16.Size = new Size(150, 29);
-            textBox16.TabIndex = 17;
+            textBox16.TabIndex = 19;
             textBox16.KeyPress += validateDouble;
             // 
             // textBox17
@@ -542,7 +542,7 @@ namespace ForcePlatformCore
             textBox17.Location = new Point(113, 94);
             textBox17.Name = "textBox17";
             textBox17.Size = new Size(150, 29);
-            textBox17.TabIndex = 15;
+            textBox17.TabIndex = 20;
             textBox17.KeyPress += validateDouble;
             // 
             // textBox12
@@ -551,7 +551,7 @@ namespace ForcePlatformCore
             textBox12.Location = new Point(117, 18);
             textBox12.Name = "textBox12";
             textBox12.Size = new Size(150, 29);
-            textBox12.TabIndex = 19;
+            textBox12.TabIndex = 15;
             textBox12.KeyPress += validateDouble;
             // 
             // textBox13
@@ -560,7 +560,7 @@ namespace ForcePlatformCore
             textBox13.Location = new Point(117, 55);
             textBox13.Name = "textBox13";
             textBox13.Size = new Size(150, 29);
-            textBox13.TabIndex = 17;
+            textBox13.TabIndex = 16;
             textBox13.KeyPress += validateDouble;
             // 
             // textBox14
@@ -569,7 +569,7 @@ namespace ForcePlatformCore
             textBox14.Location = new Point(117, 92);
             textBox14.Name = "textBox14";
             textBox14.Size = new Size(150, 29);
-            textBox14.TabIndex = 15;
+            textBox14.TabIndex = 17;
             textBox14.KeyPress += validateDouble;
             // 
             // groupBox5
@@ -583,7 +583,7 @@ namespace ForcePlatformCore
             groupBox5.Location = new Point(12, 356);
             groupBox5.Name = "groupBox5";
             groupBox5.Size = new Size(305, 137);
-            groupBox5.TabIndex = 18;
+            groupBox5.TabIndex = 4;
             groupBox5.TabStop = false;
             groupBox5.Text = "Left Arm";
             // 

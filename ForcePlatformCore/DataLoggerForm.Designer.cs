@@ -98,7 +98,7 @@
             groupBox1.Location = new Point(1384, 67);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(250, 129);
-            groupBox1.TabIndex = 1;
+            groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "Plate 1";
             // 
@@ -110,7 +110,7 @@
             checkBox14.Location = new Point(69, 4);
             checkBox14.Name = "checkBox14";
             checkBox14.Size = new Size(15, 14);
-            checkBox14.TabIndex = 8;
+            checkBox14.TabIndex = 1;
             checkBox14.UseVisualStyleBackColor = true;
             checkBox14.CheckedChanged += checkBox_CheckedChanged;
             // 
@@ -119,21 +119,21 @@
             textBox3.Location = new Point(139, 89);
             textBox3.Name = "textBox3";
             textBox3.Size = new Size(100, 29);
-            textBox3.TabIndex = 11;
+            textBox3.TabIndex = 7;
             // 
             // textBox2
             // 
             textBox2.Location = new Point(139, 58);
             textBox2.Name = "textBox2";
             textBox2.Size = new Size(100, 29);
-            textBox2.TabIndex = 10;
+            textBox2.TabIndex = 5;
             // 
             // textBox1
             // 
             textBox1.Location = new Point(139, 27);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(100, 29);
-            textBox1.TabIndex = 9;
+            textBox1.TabIndex = 3;
             // 
             // checkBox3
             // 
@@ -145,7 +145,7 @@
             checkBox3.Location = new Point(17, 91);
             checkBox3.Name = "checkBox3";
             checkBox3.Size = new Size(116, 25);
-            checkBox3.TabIndex = 2;
+            checkBox3.TabIndex = 6;
             checkBox3.Text = "Z Axis Load";
             checkBox3.UseVisualStyleBackColor = true;
             checkBox3.CheckedChanged += checkBox_CheckedChanged;
@@ -160,7 +160,7 @@
             checkBox2.Location = new Point(17, 60);
             checkBox2.Name = "checkBox2";
             checkBox2.Size = new Size(116, 25);
-            checkBox2.TabIndex = 1;
+            checkBox2.TabIndex = 4;
             checkBox2.Text = "Y Axis Load";
             checkBox2.UseVisualStyleBackColor = true;
             checkBox2.CheckedChanged += checkBox_CheckedChanged;
@@ -175,7 +175,7 @@
             checkBox1.Location = new Point(17, 29);
             checkBox1.Name = "checkBox1";
             checkBox1.Size = new Size(116, 25);
-            checkBox1.TabIndex = 0;
+            checkBox1.TabIndex = 2;
             checkBox1.Text = "X Axis Load";
             checkBox1.UseVisualStyleBackColor = true;
             checkBox1.CheckedChanged += checkBox_CheckedChanged;
@@ -189,7 +189,7 @@
             comboBox1.Location = new Point(1453, 28);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(137, 23);
-            comboBox1.TabIndex = 4;
+            comboBox1.TabIndex = 0;
             comboBox1.SelectionChangeCommitted += comboBox1_SelectionChangeCommitted;
             // 
             // label1
@@ -223,7 +223,7 @@
             groupBox2.Location = new Point(1384, 202);
             groupBox2.Name = "groupBox2";
             groupBox2.Size = new Size(250, 129);
-            groupBox2.TabIndex = 3;
+            groupBox2.TabIndex = 1;
             groupBox2.TabStop = false;
             groupBox2.Text = "Plate 2";
             // 
@@ -235,7 +235,7 @@
             checkBox15.Location = new Point(69, 5);
             checkBox15.Name = "checkBox15";
             checkBox15.Size = new Size(15, 14);
-            checkBox15.TabIndex = 15;
+            checkBox15.TabIndex = 8;
             checkBox15.UseVisualStyleBackColor = true;
             checkBox15.CheckedChanged += checkBox_CheckedChanged;
             // 
@@ -244,21 +244,21 @@
             textBox4.Location = new Point(139, 26);
             textBox4.Name = "textBox4";
             textBox4.Size = new Size(100, 29);
-            textBox4.TabIndex = 14;
+            textBox4.TabIndex = 10;
             // 
             // textBox5
             // 
             textBox5.Location = new Point(139, 57);
             textBox5.Name = "textBox5";
             textBox5.Size = new Size(100, 29);
-            textBox5.TabIndex = 13;
+            textBox5.TabIndex = 12;
             // 
             // textBox6
             // 
             textBox6.Location = new Point(139, 88);
             textBox6.Name = "textBox6";
             textBox6.Size = new Size(100, 29);
-            textBox6.TabIndex = 12;
+            textBox6.TabIndex = 14;
             // 
             // checkBox4
             // 
@@ -270,7 +270,7 @@
             checkBox4.Location = new Point(17, 30);
             checkBox4.Name = "checkBox4";
             checkBox4.Size = new Size(116, 25);
-            checkBox4.TabIndex = 2;
+            checkBox4.TabIndex = 9;
             checkBox4.Text = "X Axis Load";
             checkBox4.UseVisualStyleBackColor = true;
             checkBox4.CheckedChanged += checkBox_CheckedChanged;
@@ -285,7 +285,7 @@
             checkBox5.Location = new Point(17, 59);
             checkBox5.Name = "checkBox5";
             checkBox5.Size = new Size(116, 25);
-            checkBox5.TabIndex = 1;
+            checkBox5.TabIndex = 11;
             checkBox5.Text = "Y Axis Load";
             checkBox5.UseVisualStyleBackColor = true;
             checkBox5.CheckedChanged += checkBox_CheckedChanged;
@@ -300,7 +300,7 @@
             checkBox6.Location = new Point(17, 90);
             checkBox6.Name = "checkBox6";
             checkBox6.Size = new Size(116, 25);
-            checkBox6.TabIndex = 0;
+            checkBox6.TabIndex = 13;
             checkBox6.Text = "Z Axis Load";
             checkBox6.UseVisualStyleBackColor = true;
             checkBox6.CheckedChanged += checkBox_CheckedChanged;
@@ -319,7 +319,7 @@
             groupBox3.Location = new Point(1384, 337);
             groupBox3.Name = "groupBox3";
             groupBox3.Size = new Size(250, 129);
-            groupBox3.TabIndex = 3;
+            groupBox3.TabIndex = 2;
             groupBox3.TabStop = false;
             groupBox3.Text = "Plate 3";
             // 
@@ -331,7 +331,7 @@
             checkBox16.Location = new Point(69, 5);
             checkBox16.Name = "checkBox16";
             checkBox16.Size = new Size(15, 14);
-            checkBox16.TabIndex = 16;
+            checkBox16.TabIndex = 15;
             checkBox16.UseVisualStyleBackColor = true;
             checkBox16.CheckedChanged += checkBox_CheckedChanged;
             // 
@@ -340,21 +340,21 @@
             textBox7.Location = new Point(139, 27);
             textBox7.Name = "textBox7";
             textBox7.Size = new Size(100, 29);
-            textBox7.TabIndex = 14;
+            textBox7.TabIndex = 17;
             // 
             // textBox8
             // 
             textBox8.Location = new Point(139, 59);
             textBox8.Name = "textBox8";
             textBox8.Size = new Size(100, 29);
-            textBox8.TabIndex = 13;
+            textBox8.TabIndex = 19;
             // 
             // textBox9
             // 
             textBox9.Location = new Point(139, 90);
             textBox9.Name = "textBox9";
             textBox9.Size = new Size(100, 29);
-            textBox9.TabIndex = 12;
+            textBox9.TabIndex = 21;
             // 
             // checkBox7
             // 
@@ -366,7 +366,7 @@
             checkBox7.Location = new Point(17, 29);
             checkBox7.Name = "checkBox7";
             checkBox7.Size = new Size(116, 25);
-            checkBox7.TabIndex = 2;
+            checkBox7.TabIndex = 16;
             checkBox7.Text = "X Axis Load";
             checkBox7.UseVisualStyleBackColor = true;
             checkBox7.CheckedChanged += checkBox_CheckedChanged;
@@ -381,7 +381,7 @@
             checkBox8.Location = new Point(17, 60);
             checkBox8.Name = "checkBox8";
             checkBox8.Size = new Size(116, 25);
-            checkBox8.TabIndex = 1;
+            checkBox8.TabIndex = 18;
             checkBox8.Text = "Y Axis Load";
             checkBox8.UseVisualStyleBackColor = true;
             checkBox8.CheckedChanged += checkBox_CheckedChanged;
@@ -396,7 +396,7 @@
             checkBox9.Location = new Point(17, 92);
             checkBox9.Name = "checkBox9";
             checkBox9.Size = new Size(116, 25);
-            checkBox9.TabIndex = 0;
+            checkBox9.TabIndex = 20;
             checkBox9.Text = "Z Axis Load";
             checkBox9.UseVisualStyleBackColor = true;
             checkBox9.CheckedChanged += checkBox_CheckedChanged;
@@ -427,7 +427,7 @@
             checkBox17.Location = new Point(69, 5);
             checkBox17.Name = "checkBox17";
             checkBox17.Size = new Size(15, 14);
-            checkBox17.TabIndex = 15;
+            checkBox17.TabIndex = 22;
             checkBox17.UseVisualStyleBackColor = true;
             checkBox17.CheckedChanged += checkBox_CheckedChanged;
             // 
@@ -436,21 +436,21 @@
             textBox10.Location = new Point(139, 24);
             textBox10.Name = "textBox10";
             textBox10.Size = new Size(100, 29);
-            textBox10.TabIndex = 14;
+            textBox10.TabIndex = 24;
             // 
             // textBox11
             // 
             textBox11.Location = new Point(139, 56);
             textBox11.Name = "textBox11";
             textBox11.Size = new Size(100, 29);
-            textBox11.TabIndex = 13;
+            textBox11.TabIndex = 26;
             // 
             // textBox12
             // 
             textBox12.Location = new Point(139, 88);
             textBox12.Name = "textBox12";
             textBox12.Size = new Size(100, 29);
-            textBox12.TabIndex = 12;
+            textBox12.TabIndex = 28;
             // 
             // checkBox10
             // 
@@ -462,7 +462,7 @@
             checkBox10.Location = new Point(17, 28);
             checkBox10.Name = "checkBox10";
             checkBox10.Size = new Size(116, 25);
-            checkBox10.TabIndex = 2;
+            checkBox10.TabIndex = 23;
             checkBox10.Text = "X Axis Load";
             checkBox10.UseVisualStyleBackColor = true;
             checkBox10.CheckedChanged += checkBox_CheckedChanged;
@@ -477,7 +477,7 @@
             checkBox11.Location = new Point(17, 60);
             checkBox11.Name = "checkBox11";
             checkBox11.Size = new Size(116, 25);
-            checkBox11.TabIndex = 1;
+            checkBox11.TabIndex = 25;
             checkBox11.Text = "Y Axis Load";
             checkBox11.UseVisualStyleBackColor = true;
             checkBox11.CheckedChanged += checkBox_CheckedChanged;
@@ -492,7 +492,7 @@
             checkBox12.Location = new Point(17, 90);
             checkBox12.Name = "checkBox12";
             checkBox12.Size = new Size(116, 25);
-            checkBox12.TabIndex = 0;
+            checkBox12.TabIndex = 27;
             checkBox12.Text = "Z Axis Load";
             checkBox12.UseVisualStyleBackColor = true;
             checkBox12.CheckedChanged += checkBox_CheckedChanged;
@@ -508,7 +508,7 @@
             checkBox13.Location = new Point(1436, 607);
             checkBox13.Name = "checkBox13";
             checkBox13.Size = new Size(138, 25);
-            checkBox13.TabIndex = 7;
+            checkBox13.TabIndex = 29;
             checkBox13.Text = "Show Legends";
             checkBox13.UseVisualStyleBackColor = true;
             checkBox13.CheckedChanged += checkBox13_CheckedChanged;

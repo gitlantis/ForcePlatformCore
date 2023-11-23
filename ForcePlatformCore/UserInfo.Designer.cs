@@ -145,7 +145,7 @@
             groupBox3.Location = new Point(325, 178);
             groupBox3.Name = "groupBox3";
             groupBox3.Size = new Size(305, 130);
-            groupBox3.TabIndex = 3;
+            groupBox3.TabIndex = 2;
             groupBox3.TabStop = false;
             groupBox3.Text = "Right Foot";
             // 
@@ -220,7 +220,7 @@
             groupBox2.Location = new Point(12, 178);
             groupBox2.Name = "groupBox2";
             groupBox2.Size = new Size(305, 130);
-            groupBox2.TabIndex = 2;
+            groupBox2.TabIndex = 1;
             groupBox2.TabStop = false;
             groupBox2.Text = "Left Foot";
             // 
@@ -242,7 +242,7 @@
             textBox5.Name = "textBox5";
             textBox5.ReadOnly = true;
             textBox5.Size = new Size(101, 29);
-            textBox5.TabIndex = 14;
+            textBox5.TabIndex = 8;
             textBox5.WordWrap = false;
             // 
             // textBox4
@@ -253,7 +253,7 @@
             textBox4.Name = "textBox4";
             textBox4.ReadOnly = true;
             textBox4.Size = new Size(101, 29);
-            textBox4.TabIndex = 13;
+            textBox4.TabIndex = 7;
             textBox4.WordWrap = false;
             // 
             // label6
@@ -370,7 +370,7 @@
             groupBox1.Location = new Point(12, 12);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(618, 160);
-            groupBox1.TabIndex = 1;
+            groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "User";
             // 
@@ -382,7 +382,7 @@
             textBox13.Name = "textBox13";
             textBox13.ReadOnly = true;
             textBox13.Size = new Size(101, 29);
-            textBox13.TabIndex = 19;
+            textBox13.TabIndex = 9;
             textBox13.WordWrap = false;
             // 
             // label9
@@ -403,7 +403,7 @@
             textBox12.Name = "textBox12";
             textBox12.ReadOnly = true;
             textBox12.Size = new Size(205, 29);
-            textBox12.TabIndex = 17;
+            textBox12.TabIndex = 6;
             textBox12.WordWrap = false;
             // 
             // label8
@@ -435,7 +435,7 @@
             groupBox4.Location = new Point(12, 457);
             groupBox4.Name = "groupBox4";
             groupBox4.Size = new Size(618, 318);
-            groupBox4.TabIndex = 0;
+            groupBox4.TabIndex = 5;
             groupBox4.TabStop = false;
             groupBox4.Text = "Reports";
             // 
@@ -464,7 +464,7 @@
             iconButton1.Location = new Point(541, 780);
             iconButton1.Name = "iconButton1";
             iconButton1.Size = new Size(89, 39);
-            iconButton1.TabIndex = 18;
+            iconButton1.TabIndex = 6;
             iconButton1.Text = "Close";
             iconButton1.TextAlign = ContentAlignment.MiddleRight;
             iconButton1.UseVisualStyleBackColor = true;
@@ -481,7 +481,7 @@
             groupBox5.Location = new Point(325, 321);
             groupBox5.Name = "groupBox5";
             groupBox5.Size = new Size(305, 130);
-            groupBox5.TabIndex = 21;
+            groupBox5.TabIndex = 4;
             groupBox5.TabStop = false;
             groupBox5.Text = "Right Arm";
             // 
@@ -522,7 +522,7 @@
             textBox17.Name = "textBox17";
             textBox17.ReadOnly = true;
             textBox17.Size = new Size(150, 29);
-            textBox17.TabIndex = 15;
+            textBox17.TabIndex = 20;
             // 
             // textBox19
             // 
@@ -531,7 +531,7 @@
             textBox19.Name = "textBox19";
             textBox19.ReadOnly = true;
             textBox19.Size = new Size(150, 29);
-            textBox19.TabIndex = 17;
+            textBox19.TabIndex = 22;
             // 
             // textBox18
             // 
@@ -540,7 +540,7 @@
             textBox18.Name = "textBox18";
             textBox18.ReadOnly = true;
             textBox18.Size = new Size(150, 29);
-            textBox18.TabIndex = 15;
+            textBox18.TabIndex = 21;
             // 
             // textBox15
             // 
@@ -549,7 +549,7 @@
             textBox15.Name = "textBox15";
             textBox15.ReadOnly = true;
             textBox15.Size = new Size(150, 29);
-            textBox15.TabIndex = 19;
+            textBox15.TabIndex = 18;
             // 
             // textBox16
             // 
@@ -558,7 +558,7 @@
             textBox16.Name = "textBox16";
             textBox16.ReadOnly = true;
             textBox16.Size = new Size(150, 29);
-            textBox16.TabIndex = 17;
+            textBox16.TabIndex = 19;
             // 
             // groupBox6
             // 
@@ -571,7 +571,7 @@
             groupBox6.Location = new Point(12, 321);
             groupBox6.Name = "groupBox6";
             groupBox6.Size = new Size(305, 130);
-            groupBox6.TabIndex = 20;
+            groupBox6.TabIndex = 3;
             groupBox6.TabStop = false;
             groupBox6.Text = "Left Arm";
             // 
@@ -592,7 +592,7 @@
             textBox14.Name = "textBox14";
             textBox14.ReadOnly = true;
             textBox14.Size = new Size(150, 29);
-            textBox14.TabIndex = 19;
+            textBox14.TabIndex = 17;
             // 
             // label21
             // 

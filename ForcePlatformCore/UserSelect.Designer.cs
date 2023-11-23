@@ -53,7 +53,7 @@ namespace ForcePlatformCore
             iconButton2.Location = new Point(498, 485);
             iconButton2.Name = "iconButton2";
             iconButton2.Size = new Size(89, 39);
-            iconButton2.TabIndex = 5;
+            iconButton2.TabIndex = 6;
             iconButton2.Text = "Select";
             iconButton2.TextAlign = ContentAlignment.MiddleRight;
             iconButton2.UseVisualStyleBackColor = true;
@@ -159,7 +159,7 @@ namespace ForcePlatformCore
             iconButton5.Location = new Point(593, 485);
             iconButton5.Name = "iconButton5";
             iconButton5.Size = new Size(89, 39);
-            iconButton5.TabIndex = 18;
+            iconButton5.TabIndex = 7;
             iconButton5.Text = "Close";
             iconButton5.TextAlign = ContentAlignment.MiddleRight;
             iconButton5.UseVisualStyleBackColor = true;
@@ -175,10 +175,10 @@ namespace ForcePlatformCore
             iconButton6.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton6.IconSize = 32;
             iconButton6.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButton6.Location = new Point(312, 485);
+            iconButton6.Location = new Point(314, 485);
             iconButton6.Name = "iconButton6";
             iconButton6.Size = new Size(97, 39);
-            iconButton6.TabIndex = 19;
+            iconButton6.TabIndex = 5;
             iconButton6.Text = "Delete";
             iconButton6.TextAlign = ContentAlignment.MiddleRight;
             iconButton6.UseVisualStyleBackColor = true;
