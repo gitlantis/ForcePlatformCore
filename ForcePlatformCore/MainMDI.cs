@@ -16,7 +16,7 @@ namespace ForcePlatformCore
         private DateTime startRecrdTime = DateTime.Now;
 
         private ReportService reportService = new ReportService();
-        private Camera camera;
+        private Camera camera = new Camera();
         private DataLoggerForm dataLogger;
         private AppsettingsModel config;
         public Constants.Units Unit = Constants.Units.KgF;
