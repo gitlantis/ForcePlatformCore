@@ -26,9 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="UserInfo.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Update="UserInfo.cs" />
   </ItemGroup>
 
   <ItemGroup>
