@@ -352,13 +352,14 @@ namespace ForcePlatformCore
                 }
 
                 var path = CsvProcessor.Save(Program.User.Id, SharedStaticModel.ExerciseTypeIndex + 1, csvData, Unit);
-                reportService.AddReport(Program.User.Id, path, SharedStaticModel.ExerciseTypeIndex + 1, Unit);
+
+                var dialog = new CommentDialogForm($"Data saved to: {path} file \r\nPlease leave a comment for this data");
+                dialog.ShowDialog();
+                reportService.AddReport(Program.User.Id, path, SharedStaticModel.FilterLength, SharedStaticModel.ExerciseTypeIndex + 1, Unit, dialog.Comment);
 
                 csvData.CsvItems.Clear();
                 Program.ComPort.SaverData.Clear();
                 resetAll();
-
-                Program.Message("Success", $"data saved to: \r\n{path} file");
             }
             catch (Exception err)
             {

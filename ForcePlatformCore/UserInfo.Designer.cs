@@ -443,6 +443,7 @@
             // 
             listBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             listBox1.FormattingEnabled = true;
+            listBox1.HorizontalScrollbar = true;
             listBox1.ItemHeight = 15;
             listBox1.Items.AddRange(new object[] { "" });
             listBox1.Location = new Point(6, 22);

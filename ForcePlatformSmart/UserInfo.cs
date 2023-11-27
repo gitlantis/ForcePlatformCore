@@ -7,7 +7,6 @@ namespace ForcePlatformSmart
 {
     public partial class UserInfo : Form
     {
-        private string stdDetails = "{0, -140}{1, -20}";
         private UserService userService = new UserService();
         private ReportService reportService = new ReportService();
         private List<Report> reports = new List<Report>();

@@ -10,7 +10,7 @@ namespace ForcePlatformData.Helpers
         private readonly static string chrome = Path.Join(AppConfig.CommonPath, AppConfig.Config.ChromePath);
         private readonly static string pdfReportPath = Path.Join(AppConfig.CommonPath, AppConfig.Config.PdfReportPath);
 
-        public static string GeneratePdf(User user)
+        public static string GeneratePdf(User user, Report userReport)
         {
             try
             {
@@ -37,6 +37,7 @@ namespace ForcePlatformData.Helpers
                             lines[i] = lines[i].Replace(".Weight", $"{user.UserParams.BodyWeight} kg");
                             lines[i] = lines[i].Replace(".Height", $"{user.UserParams.BodyHeight} sm");
                             lines[i] = lines[i].Replace(".Gender", $"{user.UserParams.Gender}");
+                            lines[i] = lines[i].Replace(".Comment", $"{userReport.Comment}");
                         }
 
                         File.WriteAllLines(url, lines);

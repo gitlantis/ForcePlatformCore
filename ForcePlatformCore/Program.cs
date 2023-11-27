@@ -6,7 +6,7 @@ namespace ForcePlatformCore
 {
     internal static class Program
     {
-        public static User User =new User();
+        public static User User = new User();
         public static MainMDI mdiParent;
         public static ComPort ComPort;
 

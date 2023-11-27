@@ -14,11 +14,12 @@ namespace ForcePlatformData.DbModels
         public int UserId { get; set; }
         public string Path { get; set; }
         public string Unit { get; set; }
+        public string Comment { get; set; }
+        public int FilterLength { get; set; }
         public int ExerciseTypeId { get; set; }
-
         public DateTime CreatedDate { get; set; }
         public virtual User User { get; set; }
         public virtual ExerciseType ExerciseType { get; set; }
-        public string FullDetail => String.Format("{0, -140}{1, -20}", Path, CreatedDate.ToString("MM/dd/yyyy"));
+        public string FullDetail => String.Format("{0, -15}{1, -50}{2, 0}", CreatedDate.ToString("MM/dd/yyyy"), Path, Comment);
     }
 }

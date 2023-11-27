@@ -34,6 +34,7 @@ namespace ForcePlatformSmart
             currData.Clear();
             try
             {
+                textBox1.Text = userReport.Comment;
                 var content = CsvProcessor.Read(userReport.Path);
                 foreach (var line in content)
                 {
@@ -351,7 +352,7 @@ namespace ForcePlatformSmart
 
             try
             {
-                var result = PdfProcessor.GeneratePdf(user);
+                var result = PdfProcessor.GeneratePdf(user, userReport);
             }
             catch (Exception ex)
             {

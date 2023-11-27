@@ -5,7 +5,7 @@ namespace ForcePlatformData.Service
 {
     public class ReportService
     {
-        public int AddReport(int userId, string path, int exerciseTypeId, Units unit)
+        public int AddReport(int userId, string path, int filterLength, int exerciseTypeId, Units unit, string comment)
         {
             try
             {
@@ -14,6 +14,8 @@ namespace ForcePlatformData.Service
                     UserId = userId,
                     Path = path,
                     Unit = unit.ToString(),
+                    FilterLength = filterLength,
+                    Comment = comment,
                     ExerciseTypeId = exerciseTypeId,
                     CreatedDate = DateTime.Now
                 };
