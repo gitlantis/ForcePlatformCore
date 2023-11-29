@@ -92,6 +92,7 @@ namespace ForcePlatformCore
 
         public void ShowPlateLogger()
         {
+            config = AppConfig.Config;
             closeAllChilds();
             showDataLogger();
         }
@@ -330,16 +331,21 @@ namespace ForcePlatformCore
                     var time = queue.CurrentTimeMC;
                     for (int plate = 0; plate < 4; plate++)
                     {
-                        var diffZ = queue.DiffZ[plate] / config.CalibrateZ;
-                        var percX = queue.DiffZ[plate] != 0 ? ((double)queue.DiffX[plate] / diffZ) * 100 : 0;
-                        var percY = queue.DiffZ[plate] != 0 ? ((double)queue.DiffY[plate] / diffZ) * 100 : 0;
+                        var diffZ = (double)queue.DiffZ[plate] / config.CalibrateZ;
+                        if (Unit == Constants.Units.N) diffZ = diffZ * config.FreeFallAcc;
+
+                        var percX = queue.DiffZ[plate] != 0 ? ((double)queue.DiffX[plate] / queue.DiffZ[plate]) * 100 : 0;
+                        var percY = queue.DiffZ[plate] != 0 ? ((double)queue.DiffY[plate] / queue.DiffZ[plate]) * 100 : 0;
+
+                        percX = double.IsInfinity(percX) || double.IsNaN(percX) ? 0 : percX;
+                        percY = double.IsInfinity(percY) || double.IsNaN(percY) ? 0 : percY;
 
                         plateData.Add(new AxisItem
                         {
                             Plate = plate,
                             DiffX = percX,
                             DiffY = percY,
-                            DiffZ = Converter.ToUnit(diffZ, Unit),
+                            DiffZ = diffZ,
                         });
                     }
 

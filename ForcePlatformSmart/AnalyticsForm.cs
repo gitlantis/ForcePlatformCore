@@ -294,12 +294,15 @@ namespace ForcePlatformSmart
                     var heatCol = (int)((100 + x) * col / 200);
                     var heatRaw = (int)((100 + y) * raw / 200);
 
-                    if ((result[plate][heatRaw, heatCol] == null) || (heatRaw == raw / 2 && heatCol == col / 2))
+                    if ((heatRaw >= 0 && heatRaw < raw) && (heatCol >= 0 && heatCol < col))
                     {
-                        result[plate][heatRaw, heatCol] = -1;
-                    }
+                        if ((result[plate][heatRaw, heatCol] == null) || (heatRaw == raw / 2 && heatCol == col / 2))
+                        {
+                            result[plate][heatRaw, heatCol] = -1;
+                        }
 
-                    result[plate][heatRaw, heatCol]--;
+                        result[plate][heatRaw, heatCol]--;
+                    }
                 }
             }
             return result;
@@ -339,9 +342,10 @@ namespace ForcePlatformSmart
             formsPlot2.Plot.Title(heatmapTitle);
             formsPlot2.Size = new Size(1500, 900);
             formsPlot2.Plot.SaveFig("assets/images/chart3.png");
-            formsPlot2.Size = chart1Size;
+            formsPlot2.Size = chart3Size;
             formsPlot2.Plot.Title("");
             formsPlot2.Visible = true;
+            formsPlot2.Render();
 
             chart2.Visible = false;
             var chart4Size = chart2.Size;

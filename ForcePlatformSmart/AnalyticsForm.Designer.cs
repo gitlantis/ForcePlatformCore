@@ -111,6 +111,7 @@
             // panel2
             // 
             panel2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panel2.BackColor = Color.White;
             panel2.Controls.Add(checkBox1);
             panel2.Controls.Add(checkBox5);
             panel2.Controls.Add(checkBox4);
@@ -129,7 +130,7 @@
             checkBox1.BackColor = SystemColors.ButtonHighlight;
             checkBox1.Checked = true;
             checkBox1.CheckState = CheckState.Checked;
-            checkBox1.Location = new Point(140, 0);
+            checkBox1.Location = new Point(138, 2);
             checkBox1.Name = "checkBox1";
             checkBox1.Size = new Size(61, 19);
             checkBox1.TabIndex = 0;
@@ -144,7 +145,7 @@
             checkBox5.BackColor = SystemColors.ButtonHighlight;
             checkBox5.Checked = true;
             checkBox5.CheckState = CheckState.Checked;
-            checkBox5.Location = new Point(408, 0);
+            checkBox5.Location = new Point(406, 2);
             checkBox5.Name = "checkBox5";
             checkBox5.Size = new Size(65, 19);
             checkBox5.TabIndex = 4;
@@ -159,7 +160,7 @@
             checkBox4.BackColor = SystemColors.ButtonHighlight;
             checkBox4.Checked = true;
             checkBox4.CheckState = CheckState.Checked;
-            checkBox4.Location = new Point(341, 0);
+            checkBox4.Location = new Point(339, 2);
             checkBox4.Name = "checkBox4";
             checkBox4.Size = new Size(61, 19);
             checkBox4.TabIndex = 3;
@@ -174,7 +175,7 @@
             checkBox3.BackColor = SystemColors.ButtonHighlight;
             checkBox3.Checked = true;
             checkBox3.CheckState = CheckState.Checked;
-            checkBox3.Location = new Point(274, 0);
+            checkBox3.Location = new Point(272, 2);
             checkBox3.Name = "checkBox3";
             checkBox3.Size = new Size(61, 19);
             checkBox3.TabIndex = 2;
@@ -189,7 +190,7 @@
             checkBox2.BackColor = SystemColors.ButtonHighlight;
             checkBox2.Checked = true;
             checkBox2.CheckState = CheckState.Checked;
-            checkBox2.Location = new Point(207, 0);
+            checkBox2.Location = new Point(205, 2);
             checkBox2.Name = "checkBox2";
             checkBox2.Size = new Size(61, 19);
             checkBox2.TabIndex = 1;
@@ -201,15 +202,16 @@
             // 
             formsPlot1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             formsPlot1.BackColor = Color.White;
-            formsPlot1.Location = new Point(-3, -3);
+            formsPlot1.Location = new Point(-1, 3);
             formsPlot1.Margin = new Padding(4, 3, 4, 3);
             formsPlot1.Name = "formsPlot1";
-            formsPlot1.Size = new Size(612, 409);
+            formsPlot1.Size = new Size(610, 400);
             formsPlot1.TabIndex = 34;
             // 
             // panel1
             // 
             panel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panel1.BackColor = Color.White;
             panel1.Controls.Add(checkBox6);
             panel1.Controls.Add(checkBox7);
             panel1.Controls.Add(checkBox10);
@@ -228,7 +230,7 @@
             checkBox6.BackColor = SystemColors.ButtonHighlight;
             checkBox6.Checked = true;
             checkBox6.CheckState = CheckState.Checked;
-            checkBox6.Location = new Point(535, 270);
+            checkBox6.Location = new Point(533, 270);
             checkBox6.Name = "checkBox6";
             checkBox6.Size = new Size(61, 19);
             checkBox6.TabIndex = 5;
@@ -243,7 +245,7 @@
             checkBox7.BackColor = SystemColors.ButtonHighlight;
             checkBox7.Checked = true;
             checkBox7.CheckState = CheckState.Checked;
-            checkBox7.Location = new Point(535, 295);
+            checkBox7.Location = new Point(533, 295);
             checkBox7.Name = "checkBox7";
             checkBox7.Size = new Size(61, 19);
             checkBox7.TabIndex = 6;
@@ -258,7 +260,7 @@
             checkBox10.BackColor = SystemColors.ButtonHighlight;
             checkBox10.Checked = true;
             checkBox10.CheckState = CheckState.Checked;
-            checkBox10.Location = new Point(535, 371);
+            checkBox10.Location = new Point(533, 371);
             checkBox10.Name = "checkBox10";
             checkBox10.Size = new Size(65, 19);
             checkBox10.TabIndex = 9;
@@ -273,7 +275,7 @@
             checkBox9.BackColor = SystemColors.ButtonHighlight;
             checkBox9.Checked = true;
             checkBox9.CheckState = CheckState.Checked;
-            checkBox9.Location = new Point(535, 346);
+            checkBox9.Location = new Point(533, 346);
             checkBox9.Name = "checkBox9";
             checkBox9.Size = new Size(61, 19);
             checkBox9.TabIndex = 8;
@@ -288,7 +290,7 @@
             checkBox8.BackColor = SystemColors.ButtonHighlight;
             checkBox8.Checked = true;
             checkBox8.CheckState = CheckState.Checked;
-            checkBox8.Location = new Point(535, 321);
+            checkBox8.Location = new Point(533, 321);
             checkBox8.Name = "checkBox8";
             checkBox8.Size = new Size(61, 19);
             checkBox8.TabIndex = 7;
@@ -303,7 +305,7 @@
             chart1.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
             chart1.Legends.Add(legend1);
-            chart1.Location = new Point(0, -3);
+            chart1.Location = new Point(0, 4);
             chart1.Name = "chart1";
             series1.BorderWidth = 2;
             series1.ChartArea = "ChartArea1";
@@ -333,13 +335,14 @@
             chart1.Series.Add(series2);
             chart1.Series.Add(series3);
             chart1.Series.Add(series4);
-            chart1.Size = new Size(610, 409);
+            chart1.Size = new Size(610, 400);
             chart1.TabIndex = 45;
             chart1.Text = "chart1";
             // 
             // panel3
             // 
             panel3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panel3.BackColor = Color.White;
             panel3.Controls.Add(checkBox11);
             panel3.Controls.Add(checkBox12);
             panel3.Controls.Add(checkBox13);
@@ -358,7 +361,7 @@
             checkBox11.BackColor = SystemColors.ButtonHighlight;
             checkBox11.Checked = true;
             checkBox11.CheckState = CheckState.Checked;
-            checkBox11.Location = new Point(165, 3);
+            checkBox11.Location = new Point(163, -1);
             checkBox11.Name = "checkBox11";
             checkBox11.Size = new Size(61, 19);
             checkBox11.TabIndex = 10;
@@ -373,7 +376,7 @@
             checkBox12.BackColor = SystemColors.ButtonHighlight;
             checkBox12.Checked = true;
             checkBox12.CheckState = CheckState.Checked;
-            checkBox12.Location = new Point(232, 3);
+            checkBox12.Location = new Point(230, -1);
             checkBox12.Name = "checkBox12";
             checkBox12.Size = new Size(61, 19);
             checkBox12.TabIndex = 11;
@@ -388,7 +391,7 @@
             checkBox13.BackColor = SystemColors.ButtonHighlight;
             checkBox13.Checked = true;
             checkBox13.CheckState = CheckState.Checked;
-            checkBox13.Location = new Point(299, 3);
+            checkBox13.Location = new Point(297, -1);
             checkBox13.Name = "checkBox13";
             checkBox13.Size = new Size(61, 19);
             checkBox13.TabIndex = 12;
@@ -403,7 +406,7 @@
             checkBox14.BackColor = SystemColors.ButtonHighlight;
             checkBox14.Checked = true;
             checkBox14.CheckState = CheckState.Checked;
-            checkBox14.Location = new Point(366, 3);
+            checkBox14.Location = new Point(364, -1);
             checkBox14.Name = "checkBox14";
             checkBox14.Size = new Size(61, 19);
             checkBox14.TabIndex = 13;
@@ -418,7 +421,7 @@
             checkBox15.BackColor = SystemColors.ButtonHighlight;
             checkBox15.Checked = true;
             checkBox15.CheckState = CheckState.Checked;
-            checkBox15.Location = new Point(433, 3);
+            checkBox15.Location = new Point(431, -1);
             checkBox15.Name = "checkBox15";
             checkBox15.Size = new Size(65, 19);
             checkBox15.TabIndex = 14;
@@ -430,15 +433,16 @@
             // 
             formsPlot2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             formsPlot2.BackColor = Color.White;
-            formsPlot2.Location = new Point(-3, 0);
+            formsPlot2.Location = new Point(-1, 0);
             formsPlot2.Margin = new Padding(4, 3, 4, 3);
             formsPlot2.Name = "formsPlot2";
-            formsPlot2.Size = new Size(612, 409);
+            formsPlot2.Size = new Size(610, 400);
             formsPlot2.TabIndex = 50;
             // 
             // panel4
             // 
             panel4.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panel4.BackColor = Color.White;
             panel4.Controls.Add(checkBox16);
             panel4.Controls.Add(checkBox17);
             panel4.Controls.Add(checkBox18);
@@ -457,10 +461,10 @@
             checkBox16.BackColor = SystemColors.ButtonHighlight;
             checkBox16.Checked = true;
             checkBox16.CheckState = CheckState.Checked;
-            checkBox16.Location = new Point(535, 275);
+            checkBox16.Location = new Point(533, 273);
             checkBox16.Name = "checkBox16";
             checkBox16.Size = new Size(61, 19);
-            checkBox16.TabIndex = 15;
+            checkBox16.TabIndex = 51;
             checkBox16.Text = "Plate 1";
             checkBox16.UseVisualStyleBackColor = false;
             checkBox16.CheckedChanged += checkBoxTrack_CheckedChanged;
@@ -472,10 +476,10 @@
             checkBox17.BackColor = SystemColors.ButtonHighlight;
             checkBox17.Checked = true;
             checkBox17.CheckState = CheckState.Checked;
-            checkBox17.Location = new Point(535, 300);
+            checkBox17.Location = new Point(533, 298);
             checkBox17.Name = "checkBox17";
             checkBox17.Size = new Size(61, 19);
-            checkBox17.TabIndex = 16;
+            checkBox17.TabIndex = 52;
             checkBox17.Text = "Plate 2";
             checkBox17.UseVisualStyleBackColor = false;
             checkBox17.CheckedChanged += checkBoxTrack_CheckedChanged;
@@ -487,10 +491,10 @@
             checkBox18.BackColor = SystemColors.ButtonHighlight;
             checkBox18.Checked = true;
             checkBox18.CheckState = CheckState.Checked;
-            checkBox18.Location = new Point(535, 326);
+            checkBox18.Location = new Point(533, 324);
             checkBox18.Name = "checkBox18";
             checkBox18.Size = new Size(61, 19);
-            checkBox18.TabIndex = 17;
+            checkBox18.TabIndex = 53;
             checkBox18.Text = "Plate 3";
             checkBox18.UseVisualStyleBackColor = false;
             checkBox18.CheckedChanged += checkBoxTrack_CheckedChanged;
@@ -502,10 +506,10 @@
             checkBox19.BackColor = SystemColors.ButtonHighlight;
             checkBox19.Checked = true;
             checkBox19.CheckState = CheckState.Checked;
-            checkBox19.Location = new Point(535, 351);
+            checkBox19.Location = new Point(533, 349);
             checkBox19.Name = "checkBox19";
             checkBox19.Size = new Size(61, 19);
-            checkBox19.TabIndex = 18;
+            checkBox19.TabIndex = 54;
             checkBox19.Text = "Plate 4";
             checkBox19.UseVisualStyleBackColor = false;
             checkBox19.CheckedChanged += checkBoxTrack_CheckedChanged;
@@ -517,10 +521,10 @@
             checkBox20.BackColor = SystemColors.ButtonHighlight;
             checkBox20.Checked = true;
             checkBox20.CheckState = CheckState.Checked;
-            checkBox20.Location = new Point(535, 376);
+            checkBox20.Location = new Point(533, 374);
             checkBox20.Name = "checkBox20";
             checkBox20.Size = new Size(65, 19);
-            checkBox20.TabIndex = 19;
+            checkBox20.TabIndex = 55;
             checkBox20.Text = "Legend";
             checkBox20.UseVisualStyleBackColor = false;
             checkBox20.CheckedChanged += checkBoxTrack_CheckedChanged;
@@ -532,7 +536,7 @@
             chart2.ChartAreas.Add(chartArea2);
             legend2.Name = "Legend1";
             chart2.Legends.Add(legend2);
-            chart2.Location = new Point(0, 0);
+            chart2.Location = new Point(-1, 0);
             chart2.Name = "chart2";
             series5.BorderWidth = 2;
             series5.ChartArea = "ChartArea1";
@@ -562,13 +566,14 @@
             chart2.Series.Add(series6);
             chart2.Series.Add(series7);
             chart2.Series.Add(series8);
-            chart2.Size = new Size(610, 411);
-            chart2.TabIndex = 50;
+            chart2.Size = new Size(610, 400);
+            chart2.TabIndex = 56;
             chart2.Text = "chart2";
             // 
             // panel5
             // 
             panel5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panel5.BackColor = Color.White;
             panel5.Controls.Add(iconButton1);
             panel5.Location = new Point(618, 827);
             panel5.Name = "panel5";
@@ -585,7 +590,7 @@
             iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton1.IconSize = 32;
             iconButton1.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButton1.Location = new Point(467, 4);
+            iconButton1.Location = new Point(465, 4);
             iconButton1.Name = "iconButton1";
             iconButton1.Size = new Size(141, 41);
             iconButton1.TabIndex = 20;
@@ -597,6 +602,7 @@
             // panel6
             // 
             panel6.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panel6.BackColor = Color.White;
             panel6.Controls.Add(textBox1);
             panel6.Location = new Point(3, 827);
             panel6.Name = "panel6";
@@ -605,12 +611,14 @@
             // 
             // textBox1
             // 
-            textBox1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            textBox1.Location = new Point(0, 0);
+            textBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            textBox1.BackColor = Color.White;
+            textBox1.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            textBox1.Location = new Point(0, -3);
             textBox1.Multiline = true;
             textBox1.Name = "textBox1";
             textBox1.ReadOnly = true;
-            textBox1.ScrollBars = ScrollBars.Horizontal;
+            textBox1.ScrollBars = ScrollBars.Vertical;
             textBox1.ShortcutsEnabled = false;
             textBox1.Size = new Size(609, 52);
             textBox1.TabIndex = 0;
@@ -668,15 +676,15 @@
         private CheckBox checkBox10;
         private CheckBox checkBox9;
         private CheckBox checkBox8;
+        private ScottPlot.FormsPlot formsPlot2;
+        private Panel panel6;
+        private Label label1;
+        private TextBox textBox1;
         private CheckBox checkBox16;
         private CheckBox checkBox17;
         private CheckBox checkBox18;
         private CheckBox checkBox19;
         private CheckBox checkBox20;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart2;
-        private ScottPlot.FormsPlot formsPlot2;
-        private Panel panel6;
-        private Label label1;
-        private TextBox textBox1;
     }
 }
