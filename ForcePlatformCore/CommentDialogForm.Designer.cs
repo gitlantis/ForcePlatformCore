@@ -58,11 +58,11 @@
             iconButton1.IconChar = FontAwesome.Sharp.IconChar.None;
             iconButton1.IconColor = Color.Black;
             iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton1.Location = new Point(186, 195);
+            iconButton1.Location = new Point(159, 195);
             iconButton1.Name = "iconButton1";
-            iconButton1.Size = new Size(75, 23);
+            iconButton1.Size = new Size(119, 23);
             iconButton1.TabIndex = 1;
-            iconButton1.Text = "Add";
+            iconButton1.Text = "Add comment";
             iconButton1.UseVisualStyleBackColor = true;
             iconButton1.Click += iconButton1_Click;
             // 

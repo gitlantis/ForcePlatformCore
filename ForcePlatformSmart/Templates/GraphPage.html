@@ -9,8 +9,11 @@
     <link href="../assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
+        body {
+            font-size: 0.7rem;
+        }
         .bd-placeholder-img {
-            font-size: 1.125rem;
+            font-size: 1.0rem;
             text-anchor: middle;
             -webkit-user-select: none;
             -moz-user-select: none;
@@ -28,31 +31,28 @@
 </head>
 <body>
     <header>
-        <!-- <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light"> -->
-        <div class="">
-            <div class="container-fluid">
-                <div class="row border border-3 border-primary border-end-0 border-start-0">
-                    <span><b>PATIENT: </b> <b>.Patient</b></span>
+        <div class="container-fluid">
+            <div class="row border border-1 border-primary border-end-0 border-start-0">
+                <span><b>PATIENT: </b> <b>.Patient</b></span>
+            </div>
+            <div class="row border border-1 border-primary border-end-0 border-start-0  border-top-0 border-bottom-0">
+                <div class="col-sm">
+                    <span><b>DATE OF BIRTH: </b> .BirthDate</span>
                 </div>
-                <div class="row border border-3 border-primary border-end-0 border-start-0  border-top-0 border-bottom-0">
-                    <div class="col-sm">
-                        <span><b>DATE OF BIRTH: </b> .BirthDate</span>
-                    </div>
-                    <div class="col-sm">
-                        <span><b>WEIGHT: </b> .Weight</span>
-                    </div>
-                    <div class="col-sm">
-                        <span><b>HEIGHT: </b> .Height</span>
-                    </div>
-                    <div class="col-sm">
-                        <span><b>GENDER: </b> .Gender</span>
-                    </div>
+                <div class="col-sm">
+                    <span><b>WEIGHT: </b> .Weight</span>
                 </div>
-                <div class="row border border-3 border-primary border-end-0 border-start-0">
-                    <span><b>COMMENT: </b> .Comment</span>
+                <div class="col-sm">
+                    <span><b>HEIGHT: </b> .Height</span>
+                </div>
+                <div class="col-sm">
+                    <span><b>GENDER: </b> .Gender</span>
                 </div>
             </div>
-            <!-- </nav> -->
+            <div class="row border border-1 border-primary border-end-0 border-start-0">
+                <span><b>COMMENT: </b> .Comment <b>/ Report date: </b> .ReportDate</span>
+            </div>
+        </div>
     </header>
 
     <main>

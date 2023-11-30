@@ -12,13 +12,13 @@ namespace ForcePlatformData.Helpers
     {
         private static string path = Path.Join(AppConfig.CommonPath, AppConfig.Config.ReportsPath);
 
-        public static string Save(int userId, int exerciseType, CsvModel data, Constants.Units unit)
+        public static string Save(CsvModel data, string fileName, Constants.Units unit)
         {
             try
             {
-                string csvFileName = $"platform_data_{userId}_{exerciseType}_{DateTimeOffset.Now.ToUnixTimeSeconds()}.csv";
+                var csvFileName = $"{fileName}.{Constants.FileTypes.csv}";
 
-                bool exists = Directory.Exists(path);
+                var exists = Directory.Exists(path);
 
                 if (!exists)
                     Directory.CreateDirectory(path);
@@ -63,7 +63,7 @@ namespace ForcePlatformData.Helpers
 
             try
             {
-                string[] lines = File.ReadAllLines(Path.Join(AppConfig.CommonPath, AppConfig.Config.ReportsPath, fileName));
+                string[] lines = File.ReadAllLines(Path.Join(AppConfig.CommonPath, AppConfig.Config.ReportsPath, $"{fileName}.{Constants.FileTypes.csv}"));
                 foreach (string line in lines)
                 {
                     string[] values = line.Split(',');
@@ -82,7 +82,7 @@ namespace ForcePlatformData.Helpers
             string[] lines = new string[0];
             try
             {
-                string fullPath = Path.Join(AppConfig.CommonPath, AppConfig.Config.ReportsPath, fileName);
+                string fullPath = Path.Join(AppConfig.CommonPath, AppConfig.Config.ReportsPath, $"{fileName}.{Constants.FileTypes.csv}");
                 if (File.Exists(fullPath))
                     lines = File.ReadAllLines(fullPath);
             }
@@ -94,7 +94,7 @@ namespace ForcePlatformData.Helpers
         {
             try
             {
-                File.Delete(Path.Join(path, fileName));
+                File.Delete(Path.Join(path, $"{fileName}.{Constants.FileTypes.csv}"));
                 return fileName;
             }
             catch { }

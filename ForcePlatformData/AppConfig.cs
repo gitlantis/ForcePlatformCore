@@ -47,6 +47,10 @@ namespace ForcePlatformData
                 if (!Directory.Exists(reportPath))
                     Directory.CreateDirectory(reportPath);
 
+                var videoPath = Path.Join(CommonPath, result.VideosPath);
+                if (!Directory.Exists(videoPath))
+                    Directory.CreateDirectory(videoPath);
+
                 var pdfReportPath = Path.Join(CommonPath, result.PdfReportPath);
                 if (!Directory.Exists(pdfReportPath))
                     Directory.CreateDirectory(pdfReportPath);

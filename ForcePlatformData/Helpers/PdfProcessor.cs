@@ -2,6 +2,7 @@
 using PuppeteerSharp;
 using ForcePlatformData.DbModels;
 using System.Diagnostics;
+using System.IO;
 
 namespace ForcePlatformData.Helpers
 {
@@ -38,6 +39,7 @@ namespace ForcePlatformData.Helpers
                             lines[i] = lines[i].Replace(".Height", $"{user.UserParams.BodyHeight} sm");
                             lines[i] = lines[i].Replace(".Gender", $"{user.UserParams.Gender}");
                             lines[i] = lines[i].Replace(".Comment", $"{userReport.Comment}");
+                            lines[i] = lines[i].Replace(".ReportDate", $"{userReport.CreatedDate.ToString("yyyy/MM/dd")}");
                         }
 
                         File.WriteAllLines(url, lines);
@@ -66,8 +68,9 @@ namespace ForcePlatformData.Helpers
 
                         var pdfBytes = page.PdfDataAsync(printOptions).Result;
 
-                        var resultPath = Path.Join(pdfReportPath, $"report_{1}_{DateTimeOffset.Now.ToUnixTimeSeconds()}.pdf");
+                        var resultPath = Path.Join(AppConfig.CommonPath, AppConfig.Config.PdfReportPath, $"{userReport.Path}.{Constants.FileTypes.pdf}");
                         File.WriteAllBytes(resultPath, pdfBytes);
+                        
                         Process.Start(Path.Join(AppConfig.CommonPath,AppConfig.Config.ChromePath), resultPath);
 
                         return resultPath;
@@ -82,6 +85,16 @@ namespace ForcePlatformData.Helpers
             {
                 throw ex;
             }
+        }
+        public static string Delete(string fileName)
+        {
+            try
+            {
+                File.Delete(Path.Join(pdfReportPath, $"{fileName}.{Constants.FileTypes.pdf}"));
+                return fileName;
+            }
+            catch { }
+            return "";
         }
     }
 }

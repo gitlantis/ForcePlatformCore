@@ -77,6 +77,8 @@
             textBox15 = new TextBox();
             textBox16 = new TextBox();
             label22 = new Label();
+            iconButton3 = new FontAwesome.Sharp.IconButton();
+            iconButton4 = new FontAwesome.Sharp.IconButton();
             groupBox3.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox1.SuspendLayout();
@@ -464,11 +466,11 @@
             iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconButton2.IconSize = 32;
             iconButton2.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButton2.Location = new Point(262, 755);
+            iconButton2.Location = new Point(353, 755);
             iconButton2.Name = "iconButton2";
-            iconButton2.Size = new Size(89, 39);
-            iconButton2.TabIndex = 20;
-            iconButton2.Text = "View";
+            iconButton2.Size = new Size(108, 39);
+            iconButton2.TabIndex = 22;
+            iconButton2.Text = "Report";
             iconButton2.TextAlign = ContentAlignment.MiddleRight;
             iconButton2.UseVisualStyleBackColor = true;
             iconButton2.Click += iconButton2_Click;
@@ -486,7 +488,7 @@
             iconButton1.Location = new Point(541, 755);
             iconButton1.Name = "iconButton1";
             iconButton1.Size = new Size(89, 39);
-            iconButton1.TabIndex = 21;
+            iconButton1.TabIndex = 23;
             iconButton1.Text = "Close";
             iconButton1.TextAlign = ContentAlignment.MiddleRight;
             iconButton1.UseVisualStyleBackColor = true;
@@ -636,11 +638,51 @@
             label22.TabIndex = 14;
             label22.Text = "Hand";
             // 
+            // iconButton3
+            // 
+            iconButton3.Anchor = AnchorStyles.Bottom;
+            iconButton3.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            iconButton3.ForeColor = Color.FromArgb(0, 0, 192);
+            iconButton3.IconChar = FontAwesome.Sharp.IconChar.Table;
+            iconButton3.IconColor = Color.FromArgb(0, 0, 192);
+            iconButton3.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton3.IconSize = 32;
+            iconButton3.ImageAlign = ContentAlignment.MiddleLeft;
+            iconButton3.Location = new Point(258, 755);
+            iconButton3.Name = "iconButton3";
+            iconButton3.Size = new Size(89, 39);
+            iconButton3.TabIndex = 21;
+            iconButton3.Text = "CSV";
+            iconButton3.TextAlign = ContentAlignment.MiddleRight;
+            iconButton3.UseVisualStyleBackColor = true;
+            iconButton3.Click += iconButton3_Click;
+            // 
+            // iconButton4
+            // 
+            iconButton4.Anchor = AnchorStyles.Bottom;
+            iconButton4.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            iconButton4.ForeColor = Color.FromArgb(0, 0, 192);
+            iconButton4.IconChar = FontAwesome.Sharp.IconChar.Play;
+            iconButton4.IconColor = Color.FromArgb(0, 0, 192);
+            iconButton4.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton4.IconSize = 32;
+            iconButton4.ImageAlign = ContentAlignment.MiddleLeft;
+            iconButton4.Location = new Point(161, 755);
+            iconButton4.Name = "iconButton4";
+            iconButton4.Size = new Size(91, 39);
+            iconButton4.TabIndex = 20;
+            iconButton4.Text = "Video";
+            iconButton4.TextAlign = ContentAlignment.MiddleRight;
+            iconButton4.UseVisualStyleBackColor = true;
+            iconButton4.Click += iconButton4_Click;
+            // 
             // UserInfo
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(641, 798);
+            Controls.Add(iconButton4);
+            Controls.Add(iconButton3);
             Controls.Add(groupBox5);
             Controls.Add(groupBox6);
             Controls.Add(iconButton1);
@@ -718,5 +760,7 @@
         private TextBox textBox15;
         private TextBox textBox16;
         private Label label22;
+        private FontAwesome.Sharp.IconButton iconButton3;
+        private FontAwesome.Sharp.IconButton iconButton4;
     }
 }

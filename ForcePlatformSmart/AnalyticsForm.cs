@@ -48,6 +48,8 @@ namespace ForcePlatformSmart
             catch (Exception ex)
             {
                 Program.Message("Error", ex.Message);
+                Close(); 
+                return;
             }
 
             drawCharts();
@@ -292,7 +294,7 @@ namespace ForcePlatformSmart
                     var y = line.data[2 + (plate * 3)];
 
                     var heatCol = (int)((100 + x) * col / 200);
-                    var heatRaw = (int)((100 + y) * raw / 200);
+                    var heatRaw = (int)((100 + y*(-1)) * raw / 200);
 
                     if ((heatRaw >= 0 && heatRaw < raw) && (heatCol >= 0 && heatCol < col))
                     {
@@ -323,16 +325,17 @@ namespace ForcePlatformSmart
 
         private void iconButton1_Click(object sender, EventArgs e)
         {
+            var printSize = new Size(1000, 650);
             formsPlot1.Visible = false;
             var chart1Size = formsPlot1.Size;
-            formsPlot1.Size = new Size(1500, 900);
+            formsPlot1.Size = printSize;
             formsPlot1.Plot.SaveFig("assets/images/chart1.png");
             formsPlot1.Size = chart1Size;
             formsPlot1.Visible = true;
 
             chart1.Visible = false;
             var chart2Size = chart1.Size;
-            chart1.Size = new Size(1500, 900);
+            chart1.Size = printSize;
             chart1.SaveImage("assets/images/chart2.png", ChartImageFormat.Png);
             chart1.Size = chart2Size;
             chart1.Visible = true;
@@ -340,7 +343,7 @@ namespace ForcePlatformSmart
             formsPlot2.Visible = false;
             var chart3Size = formsPlot2.Size;
             formsPlot2.Plot.Title(heatmapTitle);
-            formsPlot2.Size = new Size(1500, 900);
+            formsPlot2.Size = printSize;
             formsPlot2.Plot.SaveFig("assets/images/chart3.png");
             formsPlot2.Size = chart3Size;
             formsPlot2.Plot.Title("");
@@ -349,7 +352,7 @@ namespace ForcePlatformSmart
 
             chart2.Visible = false;
             var chart4Size = chart2.Size;
-            chart2.Size = new Size(1500, 900);
+            chart2.Size = printSize;
             chart2.SaveImage("assets/images/chart4.png", ChartImageFormat.Png);
             chart2.Size = chart4Size;
             chart2.Visible = true;

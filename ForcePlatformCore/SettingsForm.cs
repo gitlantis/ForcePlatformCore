@@ -58,9 +58,6 @@ namespace ForcePlatformCore
             try
             {
                 var conf = appConfig;
-                conf.FilterLength = Convert.ToInt32(textBox1.Text);
-                conf.CalibrateZ = Convert.ToInt32(textBox3.Text);
-                AppConfig.UpdateConfig = conf;
 
                 SharedStaticModel.FilterLength = conf.FilterLength;
 
@@ -68,9 +65,6 @@ namespace ForcePlatformCore
                 SharedStaticModel.ExerciseTypeIndex = comboBox2.SelectedIndex;
 
                 mdi.ShowPlateLogger();
-
-                if (comboBox2.SelectedIndex == 0 && !error)
-                    Program.Message("Attantion", "Experimenter should not move on this mode");
             }
             catch (Exception ex)
             {

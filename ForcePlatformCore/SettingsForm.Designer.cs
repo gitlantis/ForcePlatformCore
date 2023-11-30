@@ -149,9 +149,11 @@
             // 
             // textBox1
             // 
+            textBox1.Enabled = false;
             textBox1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             textBox1.Location = new Point(163, 54);
             textBox1.Name = "textBox1";
+            textBox1.ReadOnly = true;
             textBox1.Size = new Size(134, 29);
             textBox1.TabIndex = 1;
             textBox1.KeyPress += validateInt;
@@ -320,9 +322,11 @@
             // 
             // textBox3
             // 
+            textBox3.Enabled = false;
             textBox3.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             textBox3.Location = new Point(457, 54);
             textBox3.Name = "textBox3";
+            textBox3.ReadOnly = true;
             textBox3.Size = new Size(163, 29);
             textBox3.TabIndex = 2;
             textBox3.KeyPress += validateInt;

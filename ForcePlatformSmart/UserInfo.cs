@@ -1,5 +1,6 @@
 ﻿using ForcePlatformData;
 using ForcePlatformData.DbModels;
+using ForcePlatformData.Helpers;
 using ForcePlatformData.Service;
 using System.Diagnostics;
 
@@ -96,6 +97,45 @@ namespace ForcePlatformSmart
 
                 var analyticsForm = new AnalyticsForm(user, report);
                 analyticsForm.Show();
+            }
+            catch (Exception ex)
+            {
+                Program.Message("Error", ex.Message);
+            }
+        }
+
+        private void iconButton3_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var selectedValue = listBox1.SelectedValue;
+                int selectedId = (int)selectedValue;
+                var filePath = reports.Where(c => c.Id == selectedId).FirstOrDefault().Path;
+                var fullPath = Path.Join(AppConfig.CommonPath, AppConfig.Config.ReportsPath, $"{filePath}.{Constants.FileTypes.csv}");
+
+                if (File.Exists(fullPath))
+                {
+                    Process.Start("notepad.exe", fullPath);
+                }
+                else
+                {
+                    Program.Message("Error", "The file does not exist: " + fullPath);
+                }
+            }
+            catch (Exception ex)
+            {
+                Program.Message("Error", ex.Message);
+            }
+        }
+
+        private void iconButton4_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var selectedValue = listBox1.SelectedValue;
+                int selectedId = (int)selectedValue;
+                var fileName = reports.Where(c => c.Id == selectedId).FirstOrDefault().Path;
+                VideoProcessor.Play(fileName);
             }
             catch (Exception ex)
             {

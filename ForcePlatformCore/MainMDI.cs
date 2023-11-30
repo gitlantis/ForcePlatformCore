@@ -1,5 +1,4 @@
-﻿using Emgu.CV.Ocl;
-using ForcePlatformCore.Helpers.ComPort;
+﻿using ForcePlatformCore.Helpers.ComPort;
 using ForcePlatformCore.Models;
 using ForcePlatformData;
 using ForcePlatformData.Helpers;
@@ -20,6 +19,8 @@ namespace ForcePlatformCore
         private DataLoggerForm dataLogger;
         private AppsettingsModel config;
         public Constants.Units Unit = Constants.Units.KgF;
+        private string fileName = "";
+
         private void MDIParent1_Shown(object sender, EventArgs e)
         {
             var userSelectForm = new UserSelect();
@@ -288,6 +289,9 @@ namespace ForcePlatformCore
                 toolStripButton4.Text = "Stop recording";
                 toolStripButton4.Image = Image.FromFile("assets/stop-circle-o-r.png");
                 startRecrdTime = DateTime.Now;
+
+                fileName = $"platform_data_{Program.User.Id}_{SharedStaticModel.ExerciseTypeIndex + 1}_{DateTimeOffset.Now.ToUnixTimeSeconds()}";
+                if (camera.IsOpen) camera.StartRecording(fileName);
             }
             else
             {
@@ -296,6 +300,7 @@ namespace ForcePlatformCore
                 toolStripButton4.ForeColor = Color.Black;
                 toolStripButton4.Text = "Start recording";
                 toolStripButton4.Image = Image.FromFile("assets/play-circle-o.png");
+                fileName = "";
             }
         }
 
@@ -311,6 +316,14 @@ namespace ForcePlatformCore
                 var elapsedTime = stopRecrdTime - startRecrdTime;
                 var elapsedTimeArr = new int[portDataCaunt];
                 var step = (int)(elapsedTime.TotalMilliseconds / portDataCaunt);
+
+                if (camera.IsOpen) camera.StopRecording(portDataCaunt != 0);
+
+                if (portDataCaunt == 0)
+                {
+                    Program.Message("Error", "Data is empty");
+                    return;
+                }
 
                 for (int i = 0, j = 0; i < portDataCaunt; i++, j += step)
                 {
@@ -357,7 +370,7 @@ namespace ForcePlatformCore
                     });
                 }
 
-                var path = CsvProcessor.Save(Program.User.Id, SharedStaticModel.ExerciseTypeIndex + 1, csvData, Unit);
+                var path = CsvProcessor.Save(csvData, fileName, Unit);
 
                 var dialog = new CommentDialogForm($"Data saved to: {path} file \r\nPlease leave a comment for this data");
                 dialog.ShowDialog();
@@ -365,6 +378,7 @@ namespace ForcePlatformCore
 
                 csvData.CsvItems.Clear();
                 Program.ComPort.SaverData.Clear();
+
                 resetAll();
             }
             catch (Exception err)
@@ -375,7 +389,7 @@ namespace ForcePlatformCore
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            if (camera.Text == "")
+            if (camera.IsOpen)
             {
                 camera = new Camera();
                 camera.MdiParent = this;

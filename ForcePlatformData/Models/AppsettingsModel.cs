@@ -8,7 +8,9 @@
         public int CalibrateZ { get; set; }
         public double FreeFallAcc { get; set; }
         public string ReportsPath { get; set; }
+        public string VideosPath { get; set; }
         public string ChromePath { get; set; }
+        public string VlcPath { get; set; }
         public string TemplatePath { get; set; }
         public string PdfReportPath { get; set; }
         public static string CommonPath { get; set; } = "C:\\ForcePlatform";

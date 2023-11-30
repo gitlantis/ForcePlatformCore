@@ -123,6 +123,8 @@ namespace ForcePlatformCore
                             foreach (var report in reports)
                             {
                                 CsvProcessor.Delete(report.Path);
+                                PdfProcessor.Delete(report.Path);
+                                VideoProcessor.Delete(report.Path);
                             }
                             userService.DeleteUser(selectedUser);
                             UpdateUsers(textBox1.Text);
