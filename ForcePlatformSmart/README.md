@@ -12,7 +12,7 @@ Asosiy oynadan info tugmasini bosganish orqali quyidagi oyna ochiladi va u yerda
 
 ![Alt text](assets/readme/image-2.png)
 
-### yordamchi tugmalar
+### Yordamchi tugmalar
 
 ![Alt text](assets/readme/image-3.png)
 
@@ -30,7 +30,7 @@ Asosiy oynadan info tugmasini bosganish orqali quyidagi oyna ochiladi va u yerda
 
 ![Alt text](assets/readme/image-6.png)
 
-### Misol uchun
+### Namuna uchun
 
 Quyida platformaning birinchi platidagi ma'lumotning faqatgina bizga kerakli qismini chop etib kuraylik:
 

@@ -10,17 +10,17 @@ dasturni boshlashdan oldin tajribachini tanlash lozim, tajribachi tanlanmagan ho
 
 ### Tajribachini qo'shish, yangilash va ma'lumotlarini olish
 
-datur ishlashni boshlaganida quyidagi oyna paydo bo'ladi bundan siz tajribachini qo'shishingiz, antropometrik ma'lumotlarini o'zgartirishingiz va ua haqidagi ma'lumotlarni olishingiz mumkin:
+Datur ishlashni boshlaganida quyidagi oyna paydo bo'ladi bundan siz tajribachini qo'shishingiz, antropometrik ma'lumotlarini o'zgartirishingiz va ua haqidagi ma'lumotlarni olishingiz mumkin:
 
 ![Alt text](assets/readme/image-7.png)
 
 ```New User``` tugmasini bosganingizda ```Add``` oynasi ochiladi, bu oyna orqali siz yangi tajribachini qo'shishingiz mumkin:
 
-![Alt text](assets/readme/image-1.png)
+![Alt text](assets/readme/image-1.png)Alt text
 
 ```Edit``` tugmasini bosganingizda ```Edit``` oynasi ochiladi va bu oyna orqali tajribachini ma'lumotlarini tahrirlashingiz mummkin:
 
-![Alt text](assets/readme/image-9.png)
+![Alt text](assets/readme/image-9.png)Alt text
 
 ```Info``` tugmasini bosganingizda ```Info``` oynasi ochiladi va bu oyna da tajribachining antropometrik ma'lumotlari va undan olingan tajribalarni ko'rishingiz mumkin:
 

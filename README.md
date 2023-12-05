@@ -16,7 +16,7 @@ qurilma bitta boshqaruv blogi va to'rtta platformadan iborat:
 
 ![Alt text](assets/photo_7.jpg)
 
-## Dasturlarni umumiy sozlamishi
+## Dasturlarni umumiy sozlanishi
 
 Dasturyig'ilganidan so'ng uni ```C:\ForcePlatform``` katalogiga qo'yish kerak
 
@@ -24,12 +24,18 @@ Dasturyig'ilganidan so'ng uni ```C:\ForcePlatform``` katalogiga qo'yish kerak
 
 ```ForcePlatformCore``` dasturi birinchi marta yuruitilganda o'ziga kerakli bo'lgan kataloglarni sozlab oladi:
 
-1. ```Reports``` - o'zida ```csv``` formatidagi hisobotlarni saqlaydi, bu ma'lumotlar juda muxum bo'lib ularni xavfsizligini ta'minlash maqsadga muvofiq.
-2. ```PdfReports``` - bu katalog vaqtinchalik bo'lib uning ichidagi fayllarni o'chirishinbiz yoki vaqti vaqti bilan tozalab turishingiz mumkin.
-3. ```Videos```, ```vlc``` - videolarni ko'rish uchun ```vlc``` media playerri foydalanilgan.
-4. ```chrome``` - ```.pdf``` formatidagi hisobotlarni ko'rish va chop etish uchun ```chrome``` brawseridan foydalanilgan.
-5. ```platform.db``` - sportchilarning antropometrik ma'lumotlari va ulardan yig'ilgan hisobotlar sqlanadi
-6. ```appsettings.json``` - bu daturlarni umumiy sozlash uchun qo'llanilgan fayl
+
+```Reports``` - o'zida ```csv``` formatidagi hisobotlarni saqlaydi, bu ma'lumotlar juda muxum bo'lib ularni xavfsizligini ta'minlash maqsadga muvofiq.
+
+```PdfReports``` - bu katalog vaqtinchalik bo'lib uning ichidagi fayllarni o'chirishinbiz yoki vaqti vaqti bilan tozalab turishingiz mumkin.
+
+```Videos```, ```vlc``` - videolarni ko'rish uchun ```vlc``` media playerri foydalanilgan.
+
+```chrome``` - ```.pdf``` formatidagi hisobotlarni ko'rish va chop etish uchun ```chrome``` brawseridan foydalanilgan.
+
+```platform.db``` - sportchilarning antropometrik ma'lumotlari va ulardan yig'ilgan hisobotlar sqlanadi
+
+```appsettings.json``` - bu daturlarni umumiy sozlash uchun qo'llanilgan fayl
 
 ### appsettings.json
 
