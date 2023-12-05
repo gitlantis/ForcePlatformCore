@@ -374,7 +374,7 @@ namespace ForcePlatformCore
 
                 var dialog = new CommentDialogForm($"Data saved to: {path} file \r\nPlease leave a comment for this data");
                 dialog.ShowDialog();
-                reportService.AddReport(Program.User.Id, path, SharedStaticModel.FilterLength, SharedStaticModel.ExerciseTypeIndex + 1, Unit, dialog.Comment);
+                reportService.AddReport(Program.User.Id, fileName, SharedStaticModel.FilterLength, SharedStaticModel.ExerciseTypeIndex + 1, Unit, dialog.Comment);
 
                 csvData.CsvItems.Clear();
                 Program.ComPort.SaverData.Clear();
